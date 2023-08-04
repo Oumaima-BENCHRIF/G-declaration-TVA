@@ -2913,7 +2913,7 @@ code { color: #e7515a; }
     padding: 9px 0;
     justify-content: flex-start;
     min-height: 53px;
-    /* width: 100%; */
+    width: 0%;
     border-bottom: 1px solid #f5f5f5;
     width: 86%;
 }
