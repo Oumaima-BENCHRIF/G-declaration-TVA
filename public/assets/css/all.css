@@ -2272,7 +2272,7 @@ code { color: #e7515a; }
     font-weight: 600;
     margin: 0;
     padding: 16px 15px;
-    padding-right: 86%;
+    text-align: center;
 }
 .seperator-header {
     background: transparent;
@@ -2308,6 +2308,7 @@ code { color: #e7515a; }
     background-color: #fff;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
+    text-align: end;
 }
 .content-area {
     /* test */
