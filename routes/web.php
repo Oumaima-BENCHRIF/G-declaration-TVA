@@ -12,7 +12,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//git pullcc
 Route::get('/', function () {
     return view('dashboard.dashboard1');
 });
