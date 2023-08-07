@@ -6237,7 +6237,7 @@ img.skew-div-image {
     right: unset;
 }
 .header-container {
-    right: 222px;
+    /* right: 222px; */
     /* left: 15px; */
     left: 222px;
 }
@@ -6262,8 +6262,8 @@ img.skew-div-image {
     padding: 0 20px 0 0px;
 }
 #content {
-    margin-right: 222px;
-    margin-left: 0px;
+    margin-right: 0.95%;
+    margin-left: 13%;
 }
 @media (max-width: 575px) {
     .header-container header.header.navbar ul:first-child {
