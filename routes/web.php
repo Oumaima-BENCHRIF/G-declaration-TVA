@@ -26,7 +26,8 @@ Route::group(['prefix' => 'dashboard'], function(){
 });
 
 Route::group(['prefix' => 'apps'], function(){
-    Route::get('calendar', function () { return view('apps.calendar'); });
+    Route::get('agence', function () { return view('apps.agence'); });
+    // Route::get('calendar', function () { return view('apps.calendar'); });
     Route::get('chat', function () { return view('apps.chat'); });
     Route::group(['prefix' => 'companies'], function (){
         Route::get('lists', function () { return view('apps.companies.lists'); });
