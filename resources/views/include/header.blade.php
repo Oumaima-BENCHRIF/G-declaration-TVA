@@ -1,104 +1,7 @@
 <header class="header navbar navbar-expand-sm">
-    <ul class="navbar-item flex-row ml-md-0 ml-auto">
-        <li class="nav-item align-self-center search-animated">
-            <i class="las la-search toggle-search"></i>
-            <form class="form-inline search-full form-inline search" action="{{ url('/pages/search-result') }}" role="search">
-                <div class="search-bar">
-                    <input type="text" class="form-control search-form-control  ml-lg-auto" placeholder=" {{__('Search here')}}">
-                </div>
-            </form>
-        </li>
-        <li class="nav-item dropdown language-dropdown d-none d-lg-flex">
-            <a href="javascript:void(0);" class="nav-link dropdown-toggle d-flex align-center text-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               {{ __('Mega Menu')}} <i class="las la-angle-down font-11 ml-1"></i>
-            </a>
-            <div class="dropdown-menu megamenu">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5 class="font-17 mt-0"> {{ __('Applications')}}</h5>
-                                <ul class="list-unstyled megamenu-list">
-                                    <li class="font-15 mb-1"><a href="{{ url('/apps/ecommerce/dashboard') }}"> {{ __('Ecommerce')}} </a></li>
-                                    <li class="font-15 mb-1"><a href="{{ url('/apps/chat') }}"> {{ __('Chat')}}</a></li>
-                                    <li class="font-15 mb-1"><a href="{{ url('/apps/email/inbox') }}">{{ __('Email')}}</a></li>
-                                    <li class="font-15 mb-1"><a href="{{ url('/apps/file-manager') }}">{{ __('File Manager')}}</a></li>
-                                    <li class="font-15 mb-1"><a href="{{ url('/apps/calendar') }}">{{ __('Calender')}}</a></li>
-                                    <li class="font-15 mb-1"><a href="{{ url('/apps/notes/list') }}"> {{ __('Notes')}}</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <h5 class="font-17 mt-0">{{ __('Extra Pages')}}</h5>
-                                <ul class="list-unstyled megamenu-list">
-                                    <li class="font-15 mb-1"><a href="{{ url('/pages/contact-us') }}">{{ __('Contact Us')}}</a></li>
-                                    <li class="font-15 mb-1"><a href="{{ url('/pages/faq') }}">{{ __('FAQ')}}</a></li>
-                                    <li class="font-15 mb-1"><a href="{{ url('/pages/helpdesk') }}">{{ __('Helpdesk')}}</a></li>
-                                    <li class="font-15 mb-1"><a href="{{ url('/pages/pricing2') }}">{{ __('Pricing')}}</a></li>
-                                    <li class="font-15 mb-1"><a href="{{ url('/pages/search-result') }}">{{ __('Search Result')}}</a></li>
-                                    <li class="font-15 mb-1"><a href="{{ url('/pages/privacy-policy') }}">{{ __('Privacy Policy')}}</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="p-lg-1">
-                            <div class="row no-gutters">
-                                <div class="col">
-                                    <a class="dropdown-icon-item" href="#">
-                                        <img src="{{ url('assets/img/company-1.jpg') }}" alt="slack">
-                                        <span>Cube</span>
-                                    </a>
-                                </div>
-                                <div class="col">
-                                    <a class="dropdown-icon-item" href="#">
-                                        <img src="{{ url('assets/img/company-2.jpg') }}" alt="Github">
-                                        <span>HTech</span>
-                                    </a>
-                                </div>
-                                <div class="col">
-                                    <a class="dropdown-icon-item" href="#">
-                                        <img src="{{ url('assets/img/company-3.jpg') }}" alt="dribbble">
-                                        <span>Inovation</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="row no-gutters">
-                                <div class="col">
-                                    <a class="dropdown-icon-item" href="#">
-                                        <img src="{{ url('assets/img/company-4.jpg') }}" alt="bitbucket">
-                                        <span>Circle</span>
-                                    </a>
-                                </div>
-                                <div class="col">
-                                    <a class="dropdown-icon-item" href="#">
-                                        <img src="{{ url('assets/img/company-5.jpg') }}" alt="dropbox">
-                                        <span>Techno</span>
-                                    </a>
-                                </div>
-                                <div class="col">
-                                    <a class="dropdown-icon-item" href="#">
-                                        <img src="{{ url('assets/img/company-6.jpg') }}" alt="G Suite">
-                                        <span>T Logy</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
+   
     <ul class="navbar-item flex-row ml-md-auto">
         <!-- Using Switch option -->
-        <!--<li class="nav-item dropdown fullscreen-dropdown">
-            <div class="switch-container mb-0 pl-0">
-                <label class="switch">
-                    <input id="theme-switch" type="checkbox">
-                    <span class="slider round primary-switch"></span>
-                </label>
-                <p class="ml-3 text-dark">Dark</p>
-            </div>
-        </li>-->
         <li class="nav-item dropdown  fullscreen-dropdown">
             <a class="nav-link night-light-mode"  href="javascript:void(0);">
                 <i class="las la-cloud-moon"id="darkModeIcon"></i>
@@ -108,29 +11,6 @@
             <a class="nav-link full-screen-mode" href="javascript:void(0);">
                 <i class="las la-compress" id="fullScreenIcon"></i>
             </a>
-        </li>
-        <li class="nav-item dropdown language-dropdown">
-            <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="language-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="las la-language"></i>
-            </a>
-            <div class="dropdown-menu position-absolute" aria-labelledby="language-dropdown">
-                <a class="dropdown-item d-flex" href="javascript:void(0);">
-                    <img src="{{ url('assets/img/flag/usa-flag.png') }}" class="flag-width" alt="flag">
-                    <span class="align-self-center"> {{ __('English') }}</span>
-                </a>
-                <a class="dropdown-item d-flex" href="javascript:void(0);">
-                    <img src="{{ url('assets/img/flag/spain-flag.png') }}" class="flag-width" alt="flag">
-                    <span class="align-self-center">&nbsp;{{ __('Spanish') }}</span>
-                </a>
-                <a class="dropdown-item d-flex" href="javascript:void(0);">
-                    <img src="{{ url('assets/img/flag/france-flag.png') }}" class="flag-width" alt="flag">
-                    <span class="align-self-center">&nbsp;{{ __('French') }}</span>
-                </a>
-                <a class="dropdown-item d-flex" href="javascript:void(0);">
-                    <img src="{{ url('assets/img/flag/saudi-arabia-flag.png') }}" class="flag-width" alt="flag">
-                    <span class="align-self-center">&nbsp;{{ __('Arabic') }}</span>
-                </a>
-            </div>
         </li>
         <li class="nav-item dropdown message-dropdown">
             <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="messageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -348,11 +228,5 @@
             </div>
         </li>
     </ul>
-    <ul class="navbar-item flex-row">
-        <li class="nav-item dropdown header-setting">
-            <a href="javascript:void(0);" class="nav-link dropdown-toggle rightbarCollapse" data-placement="bottom">
-                <i class="las la-sliders-h"></i>
-            </a>
-        </li>
-    </ul>
+     
 </header>
