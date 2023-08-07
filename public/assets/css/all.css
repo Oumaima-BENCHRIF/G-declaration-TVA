@@ -2272,6 +2272,7 @@ code { color: #e7515a; }
     font-weight: 600;
     margin: 0;
     padding: 16px 15px;
+    padding-right: 86%;
 }
 .seperator-header {
     background: transparent;

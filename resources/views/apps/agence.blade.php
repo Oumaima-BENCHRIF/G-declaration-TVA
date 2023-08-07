@@ -44,7 +44,7 @@
                                     <div class="widget-header">
                                         <div class="row">
                                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                                <h4>{{__('Forms')}}Form Validation</h4>
+                                                <h4>Gestion Agence</h4>
                                             </div>
                                         </div>
                                     </div>
