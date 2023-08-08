@@ -14,9 +14,7 @@
     <!--  Navbar Starts / Breadcrumb Area Starts -->
     <div class="sub-header-container">
         <header class="header navbar navbar-expand-sm">
-            <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom">
-                <i class="las la-bars"></i>
-            </a>
+          
             <ul class="navbar-nav flex-row">
                 <li>
                     <div class="page-header">
@@ -44,7 +42,7 @@
                                     <div class="widget-header">
                                         <div class="row">
                                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                                <h4>{{__('Forms')}}Form Validation</h4>
+                                                <h4>Gestion Agence</h4>
                                             </div>
                                         </div>
                                     </div>
