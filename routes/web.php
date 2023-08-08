@@ -33,7 +33,7 @@ Route::group(['prefix' => 'apps'], function(){
         Route::get('lists', function () { return view('apps.companies.lists'); });
         Route::get('company-details', function () { return view('apps.companies.company-details'); });
     });
-    Route::get('contacts', function () { return view('apps.contacts'); });
+    Route::get('racine', function () { return view('apps.racine'); });
     Route::group(['prefix' => 'ecommerce'], function (){
         Route::get('dashboard', function () { return view('apps.ecommerce.dashboard'); });
         Route::get('products', function () { return view('apps.ecommerce.products'); });
@@ -51,7 +51,7 @@ Route::group(['prefix' => 'apps'], function(){
         Route::get('details', function () { return view('apps.email.details'); });
         Route::get('compose', function () { return view('apps.email.compose'); });
     });
-    Route::get('file-manager', function () { return view('apps.file-manager'); });
+    Route::get('client', function () { return view('apps.client'); });
     Route::get('invoice-list', function () { return view('apps.invoice-list'); });
     Route::group(['prefix' => 'notes'], function (){
         Route::get('list', function () { return view('apps.notes.list'); });

@@ -130,7 +130,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button class="btn btn-primary mt-3" type="submit">Submit form</button>
+                                                <div></div>
+                                                <button type="button" class="btn bg-gradient-danger text-white">imprimer</button>
+                                                <button type="button" class="btn btn-danger btn-rounded ml-5">
+                                                <span class="btn-label"><i class="las la-times-circle"></i></span>Supprimer
+                                            </button>
+                                                <button type="button" class="btn bg-gradient-secondary text-white ml-5">Sauvegarder</button>
+                                                <button type="button" class="btn btn-success btn-rounded ml-5 mr-5">
+                                                <span class="btn-label"><i class="las la-check-double"></i></span>Nouveau
+                                            </button>
                                             </form>
                                         </div>
                                     </div>
