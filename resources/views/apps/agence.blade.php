@@ -14,7 +14,9 @@
     <!--  Navbar Starts / Breadcrumb Area Starts -->
     <div class="sub-header-container">
         <header class="header navbar navbar-expand-sm">
-          
+            <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom">
+                <i class="las la-bars"></i>
+            </a>
             <ul class="navbar-nav flex-row">
                 <li>
                     <div class="page-header">
@@ -42,7 +44,7 @@
                                     <div class="widget-header">
                                         <div class="row">
                                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                                <h4>Gestion Agence</h4>
+                                                <h4>{{__('Forms')}}Form Validation</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -52,26 +54,24 @@
                                                 <form class="needs-validation" novalidate action="javascript:void(0);">
                                                     <div class="form-row">
                                                         <div class="col-md-4 mb-4">
-                                                            <label for="validationCustom01">{{__('Forms')}}First name</label>
-                                                            <input type="text" class="form-control" id="validationCustom01" placeholder="{{__('Forms')}}First name" value="John" required>
+                                                            <label for="validationCustom01">Code agence</label>
+                                                            <input type="text" class="form-control" id="validationCustom04" placeholder="{{__('Forms')}}State" required>
                                                             <div class="valid-feedback">
                                                                 {{__('Forms')}}Success!
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4 mb-4">
-                                                            <label for="validationCustom02">{{__('Forms')}}Last name</label>
-                                                            <input type="text" class="form-control" id="validationCustom02" placeholder="{{__('Forms')}}Last name" value="Snow" required>
+                                                            <label for="validationCustom02">Adresse</label>
+                                                            <input type="text" class="form-control" id="validationCustom04" placeholder="{{__('Forms')}}State" required>
                                                             <div class="valid-feedback">
                                                                 {{__('Forms')}}Success!
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4 mb-4">
-                                                            <label for="validationCustomUsername">{{__('Forms')}}Username</label>
+                                                            <label for="validationCustomUsername">Code agence</label>
                                                             <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                                </div>
-                                                                <input type="text" class="form-control" id="validationCustomUsername" placeholder="{{__('Forms')}}Username" aria-describedby="inputGroupPrepend" required>
+                                                               
+                                                                <input type="text" class="form-control" id="validationCustom04" placeholder="{{__('Forms')}}State" required>
                                                                 <div class="invalid-feedback">
                                                                     {{__('Forms')}}Please choose a username.
                                                                 </div>
@@ -79,35 +79,80 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
-                                                        <div class="col-md-6 mb-4">
-                                                            <label for="validationCustom03">{{__('Forms')}}City</label>
-                                                            <input type="text" class="form-control" id="validationCustom03" placeholder="{{__('Forms')}}City" required>
-                                                            <div class="invalid-feedback">
-                                                                {{__('Forms')}} Please provide a valid city.
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 mb-4">
-                                                            <label for="validationCustom04">{{__('Forms')}}State</label>
+                                                        <div class="col-md-4 mb-4">
+                                                            <label for="validationCustom01">Code agence</label>
                                                             <input type="text" class="form-control" id="validationCustom04" placeholder="{{__('Forms')}}State" required>
-                                                            <div class="invalid-feedback">
-                                                                {{__('Forms')}}Please provide a valid state.
+                                                            <div class="valid-feedback">
+                                                                {{__('Forms')}}Success!
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-3 mb-4">
-                                                            <label for="validationCustom05">Zip</label>
-                                                            <input type="text" class="form-control" id="validationCustom05" placeholder="{{__('Forms')}}Zip" required>
-                                                            <div class="invalid-feedback">
-                                                                {{__('Forms')}}Please provide a valid zip.
+                                                        <div class="col-md-4 mb-4">
+                                                            <label for="validationCustom02">Adresse</label>
+                                                            <input type="text" class="form-control" id="validationCustom04" placeholder="{{__('Forms')}}State" required>
+                                                            <div class="valid-feedback">
+                                                                {{__('Forms')}}Success!
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 mb-4">
+                                                            <label for="validationCustomUsername">Code agence</label>
+                                                            <div class="input-group">
+                                                               
+                                                                <input type="text" class="form-control" id="validationCustom04" placeholder="{{__('Forms')}}State" required>
+                                                                <div class="invalid-feedback">
+                                                                    {{__('Forms')}}Please choose a username.
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group mb-4">
-                                                        <div class="form-check pl-0">
-                                                            <div class="custom-control custom-checkbox checkbox-success">
-                                                                <input type="checkbox" class="custom-control-input" id="invalidCheck" required>
-                                                                <label class="custom-control-label" for="invalidCheck">{{__('Forms')}}Agree to terms and conditions</label>
+                                                    
+                                                    <div class="form-row">
+                                                        <div class="col-md-4 mb-4">
+                                                            <label for="validationCustom01">Code agence</label>
+                                                            <input type="text" class="form-control" id="validationCustom04" placeholder="{{__('Forms')}}State" required>
+                                                            <div class="valid-feedback">
+                                                                {{__('Forms')}}Success!
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 mb-4">
+                                                            <label for="validationCustom02">Adresse</label>
+                                                            <input type="text" class="form-control" id="validationCustom04" placeholder="{{__('Forms')}}State" required>
+                                                            <div class="valid-feedback">
+                                                                {{__('Forms')}}Success!
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 mb-4">
+                                                            <label for="validationCustomUsername">Code agence</label>
+                                                            <div class="input-group">
+                                                               
+                                                                <input type="text" class="form-control" id="validationCustom04" placeholder="{{__('Forms')}}State" required>
                                                                 <div class="invalid-feedback">
-                                                                    {{__('Forms')}}Please check the box
+                                                                    {{__('Forms')}}Please choose a username.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-4 mb-4">
+                                                            <label for="validationCustom01">Code agence</label>
+                                                            <input type="text" class="form-control" id="validationCustom04" placeholder="{{__('Forms')}}State" required>
+                                                            <div class="valid-feedback">
+                                                                {{__('Forms')}}Success!
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 mb-4">
+                                                            <label for="validationCustom02">Adresse</label>
+                                                            <input type="text" class="form-control" id="validationCustom04" placeholder="{{__('Forms')}}State" required>
+                                                            <div class="valid-feedback">
+                                                                {{__('Forms')}}Success!
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 mb-4">
+                                                            <label for="validationCustomUsername">Code agence</label>
+                                                            <div class="input-group">
+                                                               
+                                                                <input type="text" class="form-control" id="validationCustom04" placeholder="{{__('Forms')}}State" required>
+                                                                <div class="invalid-feedback">
+                                                                    {{__('Forms')}}Please choose a username.
                                                                 </div>
                                                             </div>
                                                         </div>
