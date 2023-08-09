@@ -66,7 +66,7 @@
                                                     </div>
                                                     <div class="col-md-4 mb-4">
 
-                                                        <label for="exampleSelects">Code Frs</label>
+                                                        <label for="exampleSelects">N°compte Comptable</label>
                                                         <select class="form-control form-control-sm"
                                                             id="exampleSelects">
                                                             <option>1</option>
@@ -87,24 +87,7 @@
                                                             Please provide a valid ville.
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4 mb-4">
-                                                        <label for="validationCustom04">Adresse</label>
-                                                        <input type="text" class="form-control" id="validationCustom04"
-                                                            placeholder="Adresse" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid Adresse.
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 mb-4">
-                                                        <label for="validationCustom05">N°compte Comptable</label>
-                                                        <input type="text" class="form-control" id="validationCustom05"
-                                                            placeholder="Zip" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid N°compte.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
+                                                
                                                     <div class="col-md-4 mb-4">
                                                         <label for="validationCustom03">N°ICE</label>
                                                         <input type="text" class="form-control" id="validationCustom03"
@@ -121,6 +104,16 @@
                                                             Please provide a valid Fax.
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="form-row">
+                                                <div class="col-md-8 mb-4">
+                                                        <label for="validationCustom04">Adresse</label>
+                                                        <input type="text" class="form-control" id="validationCustom04"
+                                                            placeholder="Adresse" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Adresse.
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-4 mb-4">
                                                         <label for="validationCustom05">Teléphone</label>
                                                         <input type="text" class="form-control" id="validationCustom05"
@@ -129,6 +122,7 @@
                                                             Please provide a valid Teléphone.
                                                         </div>
                                                     </div>
+                                                </div>
                                                 </div>
                                                 <div></div>
                                                 <button type="button" class="btn bg-gradient-danger text-white">imprimer</button>
