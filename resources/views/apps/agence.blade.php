@@ -179,6 +179,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- debut table -->
                                      <div class="layout-px-spacing">
         <div class="layout-top-spacing mb-2">
             <div class="col-md-12">
@@ -319,11 +320,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- tableau -->
-       
-        
+        </div>        
     </div>
     <!-- Main Body Ends -->
 @endsection
