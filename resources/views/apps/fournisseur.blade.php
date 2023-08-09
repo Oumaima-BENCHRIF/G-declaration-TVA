@@ -17,7 +17,7 @@
                 <div class="page-header">
                     <nav class="breadcrumb-one" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);"> {{__('Apps')}}</a></li>
+                        
                             <li class="breadcrumb-item active" aria-current="page"><span> fournisseur</span></li>
                         </ol>
                     </nav>
@@ -135,11 +135,43 @@
                                                 <button type="button" class="btn btn-danger btn-rounded ml-5">
                                                 <span class="btn-label"><i class="las la-times-circle"></i></span>Supprimer
                                             </button>
-                                                <button type="button" class="btn bg-gradient-secondary text-white ml-5">Sauvegarder</button>
+                                                <button type="submit" class="btn bg-gradient-secondary text-white ml-5">Sauvegarder</button>
                                                 <button type="button" class="btn btn-success btn-rounded ml-5 mr-5">
                                                 <span class="btn-label"><i class="las la-check-double"></i></span>Nouveau
                                             </button>
                                             </form>
+                                            <div class="table-responsive">
+                                            <table class="table mb-0 mt-5">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Username</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td>@fat@fat</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>Larry</td>
+                                                    <td>the Bird</td>
+                                                    <td>@twitter</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>

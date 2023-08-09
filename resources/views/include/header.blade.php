@@ -1,6 +1,6 @@
 <header class="header navbar navbar-expand-sm">
    
-    <ul class="navbar-item flex-row ml-md-auto">
+    <ul class="navbar-item flex-row ">
         <!-- Using Switch option -->
         <li class="nav-item dropdown  fullscreen-dropdown">
             <a class="nav-link night-light-mode"  href="javascript:void(0);">
