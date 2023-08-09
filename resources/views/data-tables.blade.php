@@ -33,918 +33,11 @@
                 <div class="row">
                     <div class="container p-0">
                         <div class="row layout-top-spacing date-table-container">
-                            <!-- BASIC -->
-                            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                                <div class="widget-content widget-content-area br-6">
-                                    <h4 class="table-header">{{__('Basic')}}</h4>
-                                    <div class="table-responsive mb-4">
-                                        <table id="basic-dt" class="table table-hover" style="width:100%">
-                                            <thead>
-                                            <tr>
-                                                <th>{{__('Name')}}</th>
-                                                <th>{{__('Position')}}</th>
-                                                <th>{{__('Office')}}</th>
-                                                <th>{{__('Age')}}</th>
-                                                <th>{{__('Start date')}}</th>
-                                                <th>{{__('Salary')}}</th>
-                                                <th class="no-content"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>{{__('Rhona Davidson')}}</td>
-                                                <td>{{__('Integration Specialist')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('55')}}</td>
-                                                <td>{{__('2010/10/14')}}</td>
-                                                <td>{{__('$327,900')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Colleen Hurst')}}</td>
-                                                <td>{{__('Javascript Developer')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('39')}}</td>
-                                                <td>{{__('2009/09/15')}}</td>
-                                                <td>{{__('$205,500')}}</td>
-                                                <td><a href="#" title="{__('Hi')}}Edit" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Sonya Frost')}}</td>
-                                                <td>{{__('Software Engineer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('23')}}</td>
-                                                <td>{{__('2008/12/13')}}</td>
-                                                <td>{{__('$103,600')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Rhona Davidson')}}</td>
-                                                <td>{{__('Integration Specialist')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('55')}}</td>
-                                                <td>{{__('2010/10/14')}}</td>
-                                                <td>{{__('$327,900')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Colleen Hurst')}}</td>
-                                                <td>{{__('Javascript Developer')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('39')}}</td>
-                                                <td>{{__('2009/09/15')}}</td>
-                                                <td>{{__('$205,500')}}</td>
-                                                <td><a href="#" title="{__('Hi')}}Edit" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Sonya Frost')}}</td>
-                                                <td>{{__('Software Engineer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('23')}}</td>
-                                                <td>{{__('2008/12/13')}}</td>
-                                                <td>{{__('$103,600')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Herrod Chandler')}}</td>
-                                                <td>{{__('Sales Assistant')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('59')}}</td>
-                                                <td>{{__('2012/08/06')}}</td>
-                                                <td>{{__('$137,500')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Rhona Davidson')}}</td>
-                                                <td>{{__('Integration Specialist')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('55')}}</td>
-                                                <td>{{__('2010/10/14')}}</td>
-                                                <td>{{__('$327,900')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Colleen Hurst')}}</td>
-                                                <td>{{__('Javascript Developer')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('39')}}</td>
-                                                <td>{{__('2009/09/15')}}</td>
-                                                <td>{{__('$205,500')}}</td>
-                                                <td><a href="#" title="{__('Hi')}}Edit" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Sonya Frost')}}</td>
-                                                <td>{{__('Software Engineer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('23')}}</td>
-                                                <td>{{__('2008/12/13')}}</td>
-                                                <td>{{__('$103,600')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            </tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <th>{{__('Name')}}</th>
-                                                <th>{{__('Position')}}</th>
-                                                <th>{{__('Office')}}</th>
-                                                <th>{{__('Age')}}</th>
-                                                <th>{{__('Start date')}}</th>
-                                                <th>{{__('Salary')}}</th>
-                                                <th></th>
-                                            </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Datatable with a dropdown -->
-                            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                                <div class="widget-content widget-content-area br-6">
-                                    <h4 class="table-header">{{__('Basic with a dropdown')}}</h4>
-                                    <div class="table-responsive mb-4">
-                                        <table id="dropdown-dt" class="table table-hover" style="width:100%">
-                                            <thead>
-                                            <tr>
-                                                <th>{{__('Name')}}</th>
-                                                <th>{{__('Position')}}</th>
-                                                <th>{{__('Office')}}</th>
-                                                <th>{{__('Age')}}</th>
-                                                <th>{{__('Start date')}}</th>
-                                                <th>{{__('Salary')}}</th>
-                                                <th class="no-content"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>{{__('Tiger Nixon')}}</td>
-                                                <td>{{__('System Architect')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('61')}}</td>
-                                                <td>{{__('2011/04/25')}}</td>
-                                                <td>{{__('$320,800')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Garrett Winters')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('63')}}</td>
-                                                <td>{{__('2011/07/25')}}</td>
-                                                <td>{{__('$170,750')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Ashton Cox')}}</td>
-                                                <td>{{__('Junior Technical Author')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('66')}}</td>
-                                                <td>{{__('2009/01/12')}}</td>
-                                                <td>{{__('$86,000')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Cedric Kelly')}}</td>
-                                                <td>{{__('Senior Javascript Developer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('22')}}</td>
-                                                <td>{{__('2012/03/29')}}</td>
-                                                <td>{{__('$433,060')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Airi Satou')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('33')}}</td>
-                                                <td>{{__('2008/11/28')}}</td>
-                                                <td>{{__('$162,700')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Brielle Williamson')}}</td>
-                                                <td>{{__('Integration Specialist')}}</td>
-                                                <td>{{__('New York')}}</td>
-                                                <td>{{__('61')}}</td>
-                                                <td>{{__('2012/12/02')}}</td>
-                                                <td>{{__('$372,000')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Caesar Vance')}}</td>
-                                                <td>{{__('Pre-Sales Support')}}</td>
-                                                <td>{{__('New York')}}</td>
-                                                <td>{{__('21')}}</td>
-                                                <td>{{__('2011/12/12')}}</td>
-                                                <td>{{__('$106,450')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Angelica Ramos')}}</td>
-                                                <td>{{__('Chief Executive Officer (CEO)')}}</td>
-                                                <td>{{__('London')}}</td>
-                                                <td>{{__('47')}}</td>
-                                                <td>{{__('2009/10/09')}}</td>
-                                                <td>{{__('$1,200,000')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Gavin Joyce')}}</td>
-                                                <td>{{__('Developer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('42')}}</td>
-                                                <td>{{__('2010/12/22')}}</td>
-                                                <td>{{__('$92,575')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Hi')}}Edit</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Hi')}}Delete</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Jennifer Chang')}}</td>
-                                                <td>{{__('Regional Director')}}</td>
-                                                <td>{{__('Singapore')}}</td>
-                                                <td>{{__('28')}}</td>
-                                                <td>{{__('2010/11/14')}}</td>
-                                                <td>{{__('$357,650')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Hi')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <th>{{__('Name')}}</th>
-                                                <th>{{__('Position')}}</th>
-                                                <th>{{__('Office')}}</th>
-                                                <th>{{__('Age')}}</th>
-                                                <th>{{__('Start date')}}</th>
-                                                <th>{{__('Salary')}}</th>
-                                                <th></th>
-                                            </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Datatable go to last page -->
-                            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                                <div class="widget-content widget-content-area br-6">
-                                    <h4 class="table-header">{{__('Go to last page of the datatable')}}</h4>
-                                    <div class="table-responsive mb-4">
-                                        <table id="last-page-dt" class="table table-hover" style="width:100%">
-                                            <thead>
-                                            <tr>
-                                                <th>{{__('Name')}}</th>
-                                                <th>{{__('Position')}}</th>
-                                                <th>{{__('Office')}}</th>
-                                                <th>{{__('Age')}}</th>
-                                                <th>{{__('Start date')}}</th>
-                                                <th>{{__('Salary')}}</th>
-                                                <th class="no-content"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>{{__('Tiger Nixon')}}</td>
-                                                <td>{{__('System Architect')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('61')}}</td>
-                                                <td>{{__('2011/04/25')}}</td>
-                                                <td>{{__('$320,800')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Garrett Winters')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('63')}}63</td>
-                                                <td>v2011/07/25</td>
-                                                <td>v$170,750</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Ashton Cox')}}</td>
-                                                <td>{{__('Junior Technical Author')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('66')}}</td>
-                                                <td>{{__('2009/01/12')}}</td>
-                                                <td>{{__('$86,000')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Cedric Kelly')}}</td>
-                                                <td>{{__('Senior Javascript Developer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('22')}}</td>
-                                                <td>{{__('2012/03/29')}}</td>
-                                                <td>{{__('$433,060')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Airi Satou')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('33')}}</td>
-                                                <td>{{__('2008/11/28')}}</td>
-                                                <td>{{__('$162,700')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Brielle Williamson')}}</td>
-                                                <td>{{__('Integration Specialist')}}</td>
-                                                <td>{{__('New York')}}</td>
-                                                <td>{{__('61')}}</td>
-                                                <td>{{__('2012/12/02')}}</td>
-                                                <td>{{__('$372,000')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Caesar Vance')}}</td>
-                                                <td>{{__('Pre-Sales Support')}}</td>
-                                                <td>{{__('New York')}}</td>
-                                                <td>v21</td>
-                                                <td>v2011/12/12</td>
-                                                <td>{{__('$106,450')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Angelica Ramos')}}</td>
-                                                <td>{{__('Chief Executive Officer (CEO)')}}</td>
-                                                <td>{{__('London')}}</td>
-                                                <td>{{__('47')}}</td>
-                                                <td>{{__('2009/10/09')}}</td>
-                                                <td>{{__('$1,200,000')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Gavin Joyce')}}</td>
-                                                <td>{{__('Developer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('42')}}</td>
-                                                <td>{{__('2010/12/22')}}</td>
-                                                <td>{{__('$92,575')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Jennifer Chang')}}</td>
-                                                <td>{{__('Regional Director')}}</td>
-                                                <td>{{__('Singapore')}}</td>
-                                                <td>{{__('28')}}</td>
-                                                <td>{{__('2010/11/14')}}</td>
-                                                <td>{{__('$357,650')}}</td>
-                                                <td class="text-center">
-                                                    <div class="dropdown custom-dropdown">
-                                                        <a class="dropdown-toggle font-20 text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="las la-cog"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Edit')}}</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">{{__('Delete')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <th>{{__('Name')}}</th>
-                                                <th>{{__('Position')}}</th>
-                                                <th>{{__('Office')}}</th>
-                                                <th>{{__('Age')}}</th>
-                                                <th>{{__('Start date')}}</th>
-                                                <th>{{__('Salary')}}</th>
-                                                <th></th>
-                                            </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Datatable range search -->
-                            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                                <div class="widget-content widget-content-area br-6">
-                                    <h4 class="table-header">{{__('Custom filtering - Range Searchs')}}</h4>
-                                    <div class="table-responsive mb-4">
-                                        <table class="table">
-                                            <tbody>
-                                            <tr>
-                                                <td>{{__('Minimum age:')}}</td>
-                                                <td><input type="text" id="min" class="form-control" name="min"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Maximum age:')}}</td>
-                                                <td><input type="text" id="max" class="form-control" name="max"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table id="range-dt" class="table table-hover" style="width:100%">
-                                            <thead>
-                                            <tr>
-                                                <th>{{__('Name')}}</th>
-                                                <th>{{__('Position')}}</th>
-                                                <th>{{__('Office')}}</th>
-                                                <th>{{__('Age')}}</th>
-                                                <th>{{__('Start date')}}</th>
-                                                <th>{{__('Salary')}}</th>
-                                                <th class="no-content"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>{{__('Tiger Nixon')}}</td>
-                                                <td>{{__('System Architect')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('61')}}</td>
-                                                <td>{{__('2011/04/25')}}</td>
-                                                <td>{{__('$320,800')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Garrett Winters')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('63')}}</td>
-                                                <td>{{__('2011/07/25')}}</td>
-                                                <td>{{__('$170,750')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Ashton Cox')}}</td>
-                                                <td>{{__('Junior Technical Author')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('66')}}</td>
-                                                <td>{{__('2009/01/12')}}</td>
-                                                <td>{{__('$86,000')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Cedric Kelly')}}</td>
-                                                <td>{{__('Senior Javascript Developer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('22')}}</td>
-                                                <td>{{__('2012/03/29')}}</td>
-                                                <td>{{__('$433,060')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Tiger Nixon')}}</td>
-                                                <td>{{__('System Architect')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('61')}}</td>
-                                                <td>{{__('2011/04/25')}}</td>
-                                                <td>{{__('$320,800')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Garrett Winters')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('63')}}</td>
-                                                <td>{{__('2011/07/25')}}</td>
-                                                <td>{{__('$170,750')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Ashton Cox')}}</td>
-                                                <td>{{__('Junior Technical Author')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('66')}}</td>
-                                                <td>{{__('2009/01/12')}}</td>
-                                                <td>{{__('$86,000')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Cedric Kelly')}}</td>
-                                                <td>{{__('Senior Javascript Developer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('22')}}</td>
-                                                <td>{{__('2012/03/29')}}</td>
-                                                <td>{{__('$433,060')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            </tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <th>{{__('Name')}}</th>
-                                                <th>{{__('Position')}}</th>
-                                                <th>{{__('Office')}}</th>
-                                                <th>{{__('Age')}}</th>
-                                                <th>{{__('Start date')}}</th>
-                                                <th>{{__('Salary')}}</th>
-                                                <th></th>
-                                            </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Datatable with export options -->
+                          
+                             <!-- Datatable with export options -->
                             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                                 <div class="widget-content widget-content-area br-6">
                                     <h4 class="table-header">{{__('Hi')}}Export Datatable</h4>
-                                    <div class="table-responsive mb-4">
-                                        <table id="export-dt" class="table table-hover" style="width:100%">
-                                            <thead>
-                                            <tr>
-                                                <th>{{__('Name')}}</th>
-                                                <th>{{__('Position')}}</th>
-                                                <th>{{__('Office')}}</th>
-                                                <th>{{__('Age')}}</th>
-                                                <th>{{__('Start date')}}</th>
-                                                <th>{{__('Salary')}}</th>
-                                                <th class="no-content"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>{{__('Tiger Nixon')}}</td>
-                                                <td>{{__('System Architect')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('61')}}</td>
-                                                <td>{{__('2011/04/25')}}</td>
-                                                <td>{{__('$320,800')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Garrett Winters')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('63')}}</td>
-                                                <td>{{__('2011/07/25')}}</td>
-                                                <td>{{__('$170,750')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Ashton Cox')}}</td>
-                                                <td>{{__('Junior Technical Author')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('66')}}</td>
-                                                <td>{{__('2009/01/12')}}</td>
-                                                <td>{{__('$86,000')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Cedric Kelly')}}</td>
-                                                <td>{{__('Senior Javascript Developer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('22')}}</td>
-                                                <td>{{__('2012/03/29')}}</td>
-                                                <td>{{__('$433,060')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Tiger Nixon')}}</td>
-                                                <td>{{__('System Architect')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('61')}}</td>
-                                                <td>{{__('2011/04/25')}}</td>
-                                                <td>{{__('$320,800')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Garrett Winters')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('63')}}</td>
-                                                <td>{{__('2011/07/25')}}</td>
-                                                <td>{{__('$170,750')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Ashton Cox')}}</td>
-                                                <td>{{__('Junior Technical Author')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('66')}}</td>
-                                                <td>{{__('2009/01/12')}}</td>
-                                                <td>{{__('$86,000')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Cedric Kelly')}}</td>
-                                                <td>{{__('Senior Javascript Developer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('22')}}</td>
-                                                <td>{{__('2012/03/29')}}</td>
-                                                <td>{{__('$433,060')}}</td>
-                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
-                                            </tr>
-                                            </tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <th>{{__('Name')}}</th>
-                                                <th>{{__('Position')}}</th>
-                                                <th>{{__('Office')}}</th>
-                                                <th>{{__('Age')}}</th>
-                                                <th>{{__('Start date')}}</th>
-                                                <th>{{__('Salary')}}</th>
-                                                <th></th>
-                                            </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Datatable single column searching -->
-                            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                                <div class="widget-content widget-content-area br-6">
-                                    <h4 class="table-header">{{__('Single column search')}}</h4>
-                                    <div class="table-responsive mb-4">
-                                        <table id="single-column-search" class="table table-hover" style="width:100%">
-                                            <thead>
-                                            <tr>
-                                                <th>{{__('Name')}}</th>
-                                                <th>{{__('Position')}}</th>
-                                                <th>{{__('Office')}}</th>
-                                                <th>{{__('Age')}}</th>
-                                                <th>{{__('Start date')}}</th>
-                                                <th>{{__('Salary')}}</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>{{__('Tiger Nixon')}}</td>
-                                                <td>{{__('System Architect')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('61')}}</td>
-                                                <td>{{__('2011/04/25')}}</td>
-                                                <td>{{__('$320,800')}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Garrett Winters')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('63')}}</td>
-                                                <td>{{__('2011/07/25')}}</td>
-                                                <td>{{__('$170,750')}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Ashton Cox')}}</td>
-                                                <td>{{__('Junior Technical Author')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('66')}}</td>
-                                                <td>{{__('2009/01/12')}}</td>
-                                                <td>{{__('$86,000')}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Cedric Kelly')}}</td>
-                                                <td>{{__('Senior Javascript Developer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('22')}}</td>
-                                                <td>{{__('2012/03/29')}}</td>
-                                                <td>{{__('Hi')}}$433,060</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Airi Satou')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('33')}}33</td>
-                                                <td>{{__('2008/11/28')}}</td>
-                                                <td>{{__('$162,700')}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Tiger Nixon')}}</td>
-                                                <td>{{__('System Architect')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('61')}}</td>
-                                                <td>{{__('2011/04/25')}}</td>
-                                                <td>{{__('$320,800')}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Garrett Winters')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('63')}}</td>
-                                                <td>{{__('2011/07/25')}}</td>
-                                                <td>{{__('$170,750')}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Ashton Cox')}}</td>
-                                                <td>{{__('Junior Technical Author')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('66')}}</td>
-                                                <td>{{__('2009/01/12')}}</td>
-                                                <td>{{__('$86,000')}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Cedric Kelly')}}</td>
-                                                <td>{{__('Senior Javascript Developer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('22')}}</td>
-                                                <td>{{__('2012/03/29')}}</td>
-                                                <td>{{__('$433,060')}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Hi')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('33')}}</td>
-                                                <td>{{__('2008/11/28')}}</td>
-                                                <td>{{__('$162,700')}}</td>
-                                            </tr>
-                                            </tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <th>{{__('Name')}}</th>
-                                                <th>{{__('Position')}}</th>
-                                                <th>{{__('Office')}}</th>
-                                                <th>{{__('Age')}}</th>
-                                                <th>{{__('Start date')}}</th>
-                                                <th>{{__('Salary')}}</th>
-                                            </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Datatable show/hide column -->
-                            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                                <div class="widget-content widget-content-area br-6">
-                                    <h4 class="table-header">{{__('Toggle Column')}}</h4>
                                     <div class="toggle-list">
                                         <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="0">{{__('Name')}}</a>
                                         <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="1">{{__('Hi')}}</a>
@@ -954,7 +47,7 @@
                                         <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="5">{{__('Salary')}}</a>
                                     </div>
                                     <div class="table-responsive mb-4">
-                                        <table id="toggle-column" class="table table-hover" style="width:100%">
+                                        <table id="export-dt"  class="table table-hover single-column-search toggle-column" style="width:100%">
                                             <thead>
                                             <tr>
                                                 <th>{{__('Name')}}</th>
@@ -963,6 +56,7 @@
                                                 <th>{{__('Age')}}</th>
                                                 <th>{{__('Start date')}}</th>
                                                 <th>{{__('Salary')}}</th>
+                                                <th class="no-content"></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -973,6 +67,7 @@
                                                 <td>{{__('61')}}</td>
                                                 <td>{{__('2011/04/25')}}</td>
                                                 <td>{{__('$320,800')}}</td>
+                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                             </tr>
                                             <tr>
                                                 <td>{{__('Garrett Winters')}}</td>
@@ -981,6 +76,7 @@
                                                 <td>{{__('63')}}</td>
                                                 <td>{{__('2011/07/25')}}</td>
                                                 <td>{{__('$170,750')}}</td>
+                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                             </tr>
                                             <tr>
                                                 <td>{{__('Ashton Cox')}}</td>
@@ -989,46 +85,7 @@
                                                 <td>{{__('66')}}</td>
                                                 <td>{{__('2009/01/12')}}</td>
                                                 <td>{{__('$86,000')}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Cedric Kelly')}}</td>
-                                                <td>{{__('Senior Javascript Developer')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('22')}}</td>
-                                                <td>{{__('2012/03/29')}}</td>
-                                                <td>{{__('Hi')}}$433,060</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Airi Satou')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('33')}}33</td>
-                                                <td>{{__('2008/11/28')}}</td>
-                                                <td>{{__('$162,700')}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Tiger Nixon')}}</td>
-                                                <td>{{__('System Architect')}}</td>
-                                                <td>{{__('Edinburgh')}}</td>
-                                                <td>{{__('61')}}</td>
-                                                <td>{{__('2011/04/25')}}</td>
-                                                <td>{{__('$320,800')}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Garrett Winters')}}</td>
-                                                <td>{{__('Accountant')}}</td>
-                                                <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('63')}}</td>
-                                                <td>{{__('2011/07/25')}}</td>
-                                                <td>{{__('$170,750')}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{__('Ashton Cox')}}</td>
-                                                <td>{{__('Junior Technical Author')}}</td>
-                                                <td>{{__('San Francisco')}}</td>
-                                                <td>{{__('66')}}</td>
-                                                <td>{{__('2009/01/12')}}</td>
-                                                <td>{{__('$86,000')}}</td>
+                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                             </tr>
                                             <tr>
                                                 <td>{{__('Cedric Kelly')}}</td>
@@ -1037,14 +94,43 @@
                                                 <td>{{__('22')}}</td>
                                                 <td>{{__('2012/03/29')}}</td>
                                                 <td>{{__('$433,060')}}</td>
+                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                             </tr>
                                             <tr>
-                                                <td>{{__('Hi')}}</td>
+                                                <td>{{__('Tiger Nixon')}}</td>
+                                                <td>{{__('System Architect')}}</td>
+                                                <td>{{__('Edinburgh')}}</td>
+                                                <td>{{__('61')}}</td>
+                                                <td>{{__('2011/04/25')}}</td>
+                                                <td>{{__('$320,800')}}</td>
+                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{__('Garrett Winters')}}</td>
                                                 <td>{{__('Accountant')}}</td>
                                                 <td>{{__('Tokyo')}}</td>
-                                                <td>{{__('33')}}</td>
-                                                <td>{{__('2008/11/28')}}</td>
-                                                <td>{{__('$162,700')}}</td>
+                                                <td>{{__('63')}}</td>
+                                                <td>{{__('2011/07/25')}}</td>
+                                                <td>{{__('$170,750')}}</td>
+                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{__('Ashton Cox')}}</td>
+                                                <td>{{__('Junior Technical Author')}}</td>
+                                                <td>{{__('San Francisco')}}</td>
+                                                <td>{{__('66')}}</td>
+                                                <td>{{__('2009/01/12')}}</td>
+                                                <td>{{__('$86,000')}}</td>
+                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{__('Cedric Kelly')}}</td>
+                                                <td>{{__('Senior Javascript Developer')}}</td>
+                                                <td>{{__('Edinburgh')}}</td>
+                                                <td>{{__('22')}}</td>
+                                                <td>{{__('2012/03/29')}}</td>
+                                                <td>{{__('$433,060')}}</td>
+                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                             </tr>
                                             </tbody>
                                             <tfoot>
@@ -1055,12 +141,16 @@
                                                 <th>{{__('Age')}}</th>
                                                 <th>{{__('Start date')}}</th>
                                                 <th>{{__('Salary')}}</th>
+                                                <th></th>
                                             </tr>
                                             </tfoot>
                                         </table>
                                     </div>
                                 </div>
                             </div>
+                           
+                         
+                           
                         </div>
                     </div>
                 </div>
@@ -1166,12 +256,12 @@
                 "pageLength": 7
             } );
             // Add text input to the footer
-            $('#single-column-search tfoot th').each( function () {
+            $('.single-column-search tfoot th').each( function () {
                 var title = $(this).text();
                 $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
             } );
             // Generate Datatable
-            var table = $('#single-column-search').DataTable({
+            var table = $('.single-column-search').DataTable({
                 "language": {
                     "paginate": {
                         "previous": "<i class='las la-angle-left'></i>",
@@ -1192,7 +282,7 @@
                     }
                 } );
             } );
-            var table = $('#toggle-column').DataTable( {
+            var table = $('.toggle-column').DataTable( {
                 "language": {
                     "paginate": {
                         "previous": "<i class='las la-angle-left'></i>",

@@ -45,9 +45,9 @@ div.dataTables_wrapper div.dataTables_length select {
   height: 40px;
   padding: 0px 0px 0px 10px;
 }
-div.dataTables_wrapper div.dataTables_filter {
+/* div.dataTables_wrapper div.dataTables_filter {
   text-align: right;
-}
+} */
 div.dataTables_wrapper div.dataTables_filter label {
   font-weight: normal;
   white-space: nowrap;
@@ -225,10 +225,14 @@ div.dataTables_scrollHead table.table-bordered {
   border-bottom-width: 0;
 }
 div.table-responsive > div.dataTables_wrapper > div.row {
-  margin: 0;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
-  padding-left: 0;
+  /* padding-left: 0; */
+  /* padding-left: 26%; */
+  text-align: right;
+  padding-right: 0px;
 }
 div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:last-child {
   padding-right: 0;

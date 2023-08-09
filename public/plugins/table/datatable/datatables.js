@@ -10040,7 +10040,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": ":Rechercher",
 			/**
 			 * Assign a `placeholder` attribute to the search `input` element
 			 *  @type string
