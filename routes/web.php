@@ -26,7 +26,7 @@ Route::group(['prefix' => 'dashboard'], function(){
 });
 
 Route::group(['prefix' => 'apps'], function(){
-    Route::get('agence', function () { return view('apps.agence'); });
+    Route::get('succursole', function () { return view('apps.succursole'); });
     // Route::get('calendar', function () { return view('apps.calendar'); });
     Route::get('fournisseur', function () { return view('apps.fournisseur'); });
     Route::group(['prefix' => 'companies'], function (){
