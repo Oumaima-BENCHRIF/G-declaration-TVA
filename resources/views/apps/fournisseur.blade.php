@@ -139,7 +139,7 @@
                                         <div id="flex-container">
                                             <button class="btn btn-primary mt-3" type="submit"><i
                                                     class="las la-check-double"></i>Enregistrer</button>
-                                            <button type="button" class="btn btn-soft-primary  mt-3"><i
+                                            <button type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
                                                     class="las la-info-circle"></i>Nouveau</button>
                                         </div>
                                         </form>
@@ -172,12 +172,12 @@
                                                                         style="width:100%">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>{{__('Name')}}</th>
-                                                                                <th>{{__('Position')}}</th>
-                                                                                <th>{{__('Office')}}</th>
-                                                                                <th>{{__('Age')}}</th>
-                                                                                <th>{{__('Start date')}}</th>
-                                                                                <th>{{__('Salary')}}</th>
+                                                                                <th>Teléphone</th>
+                                                                                <th>Adresse</th>
+                                                                                <th>N°ICE</th>
+                                                                                <th>identifiant fiscal</th>
+                                                                                <th>Nom Frs</th>
+                                                                                <th>N° Compte Comptable</th>
                                                                                 <th class="no-content"></th>
                                                                             </tr>
                                                                         </thead>

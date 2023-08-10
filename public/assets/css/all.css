@@ -255,7 +255,7 @@ span.red {
     color: #3b3f5c;
     font-size: 14px;
     padding: 8px 10px;
-    height: 45%;
+    height: 30%;
     padding: .75rem 1.25rem;
     border-radius: 6px;
     text-align: end;
@@ -6413,3 +6413,9 @@ img.skew-div-image {
   
   /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
   .show {display:block;}
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    text-align: left;
+  }
+  .select2-container .select2-selection--single .select2-selection__rendered {
+    display: table-footer-group !important;
+  }

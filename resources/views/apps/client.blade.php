@@ -90,7 +90,7 @@
                                                 <div id="flex-container">
                                                     <button class="btn btn-primary mt-3" type="submit"><i
                                                             class="las la-check-double"></i>Enregistrer</button>
-                                                    <button type="button" class="btn btn-soft-primary  mt-3"><i
+                                                    <button type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
                                                             class="las la-info-circle"></i>Nouveau</button>
                                                 </div>
                                             </form>
@@ -124,19 +124,16 @@
                                                                         style="width:100%">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>{{__('Name')}}</th>
-                                                                                <th>{{__('Position')}}</th>
-                                                                                <th>{{__('Office')}}</th>
-                                                                                <th>{{__('Age')}}</th>
-                                                                                <th>{{__('Start date')}}</th>
-                                                                                <th>{{__('Salary')}}</th>
+                                                                                <th>Ville</th>
+                                                                                <th>Adresse</th>
+                                                                                <th>Nom</th>
+                                                                                <th>Compte</th>
                                                                                 <th class="no-content"></th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td>{{__('Tiger Nixon')}}</td>
-                                                                                <td>{{__('System Architect')}}</td>
+                                                                               
                                                                                 <td>{{__('Edinburgh')}}</td>
                                                                                 <td>{{__('61')}}</td>
                                                                                 <td>{{__('2011/04/25')}}</td>
@@ -147,8 +144,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>{{__('Garrett Winters')}}</td>
-                                                                                <td>{{__('Accountant')}}</td>
+                                                                               
                                                                                 <td>{{__('Tokyo')}}</td>
                                                                                 <td>{{__('63')}}</td>
                                                                                 <td>{{__('2011/07/25')}}</td>
@@ -159,9 +155,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Junior Technical Author')}}
-                                                                                </td>
+                                                                                
                                                                                 <td>{{__('San Francisco')}}</td>
                                                                                 <td>{{__('66')}}</td>
                                                                                 <td>{{__('2009/01/12')}}</td>
@@ -172,9 +166,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>{{__('Cedric Kelly')}}</td>
-                                                                                <td>{{__('Senior Javascript Developer')}}
-                                                                                </td>
+                                                                               
                                                                                 <td>{{__('Edinburgh')}}</td>
                                                                                 <td>{{__('22')}}</td>
                                                                                 <td>{{__('2012/03/29')}}</td>
@@ -185,8 +177,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>{{__('Tiger Nixon')}}</td>
-                                                                                <td>{{__('System Architect')}}</td>
+                                                                              
                                                                                 <td>{{__('Edinburgh')}}</td>
                                                                                 <td>{{__('61')}}</td>
                                                                                 <td>{{__('2011/04/25')}}</td>
@@ -197,8 +188,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>{{__('Garrett Winters')}}</td>
-                                                                                <td>{{__('Accountant')}}</td>
+                                                                                
                                                                                 <td>{{__('Tokyo')}}</td>
                                                                                 <td>{{__('63')}}</td>
                                                                                 <td>{{__('2011/07/25')}}</td>
@@ -209,9 +199,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Junior Technical Author')}}
-                                                                                </td>
+                                                                                
                                                                                 <td>{{__('San Francisco')}}</td>
                                                                                 <td>{{__('66')}}</td>
                                                                                 <td>{{__('2009/01/12')}}</td>
@@ -222,9 +210,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>{{__('Cedric Kelly')}}</td>
-                                                                                <td>{{__('Senior Javascript Developer')}}
-                                                                                </td>
+                                                                                
                                                                                 <td>{{__('Edinburgh')}}</td>
                                                                                 <td>{{__('22')}}</td>
                                                                                 <td>{{__('2012/03/29')}}</td>
@@ -235,17 +221,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
-                                                                        <tfoot>
-                                                                            <tr>
-                                                                                <th>{{__('Name')}}</th>
-                                                                                <th>{{__('Position')}}</th>
-                                                                                <th>{{__('Office')}}</th>
-                                                                                <th>{{__('Age')}}</th>
-                                                                                <th>{{__('Start date')}}</th>
-                                                                                <th>{{__('Salary')}}</th>
-                                                                                <th></th>
-                                                                            </tr>
-                                                                        </tfoot>
+                                                                      
                                                                     </table>
                                                                 </div>
                                                             </div>
