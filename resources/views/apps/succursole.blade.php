@@ -179,8 +179,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- debut table -->
-                                     <div class="layout-px-spacing">
+                                     <!-- Debut tableau -->
+                                <div class="layout-px-spacing">
         <div class="layout-top-spacing mb-2">
             <div class="col-md-12">
                 <div class="row">
@@ -205,36 +205,26 @@
                                         <table id="export-dt"  class="table table-hover" style="width:100%">
                                             <thead>
                                             <tr>
-                                             
                                                 <th>{{__('Name')}}</th>
                                                 <th>{{__('Position')}}</th>
                                                 <th>{{__('Office')}}</th>
                                                 <th>{{__('Age')}}</th>
                                                 <th>{{__('Start date')}}</th>
                                                 <th>{{__('Salary')}}</th>
-                                                <th >Action</th>
+                                                <th class="no-content"></th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
-                                           
                                                 <td>{{__('Tiger Nixon')}}</td>
                                                 <td>{{__('System Architect')}}</td>
                                                 <td>{{__('Edinburgh')}}</td>
                                                 <td>{{__('61')}}</td>
                                                 <td>{{__('2011/04/25')}}</td>
                                                 <td>{{__('$320,800')}}</td>
-                                                <td>
-                                                   
-                                                <a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="fa-solid fa-trash-can"></i></a>
-                                                 
-                                               </td>
-                                               <td>
-                                               <a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="fa-solid fa-trash-can"></i></a>
-                                               </td>
+                                                <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                             </tr>
                                             <tr>
-                                     
                                                 <td>{{__('Garrett Winters')}}</td>
                                                 <td>{{__('Accountant')}}</td>
                                                 <td>{{__('Tokyo')}}</td>
@@ -244,7 +234,6 @@
                                                 <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                             </tr>
                                             <tr>
-                                          
                                                 <td>{{__('Ashton Cox')}}</td>
                                                 <td>{{__('Junior Technical Author')}}</td>
                                                 <td>{{__('San Francisco')}}</td>
@@ -254,7 +243,6 @@
                                                 <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                             </tr>
                                             <tr>
-                                           
                                                 <td>{{__('Cedric Kelly')}}</td>
                                                 <td>{{__('Senior Javascript Developer')}}</td>
                                                 <td>{{__('Edinburgh')}}</td>
@@ -264,7 +252,6 @@
                                                 <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                             </tr>
                                             <tr>
-                                           
                                                 <td>{{__('Tiger Nixon')}}</td>
                                                 <td>{{__('System Architect')}}</td>
                                                 <td>{{__('Edinburgh')}}</td>
@@ -274,7 +261,6 @@
                                                 <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                             </tr>
                                             <tr>
-                                           
                                                 <td>{{__('Garrett Winters')}}</td>
                                                 <td>{{__('Accountant')}}</td>
                                                 <td>{{__('Tokyo')}}</td>
@@ -284,7 +270,6 @@
                                                 <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                             </tr>
                                             <tr>
-                                            
                                                 <td>{{__('Ashton Cox')}}</td>
                                                 <td>{{__('Junior Technical Author')}}</td>
                                                 <td>{{__('San Francisco')}}</td>
@@ -303,7 +288,17 @@
                                                 <td><a href="#" title="{{__('Edit')}}" class="font-20 text-primary"><i class="las la-edit"></i></a></td>
                                             </tr>
                                             </tbody>
-                                            
+                                            <tfoot>
+                                            <tr>
+                                                <th>{{__('Name')}}</th>
+                                                <th>{{__('Position')}}</th>
+                                                <th>{{__('Office')}}</th>
+                                                <th>{{__('Age')}}</th>
+                                                <th>{{__('Start date')}}</th>
+                                                <th>{{__('Salary')}}</th>
+                                                <th></th>
+                                            </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
@@ -317,7 +312,7 @@
             </div>
         </div>
     </div>
-        <!-- End tableau -->
+                                <!-- END tableau -->
                                 </div>
 
                             </div>
