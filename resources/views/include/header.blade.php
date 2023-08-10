@@ -80,16 +80,20 @@
                                 </div>
                             </a>
                             <hr class="account-divider">
-                            <a class="account-item" href="{{ url('/authentications/style3/login') }}">
-                                <div class="media align-center">
-                                    <div class="icon-wrap">
-                                        <i class="las la-sign-out-alt font-20"></i>
-                                    </div>
-                                    <div class="media-content ml-3">
-                                        <h6 class="font-13 mb-0 strong ">{{ __('Logout') }}</h6>
-                                    </div>
-                                </div>
-                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="badge outline-badge-primary" style="border:none">
+        <div class="media align-center">
+            <div class="icon-wrap">
+                <i class="las la-sign-out-alt font-20"></i>
+            </div>
+            <div class="media-content ml-3">
+                <h6 class="font-13 mb-0 strong">{{ __('Logout') }}</h6>
+            </div>
+        </div>
+    </button>
+    
+</form>
                         </div>
                     </div>
                 </div>
