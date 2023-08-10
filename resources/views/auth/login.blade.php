@@ -22,20 +22,20 @@
                             <h6 class="mt-2 text-primary text-center font-20">{{__('Log In')}}</h6>
                             <p class="text-center text-muted mt-3 mb-3 font-14">{{__('Please Log into your account')}}</p>
                             <div class="login-one-inputs mt-5">
-                                <input type="text"required autofocus placeholder="{{__('Username')}}"/>
+                                <input id="email" type="text" required autofocus placeholder="{{__('Username')}}" name="email" />
                                 <i class="las la-user-alt"></i>
                             </div>
                             <div class="login-one-inputs mt-3">
-                                <input type="password" placeholder="{{__('Password')}}"/>
+                                <input type="password" id="password"  name="password" required autocomplete="current-password"  placeholder="{{__('Password')}}"/>
                                 <i class="las la-lock"></i>
                             </div>
                             
                             <div class="login-one-inputs mt-4">
-                                <button class="ripple-button ripple-button-primary btn-lg btn-login" type="button">
+                                <button class="ripple-button ripple-button-primary btn-lg btn-login" type="submit" >
                                     <div class="ripple-ripple js-ripple">
                                         <span class="ripple-ripple__circle"></span>
                                     </div>
-                                    {{__('LOG IN')}}
+                                    {{ __('Log in') }}
                                 </button>
                             </div>
                             <div class="login-one-inputs mt-4 text-center font-12 strong">
