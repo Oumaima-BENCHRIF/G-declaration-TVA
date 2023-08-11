@@ -175,7 +175,7 @@
                                                 <div id="flex-container">
                                                     <button class="btn btn-primary mt-3" type="submit"><i
                                                             class="las la-check-double"></i>Enregistrer</button>
-                                                    <button type="button" class="btn btn-soft-primary  mt-3"><i
+                                                    <button type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
                                                             class="las la-info-circle"></i>Nouveau</button>
                                                 </div>
                                             </form>
@@ -209,17 +209,19 @@
                                                                         style="width:100%">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>{{__('Name')}}</th>
-                                                                                <th>{{__('Position')}}</th>
-                                                                                <th>{{__('Office')}}</th>
-                                                                                <th>{{__('Age')}}</th>
-                                                                                <th>{{__('Start date')}}</th>
-                                                                                <th>{{__('Salary')}}</th>
+                                                                              <th>Période</th>
+                                                                                <th>Régime</th>
+                                                                                <th>Activité</th>
+                                                                                <th>ID fiscal</th>
+                                                                                <th>ICE</th>
+                                                                                <th>Nom</th>
+                                                                                <th>code Succursale</th>
                                                                                 <th class="no-content"></th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
+                                                                            <td>{{__('Tiger Nixon')}}</td>
                                                                                 <td>{{__('Tiger Nixon')}}</td>
                                                                                 <td>{{__('System Architect')}}</td>
                                                                                 <td>{{__('Edinburgh')}}</td>
@@ -232,6 +234,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
+                                                                            <td>{{__('Garrett Winters')}}</td>
                                                                                 <td>{{__('Garrett Winters')}}</td>
                                                                                 <td>{{__('Accountant')}}</td>
                                                                                 <td>{{__('Tokyo')}}</td>
@@ -243,7 +246,7 @@
                                                                                             class="las la-edit"></i></a>
                                                                                 </td>
                                                                             </tr>
-                                                                            <tr>
+                                                                            <tr> <td>{{__('Ashton Cox')}}</td>
                                                                                 <td>{{__('Ashton Cox')}}</td>
                                                                                 <td>{{__('Junior Technical Author')}}
                                                                                 </td>
@@ -257,6 +260,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
+                                                                            <td>{{__('Ashton Cox')}}</td>
                                                                                 <td>{{__('Cedric Kelly')}}</td>
                                                                                 <td>{{__('Senior Javascript Developer')}}
                                                                                 </td>
@@ -270,6 +274,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
+                                                                            <td>{{__('Ashton Cox')}}</td>
                                                                                 <td>{{__('Tiger Nixon')}}</td>
                                                                                 <td>{{__('System Architect')}}</td>
                                                                                 <td>{{__('Edinburgh')}}</td>
@@ -282,6 +287,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
+                                                                            <td>{{__('Ashton Cox')}}</td>
                                                                                 <td>{{__('Garrett Winters')}}</td>
                                                                                 <td>{{__('Accountant')}}</td>
                                                                                 <td>{{__('Tokyo')}}</td>
@@ -294,6 +300,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
+                                                                            <td>{{__('Ashton Cox')}}</td>
                                                                                 <td>{{__('Ashton Cox')}}</td>
                                                                                 <td>{{__('Junior Technical Author')}}
                                                                                 </td>
@@ -307,6 +314,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
+                                                                            <td>{{__('Ashton Cox')}}</td>
                                                                                 <td>{{__('Cedric Kelly')}}</td>
                                                                                 <td>{{__('Senior Javascript Developer')}}
                                                                                 </td>
@@ -320,17 +328,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
-                                                                        <tfoot>
-                                                                            <tr>
-                                                                                <th>{{__('Name')}}</th>
-                                                                                <th>{{__('Position')}}</th>
-                                                                                <th>{{__('Office')}}</th>
-                                                                                <th>{{__('Age')}}</th>
-                                                                                <th>{{__('Start date')}}</th>
-                                                                                <th>{{__('Salary')}}</th>
-                                                                                <th></th>
-                                                                            </tr>
-                                                                        </tfoot>
+                                                                       
                                                                     </table>
                                                                 </div>
                                                             </div>
