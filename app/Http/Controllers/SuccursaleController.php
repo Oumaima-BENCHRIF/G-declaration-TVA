@@ -8,29 +8,33 @@ use Illuminate\Http\Request;
 
 class SuccursaleController extends Controller
 {
-   //Enregister Agents
-   public function store(Request $request)
+    public function index()
+    {
+        return view('apps.succursale');
+    }
+   //Enregister succursale
+   public function Stores(Request $request)
    {
-       try {
+    
 
-           $Agents = new succursale();
-           $Agents->nom_succorsale = $request->input('nom_succorsale');
-           $Agents->ICE = $request->input('ICE');
-           $Agents->Email = $request->input('Email');
-           $Agents->Activite = $request->input('Activite');
-           $Agents->ID_Fiscale = $request->input('ID_Fiscale');
-           $Agents->Ville = $request->input('Ville');
-           $Agents->Tele = $request->input('Tele');
-           $Agents->Adresse = $request->input('Adresse');
-           $Agents->Fax = $request->input('Fax');
-           $Agents->FK_Regime = $request->input('FK_Regime');
-           $Agents->FK_fait_generateurs = $request->input('FK_fait_generateurs');
-           $Agents->save();
+try {
+           $succursale = new succursale();
+           $succursale->nom_succorsale = $request->input('nom_succorsale');
+           $succursale->ICE = $request->input('ICE');
+           $succursale->Email = $request->input('Email');
+           $succursale->Activite = $request->input('Activite');
+           $succursale->ID_Fiscale = $request->input('ID_Fiscale');
+           $succursale->Ville = $request->input('Ville');
+           $succursale->Tele = $request->input('Tele');
+           $succursale->Adresse = $request->input('Adresse');
+           $succursale->Fax = $request->input('Fax');
+           $succursale->Periode = $request->input('Periode');
+           $succursale->FK_Regime = 1;
+           $succursale->FK_fait_generateurs = 1;
+           $succursale->save();
 
-           return redirect()
-               ->back()
-               ->with('success', 'Votre demande a été bien envoyée.')
-               ->withInput();
+           session()->flash('success', 'Votre demande a été bien envoyée.');
+           return back();
        } catch (\Exception $e) {
 
            return redirect()
@@ -38,5 +42,17 @@ class SuccursaleController extends Controller
                ->with('danger', 'Merci de vérifier la connexion internet, si non contacter le service IT')
                ->withInput();
        }
-   }
+    //        return response()->json([
+    //         'status' => 200,
+    //         'message' => 'Votre demande a été bien envoyée.',
+    //     ]);
+    // } catch (\Exception $e) {
+    //     return response()->json([
+    //         'status' => 400,
+    //         'errors' => 'Merci de vérifier la connexion internet, si non le service IT',
+    //     ]);
+     
+    // }
+
+  } 
 }
