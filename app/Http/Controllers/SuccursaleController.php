@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\succursale;
 
 use Illuminate\Http\Request;
+use App\Models\regime;
+use App\Models\fait_generateur;
 
 
 class SuccursaleController extends Controller
@@ -29,7 +31,7 @@ try {
            $succursale->Adresse = $request->input('Adresse');
            $succursale->Fax = $request->input('Fax');
            $succursale->Periode = $request->input('Periode');
-           $succursale->FK_Regime = 1;
+           $succursale->FK_Regime = $request->input('FK_Regime');
            $succursale->FK_fait_generateurs = 1;
            $succursale->save();
 
@@ -55,4 +57,25 @@ try {
     // }
 
   } 
+  //liste regimes
+  public function Liste_Regime(Request $request)
+  {
+      $Liste_regimes = regime::where('regimes.deleted_at', '=', NULL)
+          ->orderBy("id", "desc")->get();
+         
+      return response()->json([
+          'Liste_regimes' => $Liste_regimes
+      ]);
+  }
+
+   //liste fait generateurs
+   public function Liste_generateurs(Request $request)
+   {
+       $Liste_regimes = fait_generateur::where('fait_generateurs.deleted_at', '=', NULL)
+           ->orderBy("id", "desc")->get();
+          
+       return response()->json([
+           'Liste_fait_generateurs' => $Liste_regimes
+       ]);
+   }
 }

@@ -12,6 +12,7 @@
 {!! Html::style('plugins/table/datatable/datatables.css') !!}
 <!-- {!! Html::style('plugins/table/datatable/dt-global_style.css') !!} -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
 @endpush
 
 @section('content')
@@ -77,7 +78,7 @@
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label>code Succursale</label>
-                                                        <select class="form-control select2 py-3" id="FK_fait_generateurs" name="FK_fait_generateurs">
+                                                        <select id="code_Succursale" name="code_Succursale" class="form-control select2 py-3" id="FK_fait_generateurs" name="FK_fait_generateurs">
                                                             <option></option>
                                                             <option>Select</option>
                                                             <option value="1">Car</option>
@@ -86,20 +87,25 @@
                                                             <option value="4">Cycle</option>
                                                             <option value="5">Horse</option>
                                                         </select>
+                                                        
+                                                    </div>
+
+                                                    <div class="col-md-3 mb-3">
+                                                        <label>code fait generateurs</label>
+                                                        <select id="FK_fait_generateurs" name="FK_fait_generateurs" class="form-control select2 py-3" id="FK_fait_generateurs" name="FK_fait_generateurs">
+                                                            
+                                                        </select>
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-3 mb-3">
 
                                                         <label>Régime</label>
-                                                        <select class="form-control select2 py-3" id="FK_Regime" name="FK_Regime">
-                                                        <option></option>
+                                                        <select  id="FK_Regime" name="FK_Regime" class="form-control select2 py-3">
+                                                      
                                                             <option>Select</option>
-                                                            <option value="1">Car</option>
-                                                            <option value="2">Bike</option>
-                                                            <option value="3">Scooter</option>
-                                                            <option value="4">Cycle</option>
-                                                            <option value="5">Horse</option>
+                                                           
                                                         </select>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid ICE.

@@ -31,9 +31,12 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('/succursale', 'App\Http\Controllers\SuccursaleController@index')->name('succursale');
 
     // ajouter
-    // Route::post('/succursales/dd', 'App\Http\Controllers\SuccursaleController@store')->name('registers');
-    // Route::post('/succursales',[SuccursaleController::class, 'store'])->name('registers');
     Route::post('succursalses', [App\Http\Controllers\SuccursaleController::class, 'Stores'])->name('Stores');
+    // Liste regimes
+    Route::get('FK_Regime', [App\Http\Controllers\SuccursaleController::class, 'Liste_Regime'])->name('Liste_Regime');
+    // Liste fait generateurs
+    Route::get('FK_fait_generateurs', [App\Http\Controllers\SuccursaleController::class, 'Liste_generateurs'])->name('Liste_generateurs');
+
     Route::get('fournisseur', function () {
         return view('apps.fournisseur');
     })->name('fournisseur');

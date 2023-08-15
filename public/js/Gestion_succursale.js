@@ -1,4 +1,8 @@
-$(window).on("load", function () {});
+$(window).on("load", function () {
+ // liste regime
+ Liste_Regime();
+ Liste_fait_generateurs() ;
+});
 $(document).ready(function () {
     // table_Agents();
     // ******Ajouter Tos******
@@ -21,6 +25,9 @@ $(document).ready(function () {
             },
         });
     });
+    // ***********
+   
+
     // ******update To******
     // $("#update_Agents").on("submit", function (e) {
     //     e.preventDefault();
@@ -64,3 +71,47 @@ $(document).ready(function () {
     //     });
     // });
 });
+
+function Liste_Regime() {
+    jQuery.ajax({
+        url: "./FK_Regime",
+        type: "GET",
+        dataType: "json",
+        success: function (responce) {
+            $lignes = "";
+            jQuery.each(responce.Liste_regimes, function (key, item) {
+              
+                $lignes =
+                    $lignes +
+                    '<option value="' +
+                    item.id +
+                    '">' +
+                    item.libelle +
+                    "</option>";
+            });
+            $("#FK_Regime").html($lignes);
+        },
+    });
+}
+
+function Liste_fait_generateurs() {
+    jQuery.ajax({
+        url: "./FK_fait_generateurs",
+        type: "GET",
+        dataType: "json",
+        success: function (responce) {
+            $lignes = "";
+            jQuery.each(responce.Liste_fait_generateurs, function (key, item) {
+              
+                $lignes =
+                    $lignes +
+                    '<option value="' +
+                    item.id +
+                    '">' +
+                    item.libelle +
+                    "</option>";
+            });
+            $("#FK_fait_generateurs").html($lignes);
+        },
+    });
+}
