@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePerodesTable extends Migration
+class CreateFaitGenerateursTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreatePerodesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_portal')->create('perodes', function (Blueprint $table) {
+        Schema::connection('mysql_portal')->create('fait_generateurs', function (Blueprint $table) {
             $table->id();
-            $table->longText('labelle')->nullable();
+            $table->longText('libelle')->nullable();
+
             
             $table->timestamps();
             $table->softDeletes();
@@ -29,6 +30,6 @@ class CreatePerodesTable extends Migration
      */
     public function down()
     {
-        Schema::connection('mysql_portal')->dropIfExists('perodes');
+        Schema::connection('mysql_portal')->dropIfExists('fait_generateurs');
     }
 }

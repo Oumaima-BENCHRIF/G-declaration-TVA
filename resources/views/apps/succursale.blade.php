@@ -24,7 +24,7 @@
                     <nav class="breadcrumb-one" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);"> {{__('Apps')}}</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><span>Succursoles</span></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span>succursales</span></li>
                         </ol>
                     </nav>
                 </div>
@@ -45,22 +45,19 @@
                                 <div class="widget-header">
                                     <div class="row">
                                         <div class=" col-xl-12 col-md-12 col-sm-12 col-12">
-                                            <h4>Gestion succursole</h4>
+                                            <h4>Gestion succursale</h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="widget-content widget-content-area">
-                                    <div class="form-group row">
+                                    <div classs="form-group row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <form class="needs-validation" novalidate action="javascript:void(0);">
+                                        <form id="Add_succursales"  action="{{ route('Succursale.store') }}" method="post" class="needs-validation" novalidate action="javascript:void(0);">
+                                                    {{ csrf_field() }}   
                                                 <div class="form-row">
                                                     <div class="col-md-3 mb-3">
-                                                        <label for="validationCustom03">Email</label>
-                                                        <input type="text" class="form-control" id="validationCustom03"
-                                                            placeholder="Email" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid Email.
-                                                        </div>
+                                                        <label for="Email">Email</label>
+                                                        <input type="text" class="form-control" placeholder="Email" >
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label for="validationCustom04">ICE</label>
@@ -73,7 +70,7 @@
                                                     <div class="col-md-3 mb-3">
                                                         <label for="validationCustom03">Nom</label>
                                                         <input type="text" class="form-control" id="validationCustom03"
-                                                            placeholder="Nom succursole" required>
+                                                            placeholder="Nom succursale" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Nom.
                                                         </div>
@@ -111,10 +108,10 @@
                                                     <div class="col-md-3 mb-3">
                                                         <label for="validationCustom04">Ville</label>
                                                         <input type="text" class="form-control" id="validationCustom04"
-                                                            placeholder="Ville" required>
-                                                        <div class="invalid-feedback">
+                                                            placeholder="Ville" >
+                                                        <!-- <div class="invalid-feedback">
                                                             Please provide a valid Ville.
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label for="validationCustom05">ID fiscal</label>
@@ -147,29 +144,22 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3 mb-3">
-                                                        <label for="validationCustom04">Fax</label>
+                                                        <label for="Fax">Fax</label>
                                                         <input type="number" class="form-control"
-                                                            id="validationCustom04" placeholder="Fax" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid Fax.
-                                                        </div>
+                                                             placeholder="Fax" >
+                                                       
                                                     </div>
 
                                                     <div class="col-md-3 mb-3">
-                                                        <label for="validationCustom05">Adresse</label>
-                                                        <input type="text" class="form-control" id="validationCustom05"
-                                                            placeholder="Adresse" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid Adresse.
-                                                        </div>
+                                                        <label for="Adresse">Adresse</label>
+                                                        <input type="text" class="form-control" 
+                                                            placeholder="Adresse" >
                                                     </div>
+
                                                     <div class="col-md-3 mb-3">
-                                                        <label for="validationCustom05">Téléphone</label>
+                                                        <label for="Telephone">Téléphone</label>
                                                         <input type="number" class="form-control"
-                                                            id="validationCustom05" placeholder="Téléphone" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid Téléphone.
-                                                        </div>
+                                                              placeholder="Téléphone" >
                                                     </div>
                                                 </div>
                                                 <div id="flex-container">
@@ -516,5 +506,7 @@ $(document).ready(function() {
         $(this).toggleClass("toggle-clicked");
     });
 });
+
 </script>
+<script type="text/javascript" src="{{URL::asset('js/Gestion_succursale.js')}}"></script>
 @endpush

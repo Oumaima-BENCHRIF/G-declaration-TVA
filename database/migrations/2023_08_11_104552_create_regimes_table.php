@@ -15,7 +15,9 @@ class CreateRegimesTable extends Migration
     {
         Schema::connection('mysql_portal')->create('regimes', function (Blueprint $table) {
             $table->id();
-            $table->longText('labelle')->nullable();
+            $table->longText('libelle')->nullable();
+            $table->integer('periode')->nullable();
+            $table->date('date_regime')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

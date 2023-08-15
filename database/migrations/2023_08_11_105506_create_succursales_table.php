@@ -32,9 +32,9 @@ class CreateSuccursalesTable extends Migration
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
 
-            $table->unsignedBigInteger('FK_perodes');
-            $table->foreign('FK_perodes')
-                ->references('id')->on('perodes')
+            $table->unsignedBigInteger('FK_fait_generateurs');
+            $table->foreign('FK_fait_generateurs')
+                ->references('id')->on('fait_generateurs')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
 

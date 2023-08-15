@@ -39,17 +39,14 @@
                
             </a>
             <ul class="collapse submenu list-unstyled {{ show_class(['apps/*']) }}" id="app" data-parent="#accordionExample">
-                <li class=" {{ active_class(['apps/succursole']) }}">
-                    <a data-active="{{ is_active_route(['apps/succursole']) }}" href="{{ url('/apps/succursole') }}"> Succursole </a>
+                <li class=" {{ active_class(['apps/succursale']) }}">
+                    <a data-active="{{ is_active_route(['apps/succursale']) }}" href="{{ url('/apps/succursale') }}"> succursale </a>
                 </li>
                 <li class=" {{ active_class(['apps/fournisseur']) }}">
                     <a data-active="{{ is_active_route(['apps/fournisseur']) }}" href="{{ url('/apps/fournisseur') }}"> fournisseur </a>
                 </li>
                 <li class=" {{ active_class(['apps/racine']) }}">
                     <a data-active="{{ is_active_route(['apps/racine']) }}" href="{{ url('/apps/racine') }}"> Racine </a>
-                </li>
-                <li class=" {{ active_class(['apps/client']) }}">
-                    <a data-active="{{ is_active_route(['apps/client']) }}" href="{{ url('/apps/client') }}"> Client </a>
                 </li>
               
             </ul>
