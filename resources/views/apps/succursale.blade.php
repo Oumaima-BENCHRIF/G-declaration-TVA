@@ -1,4 +1,5 @@
 @extends('layout.master')
+
 @push('plugin-styles')
 {!! Html::style('assets/css/loader.css') !!}
 {!! Html::style('plugins/fullcalendar/fullcalendar.css') !!}
@@ -7,10 +8,12 @@
 {!! Html::style('plugins/flatpickr/custom-flatpickr.css') !!}
 {!! Html::style('assets/css/forms/theme-checkbox-radio.css') !!}
 {!! Html::style('assets/css/forms/form-widgets.css') !!}
-<!-- table css -->
+
 {!! Html::style('plugins/table/datatable/datatables.css') !!}
+<!-- {!! Html::style('plugins/table/datatable/dt-global_style.css') !!} -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @endpush
+
 @section('content')
 <!--  Navbar Starts / Breadcrumb Area Starts -->
 <div class="sub-header-container">
@@ -20,7 +23,8 @@
                 <div class="page-header">
                     <nav class="breadcrumb-one" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page"><span> Client</span></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0);"> {{__('Apps')}}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span>Succursoles</span></li>
                         </ol>
                     </nav>
                 </div>
@@ -36,11 +40,12 @@
                 <div class="container p-0">
                     <div class="row layout-top-spacing">
                         <div class="col-lg-12 layout-spacing">
+
                             <div class="statbox widget box box-shadow mb-4">
                                 <div class="widget-header">
                                     <div class="row">
-                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                            <h4>Gestion client</h4>
+                                        <div class=" col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <h4>Gestion succursole</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -49,33 +54,88 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <form class="needs-validation" novalidate action="javascript:void(0);">
                                                 <div class="form-row">
-                                                    <div class="col-md-3 mb-4">
-                                                        <label for="validationCustom02">Ville</label>
-                                                        <input type="text" class="form-control" id="validationCustom02"
-                                                            placeholder="Ville" required>
-                                                        <div class="valid-feedback">
-                                                            Success!
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="validationCustom03">Email</label>
+                                                        <input type="text" class="form-control" id="validationCustom03"
+                                                            placeholder="Email" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Email.
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3 mb-4">
-                                                        <label for="validationCustom01">Adresse</label>
-                                                        <input type="text" class="form-control" id="validationCustom01"
-                                                            placeholder="Adresse" required>
-                                                        <div class="valid-feedback">
-                                                            Success!
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="validationCustom04">ICE</label>
+                                                        <input type="text" class="form-control" id="validationCustom04"
+                                                            placeholder="ICE" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid identifiant.
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3 mb-4">
-                                                        <label for="validationCustom02">Nom</label>
-                                                        <input type="text" class="form-control" id="validationCustom02"
-                                                            placeholder="Nom" required>
-                                                        <div class="valid-feedback">
-                                                            Success!
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="validationCustom03">Nom</label>
+                                                        <input type="text" class="form-control" id="validationCustom03"
+                                                            placeholder="Nom succursole" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Nom.
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3 mb-4">
+                                                    <div class="col-md-3 mb-3">
+                                                        <label>code Succursale</label>
+                                                        <select class="form-control select2 py-3">
+                                                            <option></option>
+                                                            <option>111</option>
+                                                            <option>222</option>
+                                                            <option>333</option>
+                                                            <option>444</option>
+                                                            <option>555</option>
+                                                            <option>666</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-3 mb-3">
 
-                                                        <label>Compte</label>
+                                                        <label>Régime</label>
+                                                        <select class="form-control select2 py-3">
+                                                            <option></option>
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                            <option>6</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid ICE.
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="validationCustom04">Ville</label>
+                                                        <input type="text" class="form-control" id="validationCustom04"
+                                                            placeholder="Ville" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Ville.
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="validationCustom05">ID fiscal</label>
+                                                        <input type="text" class="form-control" id="validationCustom05"
+                                                            placeholder="ID fiscal" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid ID fiscal.
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="validationCustom04">Activité</label>
+                                                        <input type="text" class="form-control" id="validationCustom04"
+                                                            placeholder="Fax" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Fax.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-3 mb-3">
+                                                      <label>Période</label>
                                                         <select class="form-control select2 py-3">
                                                             <option></option>
                                                             <option>Select</option>
@@ -85,6 +145,31 @@
                                                             <option>Cycle</option>
                                                             <option>Horse</option>
                                                         </select>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="validationCustom04">Fax</label>
+                                                        <input type="number" class="form-control"
+                                                            id="validationCustom04" placeholder="Fax" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Fax.
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="validationCustom05">Adresse</label>
+                                                        <input type="text" class="form-control" id="validationCustom05"
+                                                            placeholder="Adresse" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Adresse.
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="validationCustom05">Téléphone</label>
+                                                        <input type="number" class="form-control"
+                                                            id="validationCustom05" placeholder="Téléphone" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Téléphone.
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div id="flex-container">
@@ -97,7 +182,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- debut table -->
+                                <!-- Debut tableau -->
                                 <div class="layout-px-spacing">
                                     <div class="layout-top-spacing mb-2">
                                         <div class="col-md-12">
@@ -124,16 +209,21 @@
                                                                         style="width:100%">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>Ville</th>
-                                                                                <th>Adresse</th>
+                                                                              <th>Période</th>
+                                                                                <th>Régime</th>
+                                                                                <th>Activité</th>
+                                                                                <th>ID fiscal</th>
+                                                                                <th>ICE</th>
                                                                                 <th>Nom</th>
-                                                                                <th>Compte</th>
+                                                                                <th>code Succursale</th>
                                                                                 <th class="no-content"></th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
-                                                                               
+                                                                            <td>{{__('Tiger Nixon')}}</td>
+                                                                                <td>{{__('Tiger Nixon')}}</td>
+                                                                                <td>{{__('System Architect')}}</td>
                                                                                 <td>{{__('Edinburgh')}}</td>
                                                                                 <td>{{__('61')}}</td>
                                                                                 <td>{{__('2011/04/25')}}</td>
@@ -144,7 +234,9 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                               
+                                                                            <td>{{__('Garrett Winters')}}</td>
+                                                                                <td>{{__('Garrett Winters')}}</td>
+                                                                                <td>{{__('Accountant')}}</td>
                                                                                 <td>{{__('Tokyo')}}</td>
                                                                                 <td>{{__('63')}}</td>
                                                                                 <td>{{__('2011/07/25')}}</td>
@@ -154,8 +246,10 @@
                                                                                             class="las la-edit"></i></a>
                                                                                 </td>
                                                                             </tr>
-                                                                            <tr>
-                                                                                
+                                                                            <tr> <td>{{__('Ashton Cox')}}</td>
+                                                                                <td>{{__('Ashton Cox')}}</td>
+                                                                                <td>{{__('Junior Technical Author')}}
+                                                                                </td>
                                                                                 <td>{{__('San Francisco')}}</td>
                                                                                 <td>{{__('66')}}</td>
                                                                                 <td>{{__('2009/01/12')}}</td>
@@ -166,7 +260,10 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                               
+                                                                            <td>{{__('Ashton Cox')}}</td>
+                                                                                <td>{{__('Cedric Kelly')}}</td>
+                                                                                <td>{{__('Senior Javascript Developer')}}
+                                                                                </td>
                                                                                 <td>{{__('Edinburgh')}}</td>
                                                                                 <td>{{__('22')}}</td>
                                                                                 <td>{{__('2012/03/29')}}</td>
@@ -177,7 +274,9 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                              
+                                                                            <td>{{__('Ashton Cox')}}</td>
+                                                                                <td>{{__('Tiger Nixon')}}</td>
+                                                                                <td>{{__('System Architect')}}</td>
                                                                                 <td>{{__('Edinburgh')}}</td>
                                                                                 <td>{{__('61')}}</td>
                                                                                 <td>{{__('2011/04/25')}}</td>
@@ -188,7 +287,9 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                
+                                                                            <td>{{__('Ashton Cox')}}</td>
+                                                                                <td>{{__('Garrett Winters')}}</td>
+                                                                                <td>{{__('Accountant')}}</td>
                                                                                 <td>{{__('Tokyo')}}</td>
                                                                                 <td>{{__('63')}}</td>
                                                                                 <td>{{__('2011/07/25')}}</td>
@@ -199,7 +300,10 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                
+                                                                            <td>{{__('Ashton Cox')}}</td>
+                                                                                <td>{{__('Ashton Cox')}}</td>
+                                                                                <td>{{__('Junior Technical Author')}}
+                                                                                </td>
                                                                                 <td>{{__('San Francisco')}}</td>
                                                                                 <td>{{__('66')}}</td>
                                                                                 <td>{{__('2009/01/12')}}</td>
@@ -210,7 +314,10 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                
+                                                                            <td>{{__('Ashton Cox')}}</td>
+                                                                                <td>{{__('Cedric Kelly')}}</td>
+                                                                                <td>{{__('Senior Javascript Developer')}}
+                                                                                </td>
                                                                                 <td>{{__('Edinburgh')}}</td>
                                                                                 <td>{{__('22')}}</td>
                                                                                 <td>{{__('2012/03/29')}}</td>
@@ -221,7 +328,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
-                                                                      
+                                                                       
                                                                     </table>
                                                                 </div>
                                                             </div>
@@ -235,8 +342,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End tableau -->
+                                <!-- END tableau -->
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -246,6 +354,7 @@
 </div>
 <!-- Main Body Ends -->
 @endsection
+
 @push('plugin-scripts')
 {!! Html::script('assets/js/loader.js') !!}
 {!! Html::script('plugins/fullcalendar/moment.min.js') !!}
@@ -253,6 +362,7 @@
 {!! Html::script('plugins/fullcalendar/fullcalendar.min.js') !!}
 {!! Html::script('plugins/fullcalendar/custom-fullcalendar.advance.js') !!}
 {!! Html::script('assets/js/forms/forms-validation.js') !!}
+
 <!-- table -->
 
 {!! Html::script('plugins/table/datatable/datatables.js') !!}
@@ -266,10 +376,13 @@
 {!! Html::script('plugins/table/datatable/button-ext/vfs_fonts.js') !!}
 <!--  -->
 @endpush
+
+
 @push('custom-scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
 $('.select2').select2();
+
 $(document).ready(function() {
     $('#basic-dt').DataTable({
         "language": {

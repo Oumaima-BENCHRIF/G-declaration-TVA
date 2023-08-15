@@ -15,8 +15,9 @@ table.dataTable {
   margin-top: 6px !important;
   margin-bottom: 6px !important;
   max-width: none !important;
-  border-collapse: separate !important;
-  border: none;
+  display: grid;
+  /* border-collapse: separate !important; */
+  /* border: none; */
 }
 table.dataTable td,
 table.dataTable th {
