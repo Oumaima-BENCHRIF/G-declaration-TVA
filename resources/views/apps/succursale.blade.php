@@ -52,24 +52,24 @@
                                 <div class="widget-content widget-content-area">
                                     <div classs="form-group row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <form id="Add_succursales"  action="{{ route('Succursale.store') }}" method="post" class="needs-validation" novalidate action="javascript:void(0);">
-                                                    {{ csrf_field() }}   
+                                        <form   method="POST"  action="{{ route('dashboard.Stores') }}" class="needs-validation" novalidate action="javascript:void(0);">
+                                        @csrf 
                                                 <div class="form-row">
                                                     <div class="col-md-3 mb-3">
                                                         <label for="Email">Email</label>
-                                                        <input type="text" class="form-control" placeholder="Email" >
+                                                        <input id="Email" name="Email" type="text" class="form-control" placeholder="Email" >
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label for="validationCustom04">ICE</label>
-                                                        <input type="text" class="form-control" id="validationCustom04"
+                                                        <input  type="text" class="form-control" id="ICE" name="ICE"
                                                             placeholder="ICE" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid identifiant.
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3 mb-3">
-                                                        <label for="validationCustom03">Nom</label>
-                                                        <input type="text" class="form-control" id="validationCustom03"
+                                                        <label for="nom_succorsale">Nom</label>
+                                                        <input type="text" class="form-control" id="nom_succorsale" name="nom_succorsale"
                                                             placeholder="Nom succursale" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Nom.
@@ -77,14 +77,15 @@
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label>code Succursale</label>
-                                                        <select class="form-control select2 py-3">
+                                                        <select class="form-control select2 py-3" id="FK_fait_generateurs" name="FK_fait_generateurs">
                                                             <option></option>
-                                                            <option>111</option>
-                                                            <option>222</option>
-                                                            <option>333</option>
-                                                            <option>444</option>
-                                                            <option>555</option>
-                                                            <option>666</option>
+                                                         
+                                                            <option>Select</option>
+                                                            <option value="1">Car</option>
+                                                            <option value="2">Bike</option>
+                                                            <option value="3">Scooter</option>
+                                                            <option value="4">Cycle</option>
+                                                            <option value="5">Horse</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -92,6 +93,7 @@
                                                     <div class="col-md-3 mb-3">
 
                                                         <label>Régime</label>
+
                                                         <select class="form-control select2 py-3">
                                                             <option></option>
                                                             <option>1</option>
@@ -100,14 +102,24 @@
                                                             <option>4</option>
                                                             <option>5</option>
                                                             <option>6</option>
-                                                        </select>
+
+                                                        <!-- <select class="form-control select2 py-3" id="FK_Regime" name="FK_Regime">
+                                                        <option></option>
+                                                            <option>Select</option>
+                                                            <option value="1">Car</option>
+                                                            <option value="2">Bike</option>
+                                                            <option value="3">Scooter</option>
+                                                            <option value="4">Cycle</option>
+                                                            <option value="5">Horse</option>
+
+                                                        </select> -->
                                                         <div class="invalid-feedback">
                                                             Please provide a valid ICE.
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label for="validationCustom04">Ville</label>
-                                                        <input type="text" class="form-control" id="validationCustom04"
+                                                        <input type="text" class="form-control" id="Ville" name="Ville"
                                                             placeholder="Ville" >
                                                         <!-- <div class="invalid-feedback">
                                                             Please provide a valid Ville.
@@ -115,7 +127,7 @@
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label for="validationCustom05">ID fiscal</label>
-                                                        <input type="text" class="form-control" id="validationCustom05"
+                                                        <input type="text" class="form-control" id="ID_Fiscale" name="ID_Fiscale"
                                                             placeholder="ID fiscal" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid ID fiscal.
@@ -123,7 +135,7 @@
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label for="validationCustom04">Activité</label>
-                                                        <input type="text" class="form-control" id="validationCustom04"
+                                                        <input type="text" class="form-control" id="Activite" name="Activite"
                                                             placeholder="Fax" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Fax.
@@ -133,7 +145,7 @@
                                                 <div class="form-row">
                                                     <div class="col-md-3 mb-3">
                                                       <label>Période</label>
-                                                        <select class="form-control select2 py-3">
+                                                        <select class="form-control select2 py-3" id="Periode" name="Periode">
                                                             <option></option>
                                                             <option>Select</option>
                                                             <option>Car</option>
@@ -145,21 +157,21 @@
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label for="Fax">Fax</label>
-                                                        <input type="number" class="form-control"
+                                                        <input type="number" class="form-control" id="Fax" name="Fax"
                                                              placeholder="Fax" >
                                                        
                                                     </div>
 
                                                     <div class="col-md-3 mb-3">
                                                         <label for="Adresse">Adresse</label>
-                                                        <input type="text" class="form-control" 
+                                                        <input type="text" class="form-control" id="Adresse" name="Adresse"
                                                             placeholder="Adresse" >
                                                     </div>
 
                                                     <div class="col-md-3 mb-3">
                                                         <label for="Telephone">Téléphone</label>
-                                                        <input type="number" class="form-control"
-                                                              placeholder="Téléphone" >
+                                                        <input type="number" class="form-control" id="Tele" name="Tele"
+                                                              placeholder="Téléphone" > 
                                                     </div>
                                                 </div>
                                                 <div id="flex-container">

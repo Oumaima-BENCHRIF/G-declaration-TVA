@@ -14,10 +14,10 @@ $(document).ready(function () {
             // dataFilter: 'json', //forme data
             success: function (response) {
                 // Je récupère la réponse du fichier PHP
-                toastr.success(response.message);
+                toastr.success(response.success);
             },
             error: function (response) {
-                toastr.error(response.errors);
+                toastr.error(response.danger);
             },
         });
     });

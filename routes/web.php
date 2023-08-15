@@ -27,11 +27,13 @@ Route::get('/dashboard', function () {
 
 Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'], function () {
     // succursale
-    Route::get('succursale', function () {return view('apps.succursale');})->name('succursale');
-    // ajouter
-    // Route::post('/succursales', 'SuccursaleController@store')->name('Succursale.store');
-    Route::get('/succursales',[SuccursaleController::class, 'store'])->name('Succursale.store');
+    // Route::get('succursale', function () {return view('apps.succursale');})->name('succursale');
+    Route::get('/succursale', 'App\Http\Controllers\SuccursaleController@index')->name('succursale');
 
+    // ajouter
+    // Route::post('/succursales/dd', 'App\Http\Controllers\SuccursaleController@store')->name('registers');
+    // Route::post('/succursales',[SuccursaleController::class, 'store'])->name('registers');
+    Route::post('succursalses', [App\Http\Controllers\SuccursaleController::class, 'Stores'])->name('Stores');
     Route::get('fournisseur', function () {
         return view('apps.fournisseur');
     })->name('fournisseur');
