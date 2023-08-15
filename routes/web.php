@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\SuccursaleController;
 
 
 /*
@@ -25,16 +26,17 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'], function () {
-    Route::get('succursole', function () {
-        return view('apps.succursole');
-    })->name('succursole');
+    // succursale
+    Route::get('succursale', function () {return view('apps.succursale');})->name('succursale');
+    // ajouter
+    // Route::post('/succursales', 'SuccursaleController@store')->name('Succursale.store');
+    Route::get('/succursales',[SuccursaleController::class, 'store'])->name('Succursale.store');
 
     Route::get('fournisseur', function () {
         return view('apps.fournisseur');
     })->name('fournisseur');
 
     Route::get('racine', function () {return view('apps.racine');});
-    Route::get('client', function () { return view('apps.client'); });
     
     Route::get('login', function () { return view('authentications.style1.login'); });
     
