@@ -30,7 +30,6 @@ try {
            $succursale->Tele = $request->input('Tele');
            $succursale->Adresse = $request->input('Adresse');
            $succursale->Fax = $request->input('Fax');
-           $succursale->Periode = $request->input('Periode');
            $succursale->FK_Regime = $request->input('FK_Regime');
            $succursale->FK_fait_generateurs = 1;
            $succursale->save();
