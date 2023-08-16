@@ -69,6 +69,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3 mb-3">
+                                                        <label for="Ville">Ville</label>
+                                                        <input type="text" class="form-control" id="Ville" name="Ville"
+                                                            placeholder="Ville" >
+                                                        <!-- <div class="invalid-feedback">
+                                                            Please provide a valid Ville.
+                                                        </div> -->
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
                                                         <label for="nom_succorsale">Nom</label>
                                                         <input type="text" class="form-control" id="nom_succorsale" name="nom_succorsale"
                                                             placeholder="Nom succursale" required>
@@ -76,27 +84,8 @@
                                                             Please provide a valid Nom.
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3 mb-3">
-                                                        <label>code Succursale</label>
-                                                        <select id="code_Succursale" name="code_Succursale" class="form-control select2 py-3" id="FK_fait_generateurs" name="FK_fait_generateurs">
-                                                            <option></option>
-                                                            <option>Select</option>
-                                                            <option value="1">Car</option>
-                                                            <option value="2">Bike</option>
-                                                            <option value="3">Scooter</option>
-                                                            <option value="4">Cycle</option>
-                                                            <option value="5">Horse</option>
-                                                        </select>
-                                                        
-                                                    </div>
-
-                                                    <div class="col-md-3 mb-3">
-                                                        <label>code fait generateurs</label>
-                                                        <select id="FK_fait_generateurs" name="FK_fait_generateurs" class="form-control select2 py-3" id="FK_fait_generateurs" name="FK_fait_generateurs">
-                                                            
-                                                        </select>
-                                                        
-                                                    </div>
+                                                    
+                                                   
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-3 mb-3">
@@ -112,12 +101,11 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3 mb-3">
-                                                        <label for="validationCustom04">Ville</label>
-                                                        <input type="text" class="form-control" id="Ville" name="Ville"
-                                                            placeholder="Ville" >
-                                                        <!-- <div class="invalid-feedback">
-                                                            Please provide a valid Ville.
-                                                        </div> -->
+                                                        <label>code fait generateurs</label>
+                                                        <select id="FK_fait_generateurs" name="FK_fait_generateurs" class="form-control select2 py-3" id="FK_fait_generateurs" name="FK_fait_generateurs">
+                                                            
+                                                        </select>
+                                                        
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label for="validationCustom05">ID fiscal</label>
@@ -137,21 +125,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="col-md-3 mb-3">
-                                                      <label>Période</label>
-                                                        <select class="form-control select2 py-3" id="Periode" name="Periode">
-                                                            <option></option>
-                                                            <option>Select</option>
-                                                            <option>Car</option>
-                                                            <option>Bike</option>
-                                                            <option>Scooter</option>
-                                                            <option>Cycle</option>
-                                                            <option>Horse</option>
-                                                        </select>
+                                                  
+                                                <div class="col-md-3 mb-3 pt-4">
+                                                    
+                                                    <button class="btn btn-primary  " type="submit"><i
+                                                            class="las la-check-double"></i>Enregistrer</button>
+                                                    <button type="button" onclick=" viderchamp()" class="btn btn-soft-primary  "><i
+                                                            class="las la-info-circle"></i>Nouveau</button>
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label for="Fax">Fax</label>
-                                                        <input type="number" class="form-control" id="Fax" name="Fax"
+                                                        <input  type="number" class="form-control" id="Fax" name="Fax"
                                                              placeholder="Fax" >
                                                        
                                                     </div>
@@ -167,12 +151,10 @@
                                                         <input type="number" class="form-control" id="Tele" name="Tele"
                                                               placeholder="Téléphone" > 
                                                     </div>
+                                                   
                                                 </div>
                                                 <div id="flex-container">
-                                                    <button class="btn btn-primary mt-3" type="submit"><i
-                                                            class="las la-check-double"></i>Enregistrer</button>
-                                                    <button type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
-                                                            class="las la-info-circle"></i>Nouveau</button>
+                                                    
                                                 </div>
                                             </form>
                                         </div>
