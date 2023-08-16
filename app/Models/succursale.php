@@ -24,7 +24,6 @@ class succursale extends Model
         'Tele',
         'Adresse',
         'Fax',
-        'Periode',
         'FK_Regime',
         'FK_fait_generateurs',
     ];
