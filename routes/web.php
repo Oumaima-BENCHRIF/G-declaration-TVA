@@ -26,29 +26,34 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'], function () {
-    // succursale
+    //*******  succursale
     // Route::get('succursale', function () {return view('apps.succursale');})->name('succursale');
     Route::get('/succursale', 'App\Http\Controllers\SuccursaleController@index')->name('succursale');
 
     // ajouter
-    Route::post('succursalses', [App\Http\Controllers\SuccursaleController::class, 'Stores'])->name('Stores');
+    Route::post('/succursalses', [App\Http\Controllers\SuccursaleController::class, 'Stores'])->name('Stores');
     // Liste regimes
     Route::get('FK_Regime', [App\Http\Controllers\SuccursaleController::class, 'Liste_Regime'])->name('Liste_Regime');
     // Liste fait generateurs
     Route::get('FK_fait_generateurs', [App\Http\Controllers\SuccursaleController::class, 'Liste_generateurs'])->name('Liste_generateurs');
+    // table succursale
+    Route::get('table_succursale', [App\Http\Controllers\SuccursaleController::class, 'table_succursale'])->name('table_succursale');
 
     Route::get('fournisseur', function () {
         return view('apps.fournisseur');
     })->name('fournisseur');
 
-    Route::get('racine', function () {return view('apps.racine');});
+    Route::get('racine', function () {
+        return view('apps.racine'); });
 
-    Route::get('Achat', function () { return view('apps.Achat'); });
+    Route::get('Achat', function () {
+        return view('apps.Achat'); });
 
-    
-    Route::get('login', function () { return view('authentications.style1.login'); });
-    
+
+    Route::get('login', function () {
+        return view('authentications.style1.login'); });
+
     Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->name('logout');
+        ->name('logout');
 });
 require __DIR__ . '/auth.php';

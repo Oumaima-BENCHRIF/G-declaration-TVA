@@ -12,7 +12,7 @@
 {!! Html::style('plugins/table/datatable/datatables.css') !!}
 <!-- {!! Html::style('plugins/table/datatable/dt-global_style.css') !!} -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 
 @section('content')
@@ -53,7 +53,7 @@
                                 <div class="widget-content widget-content-area">
                                     <div classs="form-group row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <form   method="POST"  action="{{ route('dashboard.Stores') }}" class="needs-validation" novalidate action="javascript:void(0);">
+                                        <form id="Add_succursales"  method="POST"  action="{{ route('dashboard.Stores') }}" class="needs-validation" novalidate action="javascript:void(0);">
                                         @csrf 
                                                 <div class="form-row">
                                                     <div class="col-md-3 mb-3">
@@ -172,28 +172,21 @@
                                                         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                                                             <div class="widget-content widget-content-area br-6">
 
-                                                                <!-- tableau style de toggle-column -->
-                                                                <!-- <div class="toggle-list">
-                                        <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="0">{{__('Name')}}</a>
-                                        <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="1">{{__('Hi')}}</a>
-                                        <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="2">{{__('Office')}}</a>
-                                        <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="3">{{__('Age')}}</a>
-                                        <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="4">{{__('Start date')}}</a>
-                                        <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="5">{{__('Salary')}}</a>
-                                    </div> -->
+                                                               
                                                                 <!-- or tableau style de = single-column-search -->
                                                                 <div class="table-responsive mb-4">
                                                                     <table id="export-dt" class="table table-hover"
                                                                         style="width:100%">
                                                                         <thead>
                                                                             <tr>
-                                                                              <th>Période</th>
+                                                                                <th>Nom Succursale</th>
+                                                                                <th>Période</th>
                                                                                 <th>Régime</th>
                                                                                 <th>Activité</th>
                                                                                 <th>ID fiscal</th>
                                                                                 <th>ICE</th>
-                                                                                <th>Nom</th>
-                                                                                <th>code Succursale</th>
+                                                                                <th>Téléphone</th>
+                                                                                
                                                                                 <th class="no-content"></th>
                                                                             </tr>
                                                                         </thead>
@@ -359,142 +352,10 @@
 @push('custom-scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
-$('.select2').select2();
-
-$(document).ready(function() {
-    $('#basic-dt').DataTable({
-        "language": {
-            "paginate": {
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>"
-            }
-        },
-        "lengthMenu": [5, 10, 15, 20],
-        "pageLength": 5
-    });
-    $('#dropdown-dt').DataTable({
-        "language": {
-            "paginate": {
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>"
-            }
-        },
-        "lengthMenu": [5, 10, 15, 20],
-        "pageLength": 5
-    });
-    $('#last-page-dt').DataTable({
-        "pagingType": "full_numbers",
-        "language": {
-            "paginate": {
-                "first": "<i class='las la-angle-double-left'></i>",
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>",
-                "last": "<i class='las la-angle-double-right'></i>"
-            }
-        },
-        "lengthMenu": [3, 6, 9, 12],
-        "pageLength": 3
-    });
-    $.fn.dataTable.ext.search.push(
-        function(settings, data, dataIndex) {
-            var min = parseInt($('#min').val(), 10);
-            var max = parseInt($('#max').val(), 10);
-            var age = parseFloat(data[3]) || 0; // use data for the age column
-            if ((isNaN(min) && isNaN(max)) ||
-                (isNaN(min) && age <= max) ||
-                (min <= age && isNaN(max)) ||
-                (min <= age && age <= max)) {
-                return true;
-            }
-            return false;
-        }
-    );
-    var table = $('#range-dt').DataTable({
-        "language": {
-            "paginate": {
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>"
-            }
-        },
-        "lengthMenu": [5, 10, 15, 20],
-        "pageLength": 5
-    });
-    $('#min, #max').keyup(function() {
-        table.draw();
-    });
-    $('#export-dt').DataTable({
-        dom: '<"row"<"col-md-6"B><"col-md-6"f> ><""rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>>',
-        buttons: {
-            buttons: [{
-                    extend: 'excel',
-                    className: 'btn btn-soft-secondary'
-                },
-                {
-                    extend: 'pdf',
-                    className: 'btn btn-secondary'
-                },
-                {
-                    extend: 'print',
-                    className: 'btn btn-soft-info'
-                }
-            ]
-        },
-        "language": {
-            "paginate": {
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>"
-            }
-        },
-        "lengthMenu": [7, 10, 20, 50],
-        "pageLength": 7
-    });
-    // Add text input to the footer
-    $('#single-column-search tfoot th').each(function() {
-        var title = $(this).text();
-        $(this).html('<input type="text" class="form-control" placeholder="Search ' + title + '" />');
-    });
-    // Generate Datatable
-    var table = $('#single-column-search').DataTable({
-        "language": {
-            "paginate": {
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>"
-            }
-        },
-        "lengthMenu": [5, 10, 15, 20],
-        "pageLength": 5
-    });
-    // Search
-    table.columns().every(function() {
-        var that = this;
-        $('input', this.footer()).on('keyup change', function() {
-            if (that.search() !== this.value) {
-                that
-                    .search(this.value)
-                    .draw();
-            }
-        });
-    });
-    var table = $('#toggle-column').DataTable({
-        "language": {
-            "paginate": {
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>"
-            }
-        },
-        "lengthMenu": [5, 10, 15, 20],
-        "pageLength": 5
-    });
-    $('a.toggle-btn').on('click', function(e) {
-        e.preventDefault();
-        // Get the column API object
-        var column = table.column($(this).attr('data-column'));
-        // Toggle the visibility
-        column.visible(!column.visible());
-        $(this).toggleClass("toggle-clicked");
-    });
-});
 
 </script>
+
 <script type="text/javascript" src="{{URL::asset('js/Gestion_succursale.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 @endpush
