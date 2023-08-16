@@ -115,3 +115,17 @@ function Liste_fait_generateurs() {
         },
     });
 }
+
+function viderchamp() {
+    document.getElementById("nom_succorsale").value = "";
+    document.getElementById("ICE").value = "";
+    document.getElementById("Email").value = "";
+    document.getElementById("Activite").value = "";
+    document.getElementById("ID_Fiscale").value = "";
+    document.getElementById("Ville").value = "";
+    document.getElementById("Tele").value = "";
+    document.getElementById("Adresse").value = "";
+    document.getElementById("Fax").value = "";
+    document.getElementById("FK_Regime").value = "";
+    document.getElementById("fait_generateurs").value = "";
+}
