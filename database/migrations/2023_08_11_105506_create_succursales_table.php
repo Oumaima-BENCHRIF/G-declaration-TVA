@@ -24,7 +24,6 @@ class CreateSuccursalesTable extends Migration
             $table->longText('Tele')->nullable();
             $table->longText('Adresse')->nullable();
             $table->longText('Fax')->nullable();
-            $table->longText('Periode')->nullable();
 
             $table->unsignedBigInteger('FK_Regime');
             $table->foreign('FK_Regime')
