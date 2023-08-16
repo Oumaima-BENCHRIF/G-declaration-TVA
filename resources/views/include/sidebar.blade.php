@@ -1,38 +1,42 @@
 <nav id="sidebar">
     <ul class="navbar-item theme-brand flex-row  text-center">
         <li class="nav-item theme-logo">
-            <a href="{{ url('/') }}">
+            <!-- <a href="{{ url('/') }}">
                 <img src="{{ url('assets/img/logo.png') }}" class="navbar-logo" alt="logo">
-            </a>
+            </a> -->
         </li>
         <li class="nav-item theme-text">
-            <a href="{{ url('/') }}" class="nav-link"> Neptune </a>
+            <a href="{{ url('/') }}" class="nav-link"> G-declaration TVA </a>
         </li>
     </ul>
     <ul class="list-unstyled menu-categories" id="accordionExample">
         <li class="menu">
-        <a data-active="{{ is_active_route(['dashboard/dashboard1']) }}" href="{{ url('/dashboard/dashboard1') }}" class="dropdown-toggle">
-    
+             <div>
+                    <i class="las la-angle-right sidemenu-right-icon"></i>
+                </div>
+        <a data-active="{{ is_active_route(['dashboard']) }}" href="{{ url('/dashboard') }}" class="dropdown-toggle justify-content-end">
+       
             <div class="">
-                    
-                    <span>{{__('Dashboards')}}</span> <i class="las la-home"></i>
+            
+                    <span>Dashboards</span> <i class="las la-home"></i> 
                 </div>
                 
             </a>
             <ul class="submenu list-unstyled collapse {{ show_class(['dashboard/*']) }}" id="dashboard" data-parent="#accordionExample">
-                <li class=" {{ active_class(['dashboard/dashboard1']) }}">
+                <li class=" {{ active_class(['dashboard']) }}">
                 </li>
             </ul>
         </li>
         <li class="menu">
-            <a href="#app"  data-active="{{ is_active_route(['apps/*']) }}" data-toggle="collapse" aria-expanded="{{ is_active_route(['apps/*']) }}" class="dropdown-toggle">
-                <div class="">
-                    <i class="lab la-medapps"></i>
-                    <span>Fichier</span>
-                </div>
-                <div>
+            <a href="#app"  data-active="{{ is_active_route(['apps/*']) }}" data-toggle="collapse" aria-expanded="{{ is_active_route(['apps/*']) }}" class="dropdown-toggle justify-content-end">
+            <div>
                     <i class="las la-angle-right sidemenu-right-icon"></i>
                 </div>
+            <div class="">
+                   
+                    <span>Fichier</span> <i class="lab la-medapps"></i>
+                </div>
+               
             </a>
             <ul class="collapse submenu list-unstyled {{ show_class(['apps/*']) }}" id="app" data-parent="#accordionExample">
                 <li class=" {{ active_class(['apps/succursale']) }}">
@@ -48,26 +52,33 @@
             </ul>
         </li>
         <li class="menu">
-            <a href="#pages" data-active="{{ is_active_route(['pages/*']) }}" data-toggle="collapse" aria-expanded="{{ is_active_route(['pages/*']) }}" class="dropdown-toggle">
-                <div class="">
-                    <i class="las la-file"></i>
-                    <span> Achats</span>
+        <a data-active="{{ is_active_route(['apps/Achat']) }}" href="{{ url('/apps/Achat') }}" class="dropdown-toggle justify-content-end">
+    
+            <div class="">
+           
+                    <span>Achats</span>  <i class="las la-home"></i>
                 </div>
+                
             </a>
+            <ul class="submenu list-unstyled collapse {{ show_class(['Achat/*']) }}" id="Achat" data-parent="#accordionExample">
+                <li class=" {{ active_class(['apps/Achat']) }}">
+                </li>
+            </ul>
         </li>
  
 
     
             
         <li class="menu">
-            <a href="#maps" data-active="{{ is_active_route(['maps/*']) }}" data-toggle="collapse" aria-expanded="{{ is_active_route(['maps/*']) }}" class="dropdown-toggle">
-                <div class="">
-                    <i class="las la-globe-americas"></i>
-                    <span> Vente</span>
-                </div>
-                <div>
+            <a href="#maps" data-active="{{ is_active_route(['maps/*']) }}" data-toggle="collapse" aria-expanded="{{ is_active_route(['maps/*']) }}" class="dropdown-toggle justify-content-end">
+            <div>
                     <i class="las la-angle-right sidemenu-right-icon"></i>
                 </div>
+            <div class="">
+                  
+                    <span> Vente</span>  <i class="las la-globe-americas"></i>
+                </div>
+                
             </a>
             <ul class="collapse submenu list-unstyled {{ show_class(['maps/*']) }}" id="maps" data-parent="#accordionExample">
                 <li class=" {{ active_class(['maps/leaflet-map']) }}">
@@ -79,14 +90,15 @@
             </ul>
         </li>
         <li class="menu">
-            <a href="#charts" data-active="{{ is_active_route(['charts/*']) }}" data-toggle="collapse" aria-expanded="{{ is_active_route(['charts/*']) }}" class="dropdown-toggle">
-                <div class="">
-                    <i class="las la-chart-pie"></i>
-                    <span>Edition</span>
-                </div>
-                <div>
+            <a href="#charts" data-active="{{ is_active_route(['charts/*']) }}" data-toggle="collapse" aria-expanded="{{ is_active_route(['charts/*']) }}" class="dropdown-toggle justify-content-end">
+            <div>
                     <i class="las la-angle-right sidemenu-right-icon"></i>
                 </div>
+                <div class="">
+                   
+                    <span>Edition</span> <i class="las la-chart-pie"></i>
+                </div>
+               
             </a>
             <ul class="collapse submenu list-unstyled {{ show_class(['charts/*']) }}" id="charts" data-parent="#accordionExample">
                 <li class=" {{ active_class(['charts/apex-chart']) }}">
@@ -104,10 +116,10 @@
        
         <li class="menu-title"> {{__('Others')}}</li>
         <li class="menu">
-            <a href="http://neptuneweb.xyz" aria-expanded="false" class="dropdown-toggle">
+            <a href="http://neptuneweb.xyz" aria-expanded="false" class="dropdown-toggle justify-content-end">
                 <div class="">
-                    <i class="las la-file-code"></i>
-                    <span> Importation GC</span>
+                  
+                    <span> Importation GC</span>   <i class="las la-file-code"></i>
                 </div>
             </a>
         </li>

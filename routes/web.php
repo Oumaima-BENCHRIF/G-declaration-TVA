@@ -42,6 +42,9 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     })->name('fournisseur');
 
     Route::get('racine', function () {return view('apps.racine');});
+
+    Route::get('Achat', function () { return view('apps.Achat'); });
+
     
     Route::get('login', function () { return view('authentications.style1.login'); });
     
