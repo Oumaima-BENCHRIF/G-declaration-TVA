@@ -140,6 +140,32 @@ function viderchamp() {
   }
 }
 function table_succursale() {
+    
+
+    
+    var table = $('.data-table').DataTable({
+
+        processing: true,
+
+        serverSide: true,
+
+        ajax: "{{ route('ajaxproducts.index') }}",
+
+        columns: [
+
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+
+            {data: 'name', name: 'name'},
+
+            {data: 'detail', name: 'detail'},
+
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+
+        ]
+
+    });
+
+
   jQuery.ajax({
     url: "./table_succursale",
     type: "GET",
