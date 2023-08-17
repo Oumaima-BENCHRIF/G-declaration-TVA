@@ -102,7 +102,7 @@
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label>code fait generateurs</label>
-                                                        <select id="FK_fait_generateurs" name="FK_fait_generateurs" class="form-control select2 py-3" id="FK_fait_generateurs" name="FK_fait_generateurs">
+                                                        <select id="FK_fait_generateurs" name="FK_fait_generateurs" class="form-control select2 py-3" id="FK_fait_generateurs" >
                                                             
                                                         </select>
                                                         

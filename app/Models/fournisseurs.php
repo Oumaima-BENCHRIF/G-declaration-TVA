@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class racine extends Model
+class fournisseurs extends Model
 {
     use HasFactory;
     use SoftDeletes;
     protected $connection = 'mysql_portal';
     protected $id = 'id';
-    protected $table = 'racines';
+    protected $table = 'fournisseurs';
 }

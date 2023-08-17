@@ -17,6 +17,21 @@
 .select2-container {
     display: block;
 }
+.table > thead > tr > th  {
+    font-size: 10px !important;
+}
+.table > tbody > tr > td {
+    font-size: 13px !important; 
+}
+#rowracine1{
+    display: none;
+}
+#rowracine2{
+    display: none;
+}
+#colracine1{
+    display: none;
+}
 </style>
 <!--  Navbar Starts / Breadcrumb Area Starts -->
 <div class="sub-header-container">
@@ -127,10 +142,10 @@
                                                                                 <tr>
                                                                                     <th>TVA PRO</th>
                                                                                     <th>prorata</th>
-                                                                                    <th>c4</th>
-                                                                                    <th>c3</th>
-                                                                                    <th>c2</th>
-                                                                                    <th>c1</th>
+                                                                                    <th>Mode</th>
+                                                                                    <th>Racine</th>
+                                                                                    <th>Date fact</th>
+                                                                                    <th>Date payement</th>
                                                                                     <th>ID FIscal</th>
                                                                                     <th>ICE</th>
                                                                                     <th>FRS</th>
@@ -386,7 +401,7 @@
                                                             <span aria-hidden="true">×</span>
                                                         </button>
                                                         <h5 class="modal-title" id="exampleModalPopoversLabel">Ajouter
-                                                            facture</h5>
+                                                            Achat</h5>
 
                                                     </div>
                                                     <div class="modal-body " style="text-align: end;">
@@ -394,8 +409,8 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">N°ICE</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="validationCustom03" placeholder="N°ICE"
-                                                                    required>
+                                                                    id="N_ICE" name="N_ICE" placeholder="N°ICE"
+                                                                    disabled>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid N°ICE.
                                                                 </div>
@@ -404,20 +419,16 @@
                                                                 <label for="validationCustom03">identifiant
                                                                     fiscal</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="validationCustom03"
-                                                                    placeholder="identifiant fiscal" required>
+                                                                    id="id_fiscal"  name="id_fiscal"
+                                                                    placeholder="identifiant fiscal" disabled>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid identifiant fiscal.
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4 mb-4">
                                                                 <label>FRS</label>
-                                                                <select class="form-control select2 py-3">
-
-                                                                    <option>2023</option>
-                                                                    <option>2022</option>
-                                                                    <option>2021</option>
-                                                                    <option>2020</option>
+                                                                <select class="form-control select2 py-3" id="frs" name="frs" >
+                                                                
                                                                 </select>
                                                             </div>
 
@@ -426,9 +437,8 @@
 
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">date fact</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="validationCustom03"
-                                                                    placeholder="identifiant fiscal" required>
+                                                                <input class="form-control "  style="text-align: start"
+                                                                type="date"  id="example-date-input">
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid date fact.
                                                                 </div>
@@ -437,16 +447,16 @@
                                                                 <label for="validationCustom03">N°FACT</label>
                                                                 <input type="text" class="form-control"
                                                                     id="validationCustom03"
-                                                                    placeholder="identifiant fiscal" required>
+                                                                    placeholder="N°FACT" required>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid N°FACT.
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4 mb-3">
-                                                                <label for="validationCustom03">Designation</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="validationCustom03"
-                                                                    placeholder="identifiant fiscal" required>
+                                                                <label for="desc">Designation</label>
+                                                                <input type="text" name="desc" onblur="myFunction()" class="form-control"
+                                                                    id="desc"
+                                                                    placeholder="Designation" required>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid Designation.
                                                                 </div>
@@ -456,8 +466,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">TTC</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="validationCustom03" placeholder="TTC"
-                                                                    required>
+                                                                    id="validationCustom03" placeholder="TTC" required>
 
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid TTC.
@@ -466,37 +475,160 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">Mode de payement</label>
 
-                                                                <select class="form-control select2 py-3">
+                                                                <select class="form-control select2 py-3" id="Mpayement" name="Mpayement">
 
-                                                                    <option>2023</option>
-                                                                    <option>2022</option>
-                                                                    <option>2021</option>
-                                                                    <option>2020</option>
+                                                                
                                                                 </select>
                                                                 <div class="invalid-feedback">
-                                                                    Please provide a valid date payement.
+                                                                    Please provide a valid date Mode de payement.
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">date payement</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="validationCustom03" placeholder="N°ICE"
-                                                                    required>
+                                                                <input class="form-control" style="text-align: start" type="date"  id="example-date-input">
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid date payement.
                                                                 </div>
                                                             </div>
 
                                                         </div>
-                                                        <div class="row">
+                                                        <div class="border border-primary rounded m-1"  style="display: inline-block;">
+                                                            <div class="col-9 col-form-label">
+                                                                <div class="radio-inline d-flex">
+                                                                    <label class="radio radio-success ">
+                                                                        <input type="radio" name="radios5">
+                                                                        <span></span>HT</label>
+                                                                    <label class="radio radio-success  ">
+                                                                        <input type="radio" name="radios5"
+                                                                            checked="checked">
+                                                                        <span></span>TVA</label>
+                                                                    <label class="radio radio-success  ">
+                                                                        <input type="radio" name="radios5">
+                                                                        <span></span>TTC</label>
+                                                                    <label class="radio radio-success ">
+                                                                        <input type="radio" name="radios5">
+                                                                        <span></span>LIBRE</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row border border-light p-2 m-1"
+                                                            style="    background: #f0f6ff;">
+                                                            <div class="row">
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="validationCustom03">TVA
+                                                                        deductible</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03"
+                                                                        placeholder="TVA deducatible" required>
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="validationCustom03"> % Prorata</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03" placeholder="Prorata"
+                                                                        required>
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="validationCustom03">TVA</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03" placeholder="TVA"
+                                                                        required>
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="validationCustom03">MT HT</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03" placeholder="MT HT"
+                                                                        required>
+
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+
+                                                                    <label for="validationCustom03"> % Taux </label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="taux1" name="taux1" placeholder="% Taux"
+                                                                        disabled>
+                                                                </div>
+                                                                <div class="col-md-2 mb-3" id="colracine1" ></div>
+                                                                <div class="col-md-2 mb-3" id="colracine" >
+                                                                    <label>Rubriqe TVA</label>
+                                                                    <select class="form-control select2 py-3" id="racine" name="racine">
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row  " id="rowracine1">
+                                                                <div class="col-md-2 mb-3">
+                                                                   
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03"
+                                                                        placeholder="TVA deducatible" required>
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                   
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03" placeholder="Prorata"
+                                                                        required>
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                   
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03" placeholder="TVA"
+                                                                        required>
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                              
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03" placeholder="MT HT"
+                                                                        required>
+
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03" placeholder="% Taux"
+                                                                        disabled>
+                                                                </div>
+
+                                                                <div class="col-md-2 mb-3">
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            <div class="row  " id="rowracine2">
+                                                                <div class="col-md-2 mb-3">     
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03"
+                                                                        placeholder="TVA deducatible" required>
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03" placeholder="Prorata"
+                                                                        required>
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03" placeholder="TVA"
+                                                                        required>
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">            
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03" placeholder="MT HT"
+                                                                        required>
+
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="validationCustom03" placeholder="% Taux"
+                                                                        disabled>
+                                                                </div>
+
+                                                                <div class="col-md-2 mb-3">
+                                                                   
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer d-block">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save
-                                                            changes</button>
+                                                        <button type="button" class="btn btn-primary">Ajouter</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -533,141 +665,8 @@
         @endpush
         @push('custom-scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        <script type="text/javascript" src="{{URL::asset('js/Gestion_Achat.js')}}"></script>
         <script>
-        $('.select2').select2();
-        $(document).ready(function() {
-            $('#basic-dt').DataTable({
-                "language": {
-                    "paginate": {
-                        "previous": "<i class='las la-angle-left'></i>",
-                        "next": "<i class='las la-angle-right'></i>"
-                    }
-                },
-                "lengthMenu": [5, 10, 15, 20],
-                "pageLength": 5
-            });
-            $('#dropdown-dt').DataTable({
-                "language": {
-                    "paginate": {
-                        "previous": "<i class='las la-angle-left'></i>",
-                        "next": "<i class='las la-angle-right'></i>"
-                    }
-                },
-                "lengthMenu": [5, 10, 15, 20],
-                "pageLength": 5
-            });
-            $('#last-page-dt').DataTable({
-                "pagingType": "full_numbers",
-                "language": {
-                    "paginate": {
-                        "first": "<i class='las la-angle-double-left'></i>",
-                        "previous": "<i class='las la-angle-left'></i>",
-                        "next": "<i class='las la-angle-right'></i>",
-                        "last": "<i class='las la-angle-double-right'></i>"
-                    }
-                },
-                "lengthMenu": [3, 6, 9, 12],
-                "pageLength": 3
-            });
-            $.fn.dataTable.ext.search.push(
-                function(settings, data, dataIndex) {
-                    var min = parseInt($('#min').val(), 10);
-                    var max = parseInt($('#max').val(), 10);
-                    var age = parseFloat(data[3]) || 0; // use data for the age column
-                    if ((isNaN(min) && isNaN(max)) ||
-                        (isNaN(min) && age <= max) ||
-                        (min <= age && isNaN(max)) ||
-                        (min <= age && age <= max)) {
-                        return true;
-                    }
-                    return false;
-                }
-            );
-            var table = $('#range-dt').DataTable({
-                "language": {
-                    "paginate": {
-                        "previous": "<i class='las la-angle-left'></i>",
-                        "next": "<i class='las la-angle-right'></i>"
-                    }
-                },
-                "lengthMenu": [5, 10, 15, 20],
-                "pageLength": 5
-            });
-            $('#min, #max').keyup(function() {
-                table.draw();
-            });
-            $('#export-dt').DataTable({
-                dom: '<"row"<"col-md-6"B><"col-md-6"f> ><""rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>>',
-                buttons: {
-                    buttons: [{
-                            extend: 'excel',
-                            className: 'btn btn-soft-secondary'
-                        },
-                        {
-                            extend: 'pdf',
-                            className: 'btn btn-secondary'
-                        },
-                        {
-                            extend: 'print',
-                            className: 'btn btn-soft-info'
-                        }
-                    ]
-                },
-                "language": {
-                    "paginate": {
-                        "previous": "<i class='las la-angle-left'></i>",
-                        "next": "<i class='las la-angle-right'></i>"
-                    }
-                },
-                "lengthMenu": [7, 10, 20, 50],
-                "pageLength": 7
-            });
-            // Add text input to the footer
-            $('#single-column-search tfoot th').each(function() {
-                var title = $(this).text();
-                $(this).html('<input type="text" class="form-control" placeholder="Search ' + title +
-                    '" />');
-            });
-            // Generate Datatable
-            var table = $('#single-column-search').DataTable({
-                "language": {
-                    "paginate": {
-                        "previous": "<i class='las la-angle-left'></i>",
-                        "next": "<i class='las la-angle-right'></i>"
-                    }
-                },
-                "lengthMenu": [5, 10, 15, 20],
-                "pageLength": 5
-            });
-            // Search
-            table.columns().every(function() {
-                var that = this;
-                $('input', this.footer()).on('keyup change', function() {
-                    if (that.search() !== this.value) {
-                        that
-                            .search(this.value)
-                            .draw();
-                    }
-                });
-            });
-            var table = $('#toggle-column').DataTable({
-                "language": {
-                    "paginate": {
-                        "previous": "<i class='las la-angle-left'></i>",
-                        "next": "<i class='las la-angle-right'></i>"
-                    }
-                },
-                "lengthMenu": [5, 10, 15, 20],
-                "pageLength": 5
-            });
-            $('a.toggle-btn').on('click', function(e) {
-                e.preventDefault();
-                // Get the column API object
-                var column = table.column($(this).attr('data-column'));
-                // Toggle the visibility
-                column.visible(!column.visible());
-                $(this).toggleClass("toggle-clicked");
-            });
-        });
+
         </script>
         @endpush
