@@ -9,10 +9,16 @@
 {!! Html::style('assets/css/forms/theme-checkbox-radio.css') !!}
 {!! Html::style('assets/css/forms/form-widgets.css') !!}
 
-{!! Html::style('plugins/table/datatable/datatables.css') !!}
+
 <!-- {!! Html::style('plugins/table/datatable/dt-global_style.css') !!} -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+<link rel="stylesheet" href="{{URL::asset('css/tabulator.css')}}">
+<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 @endpush
 
 @section('content')
@@ -171,136 +177,17 @@
                                                         <!-- Datatable with export options -->
                                                         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                                                             <div class="widget-content widget-content-area br-6">
-
-                                                               
+                                                           
                                                                 <!-- or tableau style de = single-column-search -->
                                                                 <div class="table-responsive mb-4">
-                                                                    <table id="export-dt" class="table table-hover"
-                                                                        style="width:100%">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Nom Succursale</th>
-                                                                                <th>Période</th>
-                                                                                <th>Régime</th>
-                                                                                <th>Activité</th>
-                                                                                <th>ID fiscal</th>
-                                                                                <th>ICE</th>
-                                                                                <th>Téléphone</th>
-                                                                                
-                                                                                <th class="no-content"></th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                            <td>{{__('Tiger Nixon')}}</td>
-                                                                                <td>{{__('Tiger Nixon')}}</td>
-                                                                                <td>{{__('System Architect')}}</td>
-                                                                                <td>{{__('Edinburgh')}}</td>
-                                                                                <td>{{__('61')}}</td>
-                                                                                <td>{{__('2011/04/25')}}</td>
-                                                                                <td>{{__('$320,800')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td>{{__('Garrett Winters')}}</td>
-                                                                                <td>{{__('Garrett Winters')}}</td>
-                                                                                <td>{{__('Accountant')}}</td>
-                                                                                <td>{{__('Tokyo')}}</td>
-                                                                                <td>{{__('63')}}</td>
-                                                                                <td>{{__('2011/07/25')}}</td>
-                                                                                <td>{{__('$170,750')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr> <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Junior Technical Author')}}
-                                                                                </td>
-                                                                                <td>{{__('San Francisco')}}</td>
-                                                                                <td>{{__('66')}}</td>
-                                                                                <td>{{__('2009/01/12')}}</td>
-                                                                                <td>{{__('$86,000')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Cedric Kelly')}}</td>
-                                                                                <td>{{__('Senior Javascript Developer')}}
-                                                                                </td>
-                                                                                <td>{{__('Edinburgh')}}</td>
-                                                                                <td>{{__('22')}}</td>
-                                                                                <td>{{__('2012/03/29')}}</td>
-                                                                                <td>{{__('$433,060')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Tiger Nixon')}}</td>
-                                                                                <td>{{__('System Architect')}}</td>
-                                                                                <td>{{__('Edinburgh')}}</td>
-                                                                                <td>{{__('61')}}</td>
-                                                                                <td>{{__('2011/04/25')}}</td>
-                                                                                <td>{{__('$320,800')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Garrett Winters')}}</td>
-                                                                                <td>{{__('Accountant')}}</td>
-                                                                                <td>{{__('Tokyo')}}</td>
-                                                                                <td>{{__('63')}}</td>
-                                                                                <td>{{__('2011/07/25')}}</td>
-                                                                                <td>{{__('$170,750')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Junior Technical Author')}}
-                                                                                </td>
-                                                                                <td>{{__('San Francisco')}}</td>
-                                                                                <td>{{__('66')}}</td>
-                                                                                <td>{{__('2009/01/12')}}</td>
-                                                                                <td>{{__('$86,000')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Cedric Kelly')}}</td>
-                                                                                <td>{{__('Senior Javascript Developer')}}
-                                                                                </td>
-                                                                                <td>{{__('Edinburgh')}}</td>
-                                                                                <td>{{__('22')}}</td>
-                                                                                <td>{{__('2012/03/29')}}</td>
-                                                                                <td>{{__('$433,060')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                       
-                                                                    </table>
+                                                                <div>
+                                                                    <button id="download-csv">Download CSV</button>
+                                                                    <button id="download-json">Download JSON</button>
+                                                                    <button id="download-xlsx">Download XLSX</button>
+                                                                    <button id="download-pdf">Download PDF</button>
+                                                                    <button id="download-html">Download HTML</button>
+                                                                </div>
+                                                                    <div id="example-table"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
