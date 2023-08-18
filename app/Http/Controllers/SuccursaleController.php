@@ -91,11 +91,19 @@ class SuccursaleController extends Controller
     public function table_succursale()
     {
 
-        $table_succursale = succursale::all(); 
-        return response()->json([
-   
-            'table_succursale' => $table_succursale
-        ]);
-       
+        $table_succursale = succursale::all();
+        if ($table_succursale) {
+            return response()->json([
+                "code" => 200,
+                'liste_succursale' => $table_succursale,
+            ]);
+        } else {
+            return response()->json([
+                "code" => 500,
+                'message' => "Merci de Verifier votre connexion internet",
+            ]);
+        }
+
+
     }
 }
