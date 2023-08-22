@@ -6421,9 +6421,38 @@ img.skew-div-image {
     text-align: left;
   }
   .select2-container .select2-selection--single .select2-selection__rendered {
-    display: table-footer-group !important;
+    display: tabulator-paginator-group !important;
   }
 
   .table td, .table th {
     border-top: none;
   }
+
+
+
+
+  .tabulator .tabulator-header .tabulator-col {
+    /* background-color: red !important; */
+    background-color: #2262c6 !important;
+
+    color: #fff !important;
+    
+  }
+ .tabulator-footer {
+    background-color: #fff !important;
+    border-top: 1px solid #e7e7e7 !important;
+}
+ /* .tabulator-paginator {
+    align-items: flex-start !important;
+    padding-top: 10px !important;
+    padding-bottom: 9px !important;
+} */
+
+  .tabulator .tabulator-paginator{
+    margin: 0 !important;
+    white-space: nowrap !important;
+    text-align:left !important;
+    margin-top: 20px !important;
+
+  }
+

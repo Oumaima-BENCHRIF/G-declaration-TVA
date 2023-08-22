@@ -15,10 +15,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
 <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
-<link rel="stylesheet" href="{{URL::asset('css/tabulator.css')}}">
+<!-- <link rel="stylesheet" href="{{URL::asset('css/tabulator.css')}}"> -->
 <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 @endpush
 
 @section('content')
@@ -178,16 +179,14 @@
                                                         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                                                             <div class="widget-content widget-content-area br-6">
                                                            
-                                                                <!-- or tableau style de = single-column-search -->
                                                                 <div class="table-responsive mb-4">
-                                                                <div>
-                                                                    <button id="download-csv">Download CSV</button>
-                                                                    <button id="download-json">Download JSON</button>
-                                                                    <button id="download-xlsx">Download XLSX</button>
-                                                                    <button id="download-pdf">Download PDF</button>
-                                                                    <button id="download-html">Download HTML</button>
-                                                                </div>
-                                                                    <div id="example-table"></div>
+
+                                                                    <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
+                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button>
+                                                               
+                                                                    <div id="Liste-succursale" style="width: 100%;" class="header-table"></div>
+                                                
+                                                                   
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -210,6 +209,54 @@
         </div>
     </div>
 </div>
+<div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="p-5 text-center">
+                    <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                    <div class="text-3xl mt-5">Êtes-vous sûr?</div>
+                    <div class="text-slate-500 mt-2">Voulez-vous vraiment supprimer ces enregistrements ?<br>Ce processus ne peut pas être annulé.</div>
+                </div>
+                <form id="delet_Client" name="delet_Client" action="" method="post">
+
+                    <div class="px-5 pb-8 text-center">
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Anuuler</button>
+                        <input type="hidden" id="delete_id_client" name="delete_id_client">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-danger w-24">Supprimer</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+                        <div id="delet_succursale" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
+                                            <div class="modal-dialog">
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">{{__('?Êtes-vous sûr')}}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <i class="las la-times"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="modal-text">{{__(' ? Voulez-vous vraiment supprimer ces enregistrements ')}} <br>{{__('. Ce processus ne peut pas être annulé')}} </p>
+                                                    </div>
+                                                    <form id="Delet_succursale" name="Delet_succursale" action="{{ route('dashboard.DeleteSuccursale') }}" action="" method="post">
+                                                    <div class="modal-footer md-button">
+                                                        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> {{__('Annuler')}}</button>
+                                                        <input type="hidden" id="delete_id_succursale" name="delete_id_succursale">
+                                                        {{ csrf_field() }}
+                                                        <button type="submit" class="btn btn-primary">{{__('! Supprimer')}}</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
 <!-- Main Body Ends -->
 @endsection
 
@@ -244,5 +291,7 @@
 
 <script type="text/javascript" src="{{URL::asset('js/Gestion_succursale.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 
 @endpush

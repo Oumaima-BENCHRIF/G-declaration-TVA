@@ -27,11 +27,15 @@ Route::get('/dashboard', function () {
 
 Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'], function () {
     //*******  succursale
-    // Route::get('succursale', function () {return view('apps.succursale');})->name('succursale');
+    Route::get('test', function () {return view('apps.test');})->name('test');
     Route::get('/succursale', 'App\Http\Controllers\SuccursaleController@index')->name('succursale');
-
     // ajouter
     Route::post('/succursalses', [App\Http\Controllers\SuccursaleController::class, 'Stores'])->name('Stores');
+    // info succursaler with ID
+    Route::get('/succursalses/{id_succursale}',  [App\Http\Controllers\SuccursaleController::class, 'info_succursale'])->name('info_succursale');
+// delete succursale
+Route::post('DeleteSuccursalse', [App\Http\Controllers\SuccursaleController::class, 'destroy'])->name('DeleteSuccursale');
+
     // Liste regimes
     Route::get('FK_Regime', [App\Http\Controllers\SuccursaleController::class, 'Liste_Regime'])->name('Liste_Regime');
     // Liste fait generateurs

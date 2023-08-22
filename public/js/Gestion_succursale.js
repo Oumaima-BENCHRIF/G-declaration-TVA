@@ -57,26 +57,30 @@ $(document).ready(function () {
   //     });
   // });
   // ******Delete tos******
-  // $("#delete_Agents").on("submit", function (e) {
-  //     e.preventDefault();
-  //     var $this = jQuery(this);
-  //     var formData = jQuery($this).serializeArray();
-  //     jQuery.ajax({
-  //         url: $this.attr("action"),
-  //         type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
-  //         data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-  //         // dataFilter: 'json', //forme data
-  //         success: function (response) {
-  //             // Je récupère la réponse du fichier PHP
-  //             toastr.success(response.message);
-  //             jQuery("#delete-confirmation-modal").trigger("click");
-  //             table_Agents();
-  //         },
-  //         error: function (response) {
-  //             toastr.error(response.errors);
-  //         },
-  //     });
-  // });
+  $("#Delet_succursale").on("submit", function (e) {
+      e.preventDefault();
+      var $this = jQuery(this);
+      var formData = jQuery($this).serializeArray();
+      jQuery.ajax({
+          url: $this.attr("action"),
+          type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+          data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+          // dataFilter: 'json', //forme data
+          success: function (response) {
+              // Je récupère la réponse du fichier PHP
+              toastr.options = {
+                progressBar: true,
+                closeButton: true,
+              };
+              toastr.success(response.message, { timeOut: 12000 });
+              jQuery("#delet_succursale").trigger("click");
+              table_succursale();
+          },
+          error: function (response) {
+              toastr.error(response.danger);
+          },
+      });
+  });
 });
 
 function Liste_Regime() {
@@ -153,7 +157,7 @@ function table_succursale() {
         }
         $tabledata = responce.liste_succursale;
       });
-      var table = new Tabulator("#example-table", {
+      var table = new Tabulator("#Liste-succursale", {
         printAsHtml: true,
         printStyled: true,
         // height: 220,
@@ -167,15 +171,26 @@ function table_succursale() {
         placeholder: "No matching records found",
         tooltips: true,
         //custom formatter definition
-
+        responsiveLayout:"hide",  //hide columns that don't fit on the table
+        addRowPos:"top",          //when adding a new row, add it to the top of the table
+        history:true,             //allow undo and redo actions on the table
+        paginationCounter:"rows", //display count of paginated rows in footer
+        movableColumns:true,      //allow column order to be changed
+        initialSort:[             //set the initial sort order of the data
+            {column:"name", dir:"asc"},
+        ],
+        columnDefaults:{
+            tooltip:true,         //show tool tips on cells
+        },
+        
         columns: [
           {
             title: "Nom",
             width: 95,
             field: "nom_succorsale",
             vertAlign: "middle",
-            print: false,
-            download: false,
+            // print: false,
+            editor:true
           },
           {
             title: "ICE",
@@ -184,8 +199,10 @@ function table_succursale() {
             field: "ICE",
             hozAlign: "center",
             vertAlign: "middle",
-            print: false,
-            download: false,
+            // print: false,
+            // download: false,
+            editor:true
+
           },
           {
             title: "ID Fiscale",
@@ -194,40 +211,40 @@ function table_succursale() {
             field: "ID_Fiscale",
             hozAlign: "center",
             vertAlign: "middle",
-            print: false,
-            download: false,
+            // print: false,
+            // download: false,
           },
           {
             title: "Ville",
             field: "Ville",
             minWidth: 100,
             vertAlign: "middle",
-            print: false,
-            download: false,
+            // print: false,
+            // download: false,
           },
           {
             title: "Adresse",
             field: "Adresse",
             minWidth: 100,
             vertAlign: "middle",
-            print: false,
-            download: false,
+            // print: false,
+            // download: false,
           },
           {
             title: "Fax",
             field: "Fax",
             minWidth: 100,
             vertAlign: "middle",
-            print: false,
-            download: false,
+            // print: false,
+            // download: false,
           },
           {
             title: "Tele",
             field: "Tele",
             minWidth: 100,
             vertAlign: "middle",
-            print: false,
-            download: false,
+            // print: false,
+            // download: false,
           },
           {
             title: "Action",
@@ -236,28 +253,70 @@ function table_succursale() {
             responsive: 1,
             hozAlign: "center",
             vertAlign: "middle",
-            print: false,
-            download: false,
+          
             formatter(cell, formatterParams) {
               let a = $(`<div class="flex lg:justify-center items-center">
-                                    <a class="view flex items-center text-success tooltip mr-3" title="Consulter">
-                                        <svg xmlns="http://www.w3.org/2000/svg " width="24 " height="24 " viewBox="0 0 24 24 " fill="none " stroke="currentColor " stroke-width="2 " stroke-linecap="round " stroke-linejoin="round " icon-name="eye " data-lucide="eye " class="lucide lucide-eye w-4 h-4 mr-1 "><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z "></path><circle cx="12 " cy="12 " r="3 "></circle></svg>
+                                    <a class="view  mr-3" title="Consulter">
+                                        <svg xmlns="http://www.w3.org/2000/svg " width="20 " height="20 " viewBox="0 0 24 24 " fill="none " stroke="currentColor " stroke-width="2 " stroke-linecap="round " stroke-linejoin="round " icon-name="eye " data-lucide="eye " class="lucide lucide-eye w-4 h-4 mr-1 "><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z "></path><circle cx="12 " cy="12 " r="3 "></circle></svg>
                                     </a>
-                                        <a  class="edit lex items-center text-success tooltip mr-3" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#update-confirmation-modal">
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
+                                        <a  class="edit lex items-center text-success   mr-3" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#update-confirmation-modal">
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
                                     </a>
-                                    <a class="delete flex items-center text-danger tooltip" title="Supprimer" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal">
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='trash-2' data-lucide='trash-2' class='lucide lucide-trash-2 w-4 h-4 mr-1'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2'></path><line x1='10' y1='11' x2='10' y2='17'></line><line x1='14' y1='11' x2='14' y2='17'></line></svg>\n
+                                    <a  class="mb-2 mr-2 delete" data-toggle="modal" data-target="#delet_succursale">
+                                    <i class="lar la-trash-alt text-danger font-20 mr-2"></i>
                                     </a>
+
+                                   
                         </div>`);
 
               $(a)
                 .find(".delete")
-                .on("click", function () {});
+                .on("click", function () {
+                  jQuery.ajax({
+                    url:"./succursalses/" +cell.getData().id,
+                    type: "GET", // Le nom du fichier indiqué dans le formulaire
+                    dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                    // dataFilter: 'json', //forme data
+                    success: function (responce) {
+                      
+                        jQuery.each(responce.info_succursale,
+                            function (key, item) {
+                              document.getElementById("delete_id_succursale").value = item.id;
+                            }
+                        );
+                    },
+                });
+                });
 
               $(a)
                 .find(".view")
-                .on("click", function () {});
+                .on("click", function () {
+                  jQuery.ajax({
+                    url:"./succursalses/" +cell.getData().id,
+                    type: "GET", // Le nom du fichier indiqué dans le formulaire
+                    dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                    success: function (responce) {
+                        // affichage select
+                     
+                            jQuery.each(responce.info_succursale,
+                                function (key, item) {
+
+                                    document.getElementById("nom_succorsale").value = item.nom_succorsale;
+                                    document.getElementById("ICE").value = item.ICE;
+                                    document.getElementById("Email").value = item.Email;
+                                    document.getElementById("Activite").value = item.Activite;
+                                    document.getElementById("ID_Fiscale").value = item.ID_Fiscale;
+                                    document.getElementById("Ville").value = item.Ville;
+                                    document.getElementById("Tele").value = item.Tele;
+                                    document.getElementById("Adresse").value = item.Adresse;
+                                    document.getElementById("Fax").value = item.Fax;
+                                  
+                                }
+                            );
+                        
+                    },
+                });
+                });
               $(a)
                 .find(".edit")
                 .on("click", function () {});
@@ -269,16 +328,7 @@ function table_succursale() {
 
         rowDblClick: function (e, row) {},
       });
-//trigger download of data.csv file
-document.getElementById("download-csv").addEventListener("click", function(){
-  table.download("csv", "data.csv");
-});
-
-//trigger download of data.json file
-document.getElementById("download-json").addEventListener("click", function(){
-  table.download("json", "data.json");
-});
-
+ 
 //trigger download of data.xlsx file
 document.getElementById("download-xlsx").addEventListener("click", function(){
   table.download("xlsx", "data.xlsx", {sheetName:"My Data"});
@@ -288,14 +338,10 @@ document.getElementById("download-xlsx").addEventListener("click", function(){
 document.getElementById("download-pdf").addEventListener("click", function(){
   table.download("pdf", "data.pdf", {
       orientation:"portrait", //set page orientation to portrait
-      title:"Example Report", //add title to report
+      title:"Succursale", //add title to report
   });
 });
-
-//trigger download of data.html file
-document.getElementById("download-html").addEventListener("click", function(){
-  table.download("html", "data.html", {style:true});
-});
+ 
    
     },
   });
