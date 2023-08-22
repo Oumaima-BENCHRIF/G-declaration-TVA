@@ -91,10 +91,8 @@
                                                     <div class="col-md-3 mb-3">
 
                                                         <label>Régime</label>
-                                                        <select  id="FK_Regime" name="FK_Regime" class="form-control select2 py-3">
+                                                        <select  id="FK_Regime" name="FK_Regime" class="  py-3">
                                                       
-                                                            <option>Select</option>
-                                                           
                                                         </select>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid ICE.
@@ -175,132 +173,7 @@
                                                                
                                                                 <!-- or tableau style de = single-column-search -->
                                                                 <div class="table-responsive mb-4">
-                                                                    <table id="export-dt" class="table table-hover"
-                                                                        style="width:100%">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Nom Succursale</th>
-                                                                                <th>Période</th>
-                                                                                <th>Régime</th>
-                                                                                <th>Activité</th>
-                                                                                <th>ID fiscal</th>
-                                                                                <th>ICE</th>
-                                                                                <th>Téléphone</th>
-                                                                                
-                                                                                <th class="no-content"></th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                            <td>{{__('Tiger Nixon')}}</td>
-                                                                                <td>{{__('Tiger Nixon')}}</td>
-                                                                                <td>{{__('System Architect')}}</td>
-                                                                                <td>{{__('Edinburgh')}}</td>
-                                                                                <td>{{__('61')}}</td>
-                                                                                <td>{{__('2011/04/25')}}</td>
-                                                                                <td>{{__('$320,800')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td>{{__('Garrett Winters')}}</td>
-                                                                                <td>{{__('Garrett Winters')}}</td>
-                                                                                <td>{{__('Accountant')}}</td>
-                                                                                <td>{{__('Tokyo')}}</td>
-                                                                                <td>{{__('63')}}</td>
-                                                                                <td>{{__('2011/07/25')}}</td>
-                                                                                <td>{{__('$170,750')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr> <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Junior Technical Author')}}
-                                                                                </td>
-                                                                                <td>{{__('San Francisco')}}</td>
-                                                                                <td>{{__('66')}}</td>
-                                                                                <td>{{__('2009/01/12')}}</td>
-                                                                                <td>{{__('$86,000')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Cedric Kelly')}}</td>
-                                                                                <td>{{__('Senior Javascript Developer')}}
-                                                                                </td>
-                                                                                <td>{{__('Edinburgh')}}</td>
-                                                                                <td>{{__('22')}}</td>
-                                                                                <td>{{__('2012/03/29')}}</td>
-                                                                                <td>{{__('$433,060')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Tiger Nixon')}}</td>
-                                                                                <td>{{__('System Architect')}}</td>
-                                                                                <td>{{__('Edinburgh')}}</td>
-                                                                                <td>{{__('61')}}</td>
-                                                                                <td>{{__('2011/04/25')}}</td>
-                                                                                <td>{{__('$320,800')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Garrett Winters')}}</td>
-                                                                                <td>{{__('Accountant')}}</td>
-                                                                                <td>{{__('Tokyo')}}</td>
-                                                                                <td>{{__('63')}}</td>
-                                                                                <td>{{__('2011/07/25')}}</td>
-                                                                                <td>{{__('$170,750')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Junior Technical Author')}}
-                                                                                </td>
-                                                                                <td>{{__('San Francisco')}}</td>
-                                                                                <td>{{__('66')}}</td>
-                                                                                <td>{{__('2009/01/12')}}</td>
-                                                                                <td>{{__('$86,000')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                            <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Cedric Kelly')}}</td>
-                                                                                <td>{{__('Senior Javascript Developer')}}
-                                                                                </td>
-                                                                                <td>{{__('Edinburgh')}}</td>
-                                                                                <td>{{__('22')}}</td>
-                                                                                <td>{{__('2012/03/29')}}</td>
-                                                                                <td>{{__('$433,060')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                       
-                                                                    </table>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>

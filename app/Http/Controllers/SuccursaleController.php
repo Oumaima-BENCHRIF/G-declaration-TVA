@@ -68,7 +68,7 @@ class SuccursaleController extends Controller
 
     }
     //liste regimes
-    public function Liste_Regime(Request $request)
+    public function Liste_Regime()
     {
         $Liste_regimes = regime::where('regimes.deleted_at', '=', NULL)
             ->orderBy("id", "desc")->get();

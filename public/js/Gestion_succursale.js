@@ -1,5 +1,4 @@
 $(window).on("load", function () {
-  PDF_Print_Excel();
   // liste regime
   Liste_Regime();
   Liste_fait_generateurs();
@@ -139,183 +138,165 @@ function viderchamp() {
     $("#FK_fait_generateurs").html($lignes);
   }
 }
+
 function table_succursale() {
-    
-
-    
-    var table = $('.data-table').DataTable({
-
-        processing: true,
-
-        serverSide: true,
-
-        ajax: "{{ route('ajaxproducts.index') }}",
+  jQuery.ajax({
+    url: "table_succursale",
+    type: "GET", // Le nom du fichier indiqué dans le formulaire
+    dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+    // dataFilter: 'json', //forme data
+    success: function (responce) {
+      $tabledata = "";
+      // Je récupère la réponse du fichier PHP
+      jQuery.each(responce.liste_succursale, function (key, item) {
+        if (responce.liste_succursale.length == 0) {
+        }
+        $tabledata = responce.liste_succursale;
+      });
+      var table = new Tabulator("#example-table", {
+        printAsHtml: true,
+        printStyled: true,
+        // height: 220,
+        data: $tabledata,
+        layout: "fitColumns",
+        pagination: "local",
+        printHeader: "",
+        printFooter: "",
+        paginationSize: 5,
+        paginationSizeSelector: [10, 20, 30, 40],
+        placeholder: "No matching records found",
+        tooltips: true,
+        //custom formatter definition
 
         columns: [
-
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-
-            {data: 'name', name: 'name'},
-
-            {data: 'detail', name: 'detail'},
-
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-
-        ]
-
-    });
-
-
-  jQuery.ajax({
-    url: "./table_succursale",
-    type: "GET",
-    dataType: "json",
-    success: function (responce) {
-      // Je récupère la réponse du fichier PHP
-      jQuery.each(responce.listes_Agents, function (key, item) {
-        $tabledata = responce.listes_Agents;
-        console.log(item.value);
-      });
-    },
-  });
-}
-function PDF_Print_Excel() {
-  $(".select2").select2();
-
-  $(document).ready(function () {
-    $("#basic-dt").DataTable({
-      language: {
-        paginate: {
-          previous: "<i class='las la-angle-left'></i>",
-          next: "<i class='las la-angle-right'></i>",
-        },
-      },
-      lengthMenu: [5, 10, 15, 20],
-      pageLength: 5,
-    });
-    $("#dropdown-dt").DataTable({
-      language: {
-        paginate: {
-          previous: "<i class='las la-angle-left'></i>",
-          next: "<i class='las la-angle-right'></i>",
-        },
-      },
-      lengthMenu: [5, 10, 15, 20],
-      pageLength: 5,
-    });
-    $("#last-page-dt").DataTable({
-      pagingType: "full_numbers",
-      language: {
-        paginate: {
-          first: "<i class='las la-angle-double-left'></i>",
-          previous: "<i class='las la-angle-left'></i>",
-          next: "<i class='las la-angle-right'></i>",
-          last: "<i class='las la-angle-double-right'></i>",
-        },
-      },
-      lengthMenu: [3, 6, 9, 12],
-      pageLength: 3,
-    });
-    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-      var min = parseInt($("#min").val(), 10);
-      var max = parseInt($("#max").val(), 10);
-      var age = parseFloat(data[3]) || 0; // use data for the age column
-      if (
-        (isNaN(min) && isNaN(max)) ||
-        (isNaN(min) && age <= max) ||
-        (min <= age && isNaN(max)) ||
-        (min <= age && age <= max)
-      ) {
-        return true;
-      }
-      return false;
-    });
-    var table = $("#range-dt").DataTable({
-      language: {
-        paginate: {
-          previous: "<i class='las la-angle-left'></i>",
-          next: "<i class='las la-angle-right'></i>",
-        },
-      },
-      lengthMenu: [5, 10, 15, 20],
-      pageLength: 5,
-    });
-    $("#min, #max").keyup(function () {
-      table.draw();
-    });
-    $("#export-dt").DataTable({
-      dom: '<"row"<"col-md-6"B><"col-md-6"f> ><""rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>>',
-      buttons: {
-        buttons: [
           {
-            extend: "excel",
-            className: "btn btn-soft-secondary",
+            title: "Nom",
+            width: 95,
+            field: "nom_succorsale",
+            vertAlign: "middle",
+            print: false,
+            download: false,
           },
           {
-            extend: "pdf",
-            className: "btn btn-secondary",
+            title: "ICE",
+            minWidth: 100,
+            width: 43,
+            field: "ICE",
+            hozAlign: "center",
+            vertAlign: "middle",
+            print: false,
+            download: false,
           },
           {
-            extend: "print",
-            className: "btn btn-soft-info",
+            title: "ID Fiscale",
+            minWidth: 100,
+            width: 43,
+            field: "ID_Fiscale",
+            hozAlign: "center",
+            vertAlign: "middle",
+            print: false,
+            download: false,
           },
+          {
+            title: "Ville",
+            field: "Ville",
+            minWidth: 100,
+            vertAlign: "middle",
+            print: false,
+            download: false,
+          },
+          {
+            title: "Adresse",
+            field: "Adresse",
+            minWidth: 100,
+            vertAlign: "middle",
+            print: false,
+            download: false,
+          },
+          {
+            title: "Fax",
+            field: "Fax",
+            minWidth: 100,
+            vertAlign: "middle",
+            print: false,
+            download: false,
+          },
+          {
+            title: "Tele",
+            field: "Tele",
+            minWidth: 100,
+            vertAlign: "middle",
+            print: false,
+            download: false,
+          },
+          {
+            title: "Action",
+            minWidth: 110,
+            field: "actions",
+            responsive: 1,
+            hozAlign: "center",
+            vertAlign: "middle",
+            print: false,
+            download: false,
+            formatter(cell, formatterParams) {
+              let a = $(`<div class="flex lg:justify-center items-center">
+                                    <a class="view flex items-center text-success tooltip mr-3" title="Consulter">
+                                        <svg xmlns="http://www.w3.org/2000/svg " width="24 " height="24 " viewBox="0 0 24 24 " fill="none " stroke="currentColor " stroke-width="2 " stroke-linecap="round " stroke-linejoin="round " icon-name="eye " data-lucide="eye " class="lucide lucide-eye w-4 h-4 mr-1 "><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z "></path><circle cx="12 " cy="12 " r="3 "></circle></svg>
+                                    </a>
+                                        <a  class="edit lex items-center text-success tooltip mr-3" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#update-confirmation-modal">
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
+                                    </a>
+                                    <a class="delete flex items-center text-danger tooltip" title="Supprimer" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal">
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='trash-2' data-lucide='trash-2' class='lucide lucide-trash-2 w-4 h-4 mr-1'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2'></path><line x1='10' y1='11' x2='10' y2='17'></line><line x1='14' y1='11' x2='14' y2='17'></line></svg>\n
+                                    </a>
+                        </div>`);
+
+              $(a)
+                .find(".delete")
+                .on("click", function () {});
+
+              $(a)
+                .find(".view")
+                .on("click", function () {});
+              $(a)
+                .find(".edit")
+                .on("click", function () {});
+              return a[0];
+            },
+          },
+          // For print format
         ],
-      },
-      language: {
-        paginate: {
-          previous: "<i class='las la-angle-left'></i>",
-          next: "<i class='las la-angle-right'></i>",
-        },
-      },
-      lengthMenu: [7, 10, 20, 50],
-      pageLength: 7,
-    });
-    // Add text input to the footer
-    $("#single-column-search tfoot th").each(function () {
-      var title = $(this).text();
-      $(this).html(
-        '<input type="text" class="form-control" placeholder="Search ' +
-          title +
-          '" />'
-      );
-    });
-    // Generate Datatable
-    var table = $("#single-column-search").DataTable({
-      language: {
-        paginate: {
-          previous: "<i class='las la-angle-left'></i>",
-          next: "<i class='las la-angle-right'></i>",
-        },
-      },
-      lengthMenu: [5, 10, 15, 20],
-      pageLength: 5,
-    });
-    // Search
-    table.columns().every(function () {
-      var that = this;
-      $("input", this.footer()).on("keyup change", function () {
-        if (that.search() !== this.value) {
-          that.search(this.value).draw();
-        }
+
+        rowDblClick: function (e, row) {},
       });
-    });
-    var table = $("#toggle-column").DataTable({
-      language: {
-        paginate: {
-          previous: "<i class='las la-angle-left'></i>",
-          next: "<i class='las la-angle-right'></i>",
-        },
-      },
-      lengthMenu: [5, 10, 15, 20],
-      pageLength: 5,
-    });
-    $("a.toggle-btn").on("click", function (e) {
-      e.preventDefault();
-      // Get the column API object
-      var column = table.column($(this).attr("data-column"));
-      // Toggle the visibility
-      column.visible(!column.visible());
-      $(this).toggleClass("toggle-clicked");
-    });
+//trigger download of data.csv file
+document.getElementById("download-csv").addEventListener("click", function(){
+  table.download("csv", "data.csv");
+});
+
+//trigger download of data.json file
+document.getElementById("download-json").addEventListener("click", function(){
+  table.download("json", "data.json");
+});
+
+//trigger download of data.xlsx file
+document.getElementById("download-xlsx").addEventListener("click", function(){
+  table.download("xlsx", "data.xlsx", {sheetName:"My Data"});
+});
+
+//trigger download of data.pdf file
+document.getElementById("download-pdf").addEventListener("click", function(){
+  table.download("pdf", "data.pdf", {
+      orientation:"portrait", //set page orientation to portrait
+      title:"Example Report", //add title to report
+  });
+});
+
+//trigger download of data.html file
+document.getElementById("download-html").addEventListener("click", function(){
+  table.download("html", "data.html", {style:true});
+});
+   
+    },
   });
 }
