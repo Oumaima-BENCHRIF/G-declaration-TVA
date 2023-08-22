@@ -91,11 +91,70 @@ class SuccursaleController extends Controller
     public function table_succursale()
     {
 
-        $table_succursale = succursale::all(); 
-        return response()->json([
-   
-            'table_succursale' => $table_succursale
-        ]);
-       
+        $table_succursale = succursale::all();
+        if ($table_succursale) {
+            return response()->json([
+                "code" => 200,
+                'liste_succursale' => $table_succursale,
+            ]);
+        } else {
+            return response()->json([
+                "code" => 500,
+                'message' => "Merci de Verifier votre connexion internet",
+            ]);
+        }
+
+
+    }
+// liste succursale with id 
+    public function info_succursale(Request $request)
+    {
+        
+        $info_succursales = succursale::where('succursales.deleted_at', '=', NULL)
+        ->where('succursales.id', $request->id_succursale)->get();
+      
+        if ($info_succursales != null) {
+            return response()->json([
+                'info_succursale' => $info_succursales,
+                'status' => 200,
+                'message' => 'Succursale existe',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 400,
+                'errors' => 'Succursale n\éxiste pas',
+            ]);
+        }
+    }
+    // delete succursale
+    public function destroy(Request $request)
+    {
+
+         
+        try {
+            $check = succursale::where('id', $request->delete_id_succursale)->first();
+            
+            if ($check != null) {
+                $niveauurgence = succursale::find($request->delete_id_succursale);
+                $niveauurgence->delete();
+                
+              
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Suppression avec succès',
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 200,
+                    'danger' => 'Vérifiez votre données',
+                ]);
+            }
+        } catch (\Exception $e) {
+
+            return redirect()
+                ->back()
+                ->with('danger', 'Merci de vérifier la connexion internet, si non Contacter le service IT')
+                ->withInput();
+        }
     }
 }
