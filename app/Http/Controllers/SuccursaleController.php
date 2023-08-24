@@ -22,7 +22,6 @@ class SuccursaleController extends Controller
     public function Stores(SuccursalePostRequest $request)
     {
 
-
         try {
             $succursale = new succursale();
             $succursale->nom_succorsale = $request->input('nom_succorsale');

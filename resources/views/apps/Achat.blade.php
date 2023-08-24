@@ -10,6 +10,7 @@
 <!-- table css -->
 {!! Html::style('plugins/table/datatable/datatables.css') !!}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 @endpush
 @section('content')
@@ -180,9 +181,9 @@
                                                                                     <td>
                                                                                         <div class="action-btn">
                                                                                             <i
-                                                                                                class="lar la-edit text-primary font-20 mr-2 btn-edit-contact"></i>
+                                                                                                class="lar la-edit text-primary font-20 mr-2 btn-edit-contact" data-toggle="modal" data-target="#slideupModal"></i>
                                                                                             <i
-                                                                                                class="lar la-trash-alt text-danger font-20 mr-2"></i>
+                                                                                                class="lar la-trash-alt text-danger font-20 mr-2" ></i>
                                                                                         </div>
                                                                                     </td>
                                                                                 </tr>
@@ -390,12 +391,13 @@
                                                 data-target=".bd-example-modal-lg ">Ajouter</button>
                                         </div>
                                         <!-- End tableau -->
-                                        <!-- Add modal -->
-                                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                                        <!--start modal ajouter -->
+                                        <div class="modal fade bd-example-modal-lg"  role="dialog"
                                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
+                                                        
                                                         <button type="button" class="close m-0" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">×</span>
@@ -404,13 +406,16 @@
                                                             Achat</h5>
 
                                                     </div>
-                                                    <div class="modal-body " style="text-align: end;">
+                                                    <form  method="POST" id="Add_Achat"  action="{{ route('dashboard.StoresAchat') }}">
+                                                    @csrf 
+                                                    <div class="modal-body " id="mymodel" style="text-align: end;">
+                                                   
                                                         <div class="row">
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">N°ICE</label>
                                                                 <input type="text" class="form-control"
                                                                     id="N_ICE" name="N_ICE" placeholder="N°ICE"
-                                                                    disabled>
+                                                                    readonly>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid N°ICE.
                                                                 </div>
@@ -420,7 +425,8 @@
                                                                     fiscal</label>
                                                                 <input type="text" class="form-control"
                                                                     id="id_fiscal"  name="id_fiscal"
-                                                                    placeholder="identifiant fiscal" disabled>
+                                                                    placeholder="identifiant fiscal" readonly>
+                                                                    
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid identifiant fiscal.
                                                                 </div>
@@ -438,7 +444,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">date fact</label>
                                                                 <input class="form-control "  style="text-align: start"
-                                                                type="date"  id="example-date-input">
+                                                                type="date"  id="date_fact" name="date_fact" onblur="checkDate()">
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid date fact.
                                                                 </div>
@@ -446,7 +452,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">N°FACT</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="validationCustom03"
+                                                                    id="n_fact"  name="n_fact" onblur="checkNfact()"
                                                                     placeholder="N°FACT" required>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid N°FACT.
@@ -455,7 +461,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="desc">Designation</label>
                                                                 <input type="text" name="desc" onblur="myFunction()" class="form-control"
-                                                                    id="desc"
+                                                                    id="desc"  
                                                                     placeholder="Designation" required>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid Designation.
@@ -466,7 +472,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">TTC</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="validationCustom03" placeholder="TTC" required>
+                                                                    id="ttc"name="ttc" placeholder="TTC" onblur="calcul_ttc()"  >
 
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid TTC.
@@ -486,28 +492,28 @@
 
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">date payement</label>
-                                                                <input class="form-control" style="text-align: start" type="date"  id="example-date-input">
+                                                                <input class="form-control" style="text-align: start" type="date"  id="date_p" name="date_p">
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid date payement.
                                                                 </div>
                                                             </div>
 
                                                         </div>
-                                                        <div class="border border-primary rounded m-1"  style="display: inline-block;">
+                                                        <div class="border border-primary rounded m-1" id="select"  style="display: table;">
                                                             <div class="col-9 col-form-label">
                                                                 <div class="radio-inline d-flex">
                                                                     <label class="radio radio-success ">
-                                                                        <input type="radio" name="radios5">
+                                                                        <input type="radio" name="radios5"  id="HT">
                                                                         <span></span>HT</label>
                                                                     <label class="radio radio-success  ">
                                                                         <input type="radio" name="radios5"
-                                                                            checked="checked">
+                                                                              id="TVA">
                                                                         <span></span>TVA</label>
                                                                     <label class="radio radio-success  ">
-                                                                        <input type="radio" name="radios5">
+                                                                        <input type="radio" name="radios5"  id="TTC">
                                                                         <span></span>TTC</label>
                                                                     <label class="radio radio-success ">
-                                                                        <input type="radio" name="radios5">
+                                                                        <input type="radio" name="radios5" checked="checked"  id="LIBRE">
                                                                         <span></span>LIBRE</label>
                                                                 </div>
                                                             </div>
@@ -515,124 +521,152 @@
                                                         <div class="row border border-light p-2 m-1"
                                                             style="    background: #f0f6ff;">
                                                             <div class="row">
+                                                            <div class="col-md-2 mb-3">
+                                                                    <label for="validationCustom03"> % Prorata</label>
+                                                                    <input type="text" onblur="tva_didu()" class="form-control"
+                                                                        id="prorata" name="prorata" placeholder="Prorata"
+                                                                        >
+                                                                </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="validationCustom03">TVA
                                                                         deductible</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="validationCustom03"
-                                                                        placeholder="TVA deducatible" required>
+                                                                        id="tva_d1"  name="tva_d1"
+                                                                        placeholder="TVA deducatible" readonly>
                                                                 </div>
-                                                                <div class="col-md-2 mb-3">
-                                                                    <label for="validationCustom03"> % Prorata</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="validationCustom03" placeholder="Prorata"
-                                                                        required>
-                                                                </div>
+                                                               
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="validationCustom03">TVA</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="validationCustom03" placeholder="TVA"
+                                                                    <input type="text" onblur="calcul_tva()" class="form-control"
+                                                                    id="tva_1" name="tva_1" placeholder="TVA"
                                                                         required>
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
-                                                                    <label for="validationCustom03">MT HT</label>
+                                                                    <label>MT HT</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="validationCustom03" placeholder="MT HT"
+                                                                        id="MHT_1" name="MHT_1"  onblur="calcul_HT()" placeholder="MT HT"
                                                                         required>
 
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
 
-                                                                    <label for="validationCustom03"> % Taux </label>
+                                                                    <label for="taux1"> % Taux </label>
                                                                     <input type="text" class="form-control"
-                                                                        id="taux1" name="taux1" placeholder="% Taux"
-                                                                        disabled>
+                                                                        id="taux1"  placeholder=""
+                                                                        readonly>
                                                                 </div>
                                                                 <div class="col-md-2 mb-3" id="colracine1" ></div>
                                                                 <div class="col-md-2 mb-3" id="colracine" >
                                                                     <label>Rubriqe TVA</label>
-                                                                    <select class="form-control select2 py-3" id="racine" name="racine">
+                                                                    <select class="form-control select2 py-3" id="racine" name="racine" required>
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="row  " id="rowracine1">
-                                                                <div class="col-md-2 mb-3">
-                                                                   
-                                                                    <input type="text" class="form-control"
-                                                                        id="validationCustom03"
-                                                                        placeholder="TVA deducatible" required>
+                                                            <div class="row  " id="rowracine1" style="width: -webkit-fill-available">
+                                                            <div class="col-md-2 mb-3">
+                                                                  
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                    
                                                                     <input type="text" class="form-control"
-                                                                        id="validationCustom03" placeholder="Prorata"
-                                                                        required>
+                                                                        id="tva_d2"  name="tva_d2" readonly
+                                                                        placeholder="TVA deductible" >
                                                                 </div>
+                                                                
                                                                 <div class="col-md-2 mb-3">
                                                                    
-                                                                    <input type="text" class="form-control"
-                                                                        id="validationCustom03" placeholder="TVA"
-                                                                        required>
+                                                                    <input type="text" class="form-control" onblur="calcul_tva2()"
+                                                                        id="tva_2" name="tva_2" required placeholder="TVA"
+                                                                        >
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                               
-                                                                    <input type="text" class="form-control"
-                                                                        id="validationCustom03" placeholder="MT HT"
-                                                                        required>
+                                                                    <input type="text" class="form-control" readonly 
+                                                                        id="MHT_2" name="MHT_2" placeholder="MT HT"
+                                                                        >
 
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <input type="text" class="form-control"
-                                                                        id="validationCustom03" placeholder="% Taux"
-                                                                        disabled>
+                                                                        id="taux2"  placeholder=""
+                                                                        readonly>
                                                                 </div>
 
                                                                 <div class="col-md-2 mb-3">
                                                                     
                                                                 </div>
+                                                               
                                                             </div>
-                                                            <div class="row  " id="rowracine2">
+                                                            <div class="row  " id="rowracine2" style="width: -webkit-fill-available">
+                                                            <div class="col-md-2 mb-3">
+                                                                   
+                                                                </div>
                                                                 <div class="col-md-2 mb-3">     
                                                                     <input type="text" class="form-control"
-                                                                        id="validationCustom03"
-                                                                        placeholder="TVA deducatible" required>
+                                                                        id="tva_d3" name="tva_d3" readonly
+                                                                        placeholder="TVA deducatible" >
                                                                 </div>
+                                                                
                                                                 <div class="col-md-2 mb-3">
-                                                                    <input type="text" class="form-control"
-                                                                        id="validationCustom03" placeholder="Prorata"
-                                                                        required>
-                                                                </div>
-                                                                <div class="col-md-2 mb-3">
-                                                                    <input type="text" class="form-control"
-                                                                        id="validationCustom03" placeholder="TVA"
-                                                                        required>
+                                                                    <input type="text" class="form-control" onblur="calcul_tva3()"
+                                                                        id="tva_3" name="tva_3" required placeholder="TVA"
+                                                                        >
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">            
-                                                                    <input type="text" class="form-control"
-                                                                        id="validationCustom03" placeholder="MT HT"
-                                                                        required>
+                                                                    <input type="text" class="form-control" readonly
+                                                                        id="MHT_3" name="MHT_3" placeholder="MT HT"
+                                                                        >
 
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <input type="text" class="form-control"
-                                                                        id="validationCustom03" placeholder="% Taux"
-                                                                        disabled>
+                                                                        id="taux3"  placeholder=""
+                                                                        readonly>
                                                                 </div>
 
                                                                 <div class="col-md-2 mb-3">
                                                                    
                                                                 </div>
+                                                                
                                                             </div>
                                                         </div>
+                                                    
                                                     </div>
                                                     <div class="modal-footer d-block">
+                                                        
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Ajouter</button>
+                                                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <!--end modal ajouter -->
+                                          <!--start modal modefier -->
+                                          <div id="slideupModal" class="modal fade bd-example-modal-lg" role="dialog">
+                                            <div class="modal-dialog">
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">moddifier Achat</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <i class="las la-times"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                   
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer md-button">
+                                                        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> close</button>
+                                                        <button type="button" class="btn btn-primary">modifier</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                           <!--end modal modifier -->
                                     </div>
                                 </div>
                             </div>
@@ -664,9 +698,10 @@
         <!--  -->
         @endpush
         @push('custom-scripts')
+    
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
         <script type="text/javascript" src="{{URL::asset('js/Gestion_Achat.js')}}"></script>
-        <script>
-
-        </script>
+       
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
         @endpush

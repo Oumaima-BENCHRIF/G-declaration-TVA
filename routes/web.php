@@ -30,7 +30,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     // Route::get('succursale', function () {return view('apps.succursale');})->name('succursale');
     Route::get('/succursale', 'App\Http\Controllers\SuccursaleController@index')->name('succursale');
 
-    // ajouter
+    // ajouter succursale
     Route::post('/succursalses', [App\Http\Controllers\SuccursaleController::class, 'Stores'])->name('Stores');
     // Liste regimes
     Route::get('FK_Regime', [App\Http\Controllers\SuccursaleController::class, 'Liste_Regime'])->name('Liste_Regime');
@@ -48,7 +48,10 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
         Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
     // table succursale
     Route::get('table_succursale', [App\Http\Controllers\SuccursaleController::class, 'table_succursale'])->name('table_succursale');
-
+    // gestion Achat
+    Route::get('/achat', 'App\Http\Controllers\AchatController@index')->name('achat');
+    Route::post('/add_achat', [App\Http\Controllers\AchatController::class, 'Stores'])->name('StoresAchat');
+    Route::get('/get_achat/{nfact}', [App\Http\Controllers\AchatController::class, 'get_achat'])->name('get_achat');
     Route::get('fournisseur', function () {
         return view('apps.fournisseur');
     })->name('fournisseur');
