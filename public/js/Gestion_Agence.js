@@ -147,10 +147,13 @@ function update_agence() {
         // Je récupère la réponse du fichier PHP
         toastr.success(response.messages);
         table_Agence();
+<<<<<<< HEAD
         viderchamp();
         document.getElementById("Update").style.display = "none";
         document.getElementById("Enregistrer").style.display = "initial";
         $("#nouveau").css("display", "initial");
+=======
+>>>>>>> ebf6bd1dca5e8783b2859e5784d5055a91768826
     },
     error: function (response) {
         toastr.error(response.Error);

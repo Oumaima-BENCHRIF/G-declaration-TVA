@@ -62,7 +62,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     // ******* ajouter
     Route::post('/AddFournisseur', [App\Http\Controllers\FournisuerController::class, 'Stores'])->name('AddFournisseur');
     // info fournisseur
-    Route::get('/Fournisseur/{id_Fournisseur}',  [App\Http\Controllers\FournisuerController::class, 'info_fournisseur'])->name('info_fournisseur');
+    Route::get('/Fournisseur/{id_fournisseur}',  [App\Http\Controllers\FournisuerController::class, 'info_fournisseur'])->name('info_fournisseur');
     // delete fournisseur
     Route::post('Deletefournisseur', [App\Http\Controllers\FournisuerController::class, 'destroy'])->name('Deletefournisseur');
     // update fournisseur

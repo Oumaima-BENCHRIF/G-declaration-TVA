@@ -185,7 +185,6 @@
                                                                
                                                                     <div id="Liste-succursale" style="width: 100%;" class="header-table"></div>
                                                 
-                                                                   
                                                                 </div>
                                                             </div>
                                                         </div>
