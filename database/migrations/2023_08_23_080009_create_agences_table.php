@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSuccursalesTable extends Migration
+class CreateAgencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSuccursalesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_portal')->create('succursales', function (Blueprint $table) {
+        Schema::connection('mysql_portal')->create('agences', function (Blueprint $table) {
             $table->id();
             $table->longText('nom_succorsale')->nullable();
             $table->longText('ICE')->nullable();
@@ -50,6 +50,6 @@ class CreateSuccursalesTable extends Migration
      */
     public function down()
     {
-        Schema::connection('mysql_portal')->dropIfExists('succursales');
+        Schema::connection('mysql_portal')->dropIfExists('agences');
     }
 }

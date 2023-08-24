@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Neptune Error 404 2 | Neptune - Multipurpose Bootstrap Admin Template </title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
+    <title>Neptune Error 404 2 GESTION DECLARATION TVA<</title>
+    <!-- <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" /> -->
     <!-- Common Styles Starts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Common Styles Ends -->

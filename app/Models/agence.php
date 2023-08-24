@@ -6,14 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class succursale extends Model
+class agence extends Model
 {
     use HasFactory;
     use SoftDeletes;
     protected $connection = 'mysql_portal';
     protected $id = 'id';
-    protected $table = 'succursales';
+    protected $table = 'agences';
     protected $fillable = [
         'nom_succorsale',
         'ICE',
@@ -26,6 +25,7 @@ class succursale extends Model
         'Fax',
         'FK_Regime',
         'FK_fait_generateurs',
+        'nomBD',
     ];
 
     protected $dates = ['deleted_at'];

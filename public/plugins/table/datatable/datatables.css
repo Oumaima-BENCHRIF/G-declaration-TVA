@@ -15,8 +15,9 @@ table.dataTable {
   margin-top: 6px !important;
   margin-bottom: 6px !important;
   max-width: none !important;
-  border-collapse: separate !important;
-  border: none;
+  display: grid;
+  /* border-collapse: separate !important; */
+  /* border: none; */
 }
 table.dataTable td,
 table.dataTable th {
@@ -59,6 +60,7 @@ div.dataTables_wrapper div.dataTables_filter input {
   margin-left: 0.5em;
   display: inline-block;
   width: auto;
+  padding: 2px;
 }
 table.dataTable .form-control {
     color: #888ea8;
@@ -85,6 +87,7 @@ div.dataTables_wrapper div.dataTables_info {
   white-space: nowrap;
   color: #2262c6;
   margin-top: 20px;
+  display: none;
 }
 div.dataTables_wrapper div.dataTables_paginate {
   margin: 0;
@@ -237,3 +240,42 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:fir
 div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:last-child {
   padding-right: 0;
 }
+#export-dt{
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 0px;
+}
+#export-dt_wrapper{
+  text-align: initial;
+}
+#export-dt > thead{
+  /* background-color: #2262c6; */
+  /* background-color: #2262c6 !important;
+  background-image: linear-gradient(to right, #04befe 0%, #4481eb 100%) !important; */
+  background-color: #2262c6 !important;
+  background-image: linear-gradient(to right, #7579ff 0%, #b224ef 100%) !important;
+  color: #fff !important;
+  border-radius: 8px;
+}
+table >tbody
+{
+  background-color: #fff;
+}
+.tablet-dt{
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 0px;
+}
+.tablet-dt_wrapper{
+  text-align: initial;
+}
+.tablet-dt > thead{
+  /* background-color: #2262c6; */
+  /* background-color: #2262c6 !important;
+  background-image: linear-gradient(to right, #04befe 0%, #4481eb 100%) !important; */
+  background-color: #2262c6 !important;
+  background-image: linear-gradient(to right, #7579ff 0%, #b224ef 100%) !important;
+  color: #fff !important;
+  border-radius: 8px;
+}
+
