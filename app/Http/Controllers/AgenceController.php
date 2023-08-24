@@ -2,41 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SuccursalePostRequest;
-use App\Models\succursale;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\AgencesPostRequest;
+
 use Illuminate\Http\Request;
 use App\Models\regime;
 use App\Models\fait_generateur;
+use App\Models\agence;
 
-
-class SuccursaleController extends Controller
+class AgenceController extends Controller
 {
     public function index()
     {
-        return view('apps.succursale');
+        return view('apps.Agence');
     }
-    //Enregister succursale
-    public function Stores(SuccursalePostRequest $request)
+    //Enregister agence
+    public function Stores(AgencesPostRequest $request)
     {
 
 
         try {
-            $succursale = new succursale();
-            $succursale->nom_succorsale = $request->input('nom_succorsale');
-            $succursale->ICE = $request->input('ICE');
-            $succursale->Email = $request->input('Email');
-            $succursale->Activite = $request->input('Activite');
-            $succursale->ID_Fiscale = $request->input('ID_Fiscale');
-            $succursale->Ville = $request->input('Ville');
-            $succursale->Tele = $request->input('Tele');
-            $succursale->Adresse = $request->input('Adresse');
-            $succursale->Fax = $request->input('Fax');
-            $succursale->FK_Regime = $request->input('FK_Regime');
-            $succursale->FK_fait_generateurs = $request->input('FK_fait_generateurs');
-            $succursale->save();
+            $agence = new agence();
+            $agence->nom_succorsale = $request->input('nom_succorsale');
+            $agence->ICE = $request->input('ICE');
+            $agence->Email = $request->input('Email');
+            $agence->Activite = $request->input('Activite');
+            $agence->ID_Fiscale = $request->input('ID_Fiscale');
+            $agence->Ville = $request->input('Ville');
+            $agence->Tele = $request->input('Tele');
+            $agence->Adresse = $request->input('Adresse');
+            $agence->Fax = $request->input('Fax');
+            $agence->FK_Regime = $request->input('FK_Regime');
+            $agence->FK_fait_generateurs = $request->input('FK_fait_generateurs');
+            $agence->save();
 
             return response()->json([
                 'status' => 200,
@@ -87,15 +85,15 @@ class SuccursaleController extends Controller
             'Liste_fait_generateurs' => $Liste_regimes
         ]);
     }
-    // table succursale
-    public function table_succursale()
+    // table agence
+    public function table_agence()
     {
 
-        $table_succursale = succursale::all();
-        if ($table_succursale) {
+        $table_agence = agence::all();
+        if ($table_agence) {
             return response()->json([
                 "code" => 200,
-                'liste_succursale' => $table_succursale,
+                'liste_agence' => $table_agence,
             ]);
         } else {
             return response()->json([
@@ -106,36 +104,36 @@ class SuccursaleController extends Controller
 
 
     }
-// liste succursale with id 
-    public function info_succursale(Request $request)
+// liste agence with id 
+    public function info_agence(Request $request)
     {
         
-        $info_succursales = succursale::where('succursales.deleted_at', '=', NULL)
-        ->where('succursales.id', $request->id_succursale)->get();
-      
-        if ($info_succursales != null) {
+        $info_agences = agence::where('agences.deleted_at', '=', NULL)
+        ->where('agences.id', $request->id_agence)->get();
+     
+        if ($info_agences != null) {
             return response()->json([
-                'info_succursale' => $info_succursales,
+                'info_agence' => $info_agences,
                 'status' => 200,
-                'message' => 'Succursale existe',
+                'message' => 'agence existe',
             ]);
         } else {
             return response()->json([
                 'status' => 400,
-                'errors' => 'Succursale n\éxiste pas',
+                'errors' => 'agence n\éxiste pas',
             ]);
         }
     }
-    // delete succursale
+    // delete agence
     public function destroy(Request $request)
     {
 
          
         try {
-            $check = succursale::where('id', $request->delete_id_succursale)->first();
+            $check = agence::where('id', $request->delete_id_agence)->first();
             
             if ($check != null) {
-                $niveauurgence = succursale::find($request->delete_id_succursale);
+                $niveauurgence = agence::find($request->delete_id_agence);
                 $niveauurgence->delete();
                 
               
@@ -160,28 +158,29 @@ class SuccursaleController extends Controller
     
     public function Update(Request $request)
     {
-        dd($request);
+       
+
         try {
 
-            $update_succursale = succursale::where('id', $request->update_id_succorsale)->first();
-           
-
-            $update_succursale->num_ligne = $request->up_num_ligne;
-            $update_succursale->nom_client = $request->up_nom_client;
-            $update_succursale->prenom_client = $request->up_prenom_client;
-            $update_succursale->nom_arabe = $request->up_nom_arabe;
-            $update_succursale->prenom_arabe = $request->up_prenom_arabe;
+            $update_agence = agence::where('id', $request->update_id_agence)->first();
+          
+dd($request);
+            $update_agence->ICE = $request->ICE;
+            $update_agence->Email = $request->Email;
+            $update_agence->Activite = $request->Activite;
+            $update_agence->ID_Fiscale = $request->ID_Fiscale;
+            $update_agence->Ville = $request->Ville;
 
           
-            $update_succursale->num_GSM = $request->up_num_GSM;
-            $update_succursale->num_CIN = $request->up_num_CIN;
-            $update_succursale->Email = $request->up_Email;
-            $update_succursale->prix = $request->up_prix;
-            $update_succursale->genre = $request->up_genre;
-            $update_succursale->num_passeport = $request->up_num_passeport;
-            $update_succursale->date_naissance = $request->up_date_naissance;
+            $update_agence->Tele = $request->Tele;
+            $update_agence->Adresse = $request->Adresse;
+            $update_agence->nom_succorsale = $request->nom_succorsale;
+            $update_agence->Fax = $request->Fax;
+            $update_agence->FK_Regime = $request->FK_Regime;
+            $update_agence->FK_fait_generateurs = $request->FK_fait_generateurs;
+            $update_agence->nomBD = $request->nomBD;
 
-            $update_succursale->save();
+            $update_agence->save();
 
             return response()->json([
                 'status' => 200,

@@ -1,15 +1,14 @@
 $(window).on("load", function () {
   document.getElementById("Update").style.display = "none";
-  
-  // liste regime
+
   Liste_Regime();
   Liste_fait_generateurs();
-  table_succursale();
+  table_Agence();
 });
 $(document).ready(function () {
   // table_Agents();
   // ******Ajouter Succursale******
-  $("#Add_succursales").on("submit", function (e) {
+  $("#Add_Agence").on("submit", function (e) {
     e.preventDefault();
     var $this = jQuery(this);
     var formData = jQuery($this).serializeArray();
@@ -25,7 +24,7 @@ $(document).ready(function () {
           closeButton: true,
         };
         toastr.success(response.message, { timeOut: 12000 });
-        table_succursale();
+        table_Agence();
       },
       error: function (response) {
         toastr.options = {
@@ -39,9 +38,10 @@ $(document).ready(function () {
   // ***********
 
   // ******update To******
-  // $("#update_Agents").on("submit", function (e) {
+  // $("#Update").on("submit", function (e) {
   //     e.preventDefault();
   //     var $this = jQuery(this);
+  //     alert("ok");
   //     var formData = jQuery($this).serializeArray();
   //     jQuery.ajax({
   //         url: $this.attr("action"),
@@ -77,7 +77,7 @@ $(document).ready(function () {
         };
         toastr.success(response.message, { timeOut: 12000 });
         jQuery("#delet_succursale").trigger("click");
-        table_succursale();
+        table_Agence();
       },
       error: function (response) {
         toastr.error(response.danger);
@@ -85,7 +85,79 @@ $(document).ready(function () {
     });
   });
 });
+function getCSRFToken() {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+      var cookies = document.cookie.split(";");
+      for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, "csrftoken=".length) === "csrftoken=") {
+              cookieValue = decodeURIComponent(
+                  cookie.substring("csrftoken=".length)
+              );
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
 
+function update_agence() {
+  var formData = [];
+  var ICE = $("#ICE").val();
+  var Email = $("#Email").val();
+  var Activite = $("#Activite").val();
+  var ID_Fiscale = $("#ID_Fiscale").val();
+  var Ville = $("#Ville").val();
+  var Tele = $("#Tele").val();
+  var Adresse = $("#Adresse").val();
+  var nom_succorsale = $("#nom_succorsale").val();
+  var FK_Regime = $("#FK_Regime").val();
+  var FK_fait_generateurs = $("#FK_fait_generateurs").val();
+  var nomBD = $("#nomBD").val();
+  var Fax = $("#Fax").val();
+  var update_id_agence = $("#update_id_agence").val();
+  // formData.push(
+  //   { name: "ICE", value: "rr" },
+  //   // { name: "Email", value: Email },
+  //   // { name: "Activite", value: Activite },
+  //   // { name: "ID_Fiscale", value: ID_Fiscale },
+  //   // { name: "Ville", value: Ville },
+  //   // { name: "Tele", value: Tele },
+  //   // { name: "Adresse", value: Adresse },
+  //   // { name: "Fax", value: Fax },
+  //   // { name: "nom_succorsale", value: nom_succorsale },
+  //   // { name: "FK_Regime", value: FK_Regime },
+  //   // { name: "FK_fait_generateurs", value: FK_fait_generateurs },
+  //   // { name: "nomBD", value: "nomBD" },
+  //   // { name: "update_id_agence", value: update_id_agence },
+  // );  console.log(formData);
+
+//   jQuery.ajaxSetup({
+//     headers: {
+//         "X-CSRF-TOKEN": $(
+//             'meta[name="csrf-token"]'
+//         ).attr("content"),
+//     },
+// });
+formData.append("Ville", Ville);
+formData.append("update_id_agence", update_id_agence);
+  jQuery.ajax({
+    url: "./update_Agence/"+update_id_agence,
+    type: "POST", // Le nom du fichier indiqué dans le formulaire
+    data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+    // dataFilter: 'json', //forme data
+    success: function (response) {
+        // Je récupère la réponse du fichier PHP
+        toastr.success(response.messages);
+        table_Agents();
+    },
+    error: function (response) {
+        toastr.error(response.Error);
+    },
+});
+       
+}
 function Liste_Regime() {
   jQuery.ajax({
     url: "./FK_Regime",
@@ -146,19 +218,19 @@ function viderchamp() {
   }
 }
 
-function table_succursale() {
+function table_Agence() {
   jQuery.ajax({
-    url: "table_succursale",
+    url: "table_Agence",
     type: "GET", // Le nom du fichier indiqué dans le formulaire
     dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
     // dataFilter: 'json', //forme data
     success: function (responce) {
       $tabledata = "";
       // Je récupère la réponse du fichier PHP
-      jQuery.each(responce.liste_succursale, function (key, item) {
-        if (responce.liste_succursale.length == 0) {
+      jQuery.each(responce.liste_agence, function (key, item) {
+        if (responce.liste_agence.length == 0) {
         }
-        $tabledata = responce.liste_succursale;
+        $tabledata = responce.liste_agence;
       });
       var table = new Tabulator("#Liste-succursale", {
         printAsHtml: true,
@@ -256,36 +328,32 @@ function table_succursale() {
 
             formatter(cell, formatterParams) {
               let a = $(`<div class="flex lg:justify-center items-center">
-                                    <a class="view  mr-3" title="Consulter">
-                                        <svg xmlns="http://www.w3.org/2000/svg " width="20 " height="20 " viewBox="0 0 24 24 " fill="none " stroke="currentColor " stroke-width="2 " stroke-linecap="round " stroke-linejoin="round " icon-name="eye " data-lucide="eye " class="lucide lucide-eye w-4 h-4 mr-1 "><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z "></path><circle cx="12 " cy="12 " r="3 "></circle></svg>
-                                    </a>
-                                        <a  class="edit lex items-center text-success   mr-3" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#update-confirmation-modal">
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
-                                    </a>
-                                    <a  class="mb-2 mr-2 delete" data-toggle="modal" data-target="#delet_succursale">
-                                    <i class="lar la-trash-alt text-danger font-20 mr-2"></i>
-                                    </a>
-
-                                   
-                        </div>`);
+                                      <a class="view  mr-3" title="Consulter">
+                                          <svg xmlns="http://www.w3.org/2000/svg " width="20 " height="20 " viewBox="0 0 24 24 " fill="none " stroke="currentColor " stroke-width="2 " stroke-linecap="round " stroke-linejoin="round " icon-name="eye " data-lucide="eye " class="lucide lucide-eye w-4 h-4 mr-1 "><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z "></path><circle cx="12 " cy="12 " r="3 "></circle></svg>
+                                      </a>
+                                          <a  class="edit lex items-center text-success   mr-3" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#update-confirmation-modal">
+                                          <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
+                                      </a>
+                                      <a  class="mb-2 mr-2 delete" data-toggle="modal" data-target="#delet_succursale">
+                                      <i class="lar la-trash-alt text-danger font-20 mr-2"></i>
+                                      </a>
+  
+                                     
+                          </div>`);
 
               $(a)
                 .find(".delete")
                 .on("click", function () {
                   jQuery.ajax({
-                    url: "./succursalses/" + cell.getData().id,
+                    url: "./Agence/" + cell.getData().id,
                     type: "GET", // Le nom du fichier indiqué dans le formulaire
                     dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
                     // dataFilter: 'json', //forme data
                     success: function (responce) {
-                      jQuery.each(
-                        responce.info_succursale,
-                        function (key, item) {
-                          document.getElementById(
-                            "delete_id_succursale"
-                          ).value = item.id;
-                        }
-                      );
+                      jQuery.each(responce.info_agence, function (key, item) {
+                        document.getElementById("delete_id_agence").value =
+                          item.id;
+                      });
                     },
                   });
                 });
@@ -294,79 +362,69 @@ function table_succursale() {
                 .find(".view")
                 .on("click", function () {
                   jQuery.ajax({
-                    url: "./succursalses/" + cell.getData().id,
+                    url: "./Agence/" + cell.getData().id,
                     type: "GET", // Le nom du fichier indiqué dans le formulaire
                     dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
                     success: function (responce) {
                       // affichage select
 
-                      jQuery.each(
-                        responce.info_succursale,
-                        function (key, item) {
-                          document.getElementById("nom_succorsale").value =
-                            item.nom_succorsale;
-                          document.getElementById("ICE").value = item.ICE;
-                          document.getElementById("Email").value = item.Email;
-                          document.getElementById("Activite").value =
-                            item.Activite;
-                          document.getElementById("ID_Fiscale").value =
-                            item.ID_Fiscale;
-                          document.getElementById("Ville").value = item.Ville;
-                          document.getElementById("Tele").value = item.Tele;
-                          document.getElementById("Adresse").value =
-                            item.Adresse;
-                          document.getElementById("Fax").value = item.Fax;
-                          document.getElementById("FK_Regime").value =
-                            item.FK_Regime;
-                          document.getElementById("FK_fait_generateurs").value =
-                            item.FK_fait_generateurs;
-                          document.getElementById("Update").style.display =
-                            "none";
-                          document.getElementById("Enregistrer").style.display =
-                            "initial";
-                        }
-                      );
+                      jQuery.each(responce.info_agence, function (key, item) {
+                        document.getElementById("nom_succorsale").value =
+                          item.nom_succorsale;
+                        document.getElementById("ICE").value = item.ICE;
+                        document.getElementById("Email").value = item.Email;
+                        document.getElementById("Activite").value =
+                          item.Activite;
+                        document.getElementById("ID_Fiscale").value =
+                          item.ID_Fiscale;
+                        document.getElementById("Ville").value = item.Ville;
+                        document.getElementById("Tele").value = item.Tele;
+                        document.getElementById("Adresse").value = item.Adresse;
+                        document.getElementById("Fax").value = item.Fax;
+                        document.getElementById("FK_Regime").value =
+                          item.FK_Regime;
+                        document.getElementById("FK_fait_generateurs").value =
+                          item.FK_fait_generateurs;
+                        document.getElementById("Update").style.display =
+                          "none";
+                        document.getElementById("Enregistrer").style.display =
+                          "initial";
+                      });
                     },
                   });
                 });
               $(a)
                 .find(".edit")
                 .on("click", function () {
-                  document.getElementById("Update").style.display =
-                  "initial";
-                document.getElementById("Enregistrer").style.display =
-                  "none";
+                  document.getElementById("Update").style.display = "initial";
+                  document.getElementById("Enregistrer").style.display = "none";
                   jQuery.ajax({
-                    url: "./succursalses/" + cell.getData().id,
+                    url: "./Agence/" + cell.getData().id,
                     type: "GET", // Le nom du fichier indiqué dans le formulaire
                     dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
                     success: function (responce) {
                       // affichage select
 
-                      jQuery.each(
-                        responce.info_succursale,
-                        function (key, item) {
-                          document.getElementById("update_id_succorsale").value =item.id;
-                          document.getElementById("nom_succorsale").value =
-                            item.nom_succorsale;
-                          document.getElementById("ICE").value = item.ICE;
-                          document.getElementById("Email").value = item.Email;
-                          document.getElementById("Activite").value =
-                            item.Activite;
-                          document.getElementById("ID_Fiscale").value =
-                            item.ID_Fiscale;
-                          document.getElementById("Ville").value = item.Ville;
-                          document.getElementById("Tele").value = item.Tele;
-                          document.getElementById("Adresse").value =
-                            item.Adresse;
-                          document.getElementById("Fax").value = item.Fax;
-                          document.getElementById("FK_Regime").value =
-                            item.FK_Regime;
-                          document.getElementById("FK_fait_generateurs").value =
-                            item.FK_fait_generateurs;
-                        
-                        }
-                      );
+                      jQuery.each(responce.info_agence, function (key, item) {
+                        document.getElementById("update_id_agence").value =
+                          item.id;
+                        document.getElementById("nom_succorsale").value =
+                          item.nom_succorsale;
+                        document.getElementById("ICE").value = item.ICE;
+                        document.getElementById("Email").value = item.Email;
+                        document.getElementById("Activite").value =
+                          item.Activite;
+                        document.getElementById("ID_Fiscale").value =
+                          item.ID_Fiscale;
+                        document.getElementById("Ville").value = item.Ville;
+                        document.getElementById("Tele").value = item.Tele;
+                        document.getElementById("Adresse").value = item.Adresse;
+                        document.getElementById("Fax").value = item.Fax;
+                        document.getElementById("FK_Regime").value =
+                          item.FK_Regime;
+                        document.getElementById("FK_fait_generateurs").value =
+                          item.FK_fait_generateurs;
+                      });
                     },
                   });
                 });

@@ -53,15 +53,15 @@
                                 <div class="widget-header">
                                     <div class="row">
                                         <div class=" col-xl-12 col-md-12 col-sm-12 col-12">
-                                            <h4>Gestion succursale</h4>
+                                            <h4>Gestion Agence</h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="widget-content widget-content-area">
                                     <div classs="form-group row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <form id="Add_succursales"  method="POST"  action="{{ route('dashboard.Stores') }}" class="needs-validation" novalidate action="javascript:void(0);">
-                                            @csrf 
+                                        <form id="Add_Agence"  method="POST"  action="{{ route('dashboard.AddAgence') }}" class="needs-validation" novalidate action="javascript:void(0);">
+                                        @csrf 
                                                 <div class="form-row">
                                                     <div class="col-md-3 mb-3">
                                                         <label for="Email">Email</label>
@@ -93,7 +93,7 @@
                                                     </div>
                                                   
                                                      
-                                                        <input type="text" id="update_id_succorsale" name="update_id_succorsale" required>
+                                                        <input type="text" id="update_id_agence" name="update_id_agence" required>
                                                       
                                                    
                                                 </div>
@@ -137,16 +137,15 @@
                                                 <div class="form-row">
                                                   
                                                 <div class="col-md-3 mb-3 pt-4">
-                                                <button class="btn btn btn-secondary " href="{{ url('apps/update_succursale') }}" id="Update" name="Update" type="submit"><i class="las la-edit"></i>Update</button>
+
+                                                
                                                     <button class="btn btn-primary" id="Enregistrer" name="Enregistrer" type="submit"><i class="las la-check-double"></i>Enregistrer</button>
-                                                    <button type="button" onclick=" viderchamp()" class="btn btn-soft-primary  "><i
-                                                            class="las la-info-circle"></i>Nouveau</button>
+                                                    <button type="button" onclick=" viderchamp()" class="btn btn-soft-primary  "><i class="las la-info-circle"></i>Nouveau</button>
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label for="Fax">Fax</label>
                                                         <input  type="number" class="form-control" id="Fax" name="Fax"
                                                              placeholder="Fax" >
-                                                       
                                                     </div>
 
                                                     <div class="col-md-3 mb-3">
@@ -166,6 +165,8 @@
                                                     
                                                 </div>
                                             </form>
+                                            <button class="btn btn btn-secondary " type="text"  id="Update" name="Update" onclick="update_agence()"><i class="las la-edit"></i>Update</button>
+
                                         </div>
                                     </div>
                                 </div>
@@ -248,10 +249,10 @@
                                                     <div class="modal-body">
                                                         <p class="modal-text">{{__(' ? Voulez-vous vraiment supprimer ces enregistrements ')}} <br>{{__('. Ce processus ne peut pas être annulé')}} </p>
                                                     </div>
-                                                    <form id="Delet_succursale" name="Delet_succursale" action="{{ route('dashboard.DeleteSuccursale') }}" action="" method="post">
+                                                    <form id="Delet_succursale" name="Delet_succursale" action="{{ route('dashboard.DeleteAgence') }}" action="" method="post">
                                                     <div class="modal-footer md-button">
                                                         <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> {{__('Annuler')}}</button>
-                                                        <input type="hidden" id="delete_id_succursale" name="delete_id_succursale">
+                                                        <input type="hidden" id="delete_id_agence" name="delete_id_agence">
                                                         {{ csrf_field() }}
                                                         <button type="submit" class="btn btn-primary">{{__('! Supprimer')}}</button>
                                                     </div>
@@ -291,7 +292,7 @@
 
 </script>
 
-<script type="text/javascript" src="{{URL::asset('js/Gestion_succursale.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('js/Gestion_Agence.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
