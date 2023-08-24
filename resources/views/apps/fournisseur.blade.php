@@ -15,6 +15,14 @@
 {!! Html::style('plugins/table/datatable/datatables.css') !!}
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+<!-- <link rel="stylesheet" href="{{URL::asset('css/tabulator.css')}}"> -->
+<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 
 @endpush
 @section('content')
@@ -58,7 +66,7 @@
                                 <div class="widget-content widget-content-area">
                                     <div class="form-group row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <form  method="POST"  action="{{ route('dashboard.AddFournisseur') }}" class="needs-validation" novalidate action="javascript:void(0);">
+                                            <form id="Add_fournisseur" name="Add_fournisseur" method="POST"  action="{{ route('dashboard.AddFournisseur') }}" class="needs-validation" novalidate action="javascript:void(0);">
                                             @csrf 
                                             <div class="form-row">
                                                     <div class="col-md-4 mb-4">
@@ -95,7 +103,7 @@
                                                             Please provide a valid ville.
                                                         </div>
                                                     </div>
-
+                                                    
                                                     <div class="col-md-4 mb-4">
                                                         <label for="NICE">N°ICE</label>
                                                         <input type="text" class="form-control" id="NICE" name="NICE"
@@ -114,12 +122,20 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="col-md-8 mb-4">
+                                                    <div class="col-md-4 mb-4">
                                                         <label for="Adresse">Adresse</label>
                                                         <input type="text" class="form-control" id="Adresse" name="Adresse"
                                                             placeholder="Adresse" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Adresse.
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 mb-4">
+                                                        <label for="Designation">Designation</label>
+                                                        <input type="text" class="form-control" id="Designation" name="Designation"
+                                                            placeholder="Designation" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Designation.
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4 mb-4">
@@ -130,16 +146,22 @@
                                                             Please provide a valid Teléphone.
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-4 mb-4">
+                                                    <input type="text" id="update_id_fournisseur" name="update_id_fournisseur" class="form-control" >
+
+                                                    </div>
                                                 </div>
                                         </div>
                                         <div></div>
                                         <div id="flex-container">
-                                            <button class="btn btn-primary mt-3" type="submit"><i
-                                                    class="las la-check-double"></i>Enregistrer</button>
-                                            <button type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
+                                        <button class="btn btn-primary" id="Enregistrer" name="Enregistrer" type="submit"><i class="las la-check-double"></i>Enregistrer</button>
+
+                                            <button onclick=" viderchamp()" id="Nouveau" name="Nouveau"  type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
                                                     class="las la-info-circle"></i>Nouveau</button>
                                         </div>
                                         </form>
+                                        <button class="btn btn btn-secondary mt-3" type="button"  id="Update" name="Update" onclick="update_fournisseur()"><i class="las la-edit"></i>Update</button>
+
                                     </div>
                                 </div>
                                 <!-- Debut tableau -->
@@ -154,144 +176,15 @@
                                                         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                                                             <div class="widget-content widget-content-area br-6">
 
-                                                                <!-- tableau style de toggle-column -->
-                                                                <!-- <div class="toggle-list">
-                                        <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="0">{{__('Name')}}</a>
-                                        <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="1">{{__('Hi')}}</a>
-                                        <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="2">{{__('Office')}}</a>
-                                        <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="3">{{__('Age')}}</a>
-                                        <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="4">{{__('Start date')}}</a>
-                                        <a class="btn btn-primary toggle-btn mb-4 mr-2" data-column="5">{{__('Salary')}}</a>
-                                    </div> -->
+                                                              
                                                                 <!-- or tableau style de = single-column-search -->
                                                                 <div class="table-responsive mb-4">
-                                                                    <table id="export-dt" class="table table-hover"
-                                                                        style="width:100%">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Teléphone</th>
-                                                                                <th>Adresse</th>
-                                                                                <th>N°ICE</th>
-                                                                                <th>identifiant fiscal</th>
-                                                                                <th>Nom Frs</th>
-                                                                                <th>N° Compte Comptable</th>
-                                                                                <th class="no-content"></th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>{{__('Tiger Nixon')}}</td>
-                                                                                <td>{{__('System Architect')}}</td>
-                                                                                <td>{{__('Edinburgh')}}</td>
-                                                                                <td>{{__('61')}}</td>
-                                                                                <td>{{__('2011/04/25')}}</td>
-                                                                                <td>{{__('$320,800')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>{{__('Garrett Winters')}}</td>
-                                                                                <td>{{__('Accountant')}}</td>
-                                                                                <td>{{__('Tokyo')}}</td>
-                                                                                <td>{{__('63')}}</td>
-                                                                                <td>{{__('2011/07/25')}}</td>
-                                                                                <td>{{__('$170,750')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Junior Technical Author')}}
-                                                                                </td>
-                                                                                <td>{{__('San Francisco')}}</td>
-                                                                                <td>{{__('66')}}</td>
-                                                                                <td>{{__('2009/01/12')}}</td>
-                                                                                <td>{{__('$86,000')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>{{__('Cedric Kelly')}}</td>
-                                                                                <td>{{__('Senior Javascript Developer')}}
-                                                                                </td>
-                                                                                <td>{{__('Edinburgh')}}</td>
-                                                                                <td>{{__('22')}}</td>
-                                                                                <td>{{__('2012/03/29')}}</td>
-                                                                                <td>{{__('$433,060')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>{{__('Tiger Nixon')}}</td>
-                                                                                <td>{{__('System Architect')}}</td>
-                                                                                <td>{{__('Edinburgh')}}</td>
-                                                                                <td>{{__('61')}}</td>
-                                                                                <td>{{__('2011/04/25')}}</td>
-                                                                                <td>{{__('$320,800')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>{{__('Garrett Winters')}}</td>
-                                                                                <td>{{__('Accountant')}}</td>
-                                                                                <td>{{__('Tokyo')}}</td>
-                                                                                <td>{{__('63')}}</td>
-                                                                                <td>{{__('2011/07/25')}}</td>
-                                                                                <td>{{__('$170,750')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>{{__('Ashton Cox')}}</td>
-                                                                                <td>{{__('Junior Technical Author')}}
-                                                                                </td>
-                                                                                <td>{{__('San Francisco')}}</td>
-                                                                                <td>{{__('66')}}</td>
-                                                                                <td>{{__('2009/01/12')}}</td>
-                                                                                <td>{{__('$86,000')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>{{__('Cedric Kelly')}}</td>
-                                                                                <td>{{__('Senior Javascript Developer')}}
-                                                                                </td>
-                                                                                <td>{{__('Edinburgh')}}</td>
-                                                                                <td>{{__('22')}}</td>
-                                                                                <td>{{__('2012/03/29')}}</td>
-                                                                                <td>{{__('$433,060')}}</td>
-                                                                                <td><a href="#" title="{{__('Edit')}}"
-                                                                                        class="font-20 text-primary"><i
-                                                                                            class="las la-edit"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                        <tfoot>
-                                                                            <tr>
-                                                                                <th>{{__('Name')}}</th>
-                                                                                <th>{{__('Position')}}</th>
-                                                                                <th>{{__('Office')}}</th>
-                                                                                <th>{{__('Age')}}</th>
-                                                                                <th>{{__('Start date')}}</th>
-                                                                                <th>{{__('Salary')}}</th>
-                                                                                <th></th>
-                                                                            </tr>
-                                                                        </tfoot>
-                                                                    </table>
+
+                                                                <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
+                                                                <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button>
+
+                                                                <div id="Liste-fournisseur" style="width: 100%;" class="header-table"></div>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -318,6 +211,30 @@
 </div>
 </div>
 </div>
+<div id="delet_fournisseur" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
+                                            <div class="modal-dialog">
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">{{__('?Êtes-vous sûr')}}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <i class="las la-times"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="modal-text">{{__(' ? Voulez-vous vraiment supprimer ces enregistrements ')}} <br>{{__('. Ce processus ne peut pas être annulé')}} </p>
+                                                    </div>
+                                                    <form id="Delet_fournisseur" name="Delet_fournisseur" action="{{ route('dashboard.Deletefournisseur') }}" action="" method="post">
+                                                    <div class="modal-footer md-button">
+                                                        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> {{__('Annuler')}}</button>
+                                                        <input type="hidden" id="delete_id_fournisseur" name="delete_id_fournisseur">
+                                                        {{ csrf_field() }}
+                                                        <button type="submit" class="btn btn-primary">{{__('! Supprimer')}}</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
 <!-- Main Body Ends -->
 @endsection
 
@@ -347,141 +264,7 @@ $('.select2').select2();
 
 
 
-$(document).ready(function() {
-    $('#basic-dt').DataTable({
-        "language": {
-            "paginate": {
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>"
-            }
-        },
-        "lengthMenu": [5, 10, 15, 20],
-        "pageLength": 5
-    });
-    $('#dropdown-dt').DataTable({
-        "language": {
-            "paginate": {
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>"
-            }
-        },
-        "lengthMenu": [5, 10, 15, 20],
-        "pageLength": 5
-    });
-    $('#last-page-dt').DataTable({
-        "pagingType": "full_numbers",
-        "language": {
-            "paginate": {
-                "first": "<i class='las la-angle-double-left'></i>",
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>",
-                "last": "<i class='las la-angle-double-right'></i>"
-            }
-        },
-        "lengthMenu": [3, 6, 9, 12],
-        "pageLength": 3
-    });
-    $.fn.dataTable.ext.search.push(
-        function(settings, data, dataIndex) {
-            var min = parseInt($('#min').val(), 10);
-            var max = parseInt($('#max').val(), 10);
-            var age = parseFloat(data[3]) || 0; // use data for the age column
-            if ((isNaN(min) && isNaN(max)) ||
-                (isNaN(min) && age <= max) ||
-                (min <= age && isNaN(max)) ||
-                (min <= age && age <= max)) {
-                return true;
-            }
-            return false;
-        }
-    );
-    var table = $('#range-dt').DataTable({
-        "language": {
-            "paginate": {
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>"
-            }
-        },
-        "lengthMenu": [5, 10, 15, 20],
-        "pageLength": 5
-    });
-    $('#min, #max').keyup(function() {
-        table.draw();
-    });
-    $('#export-dt').DataTable({
-        dom: '<"row"<"col-md-6"B><"col-md-6"f> ><""rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>>',
-        buttons: {
-            buttons: [{
-                    extend: 'excel',
-                    className: 'btn btn-soft-secondary'
-                },
-                {
-                    extend: 'pdf',
-                    className: 'btn btn-secondary'
-                },
-                {
-                    extend: 'print',
-                    className: 'btn btn-soft-info'
-                }
-            ]
-        },
-        "language": {
-            "paginate": {
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>"
-            }
-        },
-        "lengthMenu": [7, 10, 20, 50],
-        "pageLength": 7
-    });
-    // Add text input to the footer
-    $('#single-column-search tfoot th').each(function() {
-        var title = $(this).text();
-        $(this).html('<input type="text" class="form-control" placeholder="Search ' + title + '" />');
-    });
-    // Generate Datatable
-    var table = $('#single-column-search').DataTable({
-        "language": {
-            "paginate": {
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>"
-            }
-        },
-        "lengthMenu": [5, 10, 15, 20],
-        "pageLength": 5
-    });
-    // Search
-    table.columns().every(function() {
-        var that = this;
-        $('input', this.footer()).on('keyup change', function() {
-            if (that.search() !== this.value) {
-                that
-                    .search(this.value)
-                    .draw();
-            }
-        });
-    });
-    var table = $('#toggle-column').DataTable({
-        "language": {
-            "paginate": {
-                "previous": "<i class='las la-angle-left'></i>",
-                "next": "<i class='las la-angle-right'></i>"
-            }
-        },
-        "lengthMenu": [5, 10, 15, 20],
-        "pageLength": 5
-    });
-    $('a.toggle-btn').on('click', function(e) {
-        e.preventDefault();
-        // Get the column API object
-        var column = table.column($(this).attr('data-column'));
-        // Toggle the visibility
-        column.visible(!column.visible());
-        $(this).toggleClass("toggle-clicked");
-    });
-});
-
-//         function myFunction() {
+//  function myFunction() {
 //   document.getElementById("myDropdown").classList.toggle("show");
 // }
 
@@ -510,4 +293,10 @@ $(document).ready(function() {
 //   });
 // });
 </script>
+
+<script type="text/javascript" src="{{URL::asset('js/Gestion_fournisseur.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+
 @endpush

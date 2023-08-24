@@ -146,7 +146,7 @@ function update_agence() {
     success: function (response) {
         // Je récupère la réponse du fichier PHP
         toastr.success(response.messages);
-        table_Agents();
+        table_Agence();
     },
     error: function (response) {
         toastr.error(response.Error);
