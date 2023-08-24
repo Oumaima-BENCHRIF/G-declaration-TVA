@@ -117,36 +117,32 @@ function update_agence() {
   var nomBD = $("#nomBD").val();
   var Fax = $("#Fax").val();
   var update_id_agence = $("#update_id_agence").val();
-  // formData.push(
-  //   { name: "ICE", value: "rr" },
-  //   // { name: "Email", value: Email },
-  //   // { name: "Activite", value: Activite },
-  //   // { name: "ID_Fiscale", value: ID_Fiscale },
-  //   // { name: "Ville", value: Ville },
-  //   // { name: "Tele", value: Tele },
-  //   // { name: "Adresse", value: Adresse },
-  //   // { name: "Fax", value: Fax },
-  //   // { name: "nom_succorsale", value: nom_succorsale },
-  //   // { name: "FK_Regime", value: FK_Regime },
-  //   // { name: "FK_fait_generateurs", value: FK_fait_generateurs },
-  //   // { name: "nomBD", value: "nomBD" },
-  //   // { name: "update_id_agence", value: update_id_agence },
-  // );  console.log(formData);
+  formData.push(
+    { name: "ICE", value: ICE },
+    { name: "Email", value: Email },
+    { name: "Activite", value: Activite },
+    { name: "ID_Fiscale", value: ID_Fiscale },
+    { name: "Ville", value: Ville },
+    { name: "Tele", value: Tele },
+    { name: "Adresse", value: Adresse },
+    { name: "Fax", value: Fax },
+    { name: "nom_succorsale", value: nom_succorsale },
+    { name: "FK_Regime", value: FK_Regime },
+    { name: "FK_fait_generateurs", value: FK_fait_generateurs },
+    { name: "nomBD", value: "nomBD" },
+    { name: "update_id_agence", value: update_id_agence },
+  );
 
-//   jQuery.ajaxSetup({
-//     headers: {
-//         "X-CSRF-TOKEN": $(
-//             'meta[name="csrf-token"]'
-//         ).attr("content"),
-//     },
-// });
-formData.append("Ville", Ville);
-formData.append("update_id_agence", update_id_agence);
+
+
   jQuery.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
     url: "./update_Agence/"+update_id_agence,
-    type: "POST", // Le nom du fichier indiqué dans le formulaire
-    data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-    // dataFilter: 'json', //forme data
+    type: "get", // Le nom du fichier indiqué dans le formulaire
+    data:formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+
     success: function (response) {
         // Je récupère la réponse du fichier PHP
         toastr.success(response.messages);

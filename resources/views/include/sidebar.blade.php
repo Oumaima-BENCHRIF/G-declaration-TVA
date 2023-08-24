@@ -40,7 +40,7 @@
             </a>
             <ul class="collapse submenu list-unstyled {{ show_class(['apps/*']) }}" id="app" data-parent="#accordionExample">
                 <li class=" {{ active_class(['apps/Agence']) }}">
-                    <a data-active="{{ is_active_route(['apps/Agence']) }}" href="{{ url('/apps/Agence') }}"> Agence </a>
+                    <a data-active="{{ is_active_route(['apps/Agence']) }}" href="{{ url('/apps/Agence') }}"> Société </a>
                 </li>
                 <li class=" {{ active_class(['apps/fournisseur']) }}">
                     <a data-active="{{ is_active_route(['apps/fournisseur']) }}" href="{{ url('/apps/fournisseur') }}"> fournisseur </a>

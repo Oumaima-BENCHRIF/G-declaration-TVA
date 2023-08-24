@@ -163,8 +163,7 @@ class AgenceController extends Controller
         try {
 
             $update_agence = agence::where('id', $request->update_id_agence)->first();
-          
-dd($request);
+         
             $update_agence->ICE = $request->ICE;
             $update_agence->Email = $request->Email;
             $update_agence->Activite = $request->Activite;

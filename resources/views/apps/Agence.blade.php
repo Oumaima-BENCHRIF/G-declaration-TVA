@@ -32,7 +32,7 @@
                     <nav class="breadcrumb-one" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);"> {{__('Apps')}}</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><span>Agence</span></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span>Société</span></li>
                         </ol>
                     </nav>
                 </div>
@@ -53,7 +53,7 @@
                                 <div class="widget-header">
                                     <div class="row">
                                         <div class=" col-xl-12 col-md-12 col-sm-12 col-12">
-                                            <h4>Gestion Agence</h4>
+                                            <h4>Gestion société</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                                                     
                                                 </div>
                                             </form>
-                                            <button class="btn btn btn-secondary " type="text"  id="Update" name="Update" onclick="update_agence()"><i class="las la-edit"></i>Update</button>
+                                            <button class="btn btn btn-secondary " type="button"  id="Update" name="Update" onclick="update_agence()"><i class="las la-edit"></i>Update</button>
 
                                         </div>
                                     </div>
