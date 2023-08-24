@@ -14,4 +14,19 @@ class fournisseurs extends Model
     protected $connection = 'mysql_portal';
     protected $id = 'id';
     protected $table = 'fournisseurs';
+    protected $fillable = [
+        'nomFournisseurs',
+        'Designation',
+        'Adresse',
+        'telephone',
+        'ville',
+        'NICE',
+        'Fax',
+        'Num_compte_comptable',
+        'ID_fiscale',
+        
+    ];
+
+    protected $dates = ['deleted_at'];
+
 }
