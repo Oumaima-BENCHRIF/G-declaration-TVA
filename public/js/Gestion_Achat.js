@@ -1,11 +1,40 @@
+$('.select2').select2();
 $(window).on("load", function () {
     Liste_FRS();
     Liste_Mpyement();
     Liste_Racine();
+    $("#taux1").prop("readonly", true);
   });
-$('.select2').select2();
+
 $(document).ready(function() {
+    $("#Add_Achat").on("submit", function (e) {
+        e.preventDefault();
+        var $this = jQuery(this);
+        var formData = jQuery($this).serializeArray();
+        jQuery.ajax({
+          url: $this.attr("action"),
+          type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+          data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+          // dataFilter: 'json', //forme data
+          success: function (response) {
+            // Je récupère la réponse du fichier PHP
+            toastr.options = {
+              progressBar: true,
+              closeButton: true,
+            };
+            toastr.success(response.message, { timeOut: 12000 });
+          },
+          error: function (response) {
+            toastr.options = {
+              progressBar: true,
+              closeButton: true,
+            };
+            toastr.error("Merci de vérifier les champs");
+          },
+        });
+      });
     $('#frs').on('select2:select', function (e) {
+        myFunction();
      let value= $('#frs').val();
   
      jQuery.ajax({
@@ -13,12 +42,12 @@ $(document).ready(function() {
         type: "GET",
         dataType: "json",
         success: function (responce) {
-            $tabledata = responce.get_FRS;
-           
+            $tabledata = responce.get_FRS;  
           jQuery.each(responce.get_FRS, function (key, item) {
             $("#N_ICE").val($tabledata.NICE);
             $("#id_fiscal").val($tabledata.ID_fiscale);
-            
+            $("#desc").val($tabledata.Designation);
+            myFunction();
           });
         
         },
@@ -36,9 +65,7 @@ $(document).ready(function() {
                $tabledata = responce.get_racine;
             
              jQuery.each(responce.get_racine, function (key, item) {
-                $("#taux1").val($tabledata.Taux + '%');
-          
-               
+                $("#taux1").val($tabledata.Taux);   
              });
            
            },
@@ -177,7 +204,49 @@ $(document).ready(function() {
         column.visible(!column.visible());
         $(this).toggleClass("toggle-clicked");
     });
-
+    $('#racine').change(function() {
+        setTimeout(function() {
+            let ttc=$("#ttc").val();
+            let tva_1=$("#tva_1").val();
+            let MHT_1=$("#MHT_1").val();
+          
+            if(ttc!='')
+            {
+               
+                let taux1=parseFloat($("#taux1").val());    
+            let mht=ttc/(1+taux1);
+            mht=mht.toFixed(2);
+            let tva=ttc-mht;
+            tva=tva.toFixed(2);
+            $("#MHT_1").val(mht);
+            $("#tva_1").val(tva);
+        
+              
+            }else
+            {
+                if(tva_1!=''){
+                    let taux1=$("#taux1").val();
+                    console.log(taux1);
+                    let mht=tva_1/taux1;
+                    let ttc=mht+parseFloat(tva_1);
+                    mht=mht.toFixed(2);
+                    ttc=parseFloat(ttc).toFixed(2);
+                    $("#MHT_1").val(mht);
+                   $("#ttc").val(ttc);
+                }else{
+                    if(MHT_1=''){
+                        let taux1=parseFloat($("#taux1").val());
+                        let TVA=MHT_1*taux1;
+               let ttc=MHT_1+TVA;
+               MHT_1=MHT_1.toFixed(2);
+               ttc=ttc.toFixed(2);
+               $("#tva_1").val(TVA);
+              $("#ttc").val(ttc);
+                    }
+                }
+            }
+        }, 500);
+    });
 
 
 });
@@ -193,22 +262,30 @@ function myFunction() {
     let descValue = desc.value.toLowerCase();
     let selectedOption = frs.options[frs.selectedIndex];
 let selectedText = selectedOption.text.toLowerCase();
-    console.log(selectedText);
+ 
     if (descValue.startsWith("elect") && selectedText === "lydec") {
       
         $("#rowracine1").css("display", "flex");
         $("#rowracine2").css("display", "flex");
         $("#colracine").css("display", "none");
+        $("#select").css("display", "none");
         $("#colracine1").css("display", "block");
-        $("#taux1").prop("disabled", true);
+       // $("#racine").val(1);ID OF RACINE 7 IN LEDYC ELECT
+        $("#taux1").val(7);
+        $("#taux2").val(14);
+        $("#taux3").val(20);
+        $("#MHT_1").prop("readonly", true);
+        $("#ttc").prop("readonly", true);
+        $("#tva_1").prop("readonly", false);
     }else
    {
      
     $("#rowracine1").css("display", "none");
     $("#rowracine2").css("display", "none");
     $("#colracine").css("display", "block");
+    $("#select").css("display", "inline-block");
     $("#colracine1").css("display", "none");
-    $("#taux1").prop("disabled", false);
+    $("#taux1").prop("readonly", true);
    }
 }
 
@@ -272,5 +349,195 @@ function Liste_FRS() {
       },
     });
   }
+  function checkDate() {
+    var inputDate = new Date(document.getElementById("date_fact").value);
+    var currentDate = new Date();
 
+    // Calculate the date exactly one year ago from the current date
+    var oneYearAgo = new Date();
+    oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
+
+    if (inputDate < oneYearAgo) {
+        alert("la date est supérieur plus un an que la date de systeme");
+        document.getElementById("date_fact").value = '';
+    } 
+}
+document.addEventListener("DOMContentLoaded", function () {
+    var radioButtons = document.querySelectorAll("input[name='radios5']");
+
+    radioButtons.forEach(function (radio) {
+        radio.addEventListener("change", function () {
+            if (radio.id === "HT") {
+                $("#tva_1").prop("readonly", true);
+                $("#ttc").prop("readonly", true);
+                $("#MHT_1").prop("readonly", false);
+                $("#MHT_1").focus();
+            } else if (radio.id === "TVA") {
+                $("#MHT_1").prop("readonly", true);
+                $("#ttc").prop("readonly", true);
+                $("#tva_1").prop("readonly", false);
+                $("#tva_1").focus();
+            } else if (radio.id === "TTC") {
+                $("#ttc").prop("readonly", false);
+                $("#MHT_1").prop("readonly", true);
+                $("#tva_1").prop("readonly", true);
+                $("#ttc").prop("readonly", false);
+                $("#ttc").focus();
+            } else if (radio.id === "LIBRE") {
+                $("#MHT_1").prop("readonly", false);
+                $("#tva_1").prop("readonly", false);
+                $("#ttc").prop("readonly", false);
+               
+                
+            }
+        });
+    });
+});
+function calcul_ttc(){
+ let ttc=$("#ttc").val();
+ let taux1=$("#taux1").val();
+ if(ttc!='')
+{ 
+    if(taux1==''){
+        alert('merci de choiser la rubrique de tva');
+    }else{
+        if(ttc!=''){
+            console.log(ttc);
+        let mht=ttc/(1+taux1);
+        mht=mht.toFixed(2);
+        let tva=ttc-mht;
+        tva=tva.toFixed(2);
+        $("#MHT_1").val(mht);
+        $("#tva_1").val(tva);
+    }
+ }}
+    
+}
   
+function calcul_tva(){
+    let tva_1=$("#tva_1").val();
+    let taux1=$("#taux1").val();
+    if(tva_1!='')
+   {
+        console.log(taux1);
+       if(taux1==''){
+           alert('merci de choiser la rubrique de tva');
+       }else{
+        if(tva_1!=''){
+            console.log(tva_1);
+           let mht=tva_1/taux1;
+          
+           let ttc=mht+tva_1;
+           mht=mht.toFixed(2);
+           ttc=ttc.toFixed(2);
+           $("#MHT_1").val(mht);
+          $("#ttc").val(ttc);
+       }
+    }
+       
+   }}
+   function calcul_tva2(){
+    let tva_1=$("#tva_2").val();
+    let taux1=$("#taux2").val();
+    if(tva_1!='')
+ {
+        
+       if(taux1==''){
+           alert('merci de choiser la rubrique de tva');
+       }else{
+        if(tva_1!=''){
+           let mht=tva_1/taux1;
+          
+        //    let ttc=mht+tva_1;
+           mht=mht.toFixed(2);
+        //    ttc=ttc.toFixed(2);
+           $("#MHT_2").val(mht);
+        //   $("#ttc").val(ttc);
+       }}
+    }
+       
+   }
+   function calcul_tva3(){
+    let tva_1=$("#tva_3").val();
+    let taux1=$("#taux3").val();
+    if(tva_1!='')
+ {
+      
+       if(taux1==''){
+           alert('merci de choiser la rubrique de tva');
+       }else{
+        if(tva_1!=''){
+           let mht=tva_1/taux1;
+          
+        //    let ttc=mht+tva_1;
+           mht=mht.toFixed(2);
+        //    ttc=ttc.toFixed(2);
+           $("#MHT_3").val(mht);
+        //   $("#ttc").val(ttc);
+       }}
+    }
+       
+   }
+   function calcul_HT(){
+    let MHT_1=$("#MHT_1").val();
+    let taux1=$("#taux1").val();
+    if(MHT_1!='')
+   {
+       if(taux1==''){
+           alert('merci de choiser la rubrique de tva');
+       }else{
+        if(tva_1!=''){
+           let TVA=MHT_1*taux1;
+           let ttc=MHT_1+TVA;
+           MHT_1=MHT_1.toFixed(2);
+           ttc=ttc.toFixed(2);
+           $("#tva_1").val(TVA);
+          $("#ttc").val(ttc);
+       }}
+    }
+       
+   }
+   function tva_didu(){
+    let tva_1=$("#tva_1").val();
+    let tva_2=$("#tva_2").val();
+    let tva_3=$("#tva_3").val();
+    let prorata=$("#prorata").val();
+    if(tva_1!='')
+    {
+        let tva_did=tva_1*prorata/100;
+        $("#tva_d1").val(tva_did);
+    }
+    if(tva_2!='')
+    {   
+        let tva_did=tva_2*prorata/100;
+        $("#tva_d2").val(tva_did);
+    }
+    if(tva_3!='')
+    {
+        let tva_did=tva_3*prorata/100;
+        $("#tva_d3").val(tva_did);
+    }
+   }
+   function checkNfact(){
+    let value= $('#n_fact').val();
+  
+    jQuery.ajax({
+       url: "./get_achat/"+value,
+       type: "GET",
+       dataType: "json",
+       success: function (responce) {
+        if (!jQuery.isEmptyObject(responce.get_achat)) {
+            let duplicateFound = false;     
+         jQuery.each(responce.get_achat, function (key, item) {
+            if (!duplicateFound) {
+                alert('le numero de facture est deja exist');
+                $('#n_fact').val('');
+                $('#n_fact').focus();
+                duplicateFound = true;
+            }
+          
+         });}
+       },
+     });
+  
+   }

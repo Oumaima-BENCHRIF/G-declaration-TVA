@@ -19,9 +19,9 @@ class CreateAchatsTable extends Migration
             $table->date('Date_facture')->nullable();
             $table->date('Date_payment')->nullable();
             $table->longText('Designation')->nullable();
-            $table->longText('TVA_14')->nullable();
-            $table->longText('TVA_20')->nullable();
-            $table->longText('TVA_7')->nullable();
+            $table->longText('TVA_1')->nullable();
+            $table->longText('TVA_2')->nullable();
+            $table->longText('TVA_3')->nullable();
             $table->longText('M_HT_1')->nullable();
             $table->longText('M_HT_2')->nullable();
             $table->longText('M_HT_3')->nullable();
