@@ -62,8 +62,10 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     
     // ****** table succursale
     Route::get('table_succursale', [App\Http\Controllers\SuccursaleController::class, 'table_succursale'])->name('table_succursale');
-    Route::get('table_Agence', [App\Http\Controllers\AgenceController::class, 'table_Agence'])->name('table_Agence');
-
+    // gestion Achat
+    Route::get('/achat', 'App\Http\Controllers\AchatController@index')->name('achat');
+    Route::post('/add_achat', [App\Http\Controllers\AchatController::class, 'Stores'])->name('StoresAchat');
+    Route::get('/get_achat/{nfact}', [App\Http\Controllers\AchatController::class, 'get_achat'])->name('get_achat');
     Route::get('fournisseur', function () {
         return view('apps.fournisseur');
     })->name('fournisseur');
