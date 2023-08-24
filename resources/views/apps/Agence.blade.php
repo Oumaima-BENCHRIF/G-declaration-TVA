@@ -91,20 +91,15 @@
                                                             Please provide a valid Nom.
                                                         </div>
                                                     </div>
-                                                  
-                                                     
-                                                        <input type="text" id="update_id_agence" name="update_id_agence" required>
-                                                      
-                                                   
+                                                        <input type="text" id="update_id_agence" name="update_id_agence" required class="d-none">
+     
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-3 mb-3">
 
                                                         <label>Régime</label>
-                                                        <select  id="FK_Regime" name="FK_Regime" class=" select2 py-3">
-                                                      
-                                                            <option>Select</option>
-                                                           
+                                                        <select  id="FK_Regime" name="FK_Regime" class="form-control select2 py-3">
+   
                                                         </select>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid ICE.
@@ -112,7 +107,7 @@
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label>code fait generateurs</label>
-                                                        <select id="FK_fait_generateurs" name="FK_fait_generateurs" class=" select2 py-3" id="FK_fait_generateurs" >
+                                                        <select id="FK_fait_generateurs" name="FK_fait_generateurs" class="form-control select2 py-3" id="FK_fait_generateurs" >
                                                             
                                                         </select>
                                                         
@@ -140,7 +135,7 @@
 
                                                 
                                                     <button class="btn btn-primary" id="Enregistrer" name="Enregistrer" type="submit"><i class="las la-check-double"></i>Enregistrer</button>
-                                                    <button type="button" onclick=" viderchamp()" class="btn btn-soft-primary  "><i class="las la-info-circle"></i>Nouveau</button>
+                                                    <button type="button" id="nouveau" onclick="viderchamp()" class="btn btn-soft-primary  " ><i class="las la-info-circle"></i>Nouveau</button>
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label for="Fax">Fax</label>
@@ -165,8 +160,9 @@
                                                     
                                                 </div>
                                             </form>
+                                            <div class="" style="text-align: right;">
                                             <button class="btn btn btn-secondary " type="button"  id="Update" name="Update" onclick="update_agence()"><i class="las la-edit"></i>Update</button>
-
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -289,7 +285,9 @@
 @push('custom-scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
-
+  $(document).ready(function () {
+        $('.select2').select2();
+    });
 </script>
 
 <script type="text/javascript" src="{{URL::asset('js/Gestion_Agence.js')}}"></script>

@@ -26,8 +26,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'], function () {
-    //*******  Agence
-  
+    //*******  Société
+    // ****** table societe
+    // Route::get('table_succursale', [App\Http\Controllers\SuccursaleController::class, 'table_succursale'])->name('table_succursale');
+    Route::get('table_Agence', [App\Http\Controllers\AgenceController::class, 'table_Agence'])->name('table_Agence');
     // ******* view
     // Route::get('/succursale', 'App\Http\Controllers\SuccursaleController@index')->name('succursale');
     Route::get('/Agence', [App\Http\Controllers\AgenceController::class, 'index'])->name('agence');
@@ -44,11 +46,29 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('FK_Regime', [App\Http\Controllers\SuccursaleController::class, 'Liste_Regime'])->name('Liste_Regime');
     // Liste fait generateurs
     Route::get('FK_fait_generateurs', [App\Http\Controllers\SuccursaleController::class, 'Liste_generateurs'])->name('Liste_generateurs');
+    // update succursale
+    //   Route::get('update_succursale', [App\Http\Controllers\SuccursaleController::class, 'Update'])->name('update_succursale');
+    Route::get('update_Agence/{update_id_agence}', [App\Http\Controllers\AgenceController::class, 'Update'])->name('update_Agence');
     
-      // update succursale
-      Route::get('update_succursale', [App\Http\Controllers\SuccursaleController::class, 'Update'])->name('update_succursale');
-      Route::get('update_Agence/{update_id_agence}', [App\Http\Controllers\AgenceController::class, 'Update'])->name('update_Agence');
-   
+    
+    
+    
+    /* ************************************************************** fournisseur */
+    // View
+    Route::get('/Fourniseur', [App\Http\Controllers\FournisuerController::class, 'index'])->name('Fourniseur');
+
+    // table fournisseur
+    Route::get('table_fournisseur', [App\Http\Controllers\FournisuerController::class, 'table_fournisseur'])->name('table_fournisseur');
+    // ******* ajouter
+    Route::post('/AddFournisseur', [App\Http\Controllers\FournisuerController::class, 'Stores'])->name('AddFournisseur');
+    // info fournisseur
+    Route::get('/Fournisseur/{id_Fournisseur}',  [App\Http\Controllers\FournisuerController::class, 'info_fournisseur'])->name('info_fournisseur');
+    // delete fournisseur
+    Route::post('Deletefournisseur', [App\Http\Controllers\FournisuerController::class, 'destroy'])->name('Deletefournisseur');
+    // update fournisseur
+    Route::get('update_fournisseur/{update_id_fournisseur}', [App\Http\Controllers\FournisuerController::class, 'Update'])->name('update_fournisseur');
+    /* ************************************************************** */
+
     // liste FRS
     Route::get('FK_FRS', [App\Http\Controllers\AchatController::class, 'Liste_FRS'])->name('Liste_fournisseur');
      // Liste Mode de payement
@@ -66,6 +86,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('/achat', 'App\Http\Controllers\AchatController@index')->name('achat');
     Route::post('/add_achat', [App\Http\Controllers\AchatController::class, 'Stores'])->name('StoresAchat');
     Route::get('/get_achat/{nfact}', [App\Http\Controllers\AchatController::class, 'get_achat'])->name('get_achat');
+    
     Route::get('fournisseur', function () {
         return view('apps.fournisseur');
     })->name('fournisseur');

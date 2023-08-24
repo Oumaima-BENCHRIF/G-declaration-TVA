@@ -58,19 +58,20 @@
                                 <div class="widget-content widget-content-area">
                                     <div class="form-group row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <form class="needs-validation" novalidate action="javascript:void(0);">
-                                                <div class="form-row">
+                                            <form  method="POST"  action="{{ route('dashboard.AddFournisseur') }}" class="needs-validation" novalidate action="javascript:void(0);">
+                                            @csrf 
+                                            <div class="form-row">
                                                     <div class="col-md-4 mb-4">
-                                                        <label for="validationCustom04">identifiant fiscal</label>
-                                                        <input type="text" class="form-control" id="validationCustom04"
+                                                        <label for="ID_fiscale">identifiant fiscal</label>
+                                                        <input type="text" class="form-control" id="ID_fiscale" name="ID_fiscale"
                                                             placeholder="identifiant" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid identifiant.
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4 mb-4">
-                                                        <label for="validationCustom03">Nom Frs</label>
-                                                        <input type="text" class="form-control" id="validationCustom03"
+                                                        <label for="nomFournisseurs">Nom Frs</label>
+                                                        <input type="text" name="nomFournisseurs" id="nomFournisseurs" class="form-control" 
                                                             placeholder="Nom Fornisseur" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Nom.
@@ -78,21 +79,17 @@
                                                     </div>
                                                     <div class="col-md-4 mb-4">
                                                         <label>N° Compte Comptable</label>
-                                                        <select class="form-control select2 py-3">
-                                                            <option></option>
-                                                            <option>Select</option>
-                                                            <option>Car</option>
-                                                            <option>Bike</option>
-                                                            <option>Scooter</option>
-                                                            <option>Cycle</option>
-                                                            <option>Horse</option>
-                                                        </select>
+                                                        <input type="text" name="Num_compte_comptable" id="Num_compte_comptable" class="form-control" 
+                                                            placeholder="N° Compte Comptable" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Nom.
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-4 mb-4">
-                                                        <label for="validationCustom03">Ville</label>
-                                                        <input type="text" class="form-control" id="validationCustom03"
+                                                        <label for="ville">Ville</label>
+                                                        <input type="text" class="form-control" id="ville" name="ville"
                                                             placeholder="ville" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid ville.
@@ -100,16 +97,16 @@
                                                     </div>
 
                                                     <div class="col-md-4 mb-4">
-                                                        <label for="validationCustom03">N°ICE</label>
-                                                        <input type="text" class="form-control" id="validationCustom03"
+                                                        <label for="NICE">N°ICE</label>
+                                                        <input type="text" class="form-control" id="NICE" name="NICE"
                                                             placeholder="ICE" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid ICE.
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4 mb-4">
-                                                        <label for="validationCustom04">Fax</label>
-                                                        <input type="text" class="form-control" id="validationCustom04"
+                                                        <label for="Fax">Fax</label>
+                                                        <input type="text" class="form-control" id="Fax" name="Fax"
                                                             placeholder="Fax" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Fax.
@@ -118,16 +115,16 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-8 mb-4">
-                                                        <label for="validationCustom04">Adresse</label>
-                                                        <input type="text" class="form-control" id="validationCustom04"
+                                                        <label for="Adresse">Adresse</label>
+                                                        <input type="text" class="form-control" id="Adresse" name="Adresse"
                                                             placeholder="Adresse" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Adresse.
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4 mb-4">
-                                                        <label for="validationCustom05">Teléphone</label>
-                                                        <input type="text" class="form-control" id="validationCustom05"
+                                                        <label for="telephone">Téléphone</label>
+                                                        <input type="text" class="form-control" id="telephone" name="telephone"
                                                             placeholder="Teléphone" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Teléphone.
