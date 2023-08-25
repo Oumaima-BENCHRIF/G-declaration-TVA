@@ -244,8 +244,6 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:las
   border: 1px solid #ced4da;
   border-radius: 8px;
   padding: 0px;
-
-
 }
 #export-dt_wrapper{
   text-align: initial;
@@ -263,3 +261,21 @@ table >tbody
 {
   background-color: #fff;
 }
+.tablet-dt{
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 0px;
+}
+.tablet-dt_wrapper{
+  text-align: initial;
+}
+.tablet-dt > thead{
+  /* background-color: #2262c6; */
+  /* background-color: #2262c6 !important;
+  background-image: linear-gradient(to right, #04befe 0%, #4481eb 100%) !important; */
+  background-color: #2262c6 !important;
+  background-image: linear-gradient(to right, #7579ff 0%, #b224ef 100%) !important;
+  color: #fff !important;
+  border-radius: 8px;
+}
+

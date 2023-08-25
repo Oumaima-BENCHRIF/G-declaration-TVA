@@ -6,17 +6,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class type_payment extends Model
+class agence extends Model
 {
- 
     use HasFactory;
     use SoftDeletes;
     protected $connection = 'mysql_portal';
     protected $id = 'id';
-    protected $table = 'type_payments';
+    protected $table = 'agences';
     protected $fillable = [
-        'Num_payment',
-        'Nom_payment',
+        'nom_succorsale',
+        'ICE',
+        'Email',
+        'Activite',
+        'ID_Fiscale',
+        'Ville',
+        'Tele',
+        'Adresse',
+        'Fax',
+        'FK_Regime',
+        'FK_fait_generateurs',
+        'nomBD',
     ];
+
     protected $dates = ['deleted_at'];
 }
