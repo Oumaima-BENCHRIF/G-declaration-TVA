@@ -253,7 +253,8 @@ function table_succursale() {
             responsive: 1,
             hozAlign: "center",
             vertAlign: "middle",
-
+            print: false,
+            download: false,
             formatter(cell, formatterParams) {
               let a = $(`<div class="flex lg:justify-center items-center">
                                     <a class="view  mr-3" title="Consulter">

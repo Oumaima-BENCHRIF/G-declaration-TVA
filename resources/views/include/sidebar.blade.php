@@ -48,7 +48,9 @@
                 <li class=" {{ active_class(['apps/racine']) }}">
                     <a data-active="{{ is_active_route(['apps/racine']) }}" href="{{ url('/apps/racine') }}"> Racine </a>
                 </li>
-              
+                <li class=" {{ active_class(['apps/Type_payment']) }}">
+                    <a data-active="{{ is_active_route(['apps/Type_payment']) }}" href="{{ url('/apps/Type_payment') }}"> Type payment </a>
+                </li>
             </ul>
         </li>
         <li class="menu">
@@ -67,7 +69,17 @@
         </li>
  
 
-    
+        <li class="menu">
+        <a data-active="{{ is_active_route(['apps/utilisateur']) }}" href="{{ url('/apps/utilisateur') }}" class="dropdown-toggle justify-content-end">
+            <div class="">
+                    <span>Utilisateur</span>  <i class="las la-copy"></i>
+                </div>
+            </a>
+            <ul class="submenu list-unstyled collapse {{ show_class(['utilisateur/*']) }}" id="utilisateur" data-parent="#accordionExample">
+                <li class=" {{ active_class(['apps/utilisateur']) }}">
+                </li>
+            </ul>
+        </li>
             
         <li class="menu">
             <a href="#maps" data-active="{{ is_active_route(['maps/*']) }}" data-toggle="collapse" aria-expanded="{{ is_active_route(['maps/*']) }}" class="dropdown-toggle justify-content-end">

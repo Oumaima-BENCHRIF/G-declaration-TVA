@@ -69,6 +69,61 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('update_fournisseur/{update_id_fournisseur}', [App\Http\Controllers\FournisuerController::class, 'Update'])->name('update_fournisseur');
     /* ************************************************************** */
 
+  /* ************************************************************** racine */
+    // View
+    Route::get('/Racine', [App\Http\Controllers\RacineController::class, 'index'])->name('Racine');
+
+    // table Racine
+    Route::get('table_racine', [App\Http\Controllers\RacineController::class, 'table_Racine'])->name('table_Racine');
+    // ******* ajouter
+    Route::post('/AddRacine', [App\Http\Controllers\RacineController::class, 'Stores'])->name('AddRacine');
+    // info Racine
+    Route::get('/Racine/{id_Racine}',  [App\Http\Controllers\RacineController::class, 'info_Racine'])->name('info_Racine');
+    // delete Racine
+    Route::post('DeleteRacine', [App\Http\Controllers\RacineController::class, 'destroy'])->name('DeleteRacine');
+    // update Racine
+    Route::get('update_Racine/{update_id_Racine}', [App\Http\Controllers\RacineController::class, 'Update'])->name('update_Racine');
+    /* ************************************************************** */
+
+
+    
+  /* ************************************************************** type payment */
+    // View
+    Route::get('/Type_payment', [App\Http\Controllers\TypePaymentController::class, 'index'])->name('TypePayment');
+
+    // table TypePayment
+    Route::get('table_TypePayment', [App\Http\Controllers\TypePaymentController::class, 'table_TypePayment'])->name('table_TypePayment');
+    // ******* ajouter
+    Route::post('/AddTypePayment', [App\Http\Controllers\TypePaymentController::class, 'Stores'])->name('AddTypePayment');
+    // info TypePayment
+    Route::get('/TypePayment/{id_TypePayment}',  [App\Http\Controllers\TypePaymentController::class, 'info_TypePayment'])->name('info_TypePayment');
+    // delete TypePayment
+    Route::post('DeleteTypePayment', [App\Http\Controllers\TypePaymentController::class, 'destroy'])->name('DeleteTypePayment');
+    // update TypePayment
+    Route::get('update_TypePayment/{update_id_TypePayment}', [App\Http\Controllers\TypePaymentController::class, 'Update'])->name('update_TypePayment');
+    /* ************************************************************** */
+
+ /* ************************************************************** Regime */
+    // View
+    Route::get('/Regime', [App\Http\Controllers\RegimeController::class, 'index'])->name('Regime');
+
+    // table Regime
+    Route::get('table_Regime', [App\Http\Controllers\RegimeController::class, 'table_Regime'])->name('table_Regime');
+    // ******* ajouter
+    Route::post('/AddRegime', [App\Http\Controllers\RegimeController::class, 'Stores'])->name('AddRegime');
+    // info Regime
+    Route::get('/Regime/{id_Regime}',  [App\Http\Controllers\RegimeController::class, 'info_Regime'])->name('info_Regime');
+    // delete Regime
+    Route::post('DeleteRegime', [App\Http\Controllers\RegimeController::class, 'destroy'])->name('DeleteRegime');
+    // update Regime
+    Route::get('update_Regime/{update_id_Regime}', [App\Http\Controllers\RegimeController::class, 'Update'])->name('update_Regime');
+    /* ************************************************************** */
+
+
+    Route::get('utilisateur', function () {
+        return view('auth.utilisateur'); });
+
+
     // liste FRS
     Route::get('FK_FRS', [App\Http\Controllers\AchatController::class, 'Liste_FRS'])->name('Liste_fournisseur');
      // Liste Mode de payement

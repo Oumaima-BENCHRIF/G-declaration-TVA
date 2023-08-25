@@ -93,7 +93,7 @@
                                                     </div>
                                                   
                                                      
-                                                        <input type="text" id="update_id_agence" name="update_id_agence" required>
+                                                        <input type="hidden" id="update_id_agence" name="update_id_agence" required>
                                                       
                                                    
                                                 </div>

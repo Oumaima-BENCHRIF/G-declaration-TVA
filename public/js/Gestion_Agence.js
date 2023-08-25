@@ -321,6 +321,8 @@ function table_Agence() {
             responsive: 1,
             hozAlign: "center",
             vertAlign: "middle",
+            print: false,
+            download: false,
 
             formatter(cell, formatterParams) {
               let a = $(`<div class="flex lg:justify-center items-center">
