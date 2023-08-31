@@ -85,8 +85,10 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     // gestion Achat
     Route::get('/achat', 'App\Http\Controllers\AchatController@index')->name('achat');
     Route::post('/add_achat', [App\Http\Controllers\AchatController::class, 'Stores'])->name('StoresAchat');
+    Route::post('/update_achat', [App\Http\Controllers\AchatController::class, 'Update'])->name('update_achat');
     Route::get('/get_achat/{nfact}', [App\Http\Controllers\AchatController::class, 'get_achat'])->name('get_achat');
-    
+    Route::get('/get_achatbyID/{id}', [App\Http\Controllers\AchatController::class, 'get_achatbyID'])->name('get_achatbyID');
+    Route::get('table_Achat', [App\Http\Controllers\AchatController::class, 'table_achat'])->name('table_Achat');
     Route::get('fournisseur', function () {
         return view('apps.fournisseur');
     })->name('fournisseur');
