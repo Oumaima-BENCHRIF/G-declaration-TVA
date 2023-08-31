@@ -576,7 +576,7 @@
                                                                 <div class="col-md-2 mb-3">
                                                                    
                                                                     <input type="text" class="form-control" onblur="calcul_tva2()"
-                                                                        id="tva_2" name="tva_2" required placeholder="TVA"
+                                                                        id="tva_2" name="tva_2"  placeholder="TVA"
                                                                         >
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
@@ -609,7 +609,7 @@
                                                                 
                                                                 <div class="col-md-2 mb-3">
                                                                     <input type="text" class="form-control" onblur="calcul_tva3()"
-                                                                        id="tva_3" name="tva_3" required placeholder="TVA"
+                                                                        id="tva_3" name="tva_3"  placeholder="TVA"
                                                                         >
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">            

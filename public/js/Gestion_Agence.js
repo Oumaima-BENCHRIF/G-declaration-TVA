@@ -163,6 +163,10 @@ function update_agence() {
         // Je récupère la réponse du fichier PHP
         toastr.success(response.messages);
         table_Agence();
+        viderchamp();
+        document.getElementById("Update").style.display = "none";
+        document.getElementById("Enregistrer").style.display = "initial";
+        $("#nouveau").css("display", "initial");
     },
     error: function (response) {
         toastr.error(response.Error);
@@ -393,6 +397,7 @@ function table_Agence() {
                       // affichage select
 
                       jQuery.each(responce.info_agence, function (key, item) {
+                       
                         document.getElementById("nom_succorsale").value =
                           item.nom_succorsale;
                         document.getElementById("ICE").value = item.ICE;
@@ -423,6 +428,7 @@ function table_Agence() {
                 .on("click", function () {
                   document.getElementById("Update").style.display = "initial";
                   document.getElementById("Enregistrer").style.display = "none";
+                  $("#nouveau").css("display", "none");
                   jQuery.ajax({
                     url: "./Agence/" + cell.getData().id,
                     type: "GET", // Le nom du fichier indiqué dans le formulaire
@@ -431,6 +437,7 @@ function table_Agence() {
                       // affichage select
 
                       jQuery.each(responce.info_agence, function (key, item) {
+                       
                         document.getElementById("update_id_agence").value =
                           item.id;
                         document.getElementById("nom_succorsale").value =
@@ -450,6 +457,7 @@ function table_Agence() {
                           item.FK_Regime;
                         document.getElementById("FK_fait_generateurs").value =
                           item.FK_fait_generateurs;
+                         
                       });
                     },
                   });

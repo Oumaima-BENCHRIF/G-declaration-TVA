@@ -176,8 +176,9 @@
                                                    
                                                 </div>
                                             </form>
+                                            <div class="" style="text-align: right;">
                                             <button class="btn btn btn-secondary " type="button"  id="Update" name="Update" onclick="update_agence()"><i class="las la-edit"></i>Update</button>
-
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
