@@ -174,6 +174,7 @@ function table_fournisseur() {
             vertAlign: "middle",
             // print: false,
             // download: false,
+            editor: "input"
           }, 
            {
             title: "Adresse",
@@ -323,6 +324,45 @@ function table_fournisseur() {
             title: "Succursale", //add title to report
           });
         });
+
+        
     },
   });
+}
+document.getElementById('excelFileInput').addEventListener('change', handleFile);
+
+function handleFile(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+
+        const tableData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        createTabulatorTable(tableData);
+    };
+
+    reader.readAsArrayBuffer(file);
+}
+
+function createTabulatorTable(data) {
+    const table = new Tabulator('#table', {
+      data: data.map(row => Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))),
+      layout: 'fitColumns',
+      columns: getTableColumns(data[0]),
+    });
+    
+
+}
+
+function getTableColumns(headers) {
+  if (!headers) {
+      return [];
+  }
+  
+  return headers.map(header => ({ title: header, field: header }));
 }
