@@ -17,7 +17,6 @@ class CreateRegimesTable extends Migration
             $table->id();
             $table->longText('libelle')->nullable();
             $table->integer('periode')->nullable();
-            $table->date('date_regime')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

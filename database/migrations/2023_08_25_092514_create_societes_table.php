@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRacinesTable extends Migration
+class CreateSocietesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateRacinesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_portal')->create('racines', function (Blueprint $table) {
+        Schema::create('societes', function (Blueprint $table) {
             $table->id();
-            $table->integer('code_racines')->nullable();
-            $table->longText('Entilation_deducations')->nullable();
-            $table->integer('Taux')->nullable();
-
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +26,6 @@ class CreateRacinesTable extends Migration
      */
     public function down()
     {
-        Schema::connection('mysql_portal')->dropIfExists('racines');
+        Schema::dropIfExists('societes');
     }
 }

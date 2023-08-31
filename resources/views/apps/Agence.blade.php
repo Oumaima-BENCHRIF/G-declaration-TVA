@@ -91,15 +91,20 @@
                                                             Please provide a valid Nom.
                                                         </div>
                                                     </div>
-                                                        <input type="text" id="update_id_agence" name="update_id_agence" required class="d-none">
-     
+                                                  
+                                                     
+                                                        <input type="hidden" id="update_id_agence" name="update_id_agence" required>
+                                                      
+                                                   
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-3 mb-3">
 
                                                         <label>Régime</label>
-                                                        <select  id="FK_Regime" name="FK_Regime" class="form-control select2 py-3">
-   
+                                                        <select  id="FK_Regime"   name="FK_Regime" class="form-control select2 py-3">
+                                                      
+                                                            <option>Select</option>
+                                                           
                                                         </select>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid ICE.
@@ -130,13 +135,18 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                  
-                                                <div class="col-md-3 mb-3 pt-4">
 
                                                 
-                                                    <button class="btn btn-primary" id="Enregistrer" name="Enregistrer" type="submit"><i class="las la-check-double"></i>Enregistrer</button>
-                                                    <button type="button" id="nouveau" onclick="viderchamp()" class="btn btn-soft-primary  " ><i class="las la-info-circle"></i>Nouveau</button>
+                                                
+                                                  
+                                                    <div class="col-md-3 mb-3">
+                                                    
+                                                        <label for="Exercice">Exercice</label>
+                                                             <select id="Exercice"class="form-control select2 py-3" name="Exercice">
+
+                                                             </select>
                                                     </div>
+
                                                     <div class="col-md-3 mb-3">
                                                         <label for="Fax">Fax</label>
                                                         <input  type="number" class="form-control" id="Fax" name="Fax"
@@ -154,10 +164,16 @@
                                                         <input type="number" class="form-control" id="Tele" name="Tele"
                                                               placeholder="Téléphone" > 
                                                     </div>
+
                                                    
                                                 </div>
+<!--                                                 
+                                                <div class="col-md-3 mb-3 pt-4">
+                                                    </div> -->
                                                 <div id="flex-container">
-                                                    
+                                                <button class="btn btn-primary" id="Enregistrer" name="Enregistrer" type="submit"><i class="las la-check-double"></i>Enregistrer</button>
+                                                    <button type="button" onclick=" viderchamp()" class="btn btn-soft-primary  "><i class="las la-info-circle"></i>Nouveau</button>
+                                                   
                                                 </div>
                                             </form>
                                             <div class="" style="text-align: right;">
@@ -284,9 +300,7 @@
 @push('custom-scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
-  $(document).ready(function () {
-        $('.select2').select2();
-    });
+$('.select2').select2();
 </script>
 
 <script type="text/javascript" src="{{URL::asset('js/Gestion_Agence.js')}}"></script>

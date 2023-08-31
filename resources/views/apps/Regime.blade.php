@@ -33,7 +33,7 @@
                     <nav class="breadcrumb-one" aria-label="breadcrumb">
                         <ol class="breadcrumb">
 
-                            <li class="breadcrumb-item active" aria-current="page"><span> Racine</span></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span> Type payment</span></li>
                         </ol>
                     </nav>
                 </div>
@@ -54,43 +54,42 @@
                                 <div class="widget-header">
                                     <div class="row">
                                         <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                            <h4>Gestion Rcine</h4>
+                                            <h4>Gestion Type payment</h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="widget-content widget-content-area">
                                     <div class="form-group row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <form  id="Add_racin" name="Add_racin" method="POST"  action="{{ route('dashboard.AddRacine') }}" class="needs-validation" novalidate action="javascript:void(0);">
+                                        <!-- id="Add_typePayment" name="Add_typePayment" -->
+                                            <form id="Add_TypePayment" name="Add_TypePayment" method="POST"  action="{{ route('dashboard.AddTypePayment') }}" class="needs-validation" novalidate action="javascript:void(0);">
                                             @csrf 
                                             <div class="form-row">
-                                                    <div class="col-md-2 mb-2">
-                                                        <label for="Taux"> % Taux</label>
-                                                        <input type="text" class="form-control" id="Taux" name="Taux" placeholder="Taux"   required>
-                                                        <div class="invalid-feedback"> Please provide a valid Taux. </div>
-                                                    </div>
-                                                    <div class="col-md-6 mb-6">
-                                                        <label for="Entilation_deducations">Ventilation des déducations</label>
-                                                        <input type="text" class="form-control" id="Entilation_deducations" name="Entilation_deducations"
-                                                            placeholder="Ventilation des déducations" required>
+                                                
+                                                    <div class="col-md-4 mb-4">
+                                                        <label for="Nom_payment">Nom payment</label>
+                                                        <input type="text" class="form-control" id="Nom_payment" name="Nom_payment" placeholder="Nom payment"  required>
+                                                        <div class="invalid-feedback"> Please provide a valid Nom payment. </div>
                                                         <div class="valid-feedback">  Success! </div>
+
                                                     </div>
                                                     <div class="col-md-4 mb-4">
-
-                                                        <label for="code_racines">Code Racine</label>
-                                                        <input type="text" class="form-control" id="code_racines" name="code_racines"
-                                                            placeholder="Code Racine" required>
+                                                        <label for="Num_payment">N° payment</label>
+                                                        <input type="text" class="form-control" id="Num_payment" name="Num_payment"
+                                                            placeholder="Num payment" required>
+                                                        <div class="invalid-feedback"> Please provide a valid Nom payment. </div>
                                                         <div class="valid-feedback">  Success! </div>
                                                     </div>
+                                                   
                                                 </div>
                                                 <div id="flex-container">
                                                     <button class="btn btn-primary mt-3"  id="Enregistrer" name="Enregistrer"  type="submit"><i class="las la-check-double"></i>Enregistrer</button>
                                                     <button onclick=" viderchamp()" id="Nouveau" name="Nouveau"  type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
                                                     class="las la-info-circle"></i>Nouveau</button>
                                                 </div>
-                                                <input type="hidden" name="update_id_racine" id="update_id_racine">
+                                                <input type="hidden" name="update_id_TypePayment" id="update_id_TypePayment">
                                             </form>
-                                            <button class="btn btn btn-secondary mt-3" type="button"  id="Update" name="Update" onclick="update_Racine()"><i class="las la-edit"></i>Update</button>
+                                            <button class="btn btn btn-secondary mt-3" type="button"  id="Update" name="Update" onclick="update_TypePayment()"><i class="las la-edit"></i>Update</button>
 
                                         </div>
                                     </div>
@@ -113,7 +112,7 @@
                                                                     <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
                                                                     <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button>
 
-                                                                    <div id="Liste-racine" style="width: 100%;" class="header-table"></div>
+                                                                    <div id="Liste-TypePayment" style="width: 100%;" class="header-table"></div>
 
                                                                 </div>
 
@@ -139,7 +138,7 @@
     </div>
 </div>
 
-<div id="delet_racine" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
+<div id="delet_TypePayment" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
                                             <div class="modal-dialog">
                                                 <!-- Modal content-->
                                                 <div class="modal-content">
@@ -152,10 +151,10 @@
                                                     <div class="modal-body">
                                                         <p class="modal-text">{{__(' ? Voulez-vous vraiment supprimer ces enregistrements ')}} <br>{{__('. Ce processus ne peut pas être annulé')}} </p>
                                                     </div>
-                                                    <form id="Delet_racine" name="Delet_racine" action="{{ route('dashboard.DeleteRacine') }}" action="" method="post">
+                                                    <form id="Delet_TypePayment" name="Delet_TypePayment" action="{{ route('dashboard.DeleteTypePayment') }}"  method="post">
                                                     <div class="modal-footer md-button">
                                                         <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> {{__('Annuler')}}</button>
-                                                        <input type="hidden" id="delete_id_racine" name="delete_id_racine">
+                                                        <input type="hidden" id="delete_id_TypePayment" name="delete_id_TypePayment">
                                                         {{ csrf_field() }}
                                                         <button type="submit" class="btn btn-primary">{{__('! Supprimer')}}</button>
                                                     </div>
@@ -193,7 +192,7 @@
 <script>
 $('.select2').select2();
 </script>
-<script type="text/javascript" src="{{URL::asset('js/Gestion_Racine.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('js/Gestion_Regime.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>

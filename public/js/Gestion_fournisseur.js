@@ -1,6 +1,5 @@
 $(window).on("load", function () {
   document.getElementById("Update").style.display = "none";
-
   table_fournisseur();
 });
 $(document).ready(function () {
@@ -32,30 +31,7 @@ $(document).ready(function () {
       },
     });
   });
-  // ***********
 
-  // ******update To******
-  // $("#Update").on("submit", function (e) {
-  //     e.preventDefault();
-  //     var $this = jQuery(this);
-  //     alert("ok");
-  //     var formData = jQuery($this).serializeArray();
-  //     jQuery.ajax({
-  //         url: $this.attr("action"),
-  //         type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
-  //         data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-  //         // dataFilter: 'json', //forme data
-  //         success: function (response) {
-  //             // Je récupère la réponse du fichier PHP
-  //             toastr.success(response.message);
-  //             jQuery("#header-footer-modal-preview").trigger("click");
-  //             table_Agents();
-  //         },
-  //         error: function (response) {
-  //             toastr.error(response.errors);
-  //         },
-  //     });
-  // });
   // ******Delete Fournisseur******
   $("#Delet_fournisseur").on("submit", function (e) {
     e.preventDefault();
@@ -198,6 +174,7 @@ function table_fournisseur() {
             vertAlign: "middle",
             // print: false,
             // download: false,
+            editor: "input"
           }, 
            {
             title: "Adresse",
@@ -230,6 +207,8 @@ function table_fournisseur() {
             responsive: 1,
             hozAlign: "center",
             vertAlign: "middle",
+            print: false,
+            download: false,
 
             formatter(cell, formatterParams) {
               let a = $(`<div class="flex lg:justify-center items-center">
@@ -345,6 +324,45 @@ function table_fournisseur() {
             title: "Succursale", //add title to report
           });
         });
+
+        
     },
   });
+}
+document.getElementById('excelFileInput').addEventListener('change', handleFile);
+
+function handleFile(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+
+        const tableData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        createTabulatorTable(tableData);
+    };
+
+    reader.readAsArrayBuffer(file);
+}
+
+function createTabulatorTable(data) {
+    const table = new Tabulator('#table', {
+      data: data.map(row => Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))),
+      layout: 'fitColumns',
+      columns: getTableColumns(data[0]),
+    });
+    
+
+}
+
+function getTableColumns(headers) {
+  if (!headers) {
+      return [];
+  }
+  
+  return headers.map(header => ({ title: header, field: header }));
 }

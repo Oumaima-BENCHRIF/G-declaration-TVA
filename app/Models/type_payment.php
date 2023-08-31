@@ -14,4 +14,9 @@ class type_payment extends Model
     protected $connection = 'mysql_portal';
     protected $id = 'id';
     protected $table = 'type_payments';
+    protected $fillable = [
+        'Num_payment',
+        'Nom_payment',
+    ];
+    protected $dates = ['deleted_at'];
 }

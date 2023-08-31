@@ -16,7 +16,8 @@ class regime extends Model
     protected $fillable = [
         'libelle',
         'periode',
-        'date_regime',
+        'date_DU',
+        'date_AU',
     ];
 
     protected $dates = ['deleted_at'];
