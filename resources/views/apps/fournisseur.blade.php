@@ -73,9 +73,7 @@
                                                         <label for="ID_fiscale">identifiant fiscal</label>
                                                         <input type="text" class="form-control" id="ID_fiscale" name="ID_fiscale"
                                                             placeholder="identifiant" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid identifiant.
-                                                        </div>
+  
                                                     </div>
                                                     <div class="col-md-4 mb-4">
                                                         <label for="nomFournisseurs">Nom Frs</label>

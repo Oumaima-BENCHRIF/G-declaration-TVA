@@ -11,7 +11,15 @@
 {!! Html::style('plugins/table/datatable/datatables.css') !!}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
 
+
+<!-- <link rel="stylesheet" href="{{URL::asset('css/tabulator.css')}}"> -->
+<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 @endpush
 @section('content')
 <style>
@@ -24,19 +32,12 @@
 .table > tbody > tr > td {
     font-size: 13px !important; 
 }
-#rowracine1{
-    display: none;
-}
-#rowracine2{
-    display: none;
-}
-#colracine1{
-    display: none;
-}
+
+
 </style>
 <!--  Navbar Starts / Breadcrumb Area Starts -->
 <div class="sub-header-container">
-    <header class="header navbar navbar-expand-sm">
+    <!-- <header class="header navbar navbar-expand-sm">
         <ul class="navbar-nav flex-row">
             <li>
                 <div class="page-header">
@@ -48,7 +49,7 @@
                 </div>
             </li>
         </ul>
-    </header>
+    </header> -->
 </div>
 <!--  Navbar Ends / Breadcrumb Area Ends -->
 <div class="layout-px-spacing">
@@ -78,6 +79,7 @@
                                                         <button
                                                             class="btn btn-primary btn-sm float-left p-1 px-3 next-button ">
                                                             Serche</button>
+                                                            <input type="hidden" id="id_achat" name="id_achat">
 
                                                     </div>
                                                     <div class="col-md-1 mb-4">
@@ -116,281 +118,43 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- debut table -->
-                                <div class="layout-px-spacing">
+                                        <!-- Debut tableau -->
+                                        <div class="layout-px-spacing">
                                     <div class="layout-top-spacing mb-2">
                                         <div class="col-md-12">
-                                            <div class="row d-block">
-                                                <div class="container-flex ">
+                                            <div class="row">
+                                                <div class="w-100 p-0">
                                                     <div class="row layout-top-spacing date-table-container">
 
                                                         <!-- Datatable with export options -->
                                                         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                                                            <div
-                                                                class="widget-content widget-content-area br-color br-6 border border-light ">
-
-                                                                <!-- or tableau style de = single-column-search -->
+                                                            <div class="widget-content widget-content-area br-6 px-0">
+                                                           
                                                                 <div class="table-responsive mb-4">
 
-
-                                                                    <div class="">
-                                                                        <table id="export-dt"
-                                                                            class="table table-hover dataTable no-footer"
-                                                                            style="width: 100%;" role="grid"
-                                                                            aria-describedby="export-dt_info">
-
-                                                                            <thead class="header-table">
-                                                                                <tr>
-                                                                                    <th>TVA PRO</th>
-                                                                                    <th>prorata</th>
-                                                                                    <th>Mode</th>
-                                                                                    <th>Racine</th>
-                                                                                    <th>Date fact</th>
-                                                                                    <th>Date payement</th>
-                                                                                    <th>ID FIscal</th>
-                                                                                    <th>ICE</th>
-                                                                                    <th>FRS</th>
-                                                                                    <th>TTC</th>
-                                                                                    <th>TVA</th>
-                                                                                    <th>taux</th>
-                                                                                    <th>Mht</th>
-                                                                                    <th>des</th>
-                                                                                    <th>Nfact</th>
-                                                                                    <th>code</th>
-                                                                                    <th>Action</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td>aaa</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>
-                                                                                        <div class="action-btn">
-                                                                                            <i
-                                                                                                class="lar la-edit text-primary font-20 mr-2 btn-edit-contact" data-toggle="modal" data-target="#slideupModal"></i>
-                                                                                            <i
-                                                                                                class="lar la-trash-alt text-danger font-20 mr-2" ></i>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>ffff</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>
-                                                                                        <div class="action-btn">
-                                                                                            <i
-                                                                                                class="lar la-edit text-primary font-20 mr-2 btn-edit-contact"></i>
-                                                                                            <i
-                                                                                                class="lar la-trash-alt text-danger font-20 mr-2"></i>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>dd</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>
-                                                                                        <div class="action-btn">
-                                                                                            <i
-                                                                                                class="lar la-edit text-primary font-20 mr-2 btn-edit-contact"></i>
-                                                                                            <i
-                                                                                                class="lar la-trash-alt text-danger font-20 mr-2"></i>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>vv</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>
-                                                                                        <div class="action-btn">
-                                                                                            <i
-                                                                                                class="lar la-edit text-primary font-20 mr-2 btn-edit-contact"></i>
-                                                                                            <i
-                                                                                                class="lar la-trash-alt text-danger font-20 mr-2"></i>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>bb</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>
-                                                                                        <div class="action-btn">
-                                                                                            <i
-                                                                                                class="lar la-edit text-primary font-20 mr-2 btn-edit-contact"></i>
-                                                                                            <i
-                                                                                                class="lar la-trash-alt text-danger font-20 mr-2"></i>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>nn</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>
-                                                                                        <div class="action-btn">
-                                                                                            <i
-                                                                                                class="lar la-edit text-primary font-20 mr-2 btn-edit-contact"></i>
-                                                                                            <i
-                                                                                                class="lar la-trash-alt text-danger font-20 mr-2"></i>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>cc</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>
-                                                                                        <div class="action-btn">
-                                                                                            <i
-                                                                                                class="lar la-edit text-primary font-20 mr-2 btn-edit-contact"></i>
-                                                                                            <i
-                                                                                                class="lar la-trash-alt text-danger font-20 mr-2"></i>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>{{__('Edinburgh')}}</td>
-                                                                                    <td>{{__('61')}}</td>
-                                                                                    <td>{{__('2011/04/25')}}</td>
-                                                                                    <td>{{__('$320,800')}}</td>
-                                                                                    <td>
-                                                                                        <div class="action-btn">
-                                                                                            <i
-                                                                                                class="lar la-edit text-primary font-20 mr-2 btn-edit-contact"></i>
-                                                                                            <i
-                                                                                                class="lar la-trash-alt text-danger font-20 mr-2"></i>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-
-                                                                        </table>
-                                                                    </div>
-
-
-
+                                                                    <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
+                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button>
+                                                               
+                                                                    <div id="Liste-Achat" style="width: 100%;" class="header-table"></div>
+                                                
                                                                 </div>
-
-
-
                                                             </div>
                                                         </div>
+                                                     
+
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row p-4 justify-content-end">
+                                    </div>
+                                </div>
+                                <!-- END tableau -->
+                                <div class="row p-4 justify-content-end">
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target=".bd-example-modal-lg ">Ajouter</button>
+                                                data-target=".bd-example-modal-lg">Ajouter</button>
+                                           
                                         </div>
-                                        <!-- End tableau -->
                                         <!--start modal ajouter -->
                                         <div class="modal fade bd-example-modal-lg"  role="dialog"
                                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -402,7 +166,7 @@
                                                             aria-label="Close">
                                                             <span aria-hidden="true">×</span>
                                                         </button>
-                                                        <h5 class="modal-title" id="exampleModalPopoversLabel">Ajouter
+                                                        <h5 class="modal-title" id="header-text">Ajouter
                                                             Achat</h5>
 
                                                     </div>
@@ -433,7 +197,7 @@
                                                             </div>
                                                             <div class="col-md-4 mb-4">
                                                                 <label>FRS</label>
-                                                                <select class="form-control select2 py-3" id="frs" name="frs" >
+                                                                <select class="form-control select2 py-3" id="frs"  name="frs" >
                                                                 
                                                                 </select>
                                                             </div>
@@ -444,7 +208,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">date fact</label>
                                                                 <input class="form-control "  style="text-align: start"
-                                                                type="date"  id="date_fact" name="date_fact" onblur="checkDate()">
+                                                                type="date"  id="date_fact" name="date_fact" >
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid date fact.
                                                                 </div>
@@ -460,7 +224,7 @@
                                                             </div>
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="desc">Designation</label>
-                                                                <input type="text" name="desc" onblur="myFunction()" class="form-control"
+                                                                <input type="text" name="desc" class="form-control"
                                                                     id="desc"  
                                                                     placeholder="Designation" required>
                                                                 <div class="invalid-feedback">
@@ -472,7 +236,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">TTC</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="ttc"name="ttc" placeholder="TTC" onblur="calcul_ttc()"  >
+                                                                    id="MTttc"name="MTttc" readonly replaceholder="TTC"   >
 
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid TTC.
@@ -492,14 +256,16 @@
 
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">date payement</label>
-                                                                <input class="form-control" style="text-align: start" type="date"  id="date_p" name="date_p">
-                                                                <div class="invalid-feedback">
+                                                                <input class="form-control" onblur="checkDate()" style="text-align: start" type="date"  id="date_p" name="date_p">
+                                                                <div class="invalid-feedback" >
                                                                     Please provide a valid date payement.
                                                                 </div>
                                                             </div>
 
                                                         </div>
-                                                        <div class="border border-primary rounded m-1" id="select"  style="display: table;">
+                                                    <div class="row">
+                                                     
+                                                          <div class="border border-primary rounded  col-md-4 mb-3" id="select"  style="display: table;">
                                                             <div class="col-9 col-form-label">
                                                                 <div class="radio-inline d-flex">
                                                                     <label class="radio radio-success ">
@@ -518,23 +284,34 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="row border border-light p-2 m-1"
-                                                            style="    background: #f0f6ff;">
-                                                            <div class="row">
-                                                            <div class="col-md-2 mb-3">
+                                                                <div class="col-md-4 mb-3">
                                                                     <label for="validationCustom03"> % Prorata</label>
                                                                     <input type="text" onblur="tva_didu()" class="form-control"
                                                                         id="prorata" name="prorata" placeholder="Prorata"
                                                                         >
                                                                 </div>
-                                                                <div class="col-md-2 mb-3">
-                                                                    <label for="validationCustom03">TVA
-                                                                        deductible</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="tva_d1"  name="tva_d1"
-                                                                        placeholder="TVA deducatible" readonly>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="validationCustom03">MT déduit</label>
+                                                                    <input type="text"  class="form-control"
+                                                                        id="mtd" name="mtd" placeholder="MT déduit"
+                                                                        >
                                                                 </div>
-                                                               
+                                                        </div>
+                                                       
+                                                        <div class="row border border-light p-2 m-1"
+                                                            style="    background: #f0f6ff;">
+                                                            <div class="row" id="rowracine"                   style="width:-webkit-fill-available">
+                                                             
+                                                                <div class="col-md-2 mb-3 ">
+                                                                   
+                                                                </div>
+                                                                <div class="col-md-2 mb-3 ">
+                                                                    <label for="validationCustom03">TTC
+                                                                        LINE 1</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="ttc1" onblur="calcul_ttc1()"  name="ttc1"
+                                                                        placeholder="TTC LINE 1" >
+                                                                </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="validationCustom03">TVA</label>
                                                                     <input type="text" onblur="calcul_tva()" class="form-control"
@@ -548,29 +325,29 @@
                                                                         required>
 
                                                                 </div>
-                                                                <div class="col-md-2 mb-3">
+                                                                <div class="col-md-2 mb-3 d-none">
 
                                                                     <label for="taux1"> % Taux </label>
                                                                     <input type="text" class="form-control"
                                                                         id="taux1"  placeholder=""
                                                                         readonly>
                                                                 </div>
-                                                                <div class="col-md-2 mb-3" id="colracine1" ></div>
-                                                                <div class="col-md-2 mb-3" id="colracine" >
+                                                              
+                                                                <div class="col-md-4 mb-3" id="colracine">
                                                                     <label>Rubriqe TVA</label>
                                                                     <select class="form-control select2 py-3" id="racine" name="racine" required>
                                                                     </select>
                                                                 </div>
-                                                            </div>
-                                                            <div class="row  " id="rowracine1" style="width: -webkit-fill-available">
-                                                            <div class="col-md-2 mb-3">
+                                                              </div>
+                                                             <div class="row" id="rowracine1" style="width: -webkit-fill-available">
+                                                              <div class="col-md-2 mb-3 ">
                                                                   
                                                                 </div>
-                                                                <div class="col-md-2 mb-3">
+                                                                <div class="col-md-2 mb-3 ">
                                                                    
                                                                     <input type="text" class="form-control"
-                                                                        id="tva_d2"  name="tva_d2" readonly
-                                                                        placeholder="TVA deductible" >
+                                                                        id="ttc2"  name="ttc2" onblur="calcul_ttc2()"
+                                                                        placeholder="TTC LINE 2" >
                                                                 </div>
                                                                 
                                                                 <div class="col-md-2 mb-3">
@@ -581,30 +358,31 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                               
-                                                                    <input type="text" class="form-control" readonly 
+                                                                    <input type="text" class="form-control"  
                                                                         id="MHT_2" name="MHT_2" placeholder="MT HT"
                                                                         >
 
                                                                 </div>
-                                                                <div class="col-md-2 mb-3">
+                                                                <div class="col-md-2 mb-3 d-none">
                                                                     <input type="text" class="form-control"
                                                                         id="taux2"  placeholder=""
                                                                         readonly>
                                                                 </div>
 
-                                                                <div class="col-md-2 mb-3">
-                                                                    
+                                                                <div class="col-md-4 mb-3">
+                                                                <select class="form-control select2 py-3" id="racine2" name="racine2" required>
+                                                                    </select>
                                                                 </div>
                                                                
                                                             </div>
-                                                            <div class="row  " id="rowracine2" style="width: -webkit-fill-available">
-                                                            <div class="col-md-2 mb-3">
+                                                            <div class="row" id="rowracine2"               style="width:-webkit-fill-available">
+                                                             <div class="col-md-2 mb-3 ">
                                                                    
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">     
                                                                     <input type="text" class="form-control"
-                                                                        id="tva_d3" name="tva_d3" readonly
-                                                                        placeholder="TVA deducatible" >
+                                                                        id="ttc3" name="ttc3" 
+                                                                        placeholder="TTC LINE 3" >
                                                                 </div>
                                                                 
                                                                 <div class="col-md-2 mb-3">
@@ -613,62 +391,73 @@
                                                                         >
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">            
-                                                                    <input type="text" class="form-control" readonly
+                                                                    <input type="text" class="form-control" 
                                                                         id="MHT_3" name="MHT_3" placeholder="MT HT"
                                                                         >
 
                                                                 </div>
-                                                                <div class="col-md-2 mb-3">
+                                                                <div class="col-md-2 mb-3 d-none">
                                                                     <input type="text" class="form-control"
                                                                         id="taux3"  placeholder=""
                                                                         readonly>
                                                                 </div>
 
-                                                                <div class="col-md-2 mb-3">
-                                                                   
+                                                                <div class="col-md-4 mb-3">
+                                                                <select class="form-control select2 py-3" id="racine3" name="racine3" required>
+                                                                    </select>
                                                                 </div>
                                                                 
                                                             </div>
-                                                        </div>
+                                                       
+                                                         <!-- <div class="row" id="rowracine3"                   style="width:-webkit-fill-available">
+                                                             <div class="col-md-2 mb-3 ">
+                                                                   
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">     
+                                                                    <input type="text" class="form-control"
+                                                                        id="ttc4" name="ttc4" 
+                                                                        placeholder="TTC LINE 4" >
+                                                                </div>
+                                                                
+                                                                <div class="col-md-2 mb-3">
+                                                                    <input type="text" class="form-control" onblur="calcul_tva3()"
+                                                                        id="tva_4" name="tva_4"  placeholder="TVA"
+                                                                        >
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">            
+                                                                    <input type="text" class="form-control" 
+                                                                        id="MHT_4" name="MHT_4" placeholder="MT HT"
+                                                                        >
+
+                                                                </div>
+                                                                <div class="col-md-2 mb-3 d-none">
+                                                                    <input type="text" class="form-control"
+                                                                        id="taux4"  placeholder=""
+                                                                        readonly>
+                                                                </div>
+
+                                                                <div class="col-md-4 mb-3">
+                                                                <select class="form-control select2 py-3" id="racine4" name="racine4" required>
+                                                                    </select>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div> -->
+                                                    
                                                     
                                                     </div>
                                                     <div class="modal-footer d-block">
                                                         
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                                                        <button type="submit" id="add_ach" class="btn btn-primary">Ajouter</button>
+                                                       
                                                     </div>
                                                     </form>
                                                 </div>
-                                            </div>
+                                            </div> </div>
                                         </div>
                                          <!--end modal ajouter -->
-                                          <!--start modal modefier -->
-                                          <div id="slideupModal" class="modal fade bd-example-modal-lg" role="dialog">
-                                            <div class="modal-dialog">
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">moddifier Achat</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <i class="las la-times"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form>
-                                                   
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer md-button">
-                                                        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> close</button>
-                                                        <button type="button" class="btn btn-primary">modifier</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                           <!--end modal modifier -->
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -704,4 +493,9 @@
        
      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+
         @endpush
