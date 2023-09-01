@@ -66,12 +66,13 @@ class FournisuerController extends Controller
             $fournisseurs->Num_compte_comptable = $request->Num_compte_comptable;
             $fournisseurs->ID_fiscale = $request->ID_fiscale;
             $fournisseurs->save();
-            }
-
             return response()->json([
                 'status' => 200,
                 'message' => 'Ajouter avec succès',
             ]);
+            }
+
+           
         } catch (ValidationException $e) {
             return redirect()
                 ->back()
