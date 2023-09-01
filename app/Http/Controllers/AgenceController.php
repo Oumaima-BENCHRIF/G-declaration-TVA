@@ -34,6 +34,8 @@ class AgenceController extends Controller
             $agence->Fax = $request->input('Fax');
             $agence->FK_Regime = $request->input('FK_Regime');
             $agence->FK_fait_generateurs = $request->input('FK_fait_generateurs');
+            $agence->Exercice = $request->input('Exercice');
+            
             $agence->save();
 
             return response()->json([
@@ -52,18 +54,6 @@ class AgenceController extends Controller
                 ->with('danger', 'Une erreur s\'est produite. Merci de contacter le service IT.')
                 ->withInput();
         }
-        //        return response()->json([
-        //         'status' => 200,
-        //         'message' => 'Votre demande a été bien envoyée.',
-        //     ]);
-        // } catch (\Exception $e) {
-        //     return response()->json([
-        //         'status' => 400,
-        //         'errors' => 'Merci de vérifier la connexion internet, si non le service IT',
-        //     ]);
-
-        // }
-
     }
     //liste regimes
     public function Liste_Regime(Request $request)
@@ -158,8 +148,7 @@ class AgenceController extends Controller
     
     public function Update(Request $request)
     {
-       
-
+        
         try {
 
             $update_agence = agence::where('id', $request->update_id_agence)->first();
@@ -178,6 +167,7 @@ class AgenceController extends Controller
             $update_agence->FK_Regime = $request->FK_Regime;
             $update_agence->FK_fait_generateurs = $request->FK_fait_generateurs;
             $update_agence->nomBD = $request->nomBD;
+            $update_agence->Exercice = $request->Exercice;
 
             $update_agence->save();
 

@@ -13,7 +13,7 @@
 {!! Html::style('assets/css/forms/form-widgets.css') !!}
 
 {!! Html::style('plugins/table/datatable/datatables.css') !!}
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
@@ -73,9 +73,7 @@
                                                         <label for="ID_fiscale">identifiant fiscal</label>
                                                         <input type="text" class="form-control" id="ID_fiscale" name="ID_fiscale"
                                                             placeholder="identifiant" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid identifiant.
-                                                        </div>
+  
                                                     </div>
                                                     <div class="col-md-4 mb-4">
                                                         <label for="nomFournisseurs">Nom Frs</label>
@@ -147,14 +145,16 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4 mb-4">
-                                                    <input type="text" id="update_id_fournisseur" name="update_id_fournisseur" class="form-control" >
+                                                    <input type="hidden" id="update_id_fournisseur" name="update_id_fournisseur" class="form-control" >
 
                                                     </div>
                                                 </div>
                                         </div>
-                                        <div></div>
+                                        <!-- <div></div> -->
                                         <div id="flex-container">
-                                        <button class="btn btn-primary" id="Enregistrer" name="Enregistrer" type="submit"><i class="las la-check-double"></i>Enregistrer</button>
+                                        <button class="btn btn-primary mt-3 ml-2" id="Enregistrer" name="Enregistrer" type="submit">
+                                            <i class="las la-check-double"></i>Enregistrer
+                                        </button>
 
                                             <button onclick=" viderchamp()" id="Nouveau" name="Nouveau"  type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
                                                     class="las la-info-circle"></i>Nouveau</button>
@@ -181,7 +181,19 @@
                                                                 <div class="table-responsive mb-4">
 
                                                                 <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
-                                                                <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button>
+                                                                <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info ">PDF</button>
+                                                                <!-- <input id="excelFileInput" type="file"  class="dt-button buttons-print btn qc-secondary">Importer -->
+
+                                                                
+                                                        
+                                                                    <label for="file-upload" class="custom-file-upload ">
+                                                                        <a title="Attach a file" class="btn btn-sm btn-primary  mr-2   pointer ">
+                                                                        Importer
+                                                                        </a>
+                                                                    </label>
+                                                                    <input id="file-upload" name="upload_cont_img" type="file" style="display:none;">
+                                                                
+                                                                 
 
                                                                 <div id="Liste-fournisseur" style="width: 100%;" class="header-table"></div>
 
@@ -189,7 +201,7 @@
                                                             </div>
                                                         </div>
 
-
+                                                        <!-- <div id="table"></div> -->
 
                                                     </div>
                                                 </div>

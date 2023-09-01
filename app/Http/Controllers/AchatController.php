@@ -43,7 +43,7 @@ class AchatController extends Controller
             $achat->TVA_deductible=$request->input('tva_d1');
             $achat->FK_fait_generateur=1;
             $achat->FK_regime=1;
-            $achat->FK_succursale=1;
+        
             $achat->FK_type_payment=$request->input('Mpayement');
             $achat->FK_racines_1=1;
             $achat->FK_racines_2=1;
@@ -116,5 +116,78 @@ class AchatController extends Controller
             'get_achat' => $get_achat
         ]);
     }
+    public function get_achatbyID($id)
+    {
+        $get_achatb = achat::select()
+        ->where('achats.id',$id)
+        ->where('achats.deleted_at', '=', NULL)->first();
+        return response()->json([
+            'get_achatb' => $get_achatb
+        ]);
+      
+    }
 
+public function table_achat()
+{
+
+    $table_achat =achat::select('achats.*','fournisseurs.*','regimes.*','type_payments.*','fait_generateurs.*','racines.*')
+    ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
+    ->join('regimes', 'regimes.id', 'achats.FK_racines_1')
+    ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
+    ->join('fait_generateurs', 'fait_generateurs.id', 'achats.FK_fait_generateur')
+    ->join('racines', 'racines.id', 'achats.FK_racines_1')
+    ->where('fournisseurs.deleted_at', '=', NULL)->get();
+
+    if ($table_achat) {
+        return response()->json([
+            "code" => 200,
+            'table_achat' => $table_achat,
+        ]);
+    } else {
+        return response()->json([
+            "code" => 500,
+            'message' => "Merci de Verifier votre connexion internet",
+        ]);
+    }
+
+
+}
+public function Update(Request $request)
+    {
+       
+
+        // try {
+
+        //     $update_agence = agence::where('id', $request->update_id_agence)->first();
+         
+        //     $update_agence->ICE = $request->ICE;
+        //     $update_agence->Email = $request->Email;
+        //     $update_agence->Activite = $request->Activite;
+        //     $update_agence->ID_Fiscale = $request->ID_Fiscale;
+        //     $update_agence->Ville = $request->Ville;
+
+          
+        //     $update_agence->Tele = $request->Tele;
+        //     $update_agence->Adresse = $request->Adresse;
+        //     $update_agence->nom_succorsale = $request->nom_succorsale;
+        //     $update_agence->Fax = $request->Fax;
+        //     $update_agence->FK_Regime = $request->FK_Regime;
+        //     $update_agence->FK_fait_generateurs = $request->FK_fait_generateurs;
+        //     $update_agence->nomBD = $request->nomBD;
+
+        //     $update_agence->save();
+
+        //     return response()->json([
+        //         'status' => 200,
+        //         'messages' => 'Modification avec succès',
+        //     ]);
+        // } catch (\Exception $e) {
+
+        //     return response()->json([
+        //         'status' => 200,
+        //         'Error' => 'Merci de vérifier la connexion internet, si non email_clienter le service IT',
+        //     ]);
+    //     // }
+    // }
+}
 }
