@@ -136,19 +136,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
         // get racine
         Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
     
-<<<<<<< HEAD
     
-=======
-    // ****** table succursale
-    Route::get('table_succursale', [App\Http\Controllers\SuccursaleController::class, 'table_succursale'])->name('table_succursale');
-    // gestion Achat
-    Route::get('/achat', 'App\Http\Controllers\AchatController@index')->name('achat');
-    Route::post('/add_achat', [App\Http\Controllers\AchatController::class, 'Stores'])->name('StoresAchat');
-    Route::post('/update_achat', [App\Http\Controllers\AchatController::class, 'Update'])->name('update_achat');
-    Route::get('/get_achat/{nfact}', [App\Http\Controllers\AchatController::class, 'get_achat'])->name('get_achat');
-    Route::get('/get_achatbyID/{id}', [App\Http\Controllers\AchatController::class, 'get_achatbyID'])->name('get_achatbyID');
-    Route::get('table_Achat', [App\Http\Controllers\AchatController::class, 'table_achat'])->name('table_Achat');
->>>>>>> main
     Route::get('fournisseur', function () {
         return view('apps.fournisseur');
     })->name('fournisseur');
