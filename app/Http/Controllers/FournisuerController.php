@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 use App\Models\fournisseurs;
+use App\Http\Requests\FournisseurPostRequest;
 
 class FournisuerController extends Controller
 {
@@ -14,7 +15,7 @@ class FournisuerController extends Controller
         return view('apps.fournisseur');
     }
     //Enregister fournisseurs
-    public function Stores(Request $request)
+    public function Stores(FournisseurPostRequest $request)
     {
 
 
@@ -30,6 +31,42 @@ class FournisuerController extends Controller
             $fournisseurs->Num_compte_comptable = $request->input('Num_compte_comptable');
             $fournisseurs->ID_fiscale = $request->input('ID_fiscale');
             $fournisseurs->save();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Ajouter avec succès',
+            ]);
+        } catch (ValidationException $e) {
+            return redirect()
+                ->back()
+                ->with('danger', 'Merci de vérifier les champs requis.')
+                ->withErrors($e->errors()) // Pass the validation errors to the view
+                ->withInput();
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('danger', 'Une erreur s\'est produite. Merci de contacter le service IT.')
+                ->withInput();
+        }
+    }
+    public function Storesjson(Request $request)
+    {
+        // dd($request->nomFournisseurs);
+
+        try {
+            if(!empty($request->nomFournisseurs) ||!empty($request->Designation)||!empty($request->Adresse)||!empty($request->telephone)||!empty($request->Designation)){
+            $fournisseurs = new fournisseurs();
+            $fournisseurs->nomFournisseurs = $request->nomFournisseurs;
+            $fournisseurs->Designation = $request->Designation;
+            $fournisseurs->Adresse = $request->Adresse;
+            $fournisseurs->telephone = $request->telephone;
+            $fournisseurs->ville = $request->ville;
+            $fournisseurs->NICE = $request->NICE;
+            $fournisseurs->Fax = $request->Fax;
+            $fournisseurs->Num_compte_comptable = $request->Num_compte_comptable;
+            $fournisseurs->ID_fiscale = $request->ID_fiscale;
+            $fournisseurs->save();
+            }
 
             return response()->json([
                 'status' => 200,
@@ -121,17 +158,17 @@ class FournisuerController extends Controller
     }
     public function Update(Request $request)
     {
-       
+
 
         try {
 
             $update_fournisseur = fournisseurs::where('id', $request->update_id_fournisseur)->first();
-         
+
             $update_fournisseur->nomFournisseurs = $request->nomFournisseurs;
             $update_fournisseur->Designation = $request->Designation;
             $update_fournisseur->telephone = $request->telephone;
             $update_fournisseur->ville = $request->ville;
-            $update_fournisseur->NICE = $request->NICE;          
+            $update_fournisseur->NICE = $request->NICE;
             $update_fournisseur->Fax = $request->Fax;
             $update_fournisseur->Num_compte_comptable = $request->Num_compte_comptable;
             $update_fournisseur->ID_fiscale = $request->ID_fiscale;
