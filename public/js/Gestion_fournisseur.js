@@ -136,6 +136,7 @@ function table_fournisseur() {
         printStyled: true,
         // height: 220,
         data: $tabledata,
+        
         layout: "fitColumns",
         pagination: "local",
         printHeader: "",
@@ -161,8 +162,8 @@ function table_fournisseur() {
             width: 95,
             field: "nomFournisseurs",
             vertAlign: "middle",
-            // print: false,
-            editor: true,
+            //print: false,
+            
           },
           {
             title: "Designation",
@@ -171,15 +172,16 @@ function table_fournisseur() {
             vertAlign: "middle",
             // print: false,
             // download: false,
-            editor: "input",
+            
           },
           {
             title: "Adresse",
             field: "Adresse",
             minWidth: 100,
             vertAlign: "middle",
-            // print: false,
-            // download: false,
+            visible: false, 
+            print: true,
+            download: true,
           },
           {
             title: "Telephone",
@@ -194,8 +196,9 @@ function table_fournisseur() {
             field: "ville",
             minWidth: 100,
             vertAlign: "middle",
-            // print: false,
-            // download: false,
+            visible: false, 
+            print: true,
+            download: true,
           },
           {
             title: "NICE",
@@ -225,9 +228,9 @@ function table_fournisseur() {
             title: "Fax",
             field: "Fax",
             minWidth: 100,
-            vertAlign: "middle",
-            // print: false,
-            // download: false,
+            visible: false, 
+            print: true,
+            download: true,
           },
           {
             title: "Action",
@@ -376,7 +379,7 @@ function table_fournisseur() {
         .addEventListener("click", function () {
           table.download("pdf", "data.pdf", {
             orientation: "portrait", //set page orientation to portrait
-            title: "Succursale", //add title to report
+            title: "Fournisseur", //add title to report
           });
         });
     },
@@ -495,7 +498,7 @@ console.log(dataArray);
       data: postData,
 
       success: function (response) {
-        toastr.success(response.messages);
+        toastr.success(response.message);
         table_fournisseur();
       },
       error: function (response) {
