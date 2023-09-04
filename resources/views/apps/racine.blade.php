@@ -110,8 +110,8 @@
                                                               
                                                                 <!-- or tableau style de = single-column-search -->
                                                                 <div class="table-responsive mb-4">
-                                                                    <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
-                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button>
+                                                                    <!-- <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
+                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button> -->
 
                                                                     <div id="Liste-racine" style="width: 100%;" class="header-table"></div>
 
