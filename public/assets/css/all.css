@@ -3059,7 +3059,7 @@ code { color: #e7515a; }
     left: -270px;
  }
 .sidebar-closed > #content { 
-    margin-left: 15px;
+    margin-left: 0px;
 }
 #sidebar .navbar-brand .img-fluid {
     display: inline;
@@ -5678,9 +5678,9 @@ html {
 .sidebar-closed > .sidebar-wrapper {
     right: -270px;
 }
-.sidebar-closed > #content {
+/* .sidebar-closed > #content {
     margin-right: 0;
-}
+} */
 .right-bar {
     background-color: #fff;
     box-shadow: 0 0 24px 0 rgba(0,0,0,.1), 0 1px 0 0 rgba(0,0,0,.1);

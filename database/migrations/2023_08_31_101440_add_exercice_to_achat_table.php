@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddMTDidToAchatTable extends Migration
+class AddExerciceToAchatTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class AddMTDidToAchatTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mys
-        ql_portal')->table('achats', function (Blueprint $table) {
-            $table->float('MT_déduit')->nullable();
-            $table->float('TTC_1')->nullable();
-            $table->float('TTC_2')->nullable();
-            $table->float('TTC_3')->nullable();
+        Schema::connection('mysql_portal')->table('achats', function (Blueprint $table) {
+            $table->string('Exercice')->nullable();
         });
     }
 
