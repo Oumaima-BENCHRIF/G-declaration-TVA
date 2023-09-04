@@ -61,6 +61,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('table_fournisseur', [App\Http\Controllers\FournisuerController::class, 'table_fournisseur'])->name('table_fournisseur');
     // ******* ajouter
     Route::post('/AddFournisseur', [App\Http\Controllers\FournisuerController::class, 'Stores'])->name('AddFournisseur');
+    Route::get('/AddFournisseurjson', [App\Http\Controllers\FournisuerController::class, 'Storesjson'])->name('AddFournisseurjson');
     // info fournisseur
     Route::get('/Fournisseur/{id_fournisseur}',  [App\Http\Controllers\FournisuerController::class, 'info_fournisseur'])->name('info_fournisseur');
     // delete fournisseur

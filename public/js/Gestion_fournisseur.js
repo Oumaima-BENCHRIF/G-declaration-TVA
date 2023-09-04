@@ -82,29 +82,26 @@ function update_fournisseur() {
     { name: "Num_compte_comptable", value: Num_compte_comptable },
     { name: "ID_fiscale", value: ID_fiscale },
     { name: "Fax", value: Fax },
-    { name: "update_id_fournisseur", value: update_id_fournisseur },
+    { name: "update_id_fournisseur", value: update_id_fournisseur }
   );
-
-
 
   jQuery.ajax({
     headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-    url: "./update_fournisseur/"+update_id_fournisseur,
+      "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    },
+    url: "./update_fournisseur/" + update_id_fournisseur,
     type: "get", // Le nom du fichier indiqué dans le formulaire
-    data:formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+    data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
 
     success: function (response) {
-        // Je récupère la réponse du fichier PHP
-        toastr.success(response.messages);
-        table_fournisseur();
+      // Je récupère la réponse du fichier PHP
+      toastr.success(response.messages);
+      table_fournisseur();
     },
     error: function (response) {
-        toastr.error(response.Error);
+      toastr.error(response.Error);
     },
-});
-       
+  });
 }
 function viderchamp() {
   document.getElementById("nomFournisseurs").value = "";
@@ -126,19 +123,20 @@ function table_fournisseur() {
     // dataFilter: 'json', //forme data
     success: function (responce) {
       $tabledata = "";
-      console.log(responce.liste_Fournisseur);
+      // console.log(responce.liste_Fournisseur);
       // Je récupère la réponse du fichier PHP
       jQuery.each(responce.liste_Fournisseur, function (key, item) {
         if (responce.liste_Fournisseur.length == 0) {
         }
         $tabledata = responce.liste_Fournisseur;
       });
-      
+
       var table = new Tabulator("#Liste-fournisseur", {
         printAsHtml: true,
         printStyled: true,
         // height: 220,
         data: $tabledata,
+        
         layout: "fitColumns",
         pagination: "local",
         printHeader: "",
@@ -160,12 +158,12 @@ function table_fournisseur() {
 
         columns: [
           {
-            title: "Nom Fournisseur",
+            title: "nomFournisseurs",
             width: 95,
             field: "nomFournisseurs",
             vertAlign: "middle",
-            // print: false,
-            editor: true,
+            //print: false,
+            
           },
           {
             title: "Designation",
@@ -174,16 +172,17 @@ function table_fournisseur() {
             vertAlign: "middle",
             // print: false,
             // download: false,
-            editor: "input"
-          }, 
-           {
+            
+          },
+          {
             title: "Adresse",
             field: "Adresse",
             minWidth: 100,
             vertAlign: "middle",
-            // print: false,
-            // download: false,
-          },  
+            visible: false, 
+            print: true,
+            download: true,
+          },
           {
             title: "Telephone",
             field: "telephone",
@@ -197,8 +196,41 @@ function table_fournisseur() {
             field: "ville",
             minWidth: 100,
             vertAlign: "middle",
+            visible: false, 
+            print: true,
+            download: true,
+          },
+          {
+            title: "NICE",
+            field: "NICE",
+            minWidth: 100,
+            vertAlign: "middle",
             // print: false,
             // download: false,
+          },
+          {
+            title: "ID_fiscale",
+            field: "ID_fiscale",
+            minWidth: 100,
+            vertAlign: "middle",
+            // print: false,
+            // download: false,
+          },
+          {
+            title: "Num_compte_comptable",
+            field: "Num_compte_comptable",
+            minWidth: 100,
+            vertAlign: "middle",
+            // print: false,
+            // download: false,
+          },
+          {
+            title: "Fax",
+            field: "Fax",
+            minWidth: 100,
+            visible: false, 
+            print: true,
+            download: true,
           },
           {
             title: "Action",
@@ -234,10 +266,14 @@ function table_fournisseur() {
                     dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
                     // dataFilter: 'json', //forme data
                     success: function (responce) {
-                      jQuery.each(responce.info_fournisseur, function (key, item) {
-                        document.getElementById("delete_id_fournisseur").value =
-                          item.id;
-                      });
+                      jQuery.each(
+                        responce.info_fournisseur,
+                        function (key, item) {
+                          document.getElementById(
+                            "delete_id_fournisseur"
+                          ).value = item.id;
+                        }
+                      );
                     },
                   });
                 });
@@ -246,8 +282,9 @@ function table_fournisseur() {
                 .find(".view")
                 .on("click", function () {
                   document.getElementById("Update").style.display = "none";
-                document.getElementById("Enregistrer").style.display ="initial";
-                document.getElementById("Nouveau").style.display = "initial";
+                  document.getElementById("Enregistrer").style.display =
+                    "initial";
+                  document.getElementById("Nouveau").style.display = "initial";
 
                   jQuery.ajax({
                     url: "./Fournisseur/" + cell.getData().id,
@@ -256,18 +293,27 @@ function table_fournisseur() {
                     success: function (responce) {
                       // affichage select
 
-                      jQuery.each(responce.info_fournisseur, function (key, item) {
-                        document.getElementById("nomFournisseurs").value =item.nomFournisseurs;
-                        document.getElementById("Designation").value = item.Designation;
-                        document.getElementById("telephone").value = item.telephone;
-                        document.getElementById("ville").value =item.ville;
-                        document.getElementById("NICE").value =item.NICE;
-                        document.getElementById("Adresse").value = item.Adresse;
-                        document.getElementById("Fax").value = item.Fax;
-                        document.getElementById("Num_compte_comptable").value = item.Num_compte_comptable;
-                        document.getElementById("ID_fiscale").value = item.ID_fiscale;
-                       
-                      });
+                      jQuery.each(
+                        responce.info_fournisseur,
+                        function (key, item) {
+                          document.getElementById("nomFournisseurs").value =
+                            item.nomFournisseurs;
+                          document.getElementById("Designation").value =
+                            item.Designation;
+                          document.getElementById("telephone").value =
+                            item.telephone;
+                          document.getElementById("ville").value = item.ville;
+                          document.getElementById("NICE").value = item.NICE;
+                          document.getElementById("Adresse").value =
+                            item.Adresse;
+                          document.getElementById("Fax").value = item.Fax;
+                          document.getElementById(
+                            "Num_compte_comptable"
+                          ).value = item.Num_compte_comptable;
+                          document.getElementById("ID_fiscale").value =
+                            item.ID_fiscale;
+                        }
+                      );
                     },
                   });
                 });
@@ -284,18 +330,30 @@ function table_fournisseur() {
                     success: function (responce) {
                       // affichage select
 
-                      jQuery.each(responce.info_fournisseur, function (key, item) {
-                        document.getElementById("update_id_fournisseur").value =item.id;
-                          document.getElementById("nomFournisseurs").value =item.nomFournisseurs;
-                          document.getElementById("Designation").value = item.Designation;
-                          document.getElementById("telephone").value = item.telephone;
-                          document.getElementById("ville").value =item.ville;
-                          document.getElementById("NICE").value =item.NICE;
-                          document.getElementById("Adresse").value = item.Adresse;
+                      jQuery.each(
+                        responce.info_fournisseur,
+                        function (key, item) {
+                          document.getElementById(
+                            "update_id_fournisseur"
+                          ).value = item.id;
+                          document.getElementById("nomFournisseurs").value =
+                            item.nomFournisseurs;
+                          document.getElementById("Designation").value =
+                            item.Designation;
+                          document.getElementById("telephone").value =
+                            item.telephone;
+                          document.getElementById("ville").value = item.ville;
+                          document.getElementById("NICE").value = item.NICE;
+                          document.getElementById("Adresse").value =
+                            item.Adresse;
                           document.getElementById("Fax").value = item.Fax;
-                          document.getElementById("Num_compte_comptable").value = item.Num_compte_comptable;
-                          document.getElementById("ID_fiscale").value = item.ID_fiscale;
-                      });
+                          document.getElementById(
+                            "Num_compte_comptable"
+                          ).value = item.Num_compte_comptable;
+                          document.getElementById("ID_fiscale").value =
+                            item.ID_fiscale;
+                        }
+                      );
                     },
                   });
                 });
@@ -321,48 +379,140 @@ function table_fournisseur() {
         .addEventListener("click", function () {
           table.download("pdf", "data.pdf", {
             orientation: "portrait", //set page orientation to portrait
-            title: "Succursale", //add title to report
+            title: "Fournisseur", //add title to report
           });
         });
-
-        
     },
   });
 }
-document.getElementById('excelFileInput').addEventListener('change', handleFile);
+document
+  .getElementById("file-upload")
+  .addEventListener("change", handleFile);
 
 function handleFile(event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+  const file = event.target.files[0];
+  const reader = new FileReader();
 
-    reader.onload = function (e) {
-        const data = new Uint8Array(e.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
+  reader.onload = function (e) {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: "array" });
 
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
 
-        const tableData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-        createTabulatorTable(tableData);
-    };
+    const tableData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    createTabulatorTable(tableData);
+  };
 
-    reader.readAsArrayBuffer(file);
+  reader.readAsArrayBuffer(file);
 }
 
+// function createTabulatorTable(data) {
+//   const table = new Tabulator("#table", {
+//     data: data.map((row) =>
+//       Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))
+//     ),
+//     layout: "fitColumns",
+//     columns: getTableColumns(data[0]),
+//   });
+//   const d=data.map((row) =>
+//   Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))
+// );
+//   console.log(d);
+//   d.forEach(row => {
+//     var arry=[];
+//     var Designation= row.Designation;
+//     var Adresse= row.Adresse;
+//     var nomFournisseurs= row.nomFournisseurs;
+//     var telephone= row.telephone;
+//     var NICE= row.NICE;
+//     var ville= row.ville;
+//     var Num_compte_comptable= row.Num_compte_comptable;
+//     var ID_fiscale= row.ID_fiscale;
+//     var Fax= row.Fax;
+//     console.log(ville);
+//     arry.push(
+//       { name: "nomFournisseurs", value: nomFournisseurs },
+//       { name: "Designation", value: Designation },
+//       { name: "Adresse", value: Adresse },
+//       { name: "telephone", value: telephone },
+//       { name: "NICE", value: NICE },
+//       { name: "ville", value: ville },
+//       { name: "Num_compte_comptable", value: Num_compte_comptable },
+//       { name: "ID_fiscale", value: ID_fiscale },
+//       { name: "Fax", value: Fax },
+//     );
+ 
+//     jQuery.ajax({
+//       headers: {
+//         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+//       },
+//       url: "./AddFournisseur",
+//       type: "POST", // Le nom du fichier indiqué dans le formulaire
+//       data: d, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+  
+//       success: function (response) {
+//         // Je récupère la réponse du fichier PHP
+//         toastr.success(response.messages);
+//         table_fournisseur();
+//       },
+//       error: function (response) {
+//         toastr.error(response.Error);
+//       },
+//     });
+
+//   });
+// }
 function createTabulatorTable(data) {
-    const table = new Tabulator('#table', {
-      data: data.map(row => Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))),
-      layout: 'fitColumns',
-      columns: getTableColumns(data[0]),
-    });
-    
+  const table = new Tabulator("#table", {
+    data: data,
+    layout: "fitColumns",
+    columns: getTableColumns(data[0]),
+  });
 
+  const dataArray = data.map((row) =>
+    Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))
+  );
+console.log(dataArray);
+
+  dataArray.forEach(row => {
+    var postData = {
+      nomFournisseurs: row.nomFournisseurs, // Assuming index 0 corresponds to 'nomFournisseurs'
+      Designation: row.Designation, // Assuming index 1 corresponds to 'Designation'
+      Adresse: row.Adresse, // Assuming index 2 corresponds to 'Adresse'
+       telephone: row.Telephone,
+       NICE: row.NICE,
+       ville: row.Ville,
+       Num_compte_comptable: row.Num_compte_comptable,
+       ID_fiscale:row.ID_fiscale,
+       Fax: row.Fax,
+       
+    };
+    console.log(postData);
+    jQuery.ajax({
+      headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+      },
+      url: "./AddFournisseurjson",
+      type: "get",
+      data: postData,
+
+      success: function (response) {
+        toastr.success(response.message);
+        table_fournisseur();
+      },
+      error: function (response) {
+        toastr.error(response.Error);
+      },
+    });
+  });
 }
 
+// **************************************
 function getTableColumns(headers) {
   if (!headers) {
-      return [];
+    return [];
   }
-  
-  return headers.map(header => ({ title: header, field: header }));
+
+  return headers.map((header) => ({ title: header, field: header }));
 }

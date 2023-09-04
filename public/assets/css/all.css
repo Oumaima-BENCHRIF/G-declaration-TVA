@@ -550,7 +550,8 @@ select.form-control.form-custom {
     font-size: 16px;
 }
 .btn-group-lg>.btn, .btn-group-lg .btn { font-size: 1.125rem; }
-.btn-group-sm>.btn, .btn-sm, .btn-group>.btn.btn-sm, .btn-group .btn.btn-sm { font-size: 0.6875rem; }
+.btn-group-sm>.btn, .btn-sm, .btn-group>.btn.btn-sm, .btn-group .btn.btn-sm { 
+    font-size: 0.7675rem; }
 .btn-group .dropdown-menu {
     border: 1px solid #e0e6ed;
     box-shadow: rgba(113, 106, 202, 0.2) 0px 0px 15px 1px;

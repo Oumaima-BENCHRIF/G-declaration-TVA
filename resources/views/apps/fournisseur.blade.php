@@ -150,9 +150,11 @@
                                                     </div>
                                                 </div>
                                         </div>
-                                        <div></div>
+                                        <!-- <div></div> -->
                                         <div id="flex-container">
-                                        <button class="btn btn-primary" id="Enregistrer" name="Enregistrer" type="submit"><i class="las la-check-double"></i>Enregistrer</button>
+                                        <button class="btn btn-primary mt-3 ml-2" id="Enregistrer" name="Enregistrer" type="submit">
+                                            <i class="las la-check-double"></i>Enregistrer
+                                        </button>
 
                                             <button onclick=" viderchamp()" id="Nouveau" name="Nouveau"  type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
                                                     class="las la-info-circle"></i>Nouveau</button>
@@ -179,8 +181,19 @@
                                                                 <div class="table-responsive mb-4">
 
                                                                 <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
-                                                                <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button>
-                                                                <input id="excelFileInput" type="file"  class="dt-button buttons-print btn qc-secondary">Importer
+                                                                <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info ">PDF</button>
+                                                                <!-- <input id="excelFileInput" type="file"  class="dt-button buttons-print btn qc-secondary">Importer -->
+
+                                                                
+                                                        
+                                                                    <label for="file-upload" class="custom-file-upload ">
+                                                                        <a title="Attach a file" class="btn btn-sm btn-primary  mr-2   pointer ">
+                                                                        Importer
+                                                                        </a>
+                                                                    </label>
+                                                                    <input id="file-upload" name="upload_cont_img" type="file" style="display:none;">
+                                                                
+                                                                 
 
                                                                 <div id="Liste-fournisseur" style="width: 100%;" class="header-table"></div>
 
@@ -188,7 +201,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div id="table"></div>
+                                                        <!-- <div id="table"></div> -->
 
                                                     </div>
                                                 </div>
