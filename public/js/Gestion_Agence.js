@@ -457,8 +457,13 @@ function table_Agence() {
                           item.FK_Regime;
                         document.getElementById("FK_fait_generateurs").value =
                           item.FK_fait_generateurs;
+                        var $newOption = $("<option selected='selected'></option>").text(item.FK_fait_generateurs).val(item.FK_fait_generateurs);
+                       console.log($newOption)
+                       $("#FK_fait_generateurs").append($newOption).trigger('change');
                          
                       });
+                      // var $newOption = $("<option selected='selected'></option>").text(responce.info_agence.FK_fait_generateurs).val(responce.info_agence.id);
+                
                     },
                   });
                 });
