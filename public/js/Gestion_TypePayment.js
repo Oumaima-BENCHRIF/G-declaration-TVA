@@ -132,7 +132,7 @@ $(window).on("load", function () {
           columns: [
             {
               title: "Nom payment",
-              width: 95,
+              minWidth: 80,
               field: "Nom_payment",
               vertAlign: "middle",
               // print: false,
@@ -141,8 +141,8 @@ $(window).on("load", function () {
             {
               title: "Num payment",
               field: "Num_payment",
-              minWidth: 100,
-              vertAlign: "middle",
+              hozAlign:"center",
+              minWidth: 80,
               // print: false,
               // download: false,
             },

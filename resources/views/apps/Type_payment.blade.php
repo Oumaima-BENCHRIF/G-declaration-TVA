@@ -64,7 +64,7 @@
                                         <!-- id="Add_typePayment" name="Add_typePayment" -->
                                             <form id="Add_TypePayment" name="Add_TypePayment" method="POST"  action="{{ route('dashboard.AddTypePayment') }}" class="needs-validation" novalidate action="javascript:void(0);">
                                             @csrf 
-                                            <div class="form-row">
+                                            <div class="form-rowd">
                                                 
                                                     <div class="col-md-4 mb-4">
                                                         <label for="Nom_payment">Nom payment</label>
@@ -109,8 +109,8 @@
                                                               
                                                                 <!-- or tableau style de = single-column-search -->
                                                                 <div class="table-responsive mb-4">
-                                                                    <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
-                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button>
+                                                                    <!-- <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
+                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button> -->
 
                                                                     <div id="Liste-TypePayment" style="width: 100%;" class="header-table"></div>
 
