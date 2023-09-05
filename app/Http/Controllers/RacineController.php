@@ -18,8 +18,8 @@ class RacineController extends Controller
  
         try {
             $racine = new racine();
-            $racine->code_racines = $request->input('code_racines');
-            $racine->Entilation_deducations = $request->input('Entilation_deducations');
+            $racine->Num_racines = $request->input('Num_racines');
+            $racine->Nom_racines = $request->input('Nom_racines');
             $racine->Taux = $request->input('Taux');
             
             $racine->save();
@@ -118,8 +118,8 @@ class RacineController extends Controller
              $update_racine = racine::where('id', $request->update_id_racine)->first();
           
              $update_racine->Taux = $request->Taux;
-             $update_racine->Entilation_deducations = $request->Entilation_deducations;
-             $update_racine->code_racines = $request->code_racines;
+             $update_racine->Nom_racines = $request->Nom_racines;
+             $update_racine->Num_racines = $request->Num_racines;
  
              $update_racine->save();
  
