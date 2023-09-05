@@ -137,7 +137,7 @@ class AchatController extends Controller
         ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
         ->join('fait_generateurs', 'fait_generateurs.id', 'achats.FK_fait_generateur')
         ->join('racines', 'racines.id', 'achats.FK_racines_1')
-        ->where('achats.FK_regime',5)
+        ->where('achats.FK_regime',1)
         ->where('achats.Exercice',2019)
         ->where('achats.deleted_at', '=', NULL)->get();
        
@@ -190,7 +190,7 @@ public function table_achat()
 
 }
 public function get_info()
-{   $id=2;
+{   $id=21;
     $get_info = agence::select()
     ->where('agences.id',$id)->first();
    $regime = regime::select('regimes.libelle')
