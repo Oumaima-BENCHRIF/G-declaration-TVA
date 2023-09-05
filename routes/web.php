@@ -119,17 +119,17 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
 
     /* ************************************************************** XML */
    // View
-   Route::get('/XML', [App\Http\Controllers\RegimeController::class, 'index'])->name('XML');
+   Route::post('/xml', [App\Http\Controllers\XMLController::class, 'xml'])->name('xml');
    // table XML
-   Route::get('table_XML', [App\Http\Controllers\RegimeController::class, 'table_XML'])->name('table_XML');
+   Route::get('table_XML', [App\Http\Controllers\XMLController::class, 'table_XML'])->name('table_XML');
    // ******* ajouter
-   Route::post('/AddXML', [App\Http\Controllers\RegimeController::class, 'Stores'])->name('AddXML');
+   Route::post('/AddXML', [App\Http\Controllers\XMLController::class, 'Stores'])->name('AddXML');
    // info XML
-   Route::get('/XML/{id_XML}', [App\Http\Controllers\RegimeController::class, 'info_XML'])->name('info_XML');
+   Route::get('/XML/{id_XML}', [App\Http\Controllers\XMLController::class, 'info_XML'])->name('info_XML');
    // delete XML
-   Route::post('DeleteXML', [App\Http\Controllers\RegimeController::class, 'destroy'])->name('DeleteXML');
+   Route::post('DeleteXML', [App\Http\Controllers\XMLController::class, 'destroy'])->name('DeleteXML');
    // update XML
-   Route::get('update_XML/{update_id_XML}', [App\Http\Controllers\RegimeController::class, 'Update'])->name('update_XML');
+   Route::get('update_XML/{update_id_XML}', [App\Http\Controllers\XMLController::class, 'Update'])->name('update_XML');
 
     /* ************************************************************** */
 
@@ -140,15 +140,15 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
 
 
     // liste FRS
-    Route::get('FK_FRS', [App\Http\Controllers\AchatController::class, 'Liste_FRS'])->name('Liste_fournisseur');
-    // Liste Mode de payement
-    Route::get('FK_Mpayement', [App\Http\Controllers\AchatController::class, 'Liste_Mpyement'])->name('Liste_Mpyement');
-    // Liste racine
-    Route::get('FK_racine', [App\Http\Controllers\AchatController::class, 'Liste_Racine'])->name('Liste_Racine');
-    // get FRS
-    Route::get('get_FRS/{id}', [App\Http\Controllers\AchatController::class, 'get_FRS'])->name('get_FRS');
-    // get racine
-    Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
+    // Route::get('FK_FRS', [App\Http\Controllers\AchatController::class, 'Liste_FRS'])->name('Liste_fournisseur');
+    // // Liste Mode de payement
+    // Route::get('FK_Mpayement', [App\Http\Controllers\AchatController::class, 'Liste_Mpyement'])->name('Liste_Mpyement');
+    // // Liste racine
+    // Route::get('FK_racine', [App\Http\Controllers\AchatController::class, 'Liste_Racine'])->name('Liste_Racine');
+    // // get FRS
+    // Route::get('get_FRS/{id}', [App\Http\Controllers\AchatController::class, 'get_FRS'])->name('get_FRS');
+    // // get racine
+    // Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
 
     // ****** table succursale
     Route::get('table_succursale', [App\Http\Controllers\SuccursaleController::class, 'table_succursale'])->name('table_succursale');

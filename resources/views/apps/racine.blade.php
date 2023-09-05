@@ -70,15 +70,15 @@
                                                         <div class="invalid-feedback"> Please provide a valid Taux. </div>
                                                     </div>
                                                     <div class="col-md-6 mb-6">
-                                                        <label for="Entilation_deducations">Ventilation des déducations</label>
-                                                        <input type="text" class="form-control" id="Entilation_deducations" name="Entilation_deducations"
+                                                        <label for="Nom_racines">Ventilation des déducations</label>
+                                                        <input type="text" class="form-control" id="Nom_racines" name="Nom_racines"
                                                             placeholder="Ventilation des déducations" required>
                                                         <div class="valid-feedback">  Success! </div>
                                                     </div>
                                                     <div class="col-md-4 mb-4">
 
-                                                        <label for="code_racines">Code Racine</label>
-                                                        <input type="text" class="form-control" id="code_racines" name="code_racines"
+                                                        <label for="Num_racines">Code Racine</label>
+                                                        <input type="text" class="form-control" id="Num_racines" name="Num_racines"
                                                             placeholder="Code Racine" required>
                                                         <div class="valid-feedback">  Success! </div>
                                                     </div>
