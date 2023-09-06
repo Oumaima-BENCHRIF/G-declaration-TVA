@@ -75,8 +75,8 @@
                     <div class="page-header">
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0);"> GESTION D'ACHATS</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span> GESTION D'ACHATS</span></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Gestion des factures d'achat</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Gestion des factures d'achat</span></li>
                             </ol>
                         </nav>
                     </div>
