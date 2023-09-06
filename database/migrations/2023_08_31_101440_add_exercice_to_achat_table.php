@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateXMLSTable extends Migration
+class AddExerciceToAchatTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateXMLSTable extends Migration
      */
     public function up()
     {
-        Schema::create('x_m_l_s', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::connection('mysql_portal')->table('achats', function (Blueprint $table) {
+            $table->string('Exercice')->nullable();
         });
     }
 
@@ -26,6 +25,8 @@ class CreateXMLSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('x_m_l_s');
+        Schema::table('achat', function (Blueprint $table) {
+            //
+        });
     }
 }

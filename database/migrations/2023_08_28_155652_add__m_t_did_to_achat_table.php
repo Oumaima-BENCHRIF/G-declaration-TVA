@@ -15,7 +15,7 @@ class AddMTDidToAchatTable extends Migration
     {
         Schema::connection('mys
         ql_portal')->table('achats', function (Blueprint $table) {
-            $table->float('MT déduit')->nullable();
+            $table->float('MT_déduit')->nullable();
             $table->float('TTC_1')->nullable();
             $table->float('TTC_2')->nullable();
             $table->float('TTC_3')->nullable();

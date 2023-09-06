@@ -69,6 +69,7 @@
             sidebar: function($recentSubmenu) {
                 $('.sidebarCollapse').on('click', function (sidebar) {
                     sidebar.preventDefault();
+                    
                     $(Selector.mainContainer).toggleClass("sidebar-closed");
                     $(Selector.mainHeader).toggleClass('expand-header');
                     $(Selector.mainContainer).toggleClass("sbar-open");

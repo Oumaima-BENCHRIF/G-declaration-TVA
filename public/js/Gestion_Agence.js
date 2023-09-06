@@ -389,6 +389,7 @@ function table_Agence() {
               $(a)
                 .find(".view")
                 .on("click", function () {
+    
                   jQuery.ajax({
                     url: "./Agence/" + cell.getData().id,
                     type: "GET", // Le nom du fichier indiqué dans le formulaire

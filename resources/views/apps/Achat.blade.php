@@ -60,37 +60,57 @@
                     <div class="row layout-top-spacing">
                         <div class="col-lg-12 layout-spacing">
                             <div class="statbox widget box box-shadow mb-4">
-                                <div class="widget-header">
+                                <!-- <div class="widget-header">
                                     <div class="row">
                                         <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                                             <h4>Gestion Achat</h4>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
+                                <div class="sub-header-container">
+        <header class="header navbar navbar-expand-sm">
+          
+            <ul class="navbar-nav flex-row pr-5">
+                <li>
+                    <div class="page-header">
+                        <nav class="breadcrumb-one" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Gestion des factures d'achat</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Gestion des factures d'achat</span></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </li>
+            </ul>
+            <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom">
+                <i class="las la-bars"></i>
+            </a>
+        </header>
+    </div>
                                 <div class="widget-content widget-content-area br-color border border-light p-0 m-3">
                                     <div class="form-group row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <form class="needs-validation" novalidate action="javascript:void(0);">
+                                            <form method="POST"  action="{{ route('dashboard.xml') }}" class="needs-validation" novalidate action="javascript:void(0);">
+                                            @csrf 
                                                 <div class="form-row  pt-5 rounded mb-3 mb-md-0">
                                                     <div class="col-md-4 mb-4">
 
                                                     </div>
                                                     <div class="col-md-1 mb-4">
-                                                        <button
-                                                            class="btn btn-primary btn-sm float-left p-1 px-3 next-button ">
-                                                            Serche</button>
+                                                    
                                                             <input type="hidden" id="id_achat" name="id_achat">
 
                                                     </div>
                                                     <div class="col-md-1 mb-4">
-                                                        <input type="number" min="1" value="5" class="form-control"
-                                                            placeholder="Qty" style="width: 90px;">
+                                                    <select class="form-control select2 py-3" required="" id="periode" name="periode">
+                                                          
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-1 mb-4 text-center">
                                                         <th scope="row" colspan="3" class="text-right"> : Période</th>
                                                     </div>
                                                     <div class="col-md-1 mb-4">
-                                                        <input type="number" min="1" value="5" class="form-control"
+                                                        <input type="number" min="1" value="2"  id="faitG" name="faitG" class="form-control" disabled
                                                             placeholder="Qty" style="width: 90px;">
                                                     </div>
                                                     <div class="col-md-2 mb-4 text-center">
@@ -100,12 +120,9 @@
                                                     </div>
 
                                                     <div class="col-md-1 mb-4">
-                                                        <select class="form-control select2 py-3">
+                                                        <select class="form-control select2 py-3" id="Exercice" name="Exercice">
 
-                                                            <option>2023</option>
-                                                            <option>2022</option>
-                                                            <option>2021</option>
-                                                            <option>2020</option>
+                                                          
                                                         </select>
                                                     </div>
                                                     <div class="col-md-1 mb-4 text-center">
@@ -113,7 +130,9 @@
 
                                                     </div>
                                                 </div>
-
+                                                 
+                                                <button  type="submit"  class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Génération de Fichier XML</button>
+                                                
                                             </form>
                                         </div>
                                     </div>
@@ -122,6 +141,12 @@
                                         <div class="layout-px-spacing">
                                     <div class="layout-top-spacing mb-2">
                                         <div class="col-md-12">
+                                        <div class="justify-content-end">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target=".bd-example-modal-lg">Ajouter</button>
+                                                <!-- onclick="generation_XML()" -->
+                                               
+                                            </div>
                                             <div class="row">
                                                 <div class="w-100 p-0">
                                                     <div class="row layout-top-spacing date-table-container">
@@ -131,9 +156,9 @@
                                                             <div class="widget-content widget-content-area br-6 px-0">
                                                            
                                                                 <div class="table-responsive mb-4">
-
+<!-- 
                                                                     <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
-                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button>
+                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button> -->
                                                                
                                                                     <div id="Liste-Achat" style="width: 100%;" class="header-table"></div>
                                                 
@@ -150,11 +175,9 @@
                                     </div>
                                 </div>
                                 <!-- END tableau -->
-                                <div class="row p-4 justify-content-end">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target=".bd-example-modal-lg">Ajouter</button>
-                                           
-                                        </div>
+                               
+                                      
+                                        
                                         <!--start modal ajouter -->
                                         <div class="modal fade bd-example-modal-lg"  role="dialog"
                                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -236,7 +259,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">TTC</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="MTttc"name="MTttc" readonly replaceholder="TTC"   >
+                                                                    id="MTttc"name="MTttc"  replaceholder="TTC"   >
 
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid TTC.
@@ -281,6 +304,8 @@
                                                                     <label class="radio radio-success ">
                                                                         <input type="radio" name="radios5" checked="checked"  id="LIBRE">
                                                                         <span></span>LIBRE</label>
+
+                                                                        <span>:Saisie</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -358,7 +383,7 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                               
-                                                                    <input type="text" class="form-control"  
+                                                                    <input type="text" class="form-control" onblur="calcul_HT2()"
                                                                         id="MHT_2" name="MHT_2" placeholder="MT HT"
                                                                         >
 
@@ -381,7 +406,7 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">     
                                                                     <input type="text" class="form-control"
-                                                                        id="ttc3" name="ttc3" 
+                                                                        id="ttc3" name="ttc3" onblur="calcul_ttc3()"
                                                                         placeholder="TTC LINE 3" >
                                                                 </div>
                                                                 
@@ -392,7 +417,7 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">            
                                                                     <input type="text" class="form-control" 
-                                                                        id="MHT_3" name="MHT_3" placeholder="MT HT"
+                                                                        id="MHT_3" onblur="calcul_HT3()" name="MHT_3" placeholder="MT HT"
                                                                         >
 
                                                                 </div>

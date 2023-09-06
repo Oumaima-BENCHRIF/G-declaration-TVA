@@ -62,13 +62,13 @@ $(document).ready(function () {
 function update_Racine() {
   var formData = [];
   var Taux = $("#Taux").val();
-  var Entilation_deducations = $("#Entilation_deducations").val();
-  var code_racines = $("#code_racines").val();
+  var Nom_racines = $("#Nom_racines").val();
+  var Num_racines = $("#Num_racines").val();
   var update_id_racine = $("#update_id_racine").val();
   formData.push(
     { name: "Taux", value: Taux },
-    { name: "Entilation_deducations", value: Entilation_deducations },
-    { name: "code_racines", value: code_racines },
+    { name: "Nom_racines", value: Nom_racines },
+    { name: "Num_racines", value: Num_racines },
     { name: "update_id_racine", value: update_id_racine }
   );
 
@@ -94,8 +94,8 @@ function update_Racine() {
 
 function viderchamp() {
   document.getElementById("Taux").value = "";
-  document.getElementById("Entilation_deducations").value = "";
-  document.getElementById("code_racines").value = "";
+  document.getElementById("Nom_racines").value = "";
+  document.getElementById("Num_racines").value = "";
   document.getElementById("update_id_racine").value = "";
 }
 
@@ -136,14 +136,14 @@ function table_racine() {
           {
             title: "Code racines",
             width: 95,
-            field: "code_racines",
+            field: "Num_racines",
             vertAlign: "middle",
             // print: false,
             editor: true,
           },
           {
             title: "Entilation deducations",
-            field: "Entilation_deducations",
+            field: "Nom_racines",
             minWidth: 100,
             vertAlign: "middle",
             // print: false,
@@ -218,10 +218,10 @@ function table_racine() {
                       jQuery.each(responce.info_racines, function (key, item) {
                         document.getElementById("Taux").value = item.Taux;
                         document.getElementById(
-                          "Entilation_deducations"
-                        ).value = item.Entilation_deducations;
-                        document.getElementById("code_racines").value =
-                          item.code_racines;
+                          "Nom_racines"
+                        ).value = item.Nom_racines;
+                        document.getElementById("Num_racines").value =
+                          item.Num_racines;
                       });
                     },
                   });
@@ -244,10 +244,10 @@ function table_racine() {
                           item.id;
                         document.getElementById("Taux").value = item.Taux;
                         document.getElementById(
-                          "Entilation_deducations"
-                        ).value = item.Entilation_deducations;
-                        document.getElementById("code_racines").value =
-                          item.code_racines;
+                          "Nom_racines"
+                        ).value = item.Nom_racines;
+                        document.getElementById("Num_racines").value =
+                          item.Num_racines;
                       });
                     },
                   });
