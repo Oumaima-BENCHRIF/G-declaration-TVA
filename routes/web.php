@@ -140,7 +140,6 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
 
 
     // liste FRS
-<<<<<<< HEAD
     Route::get('FK_FRS', [App\Http\Controllers\AchatController::class, 'Liste_FRS'])->name('Liste_fournisseur');
      // Liste Mode de payement
      Route::get('FK_Mpayement', [App\Http\Controllers\AchatController::class, 'Liste_Mpyement'])->name('Liste_Mpyement');
@@ -160,17 +159,6 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('get_FRS/{id}', [App\Http\Controllers\AchatController::class, 'get_FRS'])->name('get_FRS');
     // get racine
     Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
-=======
-    // Route::get('FK_FRS', [App\Http\Controllers\AchatController::class, 'Liste_FRS'])->name('Liste_fournisseur');
-    // // Liste Mode de payement
-    // Route::get('FK_Mpayement', [App\Http\Controllers\AchatController::class, 'Liste_Mpyement'])->name('Liste_Mpyement');
-    // // Liste racine
-    // Route::get('FK_racine', [App\Http\Controllers\AchatController::class, 'Liste_Racine'])->name('Liste_Racine');
-    // // get FRS
-    // Route::get('get_FRS/{id}', [App\Http\Controllers\AchatController::class, 'get_FRS'])->name('get_FRS');
-    // // get racine
-    // Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
->>>>>>> main
 
     // ****** table succursale
     Route::get('table_succursale', [App\Http\Controllers\SuccursaleController::class, 'table_succursale'])->name('table_succursale');
