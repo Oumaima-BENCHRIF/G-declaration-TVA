@@ -195,7 +195,7 @@ public function table_achat($periode,$Exercice)
 
 }
 public function get_info()
-{   $id=2;
+{   $id=21;
     $get_info = agence::select()
     ->where('agences.id',$id)->first();
    $regime = regime::select('regimes.libelle')

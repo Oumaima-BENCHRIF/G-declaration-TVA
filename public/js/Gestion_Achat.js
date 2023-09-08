@@ -492,7 +492,7 @@ function Liste_FRS() {
           '<option value="' +
           item.id +
           '">' +
-          item.name +
+          item.nomFournisseurs +
           "</option>";
       });
       $("#frs").html($lignes);
@@ -1495,5 +1495,48 @@ function tauxRacine3()
 
       },
     });
+  }
 
+function generation_XML(){
+       var formData = [];
+       
+       let Exercice =$("#Exercice").val();
+       let periode =$("#periode").val(); 
+       formData.push(
+         { name: "Exercice", value: Exercice },
+         { name: "periode", value: periode },
+       );
+        // Display a loading message
+    toastr.options = {
+      progressBar: true,
+      closeButton: true,
+  };
+  // toastr.info("Generating XML file. Please wait...");
+
+       jQuery.ajax({
+         url: "./xml",
+         type: "get", // Le nom du fichier indiqué dans le formulaire
+         data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+         // dataFilter: 'json', //forme data
+         success: function (response) {
+          // Access the 'responsexml' field from the JSON response
+          var xmlData = response.responsexml;
+         console.log(response);
+          var blob = new Blob([response.responsexml], { type: "text/plain" });
+          console.log(blob);
+          // Create a Blob from the XML data
+          // Create a download link and trigger the download
+          var link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = 'exported_data.xml';
+          link.click();
+      },
+         error: function () {
+             // Display an error message if something goes wrong
+             toastr.error("Error generating XML file.");
+         },
+         
+       });
+    
+   
 }

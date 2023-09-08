@@ -38,7 +38,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::post('/AddAgence', [App\Http\Controllers\AgenceController::class, 'Stores'])->name('AddAgence');
     // info Agence with ID
     // Route::get('/succursalses/{id_succursale}',  [App\Http\Controllers\SuccursaleController::class, 'info_succursale'])->name('info_succursale');
-    Route::get('/Agence/{id_agence}',  [App\Http\Controllers\AgenceController::class, 'info_agence'])->name('info_agence');
+    Route::get('/Agence/{id_agence}', [App\Http\Controllers\AgenceController::class, 'info_agence'])->name('info_agence');
     // delete succursale
     // Route::post('DeleteSuccursalse', [App\Http\Controllers\SuccursaleController::class, 'destroy'])->name('DeleteSuccursale');
     Route::post('DeleteAgence', [App\Http\Controllers\AgenceController::class, 'destroy'])->name('DeleteAgence');
@@ -49,10 +49,10 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     // update succursale
     //   Route::get('update_succursale', [App\Http\Controllers\SuccursaleController::class, 'Update'])->name('update_succursale');
     Route::get('update_Agence/{update_id_agence}', [App\Http\Controllers\AgenceController::class, 'Update'])->name('update_Agence');
-    
-    
-    
-    
+
+
+
+
     /* ************************************************************** fournisseur */
     // View
     Route::get('/Fourniseur', [App\Http\Controllers\FournisuerController::class, 'index'])->name('Fourniseur');
@@ -63,14 +63,14 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::post('/AddFournisseur', [App\Http\Controllers\FournisuerController::class, 'Stores'])->name('AddFournisseur');
     Route::get('/AddFournisseurjson', [App\Http\Controllers\FournisuerController::class, 'Storesjson'])->name('AddFournisseurjson');
     // info fournisseur
-    Route::get('/Fournisseur/{id_fournisseur}',  [App\Http\Controllers\FournisuerController::class, 'info_fournisseur'])->name('info_fournisseur');
+    Route::get('/Fournisseur/{id_fournisseur}', [App\Http\Controllers\FournisuerController::class, 'info_fournisseur'])->name('info_fournisseur');
     // delete fournisseur
     Route::post('Deletefournisseur', [App\Http\Controllers\FournisuerController::class, 'destroy'])->name('Deletefournisseur');
     // update fournisseur
     Route::get('update_fournisseur/{update_id_fournisseur}', [App\Http\Controllers\FournisuerController::class, 'Update'])->name('update_fournisseur');
     /* ************************************************************** */
 
-  /* ************************************************************** racine */
+    /* ************************************************************** racine */
     // View
     Route::get('/Racine', [App\Http\Controllers\RacineController::class, 'index'])->name('Racine');
 
@@ -79,16 +79,14 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     // ******* ajouter
     Route::post('/AddRacine', [App\Http\Controllers\RacineController::class, 'Stores'])->name('AddRacine');
     // info Racine
-    Route::get('/Racine/{id_Racine}',  [App\Http\Controllers\RacineController::class, 'info_Racine'])->name('info_Racine');
+    Route::get('/Racine/{id_Racine}', [App\Http\Controllers\RacineController::class, 'info_Racine'])->name('info_Racine');
     // delete Racine
     Route::post('DeleteRacine', [App\Http\Controllers\RacineController::class, 'destroy'])->name('DeleteRacine');
     // update Racine
     Route::get('update_Racine/{update_id_Racine}', [App\Http\Controllers\RacineController::class, 'Update'])->name('update_Racine');
     /* ************************************************************** */
 
-
-    
-  /* ************************************************************** type payment */
+    /* ************************************************************** type payment */
     // View
     Route::get('/Type_payment', [App\Http\Controllers\TypePaymentController::class, 'index'])->name('TypePayment');
 
@@ -97,35 +95,61 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     // ******* ajouter
     Route::post('/AddTypePayment', [App\Http\Controllers\TypePaymentController::class, 'Stores'])->name('AddTypePayment');
     // info TypePayment
-    Route::get('/TypePayment/{id_TypePayment}',  [App\Http\Controllers\TypePaymentController::class, 'info_TypePayment'])->name('info_TypePayment');
+    Route::get('/TypePayment/{id_TypePayment}', [App\Http\Controllers\TypePaymentController::class, 'info_TypePayment'])->name('info_TypePayment');
     // delete TypePayment
     Route::post('DeleteTypePayment', [App\Http\Controllers\TypePaymentController::class, 'destroy'])->name('DeleteTypePayment');
     // update TypePayment
     Route::get('update_TypePayment/{update_id_TypePayment}', [App\Http\Controllers\TypePaymentController::class, 'Update'])->name('update_TypePayment');
     /* ************************************************************** */
 
- /* ************************************************************** Regime */
+    /* ************************************************************** Regime */
     // View
     Route::get('/Regime', [App\Http\Controllers\RegimeController::class, 'index'])->name('Regime');
-
     // table Regime
     Route::get('table_Regime', [App\Http\Controllers\RegimeController::class, 'table_Regime'])->name('table_Regime');
     // ******* ajouter
     Route::post('/AddRegime', [App\Http\Controllers\RegimeController::class, 'Stores'])->name('AddRegime');
     // info Regime
-    Route::get('/Regime/{id_Regime}',  [App\Http\Controllers\RegimeController::class, 'info_Regime'])->name('info_Regime');
+    Route::get('/Regime/{id_Regime}', [App\Http\Controllers\RegimeController::class, 'info_Regime'])->name('info_Regime');
     // delete Regime
     Route::post('DeleteRegime', [App\Http\Controllers\RegimeController::class, 'destroy'])->name('DeleteRegime');
     // update Regime
     Route::get('update_Regime/{update_id_Regime}', [App\Http\Controllers\RegimeController::class, 'Update'])->name('update_Regime');
     /* ************************************************************** */
 
+    /* ************************************************************** XML */
+   // View
+   Route::post('/xml', [App\Http\Controllers\XMLController::class, 'xml'])->name('xml');
+   // table XML
+   Route::get('table_XML', [App\Http\Controllers\XMLController::class, 'table_XML'])->name('table_XML');
+   // ******* ajouter
+   Route::post('/AddXML', [App\Http\Controllers\XMLController::class, 'Stores'])->name('AddXML');
+   // info XML
+   Route::get('/XML/{id_XML}', [App\Http\Controllers\XMLController::class, 'info_XML'])->name('info_XML');
+   // delete XML
+   Route::post('DeleteXML', [App\Http\Controllers\XMLController::class, 'destroy'])->name('DeleteXML');
+   // update XML
+   Route::get('update_XML/{update_id_XML}', [App\Http\Controllers\XMLController::class, 'Update'])->name('update_XML');
+
+    /* ************************************************************** */
+
 
     Route::get('utilisateur', function () {
-        return view('auth.utilisateur'); });
+        return view('auth.utilisateur');
+    });
 
 
-    
+    // liste FRS
+    // Route::get('FK_FRS', [App\Http\Controllers\AchatController::class, 'Liste_FRS'])->name('Liste_fournisseur');
+    // // Liste Mode de payement
+    // Route::get('FK_Mpayement', [App\Http\Controllers\AchatController::class, 'Liste_Mpyement'])->name('Liste_Mpyement');
+    // // Liste racine
+    // Route::get('FK_racine', [App\Http\Controllers\AchatController::class, 'Liste_Racine'])->name('Liste_Racine');
+    // // get FRS
+    // Route::get('get_FRS/{id}', [App\Http\Controllers\AchatController::class, 'get_FRS'])->name('get_FRS');
+    // // get racine
+    // Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
+
     // ****** table succursale
     Route::get('table_succursale', [App\Http\Controllers\SuccursaleController::class, 'table_succursale'])->name('table_succursale');
     // gestion Achat
@@ -156,14 +180,17 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     })->name('fournisseur');
 
     Route::get('racine', function () {
-        return view('apps.racine'); });
+        return view('apps.racine');
+    });
 
     Route::get('Achat', function () {
-        return view('apps.Achat'); });
+        return view('apps.Achat');
+    });
 
 
     Route::get('login', function () {
-        return view('authentications.style1.login'); });
+        return view('authentications.style1.login');
+    });
 
     Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
