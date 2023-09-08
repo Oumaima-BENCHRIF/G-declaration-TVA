@@ -7,10 +7,12 @@ use App\Models\agence;
 use App\Models\fournisseurs;
 use App\Models\type_payment;
 use App\Models\racine;
-use App\Models\agences;
+
 use App\Models\regime;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 class AchatController extends Controller
 {
     public function index()
@@ -39,7 +41,7 @@ class AchatController extends Controller
             $achat->M_HT_1=$request->input('MHT_1');
             $achat->M_HT_2=$request->input('MHT_2');
             $achat->M_HT_3=$request->input('MHT_3');
-            $achat->M_TTC=$request->input('ttc');
+            $achat->M_TTC=$request->input('MTttc');
             $achat->Prorata=$request->input('prorata');
             $achat->TVA_deductible3=$request->input('tva_d3');
             $achat->TVA_deductible2=$request->input('tva_d2');
@@ -48,11 +50,11 @@ class AchatController extends Controller
             $achat->TTC_1=$request->input('ttc1');
             $achat->TTC_2=$request->input('ttc2');
             $achat->TTC_3=$request->input('ttc3');
-            $achat->Exercice=$request->input('Exercice');
-            $achat->FK_fait_generateur=1;
+            $achat->Exercice=$request->input('Exercice');   
             $achat->FK_regime=$request->input('periode');     
             $achat->FK_type_payment=$request->input('Mpayement');
             $achat->FK_racines_1=$request->input('racine');
+            $achat->dateSaisie=date('Y-m-d');
             if($request->input('racine2')!='null'){
                 $achat->FK_racines_2=$request->input('racine2');
             }
@@ -117,9 +119,12 @@ class AchatController extends Controller
       
         $get_racine = racine::where('racines.id',$id)
         ->where('racines.deleted_at', '=', NULL)->first();
-
+        $taux = racine::select('racines.Taux')
+        ->where('racines.id',$id)
+        ->where('racines.deleted_at', '=', NULL)->first();
         return response()->json([
-            'get_racine' => $get_racine
+            'get_racine' => $get_racine,
+            'taux'=>$taux
         ]);
     }
     public function get_achat($nfact)
@@ -129,16 +134,16 @@ class AchatController extends Controller
         return response()->json([
             'get_achat' => $get_achat
         ]);
-    } public function get_TBLachat($periode,$Exercice)
-    {
+    } public function get_TBLachat(Request $request,$periode,$Exercice)
+    { 
+       
         $get_TBLachat =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.name','type_payments.Nom_payment','racines.Num_racines')
         ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
-        ->join('regimes', 'regimes.id', 'achats.FK_racines_1')
-        ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
-        ->join('fait_generateurs', 'fait_generateurs.id', 'achats.FK_fait_generateur')
+        ->join('regimes', 'regimes.id', 'achats.FK_regime')
+        ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment') 
         ->join('racines', 'racines.id', 'achats.FK_racines_1')
-        ->where('achats.FK_regime',5)
-        ->where('achats.Exercice',2019)
+        ->where('achats.FK_regime',$periode)
+        ->where('achats.Exercice',$Exercice)
         ->where('achats.deleted_at', '=', NULL)->get();
        
         return response()->json([
@@ -147,9 +152,8 @@ class AchatController extends Controller
     }
     public function get_achatbyID($id)
     {
-      
-
-        $get_achatb =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.id as idfrs','fournisseurs.name','type_payments.Nom_payment','type_payments.id as idp','racines.Num_racines')
+       
+        $get_achatb =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.id as idfrs','fournisseurs.name','type_payments.Nom_payment','type_payments.id as idp')
         ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
         ->join('regimes', 'regimes.id', 'achats.FK_racines_1')
         ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
@@ -157,22 +161,23 @@ class AchatController extends Controller
         ->join('racines', 'racines.id', 'achats.FK_racines_1')
         ->where('achats.id',$id)
         ->where('achats.deleted_at', '=', NULL)->first();
-       
+  
         return response()->json([
             'get_achatb' => $get_achatb
         ]);
       
     }
 
-public function table_achat()
+public function table_achat($periode,$Exercice)
 {
 
     $table_achat =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.name','type_payments.Nom_payment','racines.Num_racines')
     ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
     ->join('regimes', 'regimes.id', 'achats.FK_racines_1')
     ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
-    ->join('fait_generateurs', 'fait_generateurs.id', 'achats.FK_fait_generateur')
     ->join('racines', 'racines.id', 'achats.FK_racines_1')
+    ->where('achats.FK_regime',$periode)
+     ->where('achats.Exercice',$Exercice)
     ->where('fournisseurs.deleted_at', '=', NULL)->get();
 
     if ($table_achat) {
@@ -208,40 +213,125 @@ public function get_info()
 }
 public function Update(Request $request)
     {
+    
+
+        try {
+            $achat = achat::where('achats.id',$request->input('id'))
+            ->where('achats.deleted_at', '=', NULL)->first(); 
+            $achat->N_facture=$request->n_fact;
+            $achat->Date_facture=$request->input('date_fact');
+            $achat->Date_payment=$request->input('date_p');
+            $achat->Designation=$request->input('desc');
+            $achat->TVA_2=$request->input('tva_2');
+            $achat->TVA_3=$request->input('tva_3');
+            $achat->TVA_1=$request->input('tva_1');
+            $achat->M_HT_1=$request->input('MHT_1');
+            $achat->M_HT_2=$request->input('MHT_2');
+            $achat->M_HT_3=$request->input('MHT_3');
+            $achat->M_TTC=$request->input('MTttc');
+            $achat->Prorata=$request->input('prorata');
+            $achat->TVA_deductible3=$request->input('tva_d3');
+            $achat->TVA_deductible2=$request->input('tva_d2');
+            $achat->TVA_deductible=$request->input('tva_d1');
+            $achat->MT_déduit=$request->input('mtd');
+            $achat->TTC_1=$request->input('ttc1');
+            $achat->TTC_2=$request->input('ttc2');
+            $achat->TTC_3=$request->input('ttc3');
+            $achat->Exercice=$request->input('Exercice');
+            $achat->FK_regime=$request->input('periode');     
+            $achat->FK_type_payment=$request->input('Mpayement');
+            $achat->FK_racines_1=$request->input('racine');
+            if($request->input('racine2')!='null'){
+                $achat->FK_racines_2=$request->input('racine2');
+            }
+            if($request->input('racine3')!='null'){
+                $achat->FK_racines_3=$request->input('racine3');
+            }
+            $achat->FK_fournisseur=$request->input('frs');
+            // dd($achat);
+            $achat->save();
+            return response()->json([
+                'status' => 200,
+                'messages' => 'Modification avec succès',
+            ]);
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'status' => 200,
+                'Error' => 'Merci de vérifier la connexion internet, si non email_clienter le service IT',
+            ]);
        
+    }
+}
+    function get_regime($exercice)
+    {
+        $regime = regime::select('regimes.libelle')
+        ->join('achats', 'regimes.id','achats.FK_regime')
+        ->where('achats.Exercice', '=',$exercice)->first();
+        $Liste_regimes = regime::where('regimes.deleted_at', '=', NULL)
+        ->orderBy("id", "Asc")->get();
+        return response()->json([
+            'regime' => $regime,
+            'Liste_regimes'=>$Liste_regimes
+           
+        ]);
+      
 
-        // try {
+    }
 
-        //     $update_agence = agence::where('id', $request->update_id_agence)->first();
-         
-        //     $update_agence->ICE = $request->ICE;
-        //     $update_agence->Email = $request->Email;
-        //     $update_agence->Activite = $request->Activite;
-        //     $update_agence->ID_Fiscale = $request->ID_Fiscale;
-        //     $update_agence->Ville = $request->Ville;
 
+ public function destroy(Request $request)
+{
+    try {
+        // dd($request->delete_id_achat);
+        $check = achat::where('id', $request->delete_id_achat)->first();
+        
+        if ($check != null) {
+            $niveauurgence = achat::find($request->delete_id_achat);
+            $niveauurgence->delete();
+            
           
-        //     $update_agence->Tele = $request->Tele;
-        //     $update_agence->Adresse = $request->Adresse;
-        //     $update_agence->nom_succorsale = $request->nom_succorsale;
-        //     $update_agence->Fax = $request->Fax;
-        //     $update_agence->FK_Regime = $request->FK_Regime;
-        //     $update_agence->FK_fait_generateurs = $request->FK_fait_generateurs;
-        //     $update_agence->nomBD = $request->nomBD;
+            return response()->json([
+                'status' => 200,
+                'message' => 'Suppression avec succès',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 200,
+                'danger' => 'Vérifiez votre données',
+            ]);
+        }
+    } catch (\Exception $e) {
 
-        //     $update_agence->save();
+        return redirect()
+            ->back()
+            ->with('danger', 'Merci de vérifier la connexion internet, si non Contacter le service IT')
+            ->withInput();
+    }
+}
 
-        //     return response()->json([
-        //         'status' => 200,
-        //         'messages' => 'Modification avec succès',
-        //     ]);
-        // } catch (\Exception $e) {
+public function generatePDF($periode,$Exercice)
+{
+    $id=2;
+    $get_info = agence::select('agences.*','fait_generateurs.id as idf','fait_generateurs.libelle')
+    ->join('fait_generateurs', 'fait_generateurs.id', 'agences.FK_fait_generateurs')
+    ->where('agences.id',$id)
+    ->first();
 
-        //     return response()->json([
-        //         'status' => 200,
-        //         'Error' => 'Merci de vérifier la connexion internet, si non email_clienter le service IT',
-        //     ]);
-    //     // }
-    // }
+    $table_achat =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.name','type_payments.Nom_payment','racines.Num_racines')
+    ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
+    ->join('regimes', 'regimes.id', 'achats.FK_racines_1')
+    ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
+    ->join('racines', 'racines.id', 'achats.FK_racines_1')
+    ->where('achats.FK_regime',$periode)
+     ->where('achats.Exercice',$Exercice)
+    ->where('fournisseurs.deleted_at', '=', NULL)->get();
+    $pdf = PDF::loadView('Etat_Achat',[
+        'table_achat'=>$table_achat,
+        'get_info'=>$get_info
+    ])->setPaper('a4', 'landscape');;
+    
+    return $pdf->stream('facture.pdf');
+   
 }
 }

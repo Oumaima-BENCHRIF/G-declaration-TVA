@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "express": "^4.17.1",
+        "pdf": "^0.1.0",
         "tabulator-tables": "^5.5.1",
         "toastr": "^2.1.4"
     }

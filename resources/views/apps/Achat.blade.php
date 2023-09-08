@@ -169,6 +169,7 @@
                                 <div class="row p-4 justify-content-end">
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target=".bd-example-modal-lg">Ajouter</button>
+                                                <a id="achat_pdf" class="btn btn-primary">Generate PDF</a>
                                            
                                         </div>
                                         <!--start modal ajouter -->
@@ -304,7 +305,7 @@
                                                         </div>
                                                                 <div class="col-md-4 mb-3">
                                                                     <label for="validationCustom03"> % Prorata</label>
-                                                                    <input type="text" onblur="tva_didu()" class="form-control"
+                                                                    <input type="text" onblur="tva_didu()" class="form-control" value="100"
                                                                         id="prorata" name="prorata" placeholder="Prorata"
                                                                         >
                                                                 </div>
@@ -336,6 +337,12 @@
                                                                     id="tva_1" name="tva_1" placeholder="TVA"
                                                                         required>
                                                                 </div>
+                                                                <div class="col-md-2 mb-3 d-none">
+                                                                    <label for="validationCustom03">TVA</label>
+                                                                    <input type="text" class="form-control"
+                                                                    id="tva_d1" name="tva_d1" placeholder="TVA"
+                                                                        >
+                                                                </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label>MT HT</label>
                                                                     <input type="text" class="form-control"
@@ -353,7 +360,7 @@
                                                               
                                                                 <div class="col-md-4 mb-3" id="colracine">
                                                                     <label>Rubriqe TVA</label>
-                                                                    <select class="form-control select2 py-3" id="racine" name="racine" required>
+                                                                    <select class="form-control select2 py-3" id="racine" name="racine" onchange=" tauxRacine1()">
                                                                     </select>
                                                                 </div>
                                                               </div>
@@ -374,6 +381,12 @@
                                                                         id="tva_2" name="tva_2"  placeholder="TVA"
                                                                         >
                                                                 </div>
+                                                                <div class="col-md-2 mb-3 d-none">
+                                                                    <label for="validationCustom03">TVA</label>
+                                                                    <input type="text" class="form-control"
+                                                                    id="tva_d2" name="tva_d2" placeholder="TVA">
+                                                                </div>
+                                                                
                                                                 <div class="col-md-2 mb-3">
                                                               
                                                                     <input type="text" class="form-control" onblur="calcul_HT2()"
@@ -388,7 +401,7 @@
                                                                 </div>
 
                                                                 <div class="col-md-4 mb-3">
-                                                                <select class="form-control select2 py-3" id="racine2" name="racine2" required>
+                                                                <select class="form-control select2 py-3" onchange=" tauxRacine2()" id="racine2" name="racine2" required>
                                                                     </select>
                                                                 </div>
                                                                
@@ -397,7 +410,7 @@
                                                              <div class="col-md-2 mb-3 ">
                                                                    
                                                                 </div>
-                                                                <div class="col-md-2 mb-3">     
+                                                                <div class="col-md-2 mb-3 ">     
                                                                     <input type="text" class="form-control"
                                                                         id="ttc3" name="ttc3" onblur="calcul_ttc3()"
                                                                         placeholder="TTC LINE 3" >
@@ -406,6 +419,12 @@
                                                                 <div class="col-md-2 mb-3">
                                                                     <input type="text" class="form-control" onblur="calcul_tva3()"
                                                                         id="tva_3" name="tva_3"  placeholder="TVA"
+                                                                        >
+                                                                </div>
+                                                                <div class="col-md-2 mb-3 d-none">
+                                                                    <label for="validationCustom03">TVA</label>
+                                                                    <input type="text" class="form-control"
+                                                                    id="tva_d3" name="tva_d3" placeholder="TVA"
                                                                         >
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">            
@@ -421,7 +440,7 @@
                                                                 </div>
 
                                                                 <div class="col-md-4 mb-3">
-                                                                <select class="form-control select2 py-3" id="racine3" name="racine3" required>
+                                                                <select class="form-control select2 py-3" id="racine3" name="racine3" onchange=" tauxRacine3()" required>
                                                                     </select>
                                                                 </div>
                                                                 
@@ -469,13 +488,42 @@
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Close</button>
                                                         <button type="submit" id="add_ach" class="btn btn-primary">Ajouter</button>
-                                                       
+                                                       <a class="btn btn-primary" id="update">modifier</a>
                                                     </div>
                                                     </form>
                                                 </div>
                                             </div> </div>
                                         </div>
                                          <!--end modal ajouter -->
+                                         <!--start modal delete -->
+                                         <div id="delet_achat" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
+                                            <div class="modal-dialog">
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">?Êtes-vous sûr'</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <i class="las la-times"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="modal-text">? Voulez-vous vraiment supprimer ces enregistrements  <br> Ce processus ne peut pas être annulé </p>
+                                                    </div>
+                                                    <form id="Delet_Achat" name="Delet_Achat" action="{{ route('dashboard.DeleteAchat') }}" action="" method="post">
+                                                    <div class="modal-footer md-button">
+                                                        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Annuler</button>
+                                                        <input type="hidden" id="delete_id_achat" name="delete_id_achat">
+                                                        {{ csrf_field() }}
+                                                        <button type="submit" class="btn btn-primary">Supprimer</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <!--end modal delete -->
+
+
+
                             </div>
                         </div>
                     </div>

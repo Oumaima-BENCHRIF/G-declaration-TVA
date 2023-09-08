@@ -6461,3 +6461,6 @@ img.skew-div-image {
     background: #acfff7;
     color: #009688;
 }
+.tabulator.tabulator-rtl .tabulator-row .tabulator-cell {
+    justify-content: end !important;
+}
