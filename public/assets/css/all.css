@@ -6462,10 +6462,15 @@ img.skew-div-image {
     background: #acfff7;
     color: #009688;
 }
+<<<<<<< HEAD
+.tabulator.tabulator-rtl .tabulator-row .tabulator-cell {
+    justify-content: end !important;
+=======
 .form-rowd{
     
     display: flex;
     flex-wrap: wrap;
     margin-left: -50%;
     /* /* margin-right: -5px; */
+>>>>>>> 1685acd237d818bd9e627cbe8a2516c4ac828a01
 }

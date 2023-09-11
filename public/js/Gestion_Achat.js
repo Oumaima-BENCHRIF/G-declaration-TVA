@@ -4,24 +4,19 @@ $(window).on("load", function () {
   Liste_FRS();
   Liste_Mpyement();
   Liste_Racine();
-  table_Achat();
+  setTimeout(function () {
+    table_Achat();
+  }, 1500); 
+ 
   gestYears();
-
+  document.getElementById('update').style.display='none';
   
   // $("#taux1").prop("readonly", true);
 });
 
 $(document).ready(function () {
-  // $(".edit").on("click", function (e) {
-   
-  
-   
-  // });
+ 
   $("#Add_Achat").on("submit", function (e) {
-
- let= button= document.getElementById('add_ach').innerHTML;
-
-
     e.preventDefault();
     var formData = [];
     var $this = jQuery(this);
@@ -32,7 +27,7 @@ $(document).ready(function () {
       { name: "Exercice", value: Exercice },
       { name: "periode", value: periode },
     );
-    console.log(periode);
+   
     jQuery.ajax({
       url: $this.attr("action"),
       type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
@@ -45,6 +40,7 @@ $(document).ready(function () {
           closeButton: true,
         };
         toastr.success(response.message, { timeOut: 12000 });
+        table_Achat();
       },
       error: function (response) {
         toastr.options = {
@@ -54,9 +50,116 @@ $(document).ready(function () {
         toastr.error("Merci de vérifier les champs");
       },
     });
+  });
+  $("#update").on("click", function (e) {
+    var id = $('#id_achat').val();
+    var formData = [];
+    var frs = $('#frs').val();
+    var desc = $("#desc").val();
+    var n_fact = $("#n_fact").val();
+    var date_fact = $("#date_fact").val();
+    var date_p = $("#date_p").val();
+    var Mpayement = $("#Mpayement").val();
+    var MTttc = $("#MTttc").val();
+    var mtd = $("#mtd").val();
+    var prorata = $("#prorata").val();
+    var racine = $("#racine").val();
+    var MHT_1 = $("#MHT_1").val();
+    var tva_1 = $("#tva_1").val();
+    var ttc1 = $("#ttc1").val();
+    var racine2 = $("#racine2").val();
+    var MHT_2 = $("#MHT_2").val();
+    var tva_2 = $("#tva_2").val();
+    var ttc2 = $("#ttc2").val();
+    var racine3 = $("#racine3").val();
+    var MHT_3 = $("#MHT_3").val();
+    var tva_3 = $("#tva_3").val();
+    var ttc3 = $("#ttc3").val();    
+    var tva_d1 = $("#tva_d1").val();
+    var tva_d2 = $("#tva_d2").val();
+    var tva_d3 = $("#tva_d3").val();
+    var Exercice = $("#Exercice").val();
+    var periode = $("#periode").val();
+    formData.push(
+      { name: "id", value: id },
+      { name: "frs", value: frs },
+      { name: "desc", value: desc },
+      { name: "n_fact", value: n_fact },
+      { name: "date_fact", value: date_fact },
+      { name: "date_p", value: date_p },
+      { name: "Mpayement", value: Mpayement },
+      { name: "MTttc", value: MTttc },
+      { name: "mtd", value: mtd },
+      { name: "prorata", value: prorata },
+      { name: "racine", value: racine },
+      { name: "MHT_1", value: MHT_1 },
+      { name: "tva_1", value: tva_1 },
+   
+      { name: "ttc1", value: ttc1 },
+      { name: "racine2", value: racine2 },
+      { name: "MHT_2", value: MHT_2 },
+      { name: "tva_2", value: tva_2 },
+      { name: "ttc2", value: ttc2 },
+      { name: "racine3", value: racine3 },
+      { name: "MHT_3", value: MHT_3 },
+      { name: "tva_3", value: tva_3 },
+      { name: "ttc3", value: ttc3 },
+      { name: "tva_d1", value: tva_d1 },
+      { name: "tva_d2", value: tva_d2 },
+      { name: "tva_d3", value: tva_d3 }, 
+      { name: "Exercice", value: Exercice },
+      { name: "periode", value: periode },
+    );
   
+    jQuery.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+
+      url: "./update_achat",
+      type: "get", // Le nom du fichier indiqué dans le formulaire
+      data:formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+  
+      success: function (response) {
+          // Je récupère la réponse du fichier PHP
+          toastr.success(response.messages);
+      },
+      error: function (response) {
+          toastr.error(response.Error);
+      },
   });
 
+  });
+  $("#Delet_Achat").on("submit", function (e) {
+    e.preventDefault();
+    var $this = jQuery(this);
+    var formData = jQuery($this).serializeArray();
+    jQuery.ajax({
+      url: $this.attr("action"),
+      type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+      data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+      // dataFilter: 'json', //forme data
+      success: function (response) {
+        // Je récupère la réponse du fichier PHP
+        toastr.options = {
+          progressBar: true,
+          closeButton: true,
+        };
+        toastr.success(response.message, { timeOut: 12000 });
+        jQuery("#Delet_Achat").trigger("click");
+        table_Achat();
+      },
+      error: function (response) {
+        toastr.error(response.danger);
+      },
+    });
+  });
+  $("#achat_pdf").on("click", function (e) {
+    let periode = $('#periode').val();
+    let Exercice = $('#Exercice').val();
+    window.open("./Etat_Achat/" + periode + "/" + Exercice);
+
+  });
   $('#frs').on('select2:select', function (e) {
     // myFunction();
     let value = $('#frs').val();
@@ -79,65 +182,23 @@ $(document).ready(function () {
 
   });
   $('#racine').on('select2:select', function (e) {
-    let value = $('#racine').val();
-
-    jQuery.ajax({
-      url: "./get_racine/" + value,
-      type: "GET",
-      dataType: "json",
-      success: function (responce) {
-        $tabledata = responce.get_racine;
-
-        jQuery.each(responce.get_racine, function (key, item) {
-          $("#taux1").val($tabledata.Taux);
-        });
-
-      },
-    });
+    tauxRacine1();
 
   });
   $('#racine2').on('select2:select', function (e) {
- 
-    let value = $('#racine2').val();
-
-    jQuery.ajax({
-      url: "./get_racine/" + value,
-      type: "GET",
-      dataType: "json",
-      success: function (responce) {
-        $tabledata = responce.get_racine;
-
-        jQuery.each(responce.get_racine, function (key, item) {
-          $("#taux2").val($tabledata.Taux);
-        });
-
-      },
-    });
+    tauxRacine2();
 
   });
   $('#racine3').on('select2:select', function (e) {
-    let value = $('#racine3').val();
-
-    jQuery.ajax({
-      url: "./get_racine/" + value,
-      type: "GET",
-      dataType: "json",
-      success: function (responce) {
-        $tabledata = responce.get_racine;
-
-        jQuery.each(responce.get_racine, function (key, item) {
-          $("#taux3").val($tabledata.Taux);
-        });
-
-      },
-    });
-
+    tauxRacine3();
   });
 
   $('#periode').on('select2:select', function (e) {
-    // myFunction();
+    
     let periode = $('#periode').val();
-    let Exercice = $('#Exercice').text();
+    let Exercice = $('#Exercice').val();
+  
+    
     jQuery.ajax({
       url: "./get_TBLachat/" + periode+"/"+Exercice,
       type: "GET",
@@ -172,6 +233,40 @@ $(document).ready(function () {
       },
     });
 
+  });
+  $('#Exercice').on('select2:select', function (e) {
+    
+    let Exercice = $('#Exercice').val();
+   
+  
+    jQuery.ajax({
+      url: "./get_regime/" +Exercice,
+      type: "GET",
+      dataType: "json",
+      success: function (responce) {
+    
+           let selectElement=("#Exercice");
+           var $lignes;
+           $tabledata = responce.Liste_regimes;
+           let regime=responce.regime.libelle;
+         
+          jQuery.each($tabledata, function (key, item) {
+        
+            if(regime==item.libelle){
+             
+              $lignes =
+              $lignes +
+              '<option value="' +
+              item.id +
+              '">' +
+              item.	periode +
+            "</option>";
+            }
+            $("#periode").html($lignes);
+          });
+        
+        },
+    });
   });
   $('#basic-dt').DataTable({
     "language": {
@@ -450,7 +545,7 @@ function get_info() {
         }
         $("#periode").html($lignes);
       });
-      var $newOption = $("<option selected='selected'></option>").text(responce.get_info.Exercice);
+      var $newOption = $("<option selected='selected'></option>").text(responce.get_info.Exercice).val(responce.get_info.Exercice);
       $("#Exercice").append($newOption).trigger('change');
       $("#faitG").val(responce.get_info.FK_fait_generateurs);
     },
@@ -580,7 +675,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 function calcul_ttc1() {
-  let ttc = $("#MTttc").val();
+
   let ttc1 = $("#ttc1").val();
 
   let taux1 = $("#taux1").val(); 
@@ -605,21 +700,28 @@ function calcul_ttc1() {
       }
     }
   }
-  }else
-  {
-    if(ttc=='')
+  }
+    let ttc = $("#MTttc").val();
+    let ttc2 = $("#ttc2").val();
+    let ttc3 = $("#ttc3").val();
+    if(ttc1=='')
     {
-      ttc=0;
-    }
-    if(ttc1!='')
+      ttc1=0;
+    } if(ttc2=='')
     {
-      $("#MTttc").val(parseFloat(ttc)+parseFloat(ttc1));
+      ttc2=0;
+    } if(ttc3=='')
+    {
+      ttc3=0;
     }
+    
+      $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
+    
   
-  }});
+  });tva_didu();
 }
 function calcul_ttc2() {
-  let ttc = $("#MTttc").val();
+
   let ttc2 = $("#ttc2").val();
   let taux2 = $("#taux2").val();
   var radioButtons = document.querySelectorAll("input[name='radios5']");
@@ -631,7 +733,7 @@ function calcul_ttc2() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (ttc2 != '') {
-        $("#MTttc").val(parseFloat(ttc)+parseFloat(ttc2));
+        
         let mht = parseFloat(ttc2) / (1 + parseFloat(taux2));
         mht = parseFloat(mht).toFixed(2);
         let tva = parseFloat(ttc2) - parseFloat(mht);
@@ -641,16 +743,22 @@ function calcul_ttc2() {
       }
     }
   }
-  }else{
-    if(ttc=='')
-    {
-      ttc=0;
-    }
-    if(ttc2!='')
-    {
-    $("#MTttc").val(parseFloat(ttc)+parseFloat(ttc2));}
   }
-});
+  let ttc1 = $("#ttc1").val();
+  let ttc3 = $("#ttc3").val();
+  if(ttc1=='')
+  {
+    ttc1=0;
+  } if(ttc2=='')
+  {
+    ttc2=0;
+  } if(ttc3=='')
+  {
+    ttc3=0;
+  }
+  
+    $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
+});tva_didu();
 }
 function calcul_ttc3() {
   let ttc = $("#MTttc").val();
@@ -677,15 +785,22 @@ function calcul_ttc3() {
     }
   }
   }else{
-    if(ttc=='')
+   
+    let ttc2 = $("#ttc2").val();
+    let ttc1 = $("#ttc1").val();
+    if(ttc1=='')
     {
-      ttc=0;
+      ttc1=0;
+    } if(ttc2=='')
+    {
+      ttc2=0;
+    } if(ttc3=='')
+    {
+      ttc3=0;
     }
-    if(ttc3!='')
-    {
-    $("#MTttc").val(parseFloat(ttc)+parseFloat(ttc3));
-  }}
-});
+    
+      $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));}
+});tva_didu();
 }
 function calcul_tva() {
   let tva_1 = $("#tva_1").val();
@@ -709,15 +824,23 @@ function calcul_tva() {
         ttc = parseFloat(ttc).toFixed(2);
         $("#MHT_1").val(mht);
         $("#ttc1").val(ttc);
-        if(mttc=='')
+        let ttc1 = $("#ttc1").val();
+        let ttc2 = $("#ttc2").val();
+        let ttc3 = $("#ttc3").val();
+        if(ttc1=='')
         {
-          mttc=0;
+          ttc1=0;
+        } if(ttc2=='')
+        {
+          ttc2=0;
+        } if(ttc3=='')
+        {
+          ttc3=0;
         }
-        if(ttc!='')
-        {
-        $("#MTttc").val(parseFloat(mttc)+parseFloat(ttc));}
+        
+          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
       }}}
-    }
+    }tva_didu();
 
   });
 }
@@ -742,18 +865,25 @@ function calcul_tva2() {
            ttc=parseFloat(ttc).toFixed(2);
         $("#MHT_2").val(mht);
          $("#ttc2").val(ttc);
-         if(mttc=='')
+         let ttc1 = $("#ttc1").val();
+         let ttc2 = $("#ttc2").val();
+         let ttc3 = $("#ttc3").val();
+         if(ttc1=='')
          {
-           mttc=0;
+           ttc1=0;
+         } if(ttc2=='')
+         {
+           ttc2=0;
+         } if(ttc3=='')
+         {
+           ttc3=0;
          }
-         if(ttc!='')
-         {
-          console.log(mttc);
-          console.log(ttc);
-         $("#MTttc").val(parseFloat(mttc)+parseFloat(ttc));}
+         
+           $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
       }
     }
-  }}});
+  }}tva_didu();
+});
 
 }
 function calcul_tva3() {
@@ -773,17 +903,23 @@ function calcul_tva3() {
            ttc=parseFloat(ttc).toFixed(2);
           $("#MHT_3").val(mht);
           $("#ttc3").val(ttc);
-          if(mttc=='')
+          let ttc1 = $("#ttc1").val();
+          let ttc2 = $("#ttc2").val();
+          let ttc3 = $("#ttc3").val();
+          if(ttc1=='')
           {
-            mttc=0;
+            ttc1=0;
+          } if(ttc2=='')
+          {
+            ttc2=0;
+          } if(ttc3=='')
+          {
+            ttc3=0;
           }
-          if(ttc!='')
-          {
-           console.log(mttc);
-           console.log(ttc);
-          $("#MTttc").val(parseFloat(mttc)+parseFloat(ttc));}
+          
+            $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
       }
-    }
+    }tva_didu();
   }
 
 }
@@ -802,18 +938,24 @@ function calcul_HT() {
         ttc = parseFloat(ttc).toFixed(2);
         $("#tva_1").val(TVA);
         $("#ttc1").val(ttc);
-        if(mttc=='')
+        let ttc1 = $("#ttc1").val();
+        let ttc2 = $("#ttc2").val();
+        let ttc3 = $("#ttc3").val();
+        if(ttc1=='')
         {
-          mttc=0;
+          ttc1=0;
+        } if(ttc2=='')
+        {
+          ttc2=0;
+        } if(ttc3=='')
+        {
+          ttc3=0;
         }
-        if(ttc!='')
-        {
-         console.log(mttc);
-         console.log(ttc);
-        $("#MTttc").val(parseFloat(mttc)+parseFloat(ttc));}
+        
+          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
       }
     }
-  }
+  }tva_didu();
 
 }
 function calcul_HT2() {
@@ -831,18 +973,24 @@ function calcul_HT2() {
         ttc = parseFloat(ttc).toFixed(2);
         $("#tva_2").val(TVA);
         $("#ttc2").val(ttc);
-        if(mttc=='')
+        let ttc1 = $("#ttc1").val();
+        let ttc2 = $("#ttc2").val();
+        let ttc3 = $("#ttc3").val();
+        if(ttc1=='')
         {
-          mttc=0;
+          ttc1=0;
+        } if(ttc2=='')
+        {
+          ttc2=0;
+        } if(ttc3=='')
+        {
+          ttc3=0;
         }
-        if(ttc!='')
-        {
-         console.log(mttc);
-         console.log(ttc);
-        $("#MTttc").val(parseFloat(mttc)+parseFloat(ttc));}
+        
+          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
       }
     }
-  }
+  }tva_didu();
 
 }
 function calcul_HT3() {
@@ -860,18 +1008,24 @@ function calcul_HT3() {
         ttc = parseFloat(ttc).toFixed(2);
         $("#tva_3").val(TVA);
         $("#ttc3").val(ttc);
-        if(mttc=='')
+        let ttc1 = $("#ttc1").val();
+        let ttc2 = $("#ttc2").val();
+        let ttc3 = $("#ttc3").val();
+        if(ttc1=='')
         {
-          mttc=0;
+          ttc1=0;
+        } if(ttc2=='')
+        {
+          ttc2=0;
+        } if(ttc3=='')
+        {
+          ttc3=0;
         }
-        if(ttc!='')
-        {
-         console.log(mttc);
-         console.log(ttc);
-        $("#MTttc").val(parseFloat(mttc)+parseFloat(ttc));}
+        
+          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
       }
     }
-  }
+  }tva_didu();
 
 }
 function tva_didu() {
@@ -879,6 +1033,7 @@ function tva_didu() {
   let tva_2 = $("#tva_2").val();
   let tva_3 = $("#tva_3").val();
   let prorata = $("#prorata").val();
+  if(prorata!=''){
   if (tva_1 != '') {
     let tva_did = tva_1 * prorata / 100;
     $("#tva_d1").val(tva_did);
@@ -890,7 +1045,15 @@ function tva_didu() {
   if (tva_3 != '') {
     let tva_did = tva_3 * prorata / 100;
     $("#tva_d3").val(tva_did);
+  }}else{
+    if (tva_1 != '') {
+    $("#tva_d1").val(tva_1);}
+    if (tva_2 != '') {
+    $("#tva_d2").val(tva_2);}
+    if (tva_3 != '') {
+    $("#tva_d3").val(tva_3);}
   }
+  
 }
 function checkNfact() {
   let value = $('#n_fact').val();
@@ -926,8 +1089,11 @@ function checkNfact() {
 
 }
 function table_Achat() {
+  let periode = $('#periode').val();
+  let Exercice = $('#Exercice').val();
+  console.log(periode);
   jQuery.ajax({
-    url: "table_Achat",
+    url: "table_Achat/"+periode+"/"+Exercice,
     type: "GET", // Le nom du fichier indiqué dans le formulaire
     dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
     // dataFilter: 'json', //forme data
@@ -1001,37 +1167,36 @@ function dataTable($tabledata)
                                         <a  class="edit lex items-center text-success"  data-toggle="modal"  data-target=".bd-example-modal-lg"  mr-3" title="Modifier" href="javascript:;"  >
                                         <i class="las la-edit"></i>
                                         </a>
-                                    <a  class="mb-2 mr-2 delete" data-toggle="modal" >
-                                    <i class="lar la-trash-alt text-danger font-20 mr-2"></i>
-                                    </a>
-
+                                        <a  class="mb-2 mr-2 delete" data-toggle="modal" data-target="#delet_achat">
+                                        <i class="lar la-trash-alt text-danger font-20 mr-2"></i>
+                                        </a>
                                    
                         </div>`);
 
-          // $(a)
-          //   .find(".delete")
-          //   .on("click", function ()
-          //    {
-          //     jQuery.ajax({
-          //       url: "./Agence/" + cell.getData().id,
-          //       type: "GET", // Le nom du fichier indiqué dans le formulaire
-          //       dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-          //       // dataFilter: 'json', //forme data
-          //       success: function (responce) {
-          //         jQuery.each(responce.info_agence, function (key, item) {
-          //           document.getElementById("delete_id_agence").value =
-          //             item.id;
-          //         });
-          //       },
-          //     });
-          //   });
+          $(a)
+            .find(".delete")
+            .on("click", function ()
+             { 
+              jQuery.ajax({
+                url: "./get_achatbyID/" + cell.getData().id,
+                type: "GET", // Le nom du fichier indiqué dans le formulaire
+                dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                // dataFilter: 'json', //forme data
+                success: function (responce) {
+                  jQuery.each(responce.get_achatb, function (key, item) {
+                    document.getElementById("delete_id_achat").value =responce.get_achatb.id;
+                  });
+                },
+              });
+            });
 
           $(a)
             .find(".edit")
             .on("click", function () 
             {
               document.getElementById('header-text').innerHTML='modifier Achat';
-              document.getElementById('add_ach').innerHTML='modifier';
+              document.getElementById('add_ach').style.display='none';
+              document.getElementById('update').style.display='initial';
               document.getElementById("id_achat").value =cell.getData().id;
         
               jQuery.ajax({
@@ -1042,7 +1207,7 @@ function dataTable($tabledata)
                   // affichage select
 
                   jQuery.each(responce.get_achatb, function (key, item) {
-        console.log(responce.get_achatb);  
+                    console.log(responce.get_achatb);  
                      document.getElementById("N_ICE").value = responce.get_achatb.NICE;
                     document.getElementById("id_fiscal").value = responce.get_achatb.ID_fiscale;
                     document.getElementById("desc").value = responce.get_achatb.Designation;
@@ -1061,9 +1226,10 @@ function dataTable($tabledata)
                     document.getElementById("MHT_3").value = responce.get_achatb.M_HT_3;
                     document.getElementById("tva_3").value = responce.get_achatb.TVA_3;
                     document.getElementById("ttc3").value = responce.get_achatb.TTC_3;
-
-                    // var $newOption = $("<option selected='selected'></option>").text(responce.get_achatb.name).val(responce.get_achatb.idfrs);
-                    // $("#frs").append($newOption).trigger('change');
+                    document.getElementById("tva_d1").value = responce.get_achatb.TVA_deductible;
+                    document.getElementById("tva_d2").value = responce.get_achatb.TVA_deductible2;
+                    document.getElementById("tva_d3").value = responce.get_achatb.TVA_deductible3;
+                    
 
 
                     var idToSelect = responce.get_achatb.idfrs;
@@ -1093,9 +1259,6 @@ function dataTable($tabledata)
                    var event = new Event('change');
                    selectElement.dispatchEvent(event);
 
-
-
-
                    var idToSelect = responce.get_achatb.FK_racines_1;
                    var selectElement = document.getElementById("racine");
                   for (var i = 0; i < selectElement.options.length; i++) {
@@ -1104,9 +1267,33 @@ function dataTable($tabledata)
                    option.selected = true;
                    break; 
                     }
-                  }
-                  var event = new Event('change');
+                  } var event = new Event('change');
                   selectElement.dispatchEvent(event);
+                 
+                  var idToSelect = responce.get_achatb.FK_racines_2;
+                  var selectElement = document.getElementById("racine2");
+                 for (var i = 0; i < selectElement.options.length; i++) {
+                 var option = selectElement.options[i];
+                 if (option.value == idToSelect) {
+                  option.selected = true;
+                  break; 
+                   }
+                 }
+                 var event = new Event('change');
+                 selectElement.dispatchEvent(event);
+
+
+                 var idToSelect = responce.get_achatb.FK_racines_3;
+                 var selectElement = document.getElementById("racine3");
+                for (var i = 0; i < selectElement.options.length; i++) {
+                var option = selectElement.options[i];
+                if (option.value == idToSelect) {
+                 option.selected = true;
+                 break; 
+                  }
+                }
+                var event = new Event('change');
+                selectElement.dispatchEvent(event);
                     // document.getElementById("FK_Regime").value =
                     //   item.FK_Regime;
                     // document.getElementById("FK_fait_generateurs").value =
@@ -1253,6 +1440,63 @@ function dataTable($tabledata)
     rowDblClick: function (e, row) { },
   });
 }
+function tauxRacine1()
+{ 
+  let value = $('#racine').val();
+
+    jQuery.ajax({
+      url: "./get_racine/" + value,
+      type: "GET",
+      dataType: "json",
+      success: function (responce) {
+        $tabledata = responce.get_racine;
+
+        jQuery.each(responce.get_racine, function (key, item) {
+          
+          $("#taux1").val($tabledata.Taux);
+        });
+
+      },
+    });
+}
+function tauxRacine2()
+{ 
+  
+  let value = $('#racine2').val();
+
+  jQuery.ajax({
+    url: "./get_racine/" + value,
+    type: "GET",
+    dataType: "json",
+    success: function (responce) {
+      $tabledata = responce.get_racine;
+
+      jQuery.each(responce.get_racine, function (key, item) {
+        $("#taux2").val($tabledata.Taux);
+      });
+
+    },
+  });
+}
+function tauxRacine3()
+{ 
+  let value = $('#racine3').val();
+
+    jQuery.ajax({
+      url: "./get_racine/" + value,
+      type: "GET",
+      dataType: "json",
+      success: function (responce) {
+        $tabledata = responce.get_racine;
+
+        jQuery.each(responce.get_racine, function (key, item) {
+          $("#taux3").val($tabledata.Taux);
+        });
+
+      },
+    });
+  }
+
 function generation_XML(){
        var formData = [];
        
