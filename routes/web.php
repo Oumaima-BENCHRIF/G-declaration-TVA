@@ -16,7 +16,9 @@ use App\Http\Controllers\SuccursaleController;
 |
  */
 
-Route::get('/', function () {
+
+ 
+ Route::get('/', function () {
     return view('dashboard.dashboard1');
 })->middleware(['auth'])->name('dashboard');
 
@@ -24,6 +26,7 @@ Route::get('/dashboard', function () {
     return view('dashboard.dashboard1');
 
 })->middleware(['auth'])->name('dashboard');
+
 
 Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'], function () {
     //*******  Société
@@ -133,10 +136,13 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
 
     /* ************************************************************** */
 
+  /* ************************************************************** Utilisateur */
+    Route::get('utilisateur', function () {return view('auth.utilisateur');});
 
-    Route::get('utilisateur', function () {
-        return view('auth.utilisateur');
-    });
+    Route::post('/register', [App\Http\Controllers\AuthController::class, 'store'])->name('register');
+
+    Route::get('utilissssateur', function () { return view('auth.register');});
+    /* ************************************************************** */
 
 
     // liste FRS
