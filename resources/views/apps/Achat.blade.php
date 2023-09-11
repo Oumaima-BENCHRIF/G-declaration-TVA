@@ -131,7 +131,7 @@
                                                     </div>
                                                 </div>
                                                  
-                                                <button  type="submit" style="position: absolute;top: 72px;right: 49px;"  class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Génération de Fichier XML</button>
+                                                <button  type="submit" style="position: absolute;top: 72px;right: 29px;"  class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Génération de Fichier XML</button>
                                                 
                                             </form>
                                         </div>
