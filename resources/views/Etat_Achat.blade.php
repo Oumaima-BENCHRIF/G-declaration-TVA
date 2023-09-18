@@ -315,7 +315,7 @@ $currentRacineTVA3 = null;
                     <td  style="height: 30px;">{{ $achat->Date_payment }}</td>
                     <td  style="height: 30px;">{{ $achat->Num_racines }}</td>
                     <td  style="height: 30px;">{{$achat->Nom_payment}}</td>
-                    <td  style="height: 30px;">TVA_2</td>
+                    <td  style="height: 30px;">VA_2</td>
                 </tr>
 
              
