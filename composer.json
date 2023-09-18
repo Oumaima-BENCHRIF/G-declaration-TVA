@@ -6,13 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
-<<<<<<< HEAD
-        "barryvdh/laravel-dompdf": "2.0.1",
-=======
         "barryvdh/laravel-dompdf": "^2.0",
->>>>>>> 6eb25ea04e61edb9d74a27c35e3575929c5a2a8b
         "barryvdh/laravel-ide-helper": "v2.10.0",
-        "dompdf/dompdf": "^2.0",
+        "dompdf/dompdf": "^2.0s",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

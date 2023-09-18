@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
     <title>Larave Generate Invoice PDF - Nicesnippest.com</title>
 </head>
 <style type="text/css">
@@ -152,19 +153,28 @@
    .mt-10{
     margin-top:10px !important;
    }
+   .logo_impo{
+    width: 200px;
+    text-align: center;
+    text-transform: uppercase;
+    display: block; 
+    margin: 0 80%;
+   }
+   .logo_impo img{
+    height:15%;
+    width:90%;
+   }
 </style> 
 <body>
 
-
-
-
-<!-- <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('build/assets/images/logo.svg') }}"> -->
-     </div>  
+ 
+ <div class="logo_impo">
+    <img src="{{ public_path('assets/img/logo_impo.png') }}" alt="Logo">
+   </div>
 <div class="w-40 float-left">
 
-         
-        <table class=" w-85">
-        <tr>
+    <table class=" w-85">
+                <tr>
                     <td>Raison Sociale</td>
                     <td>{{ $get_info->nom_succorsale }}</td>
                 </tr>
@@ -194,80 +204,171 @@
                     <td>{{ $get_info->idf}} | {{ $get_info->libelle}}</td>
                 </tr>
   </table> 
-    </div>
-<div class="add-detail ">
 
-  <table class=" table w-40 float-left info">
-  <label class="logo" > logo</label>
-  <tr>
-                    <td>Relevé de déduction</td>
+</div> 
+
+    <div style=" margin-left: 45%;" > 
+        <img src="{{ public_path('assets/img/logo_minister.png') }}" alt="Logo" height="10%" width="10%" style="">
+    </div>
+
+<div class="add-detail " >
+
+    <table class=" table w-10 float-left info">
+                <tr>
+                    <td style="font-weight: 600;text-align: center; " >Relevé de déduction</td>
                 </tr>
                 <tr>
-                    <td>Article 112 du Code Géneral des Impots</td>
+                    <td style="font-weight: 600;text-align: center;" >Article 112 du Code Géneral des Impots</td>
                 </tr>
-  
-</table>
-    <div class="float-left w-20">
-    <label>logo minister</label>
-
-</div>
+    </table>
+   
     <div style="clear: both;"></div>
 </div>
 <div class="add-detail ">
 </div>
 
+@php
+$currentRacine = null; // Variable pour stocker la racine actuelle
+$currentRacineTVA1 = null;
+$currentRacineTVA2 = null;
+$currentRacineTVA3 = null;
+@endphp
 
 
     <table class="table w-100 mt-10">
     <tr class>
-            <td  colspan="8">RELEVE DES FACTURES D'ACHAT PRESTATION ET FOURNISSEURS PAYEES</td>
+            <td style="font-weight: 600;text-align: center;" colspan="13">RELEVE DES FACTURES D'ACHAT PRESTATION ET FOURNISSEURS PAYEES</td>
         </tr>
         <tr>
-        <td>DATE</td>
-        <td>N°fact</td>
-        <td>Furnissuers</td>
-        <td>IF</td>
-        <td>ICE</td>
-        <td>TVA</td>
-        <td>MHT</td>
-        <td>TTC</td>
+        <td style="width: 6px; height: 20px;font-weight: 600;text-align: center">N°</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">DATE</td>
+        <td  style="width: 10px; height: 20px; font-weight: 600;text-align: center">N°fact</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">Furnissuers</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">IF</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">ICE</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">NATURE PDT</td>
+        <td style="width: 20px; height: 20px;font-weight: 600;text-align: center">MHT</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">TVA</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">TTC</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">Date Reglts</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">Racine</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">Id_Pai</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">racine</td>
         </tr>
+        {{$TOT_MHT=0}}
+        {{$TOT_TVA=0}}
+        {{$TOT_TTC=0}}
         @foreach($table_achat as $achat)
-        <tr>
-        <td>{{ $achat->Date_facture }}</td>
-        <td>{{ $achat->N_facture }}</td>
-        <td>{{ $achat->name }}</td>
-        <td>{{ $achat->ID_fiscale }}</td>
-        <td>{{ $achat->NICE }}</td>
-        <td>{{ $achat->TVA_1 }}</td>
-        <td>{{ $achat->M_HT_1 }}</td>
-        <td>{{ $achat->M_TTC }}</td>
-        </tr>
-        @if($achat->TVA_2!=null)
-        <tr>
-        <td>{{ $achat->Date_facture }}</td>
-        <td>{{ $achat->N_facture }}</td>
-        <td>{{ $achat->name }}</td>
-        <td>{{ $achat->ID_fiscale }}</td>
-        <td>{{ $achat->NICE }}</td>
-        <td>{{ $achat->TVA_2 }}</td>
-        <td>{{ $achat->M_HT_2 }}</td>
-        <td>{{ $achat->M_TTC }}</td>
-        </tr>
-        <tr>
-        <td>{{ $achat->Date_facture }}</td>
-        <td>{{ $achat->N_facture }}</td>
-        <td>{{ $achat->name }}</td>
-        <td>{{ $achat->ID_fiscale }}</td>
-        <td>{{ $achat->NICE }}</td>
-        <td>{{ $achat->TVA_3 }}</td>
-        <td>{{ $achat->M_HT_3 }}</td>
-        <td>{{ $achat->M_TTC }}</td>
-        </tr>
+
+           @if($achat->TVA_1!=null)
+           @if ($currentRacineTVA1 !== $achat->Num_racines)
+            @if ($currentRacineTVA1 !== null)
+                <!-- Fermez la ligne précédente si ce n'est pas la première racine -->
+                </tr>
+            @endif
+            <!-- Commencez une nouvelle ligne pour la nouvelle racine TVA_1 -->
+            <tr>
+                <td style="height: 30px;">Racine TVA_1 {{ $achat->Num_racines }}</td>
+                <!-- Ajoutez les autres colonnes pour la racine ici -->
+            </tr>
+            @php
+            $currentRacineTVA1 = $achat->Num_racines; // Mettez à jour la racine TVA_1 actuelle
+            @endphp
         @endif
+                <tr>
+                    <td  style="height: 30px;">{{ $achat->id }}</td>
+                    <td  style="height: 30px;">{{ $achat->Date_facture }}</td>
+                    <td  style="height: 30px;">{{ $achat->N_facture }}</td>
+                    <td  style="height: 30px;">{{ $achat->nomFournisseurs }}</td>
+                    <td  style="height: 30px;">{{ $achat->ID_fiscale }}</td>
+                    <td  style="height: 30px;">{{ $achat->NICE }}</td>
+                    <td  style="height: 30px;">ELEC</td>
+                    <td  style="height: 30px;">{{ $achat->M_HT_1 }}</td>
+                    {{ number_format($TOT_MHT=$TOT_MHT+$achat->M_HT_1_3, 2) }}
+                    <td  style="height: 30px;">{{ $achat->TVA_1 }}</td>
+                    {{ number_format($TOT_TVA=$TOT_TVA+$achat->TVA_1, 2) }}
+                    <td  style="height: 30px;">{{ $achat->M_TTC }}</td>
+                    {{ number_format($TOT_TTC=$TOT_TTC+$achat->M_TTC, 2) }}
+                    <td  style="height: 30px;">{{ $achat->Date_payment }}</td>
+                    <td  style="height: 30px;">{{ $achat->Num_racines }}</td>
+                    <td  style="height: 30px;">{{$achat->Nom_payment}}</td>
+                    <td  style="height: 30px;">TVA_1</td>
+                </tr>
+               
+            @endif
+
+            @if($achat->TVA_2!=null)
+                <tr>
+                    <td  style="height: 30px;">{{ $achat->id }}</td>
+                    <td  style="height: 30px;">{{ $achat->Date_facture }}</td>
+                    <td  style="height: 30px;">{{ $achat->N_facture }}</td>
+                    <td  style="height: 30px;">{{ $achat->nomFournisseurs }}</td>
+                    <td  style="height: 30px;">{{ $achat->ID_fiscale }}</td>
+                    <td  style="height: 30px;">{{ $achat->NICE }}</td>
+                    <td  style="height: 30px;">ELEC</td>
+                    <td  style="height: 30px;">{{ $achat->M_HT_2 }}</td>
+                    {{ number_format($TOT_MHT=$TOT_MHT+$achat->M_HT_2, 2) }}
+                    <td  style="height: 30px;">{{ $achat->TVA_2 }}</td>
+                    {{ number_format($TOT_TVA=$TOT_TVA+$achat->TVA_2, 2) }}
+                    <td  style="height: 30px;">{{ $achat->M_TTC }}</td>
+                    {{ number_format($TOT_TTC=$TOT_TTC+$achat->M_TTC, 2) }}
+                    <td  style="height: 30px;">{{ $achat->Date_payment }}</td>
+                    <td  style="height: 30px;">{{ $achat->Num_racines }}</td>
+                    <td  style="height: 30px;">{{$achat->Nom_payment}}</td>
+                    <td  style="height: 30px;">TVA_2</td>
+                </tr>
+
+             
+            
+            @endif
+
+            @if($achat->TVA_3!=null)
+          
+                <tr>
+                    <td style="height: 30px;" >{{ $achat->id }}</td>
+                    <td style="height: 30px;">{{ $achat->Date_facture }}</td>
+                    <td style="height: 30px;">{{ $achat->N_facture }}</td>
+                    <td style="height: 30px;">{{ $achat->nomFournisseurs }}</td>
+                    <td style="height: 30px;">{{ $achat->ID_fiscale }}</td>
+                    <td style="height: 30px;">{{ $achat->NICE }}</td>
+                    <td  style="height: 30px;">ELEC</td>
+                    <td style="height: 30px;">{{ $achat->M_HT_3 }}</td>
+                    {{ number_format($TOT_MHT=$TOT_MHT+$achat->M_HT_3, 2) }}
+                    <td style="height: 30px;">{{ $achat->TVA_3 }}</td>
+                    {{ number_format($TOT_TVA=$TOT_TVA+$achat->TVA_3, 2) }}
+                    <td style="height: 30px;">{{ $achat->M_TTC }}</td>
+                    {{ number_format($TOT_TTC=$TOT_TTC+$achat->M_TTC , 2) }}
+                    <td  style="height: 30px;">{{ $achat->Date_payment }}</td>
+                    <td  style="height: 30px;">{{ $achat->Num_racines }}</td>
+                    <td  style="height: 30px;">{{$achat->Nom_payment}}</td>
+                    <td  style="height: 30px;">TVA_3</td>
+                </tr>
+            @endif
+
+                   
+              
         @endforeach
+        @if ($currentRacineTVA1 !== null)
+    </tr>
+@endif
+@if ($currentRacineTVA2 !== null)
+    </tr>
+@endif
+@if ($currentRacineTVA3 !== null)
+    </tr>
+@endif
+
+            <tr class>
+                <td  style="height: 30px;font-weight: 600;text-align: center;" colspan="7">TOTALE GENERAL</td>
+                <td>{{number_format($TOT_MHT, 2)}}</td>
+                <td>{{number_format($TOT_TVA, 2)}}</td>
+                <td>{{number_format($TOT_TTC, 2)}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         
     </table>
-
+ 
 
 </html> 

@@ -11,6 +11,7 @@ use App\Models\racine;
 use App\Models\regime;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 class AchatController extends Controller
@@ -137,7 +138,7 @@ class AchatController extends Controller
     } public function get_TBLachat(Request $request,$periode,$Exercice)
     { 
        
-        $get_TBLachat =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.name','type_payments.Nom_payment','racines.Num_racines')
+        $get_TBLachat =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.nomFournisseurs','type_payments.Nom_payment','racines.Num_racines')
         ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
         ->join('regimes', 'regimes.id', 'achats.FK_regime')
         ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment') 
@@ -171,14 +172,18 @@ class AchatController extends Controller
 public function table_achat($periode,$Exercice)
 {
 
-    $table_achat =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.name','type_payments.Nom_payment','racines.Num_racines')
+    $table_achat =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.nomFournisseurs as nomFournisseur','type_payments.Nom_payment','racines.Num_racines as Num_racines,type_payments.Nom_payment as Nom_payment')
     ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
     ->join('regimes', 'regimes.id', 'achats.FK_racines_1')
     ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
     ->join('racines', 'racines.id', 'achats.FK_racines_1')
+    ->join('racines', 'racines.id', 'achats.FK_racines_2')
+    ->join('racines', 'racines.id', 'achats.FK_racines_3')
     ->where('achats.FK_regime',$periode)
-     ->where('achats.Exercice',$Exercice)
+    ->where('achats.Exercice',$Exercice)
     ->where('fournisseurs.deleted_at', '=', NULL)->get();
+
+   
 
     if ($table_achat) {
         return response()->json([
@@ -198,6 +203,7 @@ public function get_info()
 {   $id=21;
     $get_info = agence::select()
     ->where('agences.id',$id)->first();
+
    $regime = regime::select('regimes.libelle')
     ->where('regimes.deleted_at', '=', NULL)
     ->where('regimes.id', '=',$get_info->FK_Regime)
@@ -209,7 +215,7 @@ public function get_info()
         'regime' => $regime,
         'Liste_regimes' => $Liste_regimes
     ]);
-  
+   
 }
 public function Update(Request $request)
     {
@@ -312,20 +318,24 @@ public function Update(Request $request)
 
 public function generatePDF($periode,$Exercice)
 {
-    $id=2;
+    
+    $id=21;
     $get_info = agence::select('agences.*','fait_generateurs.id as idf','fait_generateurs.libelle')
     ->join('fait_generateurs', 'fait_generateurs.id', 'agences.FK_fait_generateurs')
     ->where('agences.id',$id)
     ->first();
 
-    $table_achat =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.name','type_payments.Nom_payment','racines.Num_racines')
+    $table_achat =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.nomFournisseurs','type_payments.Nom_payment','racines.Num_racines')
     ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
     ->join('regimes', 'regimes.id', 'achats.FK_racines_1')
     ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
     ->join('racines', 'racines.id', 'achats.FK_racines_1')
     ->where('achats.FK_regime',$periode)
-     ->where('achats.Exercice',$Exercice)
-    ->where('fournisseurs.deleted_at', '=', NULL)->get();
+    ->where('achats.Exercice',$Exercice)
+    ->orderBy('racines.Num_racines','asc')
+    ->where('fournisseurs.deleted_at', '=', NULL)
+    ->get();
+    
     $pdf = PDF::loadView('Etat_Achat',[
         'table_achat'=>$table_achat,
         'get_info'=>$get_info
