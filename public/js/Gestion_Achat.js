@@ -5,12 +5,13 @@ $(window).on("load", function () {
   Liste_Mpyement();
   Liste_Racine();
   setTimeout(function () {
-    table_Achat();
+    // table_Achat();
+    get_table();
   }, 1500); 
  
   gestYears();
   document.getElementById('update').style.display='none';
-  
+  $("#rowracine3").css("display", "none");
   // $("#taux1").prop("readonly", true);
 });
 
@@ -40,7 +41,8 @@ $(document).ready(function () {
           closeButton: true,
         };
         toastr.success(response.message, { timeOut: 12000 });
-        table_Achat();
+        // table_Achat();
+        get_table();
       },
       error: function (response) {
         toastr.options = {
@@ -50,6 +52,7 @@ $(document).ready(function () {
         toastr.error("Merci de vérifier les champs");
       },
     });
+    
   });
   $("#update").on("click", function (e) {
     var id = $('#id_achat').val();
@@ -75,11 +78,18 @@ $(document).ready(function () {
     var MHT_3 = $("#MHT_3").val();
     var tva_3 = $("#tva_3").val();
     var ttc3 = $("#ttc3").val();    
+    var MHT_4 = $("#MHT_4").val();
+    var tva_4 = $("#tva_4").val();
+    var ttc4 = $("#ttc4").val();  
     var tva_d1 = $("#tva_d1").val();
     var tva_d2 = $("#tva_d2").val();
     var tva_d3 = $("#tva_d3").val();
     var Exercice = $("#Exercice").val();
     var periode = $("#periode").val();
+    var Taux1 = $("#taux1").val();
+    var Taux2 = $("#taux2").val(); 
+    var Taux3 = $("#taux3").val();
+    var Taux4 = $("#taux4").val();
     formData.push(
       { name: "id", value: id },
       { name: "frs", value: frs },
@@ -94,7 +104,6 @@ $(document).ready(function () {
       { name: "racine", value: racine },
       { name: "MHT_1", value: MHT_1 },
       { name: "tva_1", value: tva_1 },
-   
       { name: "ttc1", value: ttc1 },
       { name: "racine2", value: racine2 },
       { name: "MHT_2", value: MHT_2 },
@@ -104,11 +113,18 @@ $(document).ready(function () {
       { name: "MHT_3", value: MHT_3 },
       { name: "tva_3", value: tva_3 },
       { name: "ttc3", value: ttc3 },
+      { name: "MHT_4", value: MHT_4 },
+      { name: "tva_4", value: tva_4 },
+      { name: "ttc4", value: ttc4 },
       { name: "tva_d1", value: tva_d1 },
       { name: "tva_d2", value: tva_d2 },
       { name: "tva_d3", value: tva_d3 }, 
       { name: "Exercice", value: Exercice },
       { name: "periode", value: periode },
+      { name: "Taux1", value: Taux1 }, 
+      { name: "Taux2", value: Taux2 },
+      { name: "Taux3", value: Taux3 },
+      { name: "Taux4", value: Taux4 },
     );
   
     jQuery.ajax({
@@ -192,47 +208,12 @@ $(document).ready(function () {
   $('#racine3').on('select2:select', function (e) {
     tauxRacine3();
   });
+  $('#racine4').on('select2:select', function (e) {
+    tauxRacine4();
+  });
 
   $('#periode').on('select2:select', function (e) {
-    
-    let periode = $('#periode').val();
-    let Exercice = $('#Exercice').val();
-  
-    
-    jQuery.ajax({
-      url: "./get_TBLachat/" + periode+"/"+Exercice,
-      type: "GET",
-      dataType: "json",
-      success: function (responce) {
-        $tabledata = "";
-        // Je récupère la réponse du fichier PHP
-        jQuery.each(responce.get_TBLachat, function (key, item) {
-          if (responce.get_TBLachat.length == 0) {
-          }
-          $tabledata = responce.get_TBLachat;
-          console.log( $tabledata);
-        });
-        
-         dataTable($tabledata);
-        //trigger download of data.xlsx file
-        document
-          .getElementById("download-xlsx")
-          .addEventListener("click", function () {
-            table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
-          });
-  
-        //trigger download of data.pdf file
-        document
-          .getElementById("download-pdf")
-          .addEventListener("click", function () {
-            table.download("pdf", "data.pdf", {
-              orientation: "portrait", //set page orientation to portrait
-              title: "Succursale", //add title to report
-            });
-          });
-      },
-    });
-
+    get_table();
   });
   $('#Exercice').on('select2:select', function (e) {
     
@@ -267,6 +248,7 @@ $(document).ready(function () {
         
         },
     });
+    get_table();
   });
   $('#basic-dt').DataTable({
     "language": {
@@ -301,7 +283,7 @@ $(document).ready(function () {
     "lengthMenu": [3, 6, 9, 12],
     "pageLength": 3
   });
-  $.fn.dataTable.ext.search.push(
+   $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       var min = parseInt($('#min').val(), 10);
       var max = parseInt($('#max').val(), 10);
@@ -584,6 +566,7 @@ function Liste_Racine() {
       // $("#racine4").html($lignes);
       $("#racine2").html($lignes);
        $("#racine3").html($lignes);
+       $("#racine4").html($lignes);
     },
   });
 }
@@ -614,13 +597,13 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#tva_2").prop("readonly", true);
         $("#MHT_3").prop("readonly", false);
         $("#tva_3").prop("readonly", true);
-        // $("#MHT_4").prop("readonly", false);
-        // $("#tva_4").prop("readonly", true);
+        $("#MHT_4").prop("readonly", false);
+        $("#tva_4").prop("readonly", true);
 
         $("#ttc1").prop("readonly", true);
         $("#ttc2").prop("readonly", true);
         $("#ttc3").prop("readonly", true);
-        // $("#ttc4").prop("readonly", true);
+        $("#ttc4").prop("readonly", true);
         $("#MHT_1").focus();
       } else if (radio.id === "TVA") {
         $("#MHT_1").prop("readonly", true);
@@ -630,13 +613,13 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#tva_2").prop("readonly", false);
         $("#MHT_3").prop("readonly", true);
         $("#tva_3").prop("readonly", false);
-        // $("#MHT_4").prop("readonly", true);
-        // $("#tva_4").prop("readonly", false);
+        $("#MHT_4").prop("readonly", true);
+        $("#tva_4").prop("readonly", false);
 
         $("#ttc1").prop("readonly", true);
         $("#ttc2").prop("readonly", true);
         $("#ttc3").prop("readonly", true);
-        // $("#ttc4").prop("readonly", true);
+        $("#ttc4").prop("readonly", true);
        
         $("#tva_1").focus();
       } else if (radio.id === "TTC") {
@@ -647,13 +630,13 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#tva_2").prop("readonly", true);
         $("#MHT_3").prop("readonly", true);
         $("#tva_3").prop("readonly", true);
-        // $("#MHT_4").prop("readonly", true);
-        // $("#tva_4").prop("readonly", true);
+        $("#MHT_4").prop("readonly", true);
+        $("#tva_4").prop("readonly", true);
 
         $("#ttc1").prop("readonly", false);
         $("#ttc2").prop("readonly", false);
         $("#ttc3").prop("readonly", false);
-        // $("#ttc4").prop("readonly", false);
+        $("#ttc4").prop("readonly", false);
         $("#ttc1").focus();
       } else if (radio.id === "LIBRE") {
         $("#MHT_1").prop("readonly", false);
@@ -663,13 +646,13 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#tva_2").prop("readonly", false);
         $("#MHT_3").prop("readonly", false);
         $("#tva_3").prop("readonly", false);
-        // $("#MHT_4").prop("readonly", false);
-        // $("#tva_4").prop("readonly", false);
+        $("#MHT_4").prop("readonly", false);
+        $("#tva_4").prop("readonly", false);
 
         $("#ttc1").prop("readonly", false);
         $("#ttc2").prop("readonly", false);
         $("#ttc3").prop("readonly", false);
-        // $("#ttc4").prop("readonly", false);
+        $("#ttc4").prop("readonly", false);
       }
     });
   });
@@ -689,7 +672,7 @@ function calcul_ttc1() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (ttc1 != '') {
-        console.log(ttc1);
+        // console.log(ttc1);
         
         let mht = parseFloat(ttc1) / (1 + parseFloat(taux1));
         mht = mht.toFixed(2);
@@ -701,9 +684,10 @@ function calcul_ttc1() {
     }
   }
   }
-    let ttc = $("#MTttc").val();
+
     let ttc2 = $("#ttc2").val();
     let ttc3 = $("#ttc3").val();
+    let ttc4 = $("#ttc4").val();
     if(ttc1=='')
     {
       ttc1=0;
@@ -713,6 +697,10 @@ function calcul_ttc1() {
     } if(ttc3=='')
     {
       ttc3=0;
+    }
+    if(ttc4=='')
+    {
+      ttc4=0;
     }
     
       $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
@@ -746,6 +734,7 @@ function calcul_ttc2() {
   }
   let ttc1 = $("#ttc1").val();
   let ttc3 = $("#ttc3").val();
+  let ttc4 = $("#ttc4").val();
   if(ttc1=='')
   {
     ttc1=0;
@@ -755,6 +744,10 @@ function calcul_ttc2() {
   } if(ttc3=='')
   {
     ttc3=0;
+  }
+  if(ttc4=='')
+  {
+    ttc4=0;
   }
   
     $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
@@ -788,6 +781,7 @@ function calcul_ttc3() {
    
     let ttc2 = $("#ttc2").val();
     let ttc1 = $("#ttc1").val();
+    let ttc4 = $("#ttc4").val();
     if(ttc1=='')
     {
       ttc1=0;
@@ -797,9 +791,58 @@ function calcul_ttc3() {
     } if(ttc3=='')
     {
       ttc3=0;
+    }if(ttc4=='')
+    {
+      ttc4=0;
     }
     
-      $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));}
+    $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));}
+});tva_didu();
+}
+function calcul_ttc4() {
+  let ttc = $("#MTttc").val();
+  let ttc4 = $("#ttc4").val();
+  let taux4 = $("#taux4").val();
+ 
+  var radioButtons = document.querySelectorAll("input[name='radios5']");
+
+  radioButtons.forEach(function (radio) {
+  if (radio.id === "TTC" && radio.checked){
+  if (ttc4 != '') {
+    if (taux4 == '') {
+      alert('merci de choiser la rubrique de tva');
+    } else {
+      if (ttc4 != '') {
+        $("#MTttc").val(parseFloat(ttc)+parseFloat(ttc4));
+        let mht = parseFloat(ttc4) / (1 + parseFloat(taux4));
+        mht = mht.toFixed(2);
+        let tva = parseFloat(ttc4) - parseFloat(mht);
+        tva = tva.toFixed(2);
+        $("#MHT_4").val(mht);
+        $("#tva_4").val(tva);
+      }
+    }
+  }
+  }else{
+   
+    let ttc2 = $("#ttc2").val();
+    let ttc1 = $("#ttc1").val();
+    let ttc3 = $("#ttc3").val();
+    if(ttc1=='')
+    {
+      ttc1=0;
+    } if(ttc2=='')
+    {
+      ttc2=0;
+    } if(ttc4=='')
+    {
+      ttc4=0;
+    } if(ttc3=='')
+    {
+      ttc3=0;
+    }
+    
+      $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));}
 });tva_didu();
 }
 function calcul_tva() {
@@ -811,12 +854,12 @@ function calcul_tva() {
   radioButtons.forEach(function (radio) {
   if (radio.id === "TVA" && radio.checked){
   if (tva_1 != '') {
-    console.log(taux1);
+    // console.log(taux1);
     if (taux1 == '') {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (tva_1 != '') {
-        console.log(tva_1);
+        // console.log(tva_1);
         let mht = parseFloat(tva_1) / parseFloat(taux1);
 
         let ttc = parseFloat(mht) + parseFloat(tva_1);
@@ -827,6 +870,8 @@ function calcul_tva() {
         let ttc1 = $("#ttc1").val();
         let ttc2 = $("#ttc2").val();
         let ttc3 = $("#ttc3").val();
+        let ttc4 = $("#ttc4").val();
+        ttc4=parseFloat(ttc4).toFixed(2);
         if(ttc1=='')
         {
           ttc1=0;
@@ -837,8 +882,12 @@ function calcul_tva() {
         {
           ttc3=0;
         }
+        if(ttc4=='')
+        {
+          ttc4=0;
+        }
         
-          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
+        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
       }}}
     }tva_didu();
 
@@ -868,6 +917,7 @@ function calcul_tva2() {
          let ttc1 = $("#ttc1").val();
          let ttc2 = $("#ttc2").val();
          let ttc3 = $("#ttc3").val();
+         let ttc4 = $("#ttc4").val();
          if(ttc1=='')
          {
            ttc1=0;
@@ -878,8 +928,12 @@ function calcul_tva2() {
          {
            ttc3=0;
          }
+         if(ttc4=='')
+         {
+           ttc4=0;
+         }
          
-           $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
+         $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
       }
     }
   }}tva_didu();
@@ -896,8 +950,7 @@ function calcul_tva3() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (tva_3 != '') {
-        let mht = parseFloat(tva_3) / parseFloat(taux3);
-
+           let mht = parseFloat(tva_3) / parseFloat(taux3);
            let ttc=parseFloat(mht)+parseFloat(tva_3);
            mht = parseFloat(mht).toFixed(2);
            ttc=parseFloat(ttc).toFixed(2);
@@ -906,6 +959,7 @@ function calcul_tva3() {
           let ttc1 = $("#ttc1").val();
           let ttc2 = $("#ttc2").val();
           let ttc3 = $("#ttc3").val();
+          let ttc4 = $("#ttc4").val();
           if(ttc1=='')
           {
             ttc1=0;
@@ -916,8 +970,54 @@ function calcul_tva3() {
           {
             ttc3=0;
           }
+          if(ttc4=='')
+          {
+            ttc4=0;
+          }
           
-            $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
+          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+      }
+    }tva_didu();
+  }
+
+}
+function calcul_tva4() {
+  let tva_4 = $("#tva_4").val();
+  let taux4 = $("#taux4").val();
+console.log(taux4);
+  if (tva_4 != '') {
+
+    if (taux4 == '') {
+      alert('merci de choiser la rubrique de tvaaaaa');
+    } else {
+      if (tva_4 != '') {
+           let mht = parseFloat(tva_4) / parseFloat(taux4);
+           let ttc=parseFloat(mht)+parseFloat(tva_4);
+           mht = parseFloat(mht).toFixed(2);
+           ttc=parseFloat(ttc).toFixed(2);
+          $("#MHT_4").val(mht);
+          $("#ttc4").val(ttc);
+          let ttc1 = $("#ttc1").val();
+          let ttc2 = $("#ttc2").val();
+          let ttc3 = $("#ttc3").val();
+          let ttc4 = $("#ttc4").val();
+
+          if(ttc1=='')
+          {
+            ttc1=0;
+          } if(ttc2=='')
+          {
+            ttc2=0;
+          } if(ttc3=='')
+          {
+            ttc3=0;
+          }
+          if(ttc4=='')
+          {
+            ttc4=0;
+          }
+          
+          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
       }
     }tva_didu();
   }
@@ -941,6 +1041,7 @@ function calcul_HT() {
         let ttc1 = $("#ttc1").val();
         let ttc2 = $("#ttc2").val();
         let ttc3 = $("#ttc3").val();
+        let ttc4 = $("#ttc4").val();
         if(ttc1=='')
         {
           ttc1=0;
@@ -951,8 +1052,12 @@ function calcul_HT() {
         {
           ttc3=0;
         }
+        if(ttc4=='')
+        {
+          ttc4=0;
+        }
         
-          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
+        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
       }
     }
   }tva_didu();
@@ -976,6 +1081,7 @@ function calcul_HT2() {
         let ttc1 = $("#ttc1").val();
         let ttc2 = $("#ttc2").val();
         let ttc3 = $("#ttc3").val();
+        let ttc4 = $("#ttc4").val();
         if(ttc1=='')
         {
           ttc1=0;
@@ -986,8 +1092,12 @@ function calcul_HT2() {
         {
           ttc3=0;
         }
+        if(ttc4=='')
+        {
+          ttc4=0;
+        }
         
-          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
+        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
       }
     }
   }tva_didu();
@@ -1011,6 +1121,7 @@ function calcul_HT3() {
         let ttc1 = $("#ttc1").val();
         let ttc2 = $("#ttc2").val();
         let ttc3 = $("#ttc3").val();
+        let ttc4 = $("#ttc4").val();
         if(ttc1=='')
         {
           ttc1=0;
@@ -1021,8 +1132,52 @@ function calcul_HT3() {
         {
           ttc3=0;
         }
+        if(ttc4=='')
+        {
+          ttc4=0;
+        }
         
-          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
+        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+      }
+    }
+  }tva_didu();
+
+}
+function calcul_HT4() {
+  let MHT_4 = $("#MHT_4").val();
+  let taux4 = $("#taux4").val();
+  let mttc = $("#MTttc").val();
+  if (MHT_4 != '') {
+    if (taux4 == '') {
+      alert('merci de choiser la rubrique de tva');
+    } else {
+      if (MHT_4 != '') {
+        let TVA = parseFloat(MHT_4) * parseFloat(taux4);
+        let ttc = parseFloat(MHT_4) + parseFloat(TVA);
+        MHT_4 = parseFloat(MHT_4).toFixed(2);
+        ttc = parseFloat(ttc).toFixed(2);
+        $("#tva_4").val(TVA);
+        $("#ttc4").val(ttc);
+        let ttc1 = $("#ttc1").val();
+        let ttc2 = $("#ttc2").val();
+        let ttc3 = $("#ttc3").val();
+        let ttc4 = $("#ttc4").val();
+        if(ttc1=='')
+        {
+          ttc1=0;
+        } if(ttc2=='')
+        {
+          ttc2=0;
+        } if(ttc3=='')
+        {
+          ttc3=0;
+        }
+        if(ttc4=='')
+        {
+          ttc4=0;
+        }
+        
+        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
       }
     }
   }tva_didu();
@@ -1082,7 +1237,7 @@ function checkNfact() {
         });
         ligne=ligne+'Total déduit  :   '+mtd;
         $("#MTttc").val(mttc);
-       alert(ligne);
+      //  alert(ligne);
       }
     },
   });
@@ -1091,7 +1246,7 @@ function checkNfact() {
 function table_Achat() {
   let periode = $('#periode').val();
   let Exercice = $('#Exercice').val();
-  console.log(periode);
+  // console.log(periode);
   jQuery.ajax({
     url: "table_Achat/"+periode+"/"+Exercice,
     type: "GET", // Le nom du fichier indiqué dans le formulaire
@@ -1198,16 +1353,14 @@ function dataTable($tabledata)
               document.getElementById('add_ach').style.display='none';
               document.getElementById('update').style.display='initial';
               document.getElementById("id_achat").value =cell.getData().id;
-        
               jQuery.ajax({
                 url: "./get_achatbyID/" + cell.getData().id,
                 type: "GET", // Le nom du fichier indiqué dans le formulaire
                 dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
                 success: function (responce) {
                   // affichage select
-
                   jQuery.each(responce.get_achatb, function (key, item) {
-                    console.log(responce.get_achatb);  
+                    // console.log(responce.get_achatb.NICE);  
                      document.getElementById("N_ICE").value = responce.get_achatb.NICE;
                     document.getElementById("id_fiscal").value = responce.get_achatb.ID_fiscale;
                     document.getElementById("desc").value = responce.get_achatb.Designation;
@@ -1215,23 +1368,95 @@ function dataTable($tabledata)
                     document.getElementById("date_fact").value = responce.get_achatb.Date_facture;
                     document.getElementById("date_p").value = responce.get_achatb.Date_payment;
                     document.getElementById("MTttc").value =responce.get_achatb.M_TTC;
-                    document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
+                    // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
                     document.getElementById("prorata").value = responce.get_achatb.Prorata;
-                    document.getElementById("MHT_1").value = responce.get_achatb.M_HT_1;
-                    document.getElementById("tva_1").value = responce.get_achatb.TVA_1;
-                    document.getElementById("ttc1").value = responce.get_achatb.TTC_1;
-                    document.getElementById("MHT_2").value = responce.get_achatb.M_HT_2;
-                    document.getElementById("tva_2").value =responce.get_achatb.TVA_2;
-                    document.getElementById("ttc2").value = responce.get_achatb.TTC_2;
-                    document.getElementById("MHT_3").value = responce.get_achatb.M_HT_3;
-                    document.getElementById("tva_3").value = responce.get_achatb.TVA_3;
-                    document.getElementById("ttc3").value = responce.get_achatb.TTC_3;
+                
+                    if(responce.get_achatb.Taux7==7)
+                   {    
+                      document.getElementById("MHT_1").value = responce.get_achatb.M_HT_7;
+                      document.getElementById("tva_1").value = responce.get_achatb.TVA_7;
+                      document.getElementById("ttc1").value = responce.get_achatb.TTC_7;
+                      var idToSelect = responce.get_achatb.FK_racines_7;
+                     
+                      var selectElement = document.getElementById("racine");
+                     for (var i = 0; i < selectElement.options.length; i++) {
+                     var option = selectElement.options[i]; if (option.value == idToSelect) {
+                      option.selected = true;
+                      break; 
+                       }
+                     }
+                     var event = new Event('change');
+                     selectElement.dispatchEvent(event);
+                    }
+                    if(responce.get_achatb.Taux10==10)
+                    {    
+                       document.getElementById("MHT_2").value = responce.get_achatb.M_HT_10;
+                       document.getElementById("tva_2").value = responce.get_achatb.TVA_10;
+                       document.getElementById("ttc2").value = responce.get_achatb.TTC_10;
+                       var idToSelect = responce.get_achatb.FK_racines_10;
+                       var selectElement = document.getElementById("racine2");
+                      for (var i = 0; i < selectElement.options.length; i++) {
+                      var option = selectElement.options[i];
+                      if (option.value == idToSelect) {
+                        option.selected = true;
+                        break; 
+                         }
+                       }
+                       var event = new Event('change');
+                       selectElement.dispatchEvent(event);
+                     }
+                     if(responce.get_achatb.Taux14==14)
+                     {    
+                  
+                        document.getElementById("MHT_3").value = responce.get_achatb.M_HT_14;
+                        document.getElementById("tva_3").value = responce.get_achatb.TVA_14;
+                        document.getElementById("ttc3").value = responce.get_achatb.TTC_14;
+                        var idToSelect = responce.get_achatb.FK_racines_14;
+                        var selectElement = document.getElementById("racine3");
+                       for (var i = 0; i < selectElement.options.length; i++) {
+                       var option = selectElement.options[i];
+                       if (option.value == idToSelect) {
+                        option.selected = true;
+                        break; 
+                         }
+                       }
+                       var event = new Event('change');
+                       selectElement.dispatchEvent(event);
+                       }
+                       if(responce.get_achatb.Taux20==20)
+                       {    
+                            $("#rowracine3").css("display", "inherit");
+                          document.getElementById("MHT_4").value = responce.get_achatb.M_HT_20;
+                          document.getElementById("tva_4").value = responce.get_achatb.TVA_20;
+                          document.getElementById("ttc4").value = responce.get_achatb.TTC_20;
+                          document.getElementById("taux4").value = responce.get_achatb.Taux20;
+                          var idToSelect = responce.get_achatb.FK_racines_20;
+                          var selectElement = document.getElementById("racine4");
+                         for (var i = 0; i < selectElement.options.length; i++) {
+                         var option = selectElement.options[i];
+                         if (option.value == idToSelect) {
+                          option.selected = true;
+                          break; 
+                           }
+                         }
+                         var event = new Event('change');
+                         selectElement.dispatchEvent(event);
+      }
+                 if(document.getElementById("tva_3").value==''){
+                
+                  $("#rowracine2").css("display", "none");
+                 }
+                 if(document.getElementById("tva_1").value==''){
+                
+                  $("#rowracine").css("display", "none");
+                 }
+                 if(document.getElementById("tva_2").value==''){
+                
+                  $("#rowracine1").css("display", "none");
+                 }
                     document.getElementById("tva_d1").value = responce.get_achatb.TVA_deductible;
                     document.getElementById("tva_d2").value = responce.get_achatb.TVA_deductible2;
                     document.getElementById("tva_d3").value = responce.get_achatb.TVA_deductible3;
-                    
-
-
                     var idToSelect = responce.get_achatb.idfrs;
                     var selectElement = document.getElementById("frs");
                    for (var i = 0; i < selectElement.options.length; i++) {
@@ -1243,10 +1468,6 @@ function dataTable($tabledata)
                    }
                    var event = new Event('change');
                    selectElement.dispatchEvent(event);
-
-                    // var $newOption = $("<option selected='selected'></option>").text(responce.get_achatb.Nom_payment).val(responce.get_achatb.idp);
-                    // $("#Mpayement").append($newOption).trigger('change');
-                    
                     var idToSelect = responce.get_achatb.idp;
                     var selectElement = document.getElementById("Mpayement");
                    for (var i = 0; i < selectElement.options.length; i++) {
@@ -1258,49 +1479,6 @@ function dataTable($tabledata)
                    }
                    var event = new Event('change');
                    selectElement.dispatchEvent(event);
-
-                   var idToSelect = responce.get_achatb.FK_racines_1;
-                   var selectElement = document.getElementById("racine");
-                  for (var i = 0; i < selectElement.options.length; i++) {
-                  var option = selectElement.options[i];
-                  if (option.value == idToSelect) {
-                   option.selected = true;
-                   break; 
-                    }
-                  } var event = new Event('change');
-                  selectElement.dispatchEvent(event);
-                 
-                  var idToSelect = responce.get_achatb.FK_racines_2;
-                  var selectElement = document.getElementById("racine2");
-                 for (var i = 0; i < selectElement.options.length; i++) {
-                 var option = selectElement.options[i];
-                 if (option.value == idToSelect) {
-                  option.selected = true;
-                  break; 
-                   }
-                 }
-                 var event = new Event('change');
-                 selectElement.dispatchEvent(event);
-
-
-                 var idToSelect = responce.get_achatb.FK_racines_3;
-                 var selectElement = document.getElementById("racine3");
-                for (var i = 0; i < selectElement.options.length; i++) {
-                var option = selectElement.options[i];
-                if (option.value == idToSelect) {
-                 option.selected = true;
-                 break; 
-                  }
-                }
-                var event = new Event('change');
-                selectElement.dispatchEvent(event);
-                    // document.getElementById("FK_Regime").value =
-                    //   item.FK_Regime;
-                    // document.getElementById("FK_fait_generateurs").value =
-                    //   item.FK_fait_generateurs;
-                    //   document.getElementById("id_achat").value =
-                    //   item.id;
-             
                   });
                 },
               });
@@ -1334,7 +1512,7 @@ function dataTable($tabledata)
       },
       {
         title: "Racine",
-        field: "Num_racines",
+        field: "num_racine_7",
         minWidth: 100,
         vertAlign: "middle",
         // print: false,
@@ -1374,7 +1552,7 @@ function dataTable($tabledata)
       },
       {
         title: "FRS",
-        field: "name",
+        field: "nomFournisseurs",
         minWidth: 100,
         vertAlign: "middle",
         // print: false,
@@ -1450,12 +1628,8 @@ function tauxRacine1()
       dataType: "json",
       success: function (responce) {
         $tabledata = responce.get_racine;
-
-        jQuery.each(responce.get_racine, function (key, item) {
-          
-          $("#taux1").val($tabledata.Taux);
-        });
-
+   
+        $("#taux1").val($tabledata.Taux);
       },
     });
 }
@@ -1471,10 +1645,7 @@ function tauxRacine2()
     success: function (responce) {
       $tabledata = responce.get_racine;
 
-      jQuery.each(responce.get_racine, function (key, item) {
-        $("#taux2").val($tabledata.Taux);
-      });
-
+      $("#taux2").val($tabledata.Taux);
     },
   });
 }
@@ -1489,14 +1660,25 @@ function tauxRacine3()
       success: function (responce) {
         $tabledata = responce.get_racine;
 
-        jQuery.each(responce.get_racine, function (key, item) {
-          $("#taux3").val($tabledata.Taux);
-        });
-
+        $("#taux3").val($tabledata.Taux);
       },
     });
   }
-
+  function tauxRacine4()
+  { 
+    let value = $('#racine4').val();
+  
+      jQuery.ajax({
+        url: "./get_racine/" + value,
+        type: "GET",
+        dataType: "json",
+        success: function (responce) {
+          $tabledata = responce.get_racine;
+  
+          $("#taux4").val($tabledata.Taux);
+        },
+      });
+    }
 function generation_XML(){
        var formData = [];
        
@@ -1521,9 +1703,9 @@ function generation_XML(){
          success: function (response) {
           // Access the 'responsexml' field from the JSON response
           var xmlData = response.responsexml;
-         console.log(response);
+        //  console.log(response);
           var blob = new Blob([response.responsexml], { type: "text/plain" });
-          console.log(blob);
+          // console.log(blob);
           // Create a Blob from the XML data
           // Create a download link and trigger the download
           var link = document.createElement('a');
@@ -1539,4 +1721,43 @@ function generation_XML(){
        });
     
    
+}
+function get_table()
+{
+  let periode = $('#periode').val();
+  let Exercice = $('#Exercice').val();
+
+  jQuery.ajax({
+    url: "./get_TBLachat/" + periode+"/"+Exercice,
+    type: "GET",
+    dataType: "json",
+    success: function (responce) {
+      $tabledata = "";
+      // Je récupère la réponse du fichier PHP
+      jQuery.each(responce.get_TBLachat, function (key, item) {
+        if (responce.get_TBLachat.length == 0) {
+        }
+        $tabledata = responce.get_TBLachat;
+        // console.log( $tabledata);
+      });
+      
+       dataTable($tabledata);
+      //trigger download of data.xlsx file
+      document
+        .getElementById("download-xlsx")
+        .addEventListener("click", function () {
+          table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
+        });
+
+      //trigger download of data.pdf file
+      document
+        .getElementById("download-pdf")
+        .addEventListener("click", function () {
+          table.download("pdf", "data.pdf", {
+            orientation: "portrait", //set page orientation to portrait
+            title: "Succursale", //add title to report
+          });
+        });
+    },
+  });
 }

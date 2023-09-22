@@ -237,7 +237,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">date fact</label>
                                                                 <input class="form-control "  style="text-align: start"
-                                                                type="date"  id="date_fact" name="date_fact" >
+                                                                type="date"  id="date_fact" name="date_fact"  required>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid date fact.
                                                                 </div>
@@ -265,7 +265,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">TTC</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="MTttc"name="MTttc"  replaceholder="TTC"   >
+                                                                    id="MTttc"name="MTttc"  replaceholder="TTC"  required  >
 
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid TTC.
@@ -274,7 +274,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">Mode de payement</label>
 
-                                                                <select class="form-control select2 py-3" id="Mpayement" name="Mpayement">
+                                                                <select class="form-control select2 py-3" id="Mpayement" name="Mpayement" required >
 
                                                                 
                                                                 </select>
@@ -285,7 +285,7 @@
 
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">date payement</label>
-                                                                <input class="form-control" onblur="checkDate()" style="text-align: start" type="date"  id="date_p" name="date_p">
+                                                                <input class="form-control" onblur="checkDate()" style="text-align: start" type="date"  id="date_p" name="date_p" required>
                                                                 <div class="invalid-feedback" >
                                                                     Please provide a valid date payement.
                                                                 </div>
@@ -293,7 +293,7 @@
 
                                                         </div>
                                                     <div class="row">
-                                                     
+                                                     <div class="col-md-4 mb-3"></div>
                                                           <div class="border border-primary rounded  col-md-4 mb-3" id="select"  style="display: table;">
                                                             <div class="col-9 col-form-label">
                                                                 <div class="radio-inline d-flex">
@@ -321,12 +321,7 @@
                                                                         id="prorata" name="prorata" placeholder="Prorata"
                                                                         >
                                                                 </div>
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="validationCustom03">MT déduit</label>
-                                                                    <input type="text"  class="form-control"
-                                                                        id="mtd" name="mtd" placeholder="MT déduit"
-                                                                        >
-                                                                </div>
+                                                               
                                                         </div>
                                                        
                                                         <div class="row border border-light p-2 m-1"
@@ -341,7 +336,7 @@
                                                                         LINE 1</label>
                                                                     <input type="text" class="form-control"
                                                                         id="ttc1" onblur="calcul_ttc1()"  name="ttc1"
-                                                                        placeholder="TTC LINE 1" >
+                                                                        placeholder="TTC LINE 1"  required>
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="validationCustom03">TVA</label>
@@ -366,7 +361,7 @@
 
                                                                     <label for="taux1"> % Taux </label>
                                                                     <input type="text" class="form-control"
-                                                                        id="taux1"  placeholder=""
+                                                                        id="taux1" name="taux1"  placeholder=""
                                                                         readonly>
                                                                 </div>
                                                               
@@ -408,7 +403,7 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
                                                                     <input type="text" class="form-control"
-                                                                        id="taux2"  placeholder=""
+                                                                        id="taux2" name="taux2"  placeholder=""
                                                                         readonly>
                                                                 </div>
 
@@ -447,7 +442,7 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
                                                                     <input type="text" class="form-control"
-                                                                        id="taux3"  placeholder=""
+                                                                        id="taux3" name="taux3"  placeholder=""
                                                                         readonly>
                                                                 </div>
 
@@ -458,24 +453,24 @@
                                                                 
                                                             </div>
                                                        
-                                                         <!-- <div class="row" id="rowracine3"                   style="width:-webkit-fill-available">
+                                                         <div class="row " id="rowracine3"                   style="width:-webkit-fill-available">
                                                              <div class="col-md-2 mb-3 ">
                                                                    
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">     
                                                                     <input type="text" class="form-control"
-                                                                        id="ttc4" name="ttc4" 
+                                                                        id="ttc4" name="ttc4" onblur="calcul_ttc4()"
                                                                         placeholder="TTC LINE 4" >
                                                                 </div>
                                                                 
                                                                 <div class="col-md-2 mb-3">
-                                                                    <input type="text" class="form-control" onblur="calcul_tva3()"
+                                                                    <input type="text" class="form-control" onblur="calcul_tva4()"
                                                                         id="tva_4" name="tva_4"  placeholder="TVA"
                                                                         >
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">            
                                                                     <input type="text" class="form-control" 
-                                                                        id="MHT_4" name="MHT_4" placeholder="MT HT"
+                                                                        id="MHT_4" name="MHT_4" onblur="calcul_HT4()"placeholder="MT HT"
                                                                         >
 
                                                                 </div>
@@ -491,7 +486,7 @@
                                                                 </div>
                                                                 
                                                             </div>
-                                                        </div> -->
+                                                        </div>
                                                     
                                                     
                                                     </div>
