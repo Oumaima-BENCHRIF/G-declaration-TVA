@@ -69,11 +69,18 @@
                                             <form id="Add_fournisseur" name="Add_fournisseur" method="POST"  action="{{ route('dashboard.AddFournisseur') }}" class="needs-validation" novalidate action="javascript:void(0);">
                                             @csrf 
                                             <div class="form-row">
-                                                    <div class="col-md-4 mb-4">
+                                                    <div class="col-md-4 mb-4 min-checking">
                                                         <label for="ID_fiscale">identifiant fiscal</label>
-                                                        <input type="text" class="form-control" id="ID_fiscale" name="ID_fiscale"
-                                                            placeholder="identifiant" required>
-  
+                                                        <input type="text" class="form-control" id="ID_fiscale" name="ID_fiscale"  placeholder="identifiant" required onblur="validateMin8()">
+                                                            <div class="invalid-feedback">
+                                                            Please provide a valid ID Fiscale.
+                                                            </div>
+                                                            <div class="valid-feedback">
+                                                                {{__('Forms')}} Success!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                {{__('Forms')}}Minimum 8 characters 
+                                                            </div>
                                                     </div>
                                                     <div class="col-md-4 mb-4">
                                                         <label for="nomFournisseurs">Nom Frs</label>
@@ -86,63 +93,57 @@
                                                     <div class="col-md-4 mb-4">
                                                         <label>N° Compte Comptable</label>
                                                         <input type="text" name="Num_compte_comptable" id="Num_compte_comptable" class="form-control" 
-                                                            placeholder="N° Compte Comptable" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid Nom.
-                                                        </div>
+                                                            placeholder="N° Compte Comptable" >
+                                                       
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-4 mb-4">
                                                         <label for="ville">Ville</label>
                                                         <input type="text" class="form-control" id="ville" name="ville"
-                                                            placeholder="ville" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid ville.
-                                                        </div>
+                                                            placeholder="ville" >
+                                                       
                                                     </div>
                                                     
-                                                    <div class="col-md-4 mb-4">
+                                                    <div class="col-md-4 mb-4 min-checking">
                                                         <label for="NICE">N°ICE</label>
-                                                        <input type="text" class="form-control" id="NICE" name="NICE"
-                                                            placeholder="ICE" required>
+                                                        <input type="number" class="form-control" id="NICE" name="NICE" min="15"  
+                                                            placeholder="ICE" onblur="validateMin()" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid ICE.
+                                                        </div>
+                                                        <div class="valid-feedback">
+                                                            {{__('Forms')}} Success!
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            {{__('Forms')}}Minimum 15 characters 
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4 mb-4">
                                                         <label for="Fax">Fax</label>
                                                         <input type="text" class="form-control" id="Fax" name="Fax"
-                                                            placeholder="Fax" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid Fax.
-                                                        </div>
+                                                            placeholder="Fax" >
+                                                      
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-4 mb-4">
                                                         <label for="Adresse">Adresse</label>
                                                         <input type="text" class="form-control" id="Adresse" name="Adresse"
-                                                            placeholder="Adresse" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid Adresse.
-                                                        </div>
+                                                            placeholder="Adresse" >
+                                                       
                                                     </div>
                                                     <div class="col-md-4 mb-4">
                                                         <label for="Designation">Designation</label>
                                                         <input type="text" class="form-control" id="Designation" name="Designation"
-                                                            placeholder="Designation" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid Designation.
-                                                        </div>
+                                                            placeholder="Designation" >
+                                                       
                                                     </div>
                                                     <div class="col-md-4 mb-4">
                                                         <label for="telephone">Téléphone</label>
                                                         <input type="text" class="form-control" id="telephone" name="telephone"
-                                                            placeholder="Teléphone" required>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid Teléphone.
-                                                        </div>
+                                                            placeholder="Teléphone" >
+                                                        
                                                     </div>
                                                     <div class="col-md-4 mb-4">
                                                     <input type="hidden" id="update_id_fournisseur" name="update_id_fournisseur" class="form-control" >
@@ -156,8 +157,9 @@
                                             <i class="las la-check-double"></i>Enregistrer
                                         </button>
 
-                                            <button onclick=" viderchamp()" id="Nouveau" name="Nouveau"  type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
-                                                    class="las la-info-circle"></i>Nouveau</button>
+                                            <!-- <button onclick=" viderchamp()" id="Nouveau" name="Nouveau"  type="button" class="btn btn-soft-primary  mt-3 ml-2">
+                                            <i class="las la-info-circle"></i>Nouveau</button> -->
+                                            
                                         </div>
                                         </form>
                                         <button class="btn btn btn-secondary mt-3" type="button"  id="Update" name="Update" onclick="update_fournisseur()"><i class="las la-edit"></i>Update</button>
