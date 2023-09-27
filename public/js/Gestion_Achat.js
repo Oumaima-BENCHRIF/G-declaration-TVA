@@ -1511,6 +1511,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         // print: false,
         // download: false,
+        headerFilter:"input"
       },
       {
         title: "Racine",
@@ -1519,6 +1520,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         // print: false,
         // download: false,
+        headerFilter:"input"
       },
       {
         title: "Date fact",
@@ -1543,6 +1545,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         // print: false,
         // download: false,
+        headerFilter:"input"
       },
       {
         title: "ICE",
@@ -1551,6 +1554,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         // print: false,
         // download: false,
+        headerFilter:"input"
       },
       {
         title: "FRS",
@@ -1583,6 +1587,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         // print: false,
         // download: false,
+        headerFilter:"input"
       },
       {
         title: "Mht",
@@ -1603,6 +1608,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         // print: false,
         // download: false,
+        headerFilter:"input",
         editor: true,
       },
       {
@@ -1612,6 +1618,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         // print: false,
         editor: true,
+        headerFilter:"input"
       },
 
       // For print format
