@@ -510,13 +510,11 @@ function get_info() {
     
     let selectElement=("#Exercice");
     var $lignes;
+    let $i=0;
     $tabledata = responce.Liste_regimes;
   
       jQuery.each( $tabledata, function (key, item) {
-       
-        
-        if(item.libelle==responce.regime[0].libelle){
-         
+          if(item.libelle==responce.regime[0].libelle){
           $lignes =
           $lignes +
           '<option value="' +
@@ -524,9 +522,13 @@ function get_info() {
           '">' +
           item.	periode +
         "</option>";
+        $i++;
         }
         $("#periode").html($lignes);
+       
       });
+      console.log(responce.periode)
+      $("#periode").val(responce.periode);
       var $newOption = $("<option selected='selected'></option>").text(responce.get_info.Exercice).val(responce.get_info.Exercice);
       $("#Exercice").append($newOption).trigger('change');
       $("#faitG").val(responce.get_info.FK_fait_generateurs);
@@ -1503,8 +1505,8 @@ function dataTable($tabledata)
         // download: false,
       },
       {
-        title: "Mode",
-        field: "Nom_payment",
+        title: "Mode p",
+        field: "M_HT_20",
         minWidth: 100,
         vertAlign: "middle",
         // print: false,
@@ -1536,7 +1538,7 @@ function dataTable($tabledata)
       },
       {
         title: "ID FIscal",
-        field: "ID_fiscale",
+        field: "TVA_20",
         minWidth: 100,
         vertAlign: "middle",
         // print: false,
@@ -1544,7 +1546,7 @@ function dataTable($tabledata)
       },
       {
         title: "ICE",
-        field: "NICE",
+        field: "TVA_14",
         minWidth: 100,
         vertAlign: "middle",
         // print: false,
@@ -1552,7 +1554,7 @@ function dataTable($tabledata)
       },
       {
         title: "FRS",
-        field: "nomFournisseurs",
+        field: "TVA_10",
         minWidth: 100,
         vertAlign: "middle",
         // print: false,
@@ -1568,7 +1570,7 @@ function dataTable($tabledata)
       },
       {
         title: "TVA",
-        field: "TVA_1",
+        field: "TVA_7",
         minWidth: 100,
         vertAlign: "middle",
         // print: false,
@@ -1576,7 +1578,7 @@ function dataTable($tabledata)
       },
       {
         title: "taux",
-        field: "Taux",
+        field: "Taux7",
         minWidth: 100,
         vertAlign: "middle",
         // print: false,
@@ -1586,7 +1588,7 @@ function dataTable($tabledata)
         title: "Mht",
         minWidth: 100,
         width: 43,
-        field: "M_HT_1",
+        field: "M_HT_7",
         hozAlign: "center",
         vertAlign: "middle",
         // print: false,

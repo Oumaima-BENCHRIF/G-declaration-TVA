@@ -226,9 +226,11 @@
                                                             </div>
                                                             <div class="col-md-4 mb-4">
                                                                 <label>FRS</label>
-                                                                <select class="form-control select2 py-3" id="frs"  name="frs" >
-                                                                
+                                                                <select class="form-control  basic select2 py-3" id="frs"  name="frs" >
+                                                                <option value="not_found">Option Not Found</option>
                                                                 </select>
+                                                              
+                                              
                                                             </div>
 
                                                         </div>
@@ -560,7 +562,36 @@
         <!--  -->
         @endpush
         @push('custom-scripts')
-    
+    <script>
+        $(document).ready(function() {
+    $('#frs').select2({
+      tags: true,
+      createTag: function(params) {
+        var term = $.trim(params.term);
+
+        if (term === '') {
+          return null;
+        }
+
+        return {
+          id: term,
+          text: term,
+          newTag: true ,
+           // Add this to indicate it's a new tag
+        };
+      }
+    }).on('select2:select', function (e) {
+  var selectedOption = e.params.data;
+  
+  // Check if the selected option is a new tag
+  if (selectedOption.newTag) {
+    // Remove the "readonly" attribute from an element with the ID "id_fiscal"
+    $('#id_fiscal').removeAttr("readonly");
+    $('#N_ICE').removeAttr("readonly");
+  }
+});
+  });
+    </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
         <script type="text/javascript" src="{{URL::asset('js/Gestion_Achat.js')}}"></script>
        
