@@ -12,6 +12,7 @@ use App\Models\regime;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 class AchatController extends Controller
@@ -970,6 +971,50 @@ $table_achat3 = collect($table_achat3)->sortBy('num_racine_7')->values()->all();
     ])->setPaper('a4', 'landscape');;
     return $pdf->stream('relevé_deduction.pdf');
    
+}
+public function Storesjson(Request $request)
+{
+    // dd($request);
+
+    try {
+        if(!empty($request->TVA_deductible) ||!empty($request->prorata)||!empty($request->Mode_p)||!empty($request->Date_fact)||!empty($request->Date_payement)||!empty($request->ID_FIscal)||!empty($request->ICE)||!empty($request->FRS)||!empty($request->TTC)||!empty($request->TVA)||!empty($request->taux)||!empty($request->Mht)||!empty($request->des)||!empty($request->Nfact)){
+        
+        
+        $achat = new achat();
+        $achat->TVA_deductible = $request->TVA_deductible;
+        $achat->Prorata = $request->prorata;
+        $achat->FK_type_payment = $request->Mode_p;
+        $achat->Date_facture = $request->Date_fact;
+        $achat->Date_payment = $request->Date_payement;
+        $achat->FK_fournisseur = $request->ID_FIscal;
+        $achat->FK_fournisseur = $request->ICE;
+        $achat->FK_fournisseur = $request->FRS;
+        $achat->M_TTC = $request->TTC;
+        $achat->TVA_7 = $request->TVA;
+        $achat->Taux7 = $request->taux;
+        $achat->M_HT_7 = $request->Mht;
+        $achat->Designation = $request->des;
+        $achat->N_facture = $request->Nfact;
+        $achat->save();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Ajouter avec succès',
+        ]);
+        }
+
+       
+    } catch (ValidationException $e) {
+        return redirect()
+            ->back()
+            ->with('danger', 'Merci de vérifier les champs requis.')
+            ->withErrors($e->errors()) // Pass the validation errors to the view
+            ->withInput();
+    } catch (\Exception $e) {
+        return redirect()
+            ->back()
+            ->with('danger', 'Une erreur s\'est produite. Merci de contacter le service IT.')
+            ->withInput();
+    }
 }
 }
 

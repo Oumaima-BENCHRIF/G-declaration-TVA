@@ -1489,14 +1489,14 @@ function dataTable($tabledata)
           return a[0];
         },
       },
-      {
-        title: "TVA_deductible",
-        field: "TVA_deductible",
-        minWidth: 100,
-        vertAlign: "middle",
-        print: true,
-        download: true,
-      },
+      // {
+      //   title: "TVA_deductible",
+      //   field: "TVA_deductible",
+      //   minWidth: 100,
+      //   vertAlign: "middle",
+      //   print: true,
+      //   download: true,
+      // },
       {
         title: "prorata",
         field: "Prorata",
@@ -1852,13 +1852,13 @@ console.log(dataArray);
       headers: {
         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
       },
-      url: "./AddFournisseurjson",
+      url: "./AddAchatjson",
       type: "get",
       data: postData,
 
       success: function (response) {
         toastr.success(response.message);
-        table_fournisseur();
+        get_table();
       },
       error: function (response) {
         toastr.error(response.Error);

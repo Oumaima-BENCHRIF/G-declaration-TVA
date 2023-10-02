@@ -149,6 +149,8 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('get_FRS/{id}', [App\Http\Controllers\AchatController::class, 'get_FRS'])->name('get_FRS');
     // get racine
     Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
+    // importation achat
+    Route::get('/AddAchatjson', [App\Http\Controllers\AchatController::class, 'Storesjson'])->name('AddAchatjson');
 
 
     // Liste Mode de payement
