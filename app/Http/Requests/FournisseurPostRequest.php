@@ -25,14 +25,14 @@ class FournisseurPostRequest extends FormRequest
     {
         return [
             'nomFournisseurs' => 'required',
-            'Designation' => 'required',
+            'Designation' => 'nullable',
             'Adresse' => 'nullable',
             'telephone' => 'nullable',
             'ville' => 'nullable',
-            'NICE' => 'required',
+            'NICE' => 'required|min:15',
             'Fax' => 'nullable',
-            'Num_compte_comptable' => 'required',
-            'ID_fiscale' => 'required',
+            'Num_compte_comptable' => 'nullable',
+            'ID_fiscale' => 'required|max:8|min:7',
           
         ];
     }

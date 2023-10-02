@@ -19,12 +19,12 @@ class CreateAchatsTable extends Migration
             $table->date('Date_facture')->nullable();
             $table->date('Date_payment')->nullable();
             $table->longText('Designation')->nullable();
-            $table->longText('TVA_1')->nullable();
-            $table->longText('TVA_2')->nullable();
-            $table->longText('TVA_3')->nullable();
-            $table->longText('M_HT_1')->nullable();
-            $table->longText('M_HT_2')->nullable();
-            $table->longText('M_HT_3')->nullable();
+            $table->longText('TVA_7')->nullable();
+            $table->longText('TVA_10')->nullable();
+            $table->longText('TVA_14')->nullable();
+            $table->longText('M_HT_7')->nullable();
+            $table->longText('M_HT_10')->nullable();
+            $table->longText('M_HT_14')->nullable();
             $table->longText('M_TTC')->nullable();
             $table->longText('Prorata')->nullable();
             $table->longText('TVA_deductible')->nullable();
@@ -36,20 +36,20 @@ class CreateAchatsTable extends Migration
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
 
-            $table->unsignedBigInteger('FK_racines_1');
-            $table->foreign('FK_racines_1')
+            $table->unsignedBigInteger('FK_racines_7');
+            $table->foreign('FK_racines_7')
                 ->references('id')->on('racines')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
 
-            $table->unsignedBigInteger('FK_racines_2');
-            $table->foreign('FK_racines_2')
+            $table->unsignedBigInteger('FK_racines_10');
+            $table->foreign('FK_racines_10')
                 ->references('id')->on('racines')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
 
-            $table->unsignedBigInteger('FK_racines_3');
-            $table->foreign('FK_racines_3')
+            $table->unsignedBigInteger('FK_racines_14');
+            $table->foreign('FK_racines_14')
                 ->references('id')->on('racines')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');

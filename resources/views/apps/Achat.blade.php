@@ -145,7 +145,14 @@
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target=".bd-example-modal-lg">Ajouter</button>
                                                 <!-- onclick="generation_XML()" -->
-                                               
+                                                <a id="achat_pdf" class="btn btn-dark ">Generate PDF</a>
+                                                <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
+                                                <label for="file-upload" class="custom-file-upload ">
+                                                                        <a title="Attach a file" class="dt-button buttons-print btn btn-soft-info  mr-2   pointer ">
+                                                                        Importer
+                                                                        </a>
+                                                                    </label>
+                                                                    <input id="file-upload" name="upload_cont_img" type="file" style="display:none;">
                                             </div>
                                             <div class="row">
                                                 <div class="w-100 p-0">
@@ -156,9 +163,9 @@
                                                             <div class="widget-content widget-content-area br-6 px-0">
                                                            
                                                                 <div class="table-responsive mb-4">
-<!-- 
-                                                                    <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
-                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button> -->
+
+                                                                    <!-- <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button> -->
+                                                                    <!-- <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button> -->
                                                                
                                                                     <div id="Liste-Achat" style="width: 100%;" class="header-table"></div>
                                                 
@@ -175,6 +182,12 @@
                                     </div>
                                 </div>
                                 <!-- END tableau -->
+                                <div class="row p-4 justify-content-end">
+                                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target=".bd-example-modal-lg">Ajouter</button> -->
+                                                <!-- <a id="achat_pdf" class="btn btn-primary">Generate PDF</a> -->
+                                           
+                                        </div>
                                
                                       
                                         
@@ -220,9 +233,11 @@
                                                             </div>
                                                             <div class="col-md-4 mb-4">
                                                                 <label>FRS</label>
-                                                                <select class="form-control select2 py-3" id="frs"  name="frs" >
-                                                                
+                                                                <select class="form-control  basic select2 py-3" id="frs"  name="frs" >
+                                                                <option value="not_found">Option Not Found</option>
                                                                 </select>
+                                                              
+                                              
                                                             </div>
 
                                                         </div>
@@ -231,7 +246,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">date fact</label>
                                                                 <input class="form-control "  style="text-align: start"
-                                                                type="date"  id="date_fact" name="date_fact" >
+                                                                type="date"  id="date_fact" name="date_fact"  required>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid date fact.
                                                                 </div>
@@ -259,7 +274,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">TTC</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="MTttc"name="MTttc"  replaceholder="TTC"   >
+                                                                    id="MTttc"name="MTttc"  replaceholder="TTC"  required  >
 
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid TTC.
@@ -268,7 +283,7 @@
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">Mode de payement</label>
 
-                                                                <select class="form-control select2 py-3" id="Mpayement" name="Mpayement">
+                                                                <select class="form-control select2 py-3" id="Mpayement" name="Mpayement" required >
 
                                                                 
                                                                 </select>
@@ -279,7 +294,7 @@
 
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">date payement</label>
-                                                                <input class="form-control" onblur="checkDate()" style="text-align: start" type="date"  id="date_p" name="date_p">
+                                                                <input class="form-control" onblur="checkDate()" style="text-align: start" type="date"  id="date_p" name="date_p" required>
                                                                 <div class="invalid-feedback" >
                                                                     Please provide a valid date payement.
                                                                 </div>
@@ -287,7 +302,7 @@
 
                                                         </div>
                                                     <div class="row">
-                                                     
+                                                     <div class="col-md-4 mb-3"></div>
                                                           <div class="border border-primary rounded  col-md-4 mb-3" id="select"  style="display: table;">
                                                             <div class="col-9 col-form-label">
                                                                 <div class="radio-inline d-flex">
@@ -311,16 +326,11 @@
                                                         </div>
                                                                 <div class="col-md-4 mb-3">
                                                                     <label for="validationCustom03"> % Prorata</label>
-                                                                    <input type="text" onblur="tva_didu()" class="form-control"
+                                                                    <input type="text" onblur="tva_didu()" class="form-control" value="100"
                                                                         id="prorata" name="prorata" placeholder="Prorata"
                                                                         >
                                                                 </div>
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="validationCustom03">MT déduit</label>
-                                                                    <input type="text"  class="form-control"
-                                                                        id="mtd" name="mtd" placeholder="MT déduit"
-                                                                        >
-                                                                </div>
+                                                               
                                                         </div>
                                                        
                                                         <div class="row border border-light p-2 m-1"
@@ -335,13 +345,19 @@
                                                                         LINE 1</label>
                                                                     <input type="text" class="form-control"
                                                                         id="ttc1" onblur="calcul_ttc1()"  name="ttc1"
-                                                                        placeholder="TTC LINE 1" >
+                                                                        placeholder="TTC LINE 1"  required>
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="validationCustom03">TVA</label>
                                                                     <input type="text" onblur="calcul_tva()" class="form-control"
                                                                     id="tva_1" name="tva_1" placeholder="TVA"
                                                                         required>
+                                                                </div>
+                                                                <div class="col-md-2 mb-3 d-none">
+                                                                    <label for="validationCustom03">TVA</label>
+                                                                    <input type="text" class="form-control"
+                                                                    id="tva_d1" name="tva_d1" placeholder="TVA"
+                                                                        >
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label>MT HT</label>
@@ -354,13 +370,13 @@
 
                                                                     <label for="taux1"> % Taux </label>
                                                                     <input type="text" class="form-control"
-                                                                        id="taux1"  placeholder=""
+                                                                        id="taux1" name="taux1"  placeholder=""
                                                                         readonly>
                                                                 </div>
                                                               
                                                                 <div class="col-md-4 mb-3" id="colracine">
                                                                     <label>Rubriqe TVA</label>
-                                                                    <select class="form-control select2 py-3" id="racine" name="racine" required>
+                                                                    <select class="form-control select2 py-3" id="racine" name="racine" onchange=" tauxRacine1()">
                                                                     </select>
                                                                 </div>
                                                               </div>
@@ -381,6 +397,12 @@
                                                                         id="tva_2" name="tva_2"  placeholder="TVA"
                                                                         >
                                                                 </div>
+                                                                <div class="col-md-2 mb-3 d-none">
+                                                                    <label for="validationCustom03">TVA</label>
+                                                                    <input type="text" class="form-control"
+                                                                    id="tva_d2" name="tva_d2" placeholder="TVA">
+                                                                </div>
+                                                                
                                                                 <div class="col-md-2 mb-3">
                                                               
                                                                     <input type="text" class="form-control" onblur="calcul_HT2()"
@@ -390,12 +412,12 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
                                                                     <input type="text" class="form-control"
-                                                                        id="taux2"  placeholder=""
+                                                                        id="taux2" name="taux2"  placeholder=""
                                                                         readonly>
                                                                 </div>
 
                                                                 <div class="col-md-4 mb-3">
-                                                                <select class="form-control select2 py-3" id="racine2" name="racine2" required>
+                                                                <select class="form-control select2 py-3" onchange=" tauxRacine2()" id="racine2" name="racine2" required>
                                                                     </select>
                                                                 </div>
                                                                
@@ -404,7 +426,7 @@
                                                              <div class="col-md-2 mb-3 ">
                                                                    
                                                                 </div>
-                                                                <div class="col-md-2 mb-3">     
+                                                                <div class="col-md-2 mb-3 ">     
                                                                     <input type="text" class="form-control"
                                                                         id="ttc3" name="ttc3" onblur="calcul_ttc3()"
                                                                         placeholder="TTC LINE 3" >
@@ -415,6 +437,12 @@
                                                                         id="tva_3" name="tva_3"  placeholder="TVA"
                                                                         >
                                                                 </div>
+                                                                <div class="col-md-2 mb-3 d-none">
+                                                                    <label for="validationCustom03">TVA</label>
+                                                                    <input type="text" class="form-control"
+                                                                    id="tva_d3" name="tva_d3" placeholder="TVA"
+                                                                        >
+                                                                </div>
                                                                 <div class="col-md-2 mb-3">            
                                                                     <input type="text" class="form-control" 
                                                                         id="MHT_3" onblur="calcul_HT3()" name="MHT_3" placeholder="MT HT"
@@ -423,35 +451,35 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
                                                                     <input type="text" class="form-control"
-                                                                        id="taux3"  placeholder=""
+                                                                        id="taux3" name="taux3"  placeholder=""
                                                                         readonly>
                                                                 </div>
 
                                                                 <div class="col-md-4 mb-3">
-                                                                <select class="form-control select2 py-3" id="racine3" name="racine3" required>
+                                                                <select class="form-control select2 py-3" id="racine3" name="racine3" onchange=" tauxRacine3()" required>
                                                                     </select>
                                                                 </div>
                                                                 
                                                             </div>
                                                        
-                                                         <!-- <div class="row" id="rowracine3"                   style="width:-webkit-fill-available">
+                                                         <div class="row " id="rowracine3"                   style="width:-webkit-fill-available">
                                                              <div class="col-md-2 mb-3 ">
                                                                    
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">     
                                                                     <input type="text" class="form-control"
-                                                                        id="ttc4" name="ttc4" 
+                                                                        id="ttc4" name="ttc4" onblur="calcul_ttc4()"
                                                                         placeholder="TTC LINE 4" >
                                                                 </div>
                                                                 
                                                                 <div class="col-md-2 mb-3">
-                                                                    <input type="text" class="form-control" onblur="calcul_tva3()"
+                                                                    <input type="text" class="form-control" onblur="calcul_tva4()"
                                                                         id="tva_4" name="tva_4"  placeholder="TVA"
                                                                         >
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">            
                                                                     <input type="text" class="form-control" 
-                                                                        id="MHT_4" name="MHT_4" placeholder="MT HT"
+                                                                        id="MHT_4" name="MHT_4" onblur="calcul_HT4()"placeholder="MT HT"
                                                                         >
 
                                                                 </div>
@@ -467,7 +495,7 @@
                                                                 </div>
                                                                 
                                                             </div>
-                                                        </div> -->
+                                                        </div>
                                                     
                                                     
                                                     </div>
@@ -476,13 +504,42 @@
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Close</button>
                                                         <button type="submit" id="add_ach" class="btn btn-primary">Ajouter</button>
-                                                       
+                                                       <a class="btn btn-primary" id="update">modifier</a>
                                                     </div>
                                                     </form>
                                                 </div>
                                             </div> </div>
                                         </div>
                                          <!--end modal ajouter -->
+                                         <!--start modal delete -->
+                                         <div id="delet_achat" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
+                                            <div class="modal-dialog">
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">?Êtes-vous sûr'</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <i class="las la-times"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="modal-text">? Voulez-vous vraiment supprimer ces enregistrements  <br> Ce processus ne peut pas être annulé </p>
+                                                    </div>
+                                                    <form id="Delet_Achat" name="Delet_Achat" action="{{ route('dashboard.DeleteAchat') }}" action="" method="post">
+                                                    <div class="modal-footer md-button">
+                                                        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Annuler</button>
+                                                        <input type="hidden" id="delete_id_achat" name="delete_id_achat">
+                                                        {{ csrf_field() }}
+                                                        <button type="submit" class="btn btn-primary">Supprimer</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <!--end modal delete -->
+
+
+
                             </div>
                         </div>
                     </div>
@@ -512,7 +569,36 @@
         <!--  -->
         @endpush
         @push('custom-scripts')
-    
+    <script>
+        $(document).ready(function() {
+    $('#frs').select2({
+      tags: true,
+      createTag: function(params) {
+        var term = $.trim(params.term);
+
+        if (term === '') {
+          return null;
+        }
+
+        return {
+          id: term,
+          text: term,
+          newTag: true ,
+           // Add this to indicate it's a new tag
+        };
+      }
+    }).on('select2:select', function (e) {
+  var selectedOption = e.params.data;
+  
+  // Check if the selected option is a new tag
+  if (selectedOption.newTag) {
+    // Remove the "readonly" attribute from an element with the ID "id_fiscal"
+    $('#id_fiscal').removeAttr("readonly");
+    $('#N_ICE').removeAttr("readonly");
+  }
+});
+  });
+    </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
         <script type="text/javascript" src="{{URL::asset('js/Gestion_Achat.js')}}"></script>
        

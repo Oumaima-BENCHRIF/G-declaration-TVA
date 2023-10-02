@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 use App\Models\fournisseurs;
@@ -18,8 +19,9 @@ class FournisuerController extends Controller
     public function Stores(FournisseurPostRequest $request)
     {
 
-
+       
         try {
+
             $fournisseurs = new fournisseurs();
             $fournisseurs->nomFournisseurs = $request->input('nomFournisseurs');
             $fournisseurs->Designation = $request->input('Designation');
@@ -30,6 +32,7 @@ class FournisuerController extends Controller
             $fournisseurs->Fax = $request->input('Fax');
             $fournisseurs->Num_compte_comptable = $request->input('Num_compte_comptable');
             $fournisseurs->ID_fiscale = $request->input('ID_fiscale');
+            
             $fournisseurs->save();
 
             return response()->json([

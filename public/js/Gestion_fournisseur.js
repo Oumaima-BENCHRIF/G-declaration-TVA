@@ -1,5 +1,6 @@
 $(window).on("load", function () {
   document.getElementById("Update").style.display = "none";
+  $("#ID_fiscale").focus();
   table_fournisseur();
 });
 $(document).ready(function () {
@@ -21,6 +22,7 @@ $(document).ready(function () {
         };
         toastr.success(response.message, { timeOut: 12000 });
         table_fournisseur();
+        viderchamp();
       },
       error: function (response) {
         toastr.options = {
@@ -58,6 +60,34 @@ $(document).ready(function () {
     });
   });
 });
+function validateMin(){
+  var invalid = $('.min-checking .invalid-feedback');
+  var valid = $('.min-checking .valid-feedback');
+  var minID = document.getElementById("NICE");
+  var z = minID.value;
+  if(z.length==15 ){
+    invalid.css('display', 'none');
+    valid.css('display', 'block');
+  } else {
+    
+    invalid.css('display', 'block');
+    valid.css('display', 'none');
+  }
+}
+
+function validateMin8(){
+  var invalid = $('.min-checking .invalid-feedback');
+  var valid = $('.min-checking .valid-feedback');
+  var minID = document.getElementById("ID_fiscale");
+  var z = minID.value;
+  if(z.length==8 || z.length==7){
+    invalid.css('display', 'none');
+    valid.css('display', 'block');
+  } else {
+    invalid.css('display', 'block');
+    valid.css('display', 'none');
+  }
+}
 
 function update_fournisseur() {
   var formData = [];
@@ -116,6 +146,11 @@ function viderchamp() {
 }
 
 function table_fournisseur() {
+
+  // *********************************************************************
+
+
+  // *********************************************************************
   jQuery.ajax({
     url: "table_fournisseur",
     type: "GET", // Le nom du fichier indiqué dans le formulaire
@@ -159,11 +194,11 @@ function table_fournisseur() {
         columns: [
           {
             title: "nomFournisseurs",
-            width: 95,
+            width: 150,
             field: "nomFournisseurs",
             vertAlign: "middle",
             //print: false,
-            
+            headerFilter:"input"
           },
           {
             title: "Designation",
@@ -205,13 +240,16 @@ function table_fournisseur() {
             field: "NICE",
             minWidth: 100,
             vertAlign: "middle",
+            headerFilter:"input"
             // print: false,
             // download: false,
           },
           {
             title: "ID_fiscale",
             field: "ID_fiscale",
-            minWidth: 100,
+            headerFilter:"input",
+            // minWidth: 100,
+            width:100,
             vertAlign: "middle",
             // print: false,
             // download: false,
@@ -234,7 +272,7 @@ function table_fournisseur() {
           },
           {
             title: "Action",
-            minWidth: 110,
+            width:90,
             field: "actions",
             responsive: 1,
             hozAlign: "center",
@@ -244,9 +282,7 @@ function table_fournisseur() {
 
             formatter(cell, formatterParams) {
               let a = $(`<div class="flex lg:justify-center items-center">
-                                        <a class="view  mr-3" title="Consulter">
-                                            <svg xmlns="http://www.w3.org/2000/svg " width="20 " height="20 " viewBox="0 0 24 24 " fill="none " stroke="currentColor " stroke-width="2 " stroke-linecap="round " stroke-linejoin="round " icon-name="eye " data-lucide="eye " class="lucide lucide-eye w-4 h-4 mr-1 "><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z "></path><circle cx="12 " cy="12 " r="3 "></circle></svg>
-                                        </a>
+                                      
                                             <a  class="edit lex items-center text-success   mr-3" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#update-confirmation-modal">
                                             <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
                                         </a>
@@ -284,7 +320,7 @@ function table_fournisseur() {
                   document.getElementById("Update").style.display = "none";
                   document.getElementById("Enregistrer").style.display =
                     "initial";
-                  document.getElementById("Nouveau").style.display = "initial";
+                  // document.getElementById("Nouveau").style.display = "initial";
 
                   jQuery.ajax({
                     url: "./Fournisseur/" + cell.getData().id,
@@ -322,7 +358,7 @@ function table_fournisseur() {
                 .on("click", function () {
                   document.getElementById("Update").style.display = "initial";
                   document.getElementById("Enregistrer").style.display = "none";
-                  document.getElementById("Nouveau").style.display = "none";
+                  // document.getElementById("Nouveau").style.display = "none";
                   jQuery.ajax({
                     url: "./Fournisseur/" + cell.getData().id,
                     type: "GET", // Le nom du fichier indiqué dans le formulaire
@@ -464,6 +500,16 @@ function handleFile(event) {
 //   });
 // }
 function createTabulatorTable(data) {
+  // Define the getTableColumns function
+  function getTableColumns(rowData) {
+    // Implement the logic to generate column definitions based on rowData
+    // For example:
+    const columns = [];
+    for (let i = 0; i < rowData.length; i++) {
+      columns.push({ title: rowData[i], field: rowData[i] });
+    }
+    return columns;
+  }
   const table = new Tabulator("#table", {
     data: data,
     layout: "fitColumns",
@@ -509,10 +555,3 @@ console.log(dataArray);
 }
 
 // **************************************
-function getTableColumns(headers) {
-  if (!headers) {
-    return [];
-  }
-
-  return headers.map((header) => ({ title: header, field: header }));
-}
