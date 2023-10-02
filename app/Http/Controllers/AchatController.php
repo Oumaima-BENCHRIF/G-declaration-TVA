@@ -29,13 +29,8 @@ class AchatController extends Controller
             $frs=fournisseurs::select('fournisseurs.*')
             ->where('fournisseurs.deleted_at', '=', NULL)
             ->where('fournisseurs.id',$request->input('frs'))->first();
-            
-            if($frs)
-            {
-                $frs->Designation=$request->input('desc');
-                $frs->save();
-
-            }else
+            $achat = new achat();
+            if(!$frs)
             {
                 $fournisseurs = new fournisseurs();
                 $fournisseurs->ID_fiscale=$request->input('id_fiscal');
@@ -43,29 +38,31 @@ class AchatController extends Controller
                 $fournisseurs->Designation=$request->input('desc');
                 $fournisseurs->nomFournisseurs=$request->input('frs');
                 $fournisseurs->save();
-            } 
-           
-            $achat = new achat();
+                $achat->FK_fournisseur=$fournisseurs->id;
+               
+            }else
+            {
+                $frs->Designation=$request->input('desc');
+                $achat->FK_fournisseur=$frs->id;
+                $frs->save();
+
+            }   
             $achat->N_facture=$request->input('n_fact');
             $achat->Date_facture=$request->input('date_fact');
             $achat->Date_payment=$request->input('date_p');
             $achat->Designation=$request->input('desc');
             $achat->M_TTC=$request->input('MTttc');
-            $achat->Prorata=$request->input('prorata');
-            $achat->TVA_deductible3=$request->input('tva_d3');
-            $achat->TVA_deductible2=$request->input('tva_d2');
-            $achat->TVA_deductible=$request->input('tva_d1');
-            $achat->MT_déduit=$request->input('mtd');           
+            $achat->Prorata=$request->input('prorata');      
             $achat->Exercice=$request->input('Exercice');   
             $achat->FK_regime=$request->input('periode');     
             $achat->FK_type_payment=$request->input('Mpayement');
-       
             if($request->input('taux1')==7)
             {
                 $achat->Taux7=$request->input('taux1');
                 $achat->TVA_7=$request->input('tva_1');
                 $achat->M_HT_7=$request->input('MHT_1');
                 $achat->TTC_7=$request->input('ttc1');
+                $achat->TVA_d7=$request->input('tva_d1');
                 if($request->input('racine2')!='null'){
                     $achat->FK_racines_7=$request->input('racine');
                 }
@@ -81,6 +78,7 @@ class AchatController extends Controller
                 $achat->TVA_7=$request->input('tva_2');
                 $achat->M_HT_7=$request->input('MHT_2');
                 $achat->TTC_7=$request->input('ttc2');
+                $achat->TVA_d7=$request->input('tva_d2');
                 if($request->input('racine2')!='null'){
                     $achat->FK_racines_7=$request->input('racine2');
                 }
@@ -97,6 +95,8 @@ class AchatController extends Controller
                 $achat->TVA_7=$request->input('tva_3');
                 $achat->M_HT_7=$request->input('MHT_3');
                 $achat->TTC_7=$request->input('ttc3');
+                $achat->TVA_d7=$request->input('tva_d3');
+
                 if($request->input('racine3')!='null'){
                     $achat->FK_racines_7=$request->input('racine3');
                 }
@@ -108,142 +108,144 @@ class AchatController extends Controller
             }
             if($request->input('taux1')==10)
             {
-            $achat->Taux10=$request->input('taux1');
-            $achat->TVA_10=$request->input('tva_1');
-            $achat->M_HT_10=$request->input('MHT_1');
-            $achat->TTC_10=$request->input('ttc1');
-            if($request->input('racine')!='null'){
+             $achat->Taux10=$request->input('taux1');
+             $achat->TVA_10=$request->input('tva_1');
+             $achat->M_HT_10=$request->input('MHT_1');
+             $achat->TTC_10=$request->input('ttc1');
+             $achat->TVA_d10=$request->input('tva_d1');
+             if($request->input('racine')!='null'){
                 $achat->FK_racines_10=$request->input('racine');
-            }
-            $num = racine::select('racines.Num_racines')
-            ->where('racines.id',$request->input('racine'))
-            ->where('racines.deleted_at', '=', NULL)->first();
+             }
+             $num = racine::select('racines.Num_racines')
+             ->where('racines.id',$request->input('racine'))
+             ->where('racines.deleted_at', '=', NULL)->first();
           
-            $achat->num_racine_10=$num->Num_racines;
+             $achat->num_racine_10=$num->Num_racines;
             }
             if($request->input('taux2')==10)
             {
-            $achat->Taux10=$request->input('taux2');
-            $achat->TVA_10=$request->input('tva_2');
-            $achat->M_HT_10=$request->input('MHT_2');
-            $achat->TTC_10=$request->input('ttc2');
-            if($request->input('racine2')!='null'){
+             $achat->Taux10=$request->input('taux2');
+             $achat->TVA_10=$request->input('tva_2');
+             $achat->M_HT_10=$request->input('MHT_2');
+             $achat->TTC_10=$request->input('ttc2');
+             $achat->TVA_d10=$request->input('tva_d2');
+             if($request->input('racine2')!='null'){
                 $achat->FK_racines_10=$request->input('racine2');
-            }
-            $num = racine::select('racines.Num_racines')
-            ->where('racines.id',$request->input('racine2'))
-            ->where('racines.deleted_at', '=', NULL)->first();
+             }
+             $num = racine::select('racines.Num_racines')
+             ->where('racines.id',$request->input('racine2'))
+             ->where('racines.deleted_at', '=', NULL)->first();
           
-            $achat->num_racine_10=$num->Num_racines;
+             $achat->num_racine_10=$num->Num_racines;
             }  
             if($request->input('taux3')==10)
             {
-            $achat->Taux10=$request->input('taux3');
-            $achat->TVA_10=$request->input('tva_3');
-            $achat->M_HT_10=$request->input('MHT_3');
-            $achat->TTC_10=$request->input('ttc3');
-            if($request->input('racine3')!='null'){
+             $achat->Taux10=$request->input('taux3');
+             $achat->TVA_10=$request->input('tva_3');
+             $achat->M_HT_10=$request->input('MHT_3');
+             $achat->TTC_10=$request->input('ttc3');
+             $achat->TVA_d10=$request->input('tva_d3');
+             if($request->input('racine3')!='null'){
                 $achat->FK_racines_10=$request->input('racine3');
-            }
-            $num = racine::select('racines.Num_racines')
-            ->where('racines.id',$request->input('racine3'))
-            ->where('racines.deleted_at', '=', NULL)->first();
+             }
+             $num = racine::select('racines.Num_racines')
+             ->where('racines.id',$request->input('racine3'))
+             ->where('racines.deleted_at', '=', NULL)->first();
           
-            $achat->num_racine_10=$num->Num_racines;
+             $achat->num_racine_10=$num->Num_racines;
             }
 
             if($request->input('taux1')==14)
             {
-            $achat->Taux14=$request->input('taux1');
-            $achat->TVA_14=$request->input('tva_1');
-            $achat->M_HT_14=$request->input('MHT_1');
-            $achat->TTC_14=$request->input('ttc1');
-            if($request->input('racine')!='null'){
+             $achat->Taux14=$request->input('taux1');
+             $achat->TVA_14=$request->input('tva_1');
+             $achat->M_HT_14=$request->input('MHT_1');
+             $achat->TTC_14=$request->input('ttc1');
+             $achat->TVA_d14=$request->input('tva_d1');
+             if($request->input('racine')!='null'){
                 $achat->FK_racines_14=$request->input('racine');
-            }
-            $num = racine::select('racines.Num_racines')
-            ->where('racines.id',$request->input('racine'))
-            ->where('racines.deleted_at', '=', NULL)->first();
-          
-            $achat->num_racine_14=$num->Num_racines;
+             }
+             $num = racine::select('racines.Num_racines')
+             ->where('racines.id',$request->input('racine'))
+             ->where('racines.deleted_at', '=', NULL)->first();
+             $achat->num_racine_14=$num->Num_racines;
             }
             if($request->input('taux2')==14)
             {
-            $achat->Taux14=$request->input('taux2');
-            $achat->TVA_14=$request->input('tva_2');
-            $achat->M_HT_14=$request->input('MHT_2');
-            $achat->TTC_14=$request->input('ttc2');
-            if($request->input('racine2')!='null'){
+             $achat->Taux14=$request->input('taux2');
+             $achat->TVA_14=$request->input('tva_2');
+             $achat->M_HT_14=$request->input('MHT_2');
+             $achat->TTC_14=$request->input('ttc2');
+             $achat->TVA_d14=$request->input('tva_d2');
+             if($request->input('racine2')!='null'){
                 $achat->FK_racines_14=$request->input('racine2');
-            }
-            $num = racine::select('racines.Num_racines')
-            ->where('racines.id',$request->input('racine2'))
-            ->where('racines.deleted_at', '=', NULL)->first();
-          
-            $achat->num_racine_14=$num->Num_racines;
+             }
+             $num = racine::select('racines.Num_racines')
+             ->where('racines.id',$request->input('racine2'))
+             ->where('racines.deleted_at', '=', NULL)->first();
+             $achat->num_racine_14=$num->Num_racines;
             }  
             if($request->input('taux3')==14)
             {
-            $achat->Taux14=$request->input('taux3');
-            $achat->TVA_14=$request->input('tva_3');
-            $achat->M_HT_14=$request->input('MHT_3');
-            $achat->TTC_14=$request->input('ttc3');
-            if($request->input('racine3')!='null'){
+             $achat->Taux14=$request->input('taux3');
+             $achat->TVA_14=$request->input('tva_3');
+             $achat->M_HT_14=$request->input('MHT_3');
+             $achat->TTC_14=$request->input('ttc3');
+             $achat->TVA_d14=$request->input('tva_d3');
+             if($request->input('racine3')!='null'){
                 $achat->FK_racines_14=$request->input('racine3');
-            }
-            $num = racine::select('racines.Num_racines')
-            ->where('racines.id',$request->input('racine3'))
-            ->where('racines.deleted_at', '=', NULL)->first();
-          
-            $achat->num_racine_14=$num->Num_racines;
+             }
+             $num = racine::select('racines.Num_racines')
+             ->where('racines.id',$request->input('racine3'))
+             ->where('racines.deleted_at', '=', NULL)->first();
+             $achat->num_racine_14=$num->Num_racines;
             }
             if($request->input('taux1')==20)
             {
-            $achat->Taux20=$request->input('taux1');
-            $achat->TVA_20=$request->input('tva_1');
-            $achat->M_HT_20=$request->input('MHT_1');
-            $achat->TTC_20=$request->input('ttc1');
-            if($request->input('racine')!='null'){
+             $achat->Taux20=$request->input('taux1');
+             $achat->TVA_20=$request->input('tva_1');
+             $achat->M_HT_20=$request->input('MHT_1');
+             $achat->TTC_20=$request->input('ttc1');
+             $achat->TVA_d20=$request->input('tva_d1');
+             if($request->input('racine')!='null'){
                 $achat->FK_racines_20=$request->input('racine');
-            }
-            $num = racine::select('racines.Num_racines')
-            ->where('racines.id',$request->input('racine'))
-            ->where('racines.deleted_at', '=', NULL)->first();
-          
-            $achat->num_racine_20=$num->Num_racines;
+             }
+             $num = racine::select('racines.Num_racines')
+             ->where('racines.id',$request->input('racine'))
+             ->where('racines.deleted_at', '=', NULL)->first();
+             $achat->num_racine_20=$num->Num_racines;
             }
             if($request->input('taux2')==20)
             {
-            $achat->Taux20=$request->input('taux2');
-            $achat->TVA_20=$request->input('tva_2');
-            $achat->M_HT_20=$request->input('MHT_2');
-            $achat->TTC_20=$request->input('ttc2');
-            if($request->input('racine2')!='null'){
+             $achat->Taux20=$request->input('taux2');
+             $achat->TVA_20=$request->input('tva_2');
+             $achat->M_HT_20=$request->input('MHT_2');
+             $achat->TTC_20=$request->input('ttc2');
+             $achat->TVA_d20=$request->input('tva_d2');
+             if($request->input('racine2')!='null'){
                 $achat->FK_racines_20=$request->input('racine2');
-            }
-            $num = racine::select('racines.Num_racines')
-            ->where('racines.id',$request->input('racine2'))
-            ->where('racines.deleted_at', '=', NULL)->first();
-          
-            $achat->num_racine_20=$num->Num_racines;
+             }
+             $num = racine::select('racines.Num_racines')
+             ->where('racines.id',$request->input('racine2'))
+             ->where('racines.deleted_at', '=', NULL)->first();
+             $achat->num_racine_20=$num->Num_racines;
             }  
             if($request->input('taux3')==20)
             {
-            $achat->Taux20=$request->input('taux3');
-            $achat->TVA_20=$request->input('tva_3');
-            $achat->M_HT_20=$request->input('MHT_3');
-            $achat->TTC_20=$request->input('ttc3');
-            if($request->input('racine3')!='null'){
+             $achat->Taux20=$request->input('taux3');
+             $achat->TVA_20=$request->input('tva_3');
+             $achat->M_HT_20=$request->input('MHT_3');
+             $achat->TVA_d20=$request->input('tva_d3');
+             $achat->TTC_20=$request->input('ttc3');
+             if($request->input('racine3')!='null'){
                 $achat->FK_racines_20=$request->input('racine3');
-            }
-            $num = racine::select('racines.Num_racines')
-            ->where('racines.id',$request->input('racine3'))
-            ->where('racines.deleted_at', '=', NULL)->first();
+             }
+             $num = racine::select('racines.Num_racines')
+             ->where('racines.id',$request->input('racine3'))
+             ->where('racines.deleted_at', '=', NULL)->first();
           
-            $achat->num_racine_20=$num->Num_racines;
-            }
-            $achat->dateSaisie=date('Y-m-d');
-            $achat->FK_fournisseur=$request->input('frs');
+             $achat->num_racine_20=$num->Num_racines;
+            }    
             $achat->save();
 
                return response()->json([
@@ -343,6 +345,7 @@ class AchatController extends Controller
         if($achat->	Taux7!=null)
         {
             $table_achat2=new achat();
+            $table_achat2->id=$achat->id;
             $table_achat2->N_facture=$achat->N_facture;
             $table_achat2->Date_facture=$achat->Date_facture;
             $table_achat2->Date_payment=$achat->Date_payment;
@@ -353,10 +356,7 @@ class AchatController extends Controller
             $table_achat2->M_HT_20=$achat->Nom_payment;
             $table_achat2->M_TTC=$achat->M_TTC;
             $table_achat2->Prorata=$achat->Prorata;
-            $table_achat2->TVA_deductible3=$achat->TVA_deductible3;
-            $table_achat2->TVA_deductible2=$achat->TVA_deductible2;
-            $table_achat2->TVA_deductible=$achat->TVA_deductible;
-            $table_achat2->MT_déduit=$achat->MT_déduit;           
+            $table_achat2->TVA_d7=$achat->TVA_d7;          
             $table_achat2->Exercice=$achat->Exercice;   
             $table_achat2->FK_regime=$achat->FK_regime;     
             $table_achat2->FK_type_payment=$achat->FK_type_payment;
@@ -366,13 +366,13 @@ class AchatController extends Controller
             $table_achat2->TTC_7=$achat->TTC_7;
             $table_achat2->FK_racines_7=$achat->FK_racines_7;
             $table_achat2->num_racine_7=$achat->num_racine_7;
-            $table_achat2->dateSaisie=$achat->dateSaisie;
             $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
             $table_achat3[]=$table_achat2;
         }
         if($achat->	Taux10!=null)
         {
             $table_achat2=new achat();
+            $table_achat2->id=$achat->id;
             $table_achat2->N_facture=$achat->N_facture;
             $table_achat2->Date_facture=$achat->Date_facture;
             $table_achat2->Date_payment=$achat->Date_payment;
@@ -383,10 +383,7 @@ class AchatController extends Controller
             $table_achat2->M_HT_20=$achat->Nom_payment;
             $table_achat2->M_TTC=$achat->M_TTC;
             $table_achat2->Prorata=$achat->Prorata;
-            $table_achat2->TVA_deductible3=$achat->TVA_deductible3;
-            $table_achat2->TVA_deductible2=$achat->TVA_deductible2;
-            $table_achat2->TVA_deductible=$achat->TVA_deductible;
-            $table_achat2->MT_déduit=$achat->MT_déduit;           
+            $table_achat2->TVA_d7=$achat->TVA_d10;
             $table_achat2->Exercice=$achat->Exercice;   
             $table_achat2->FK_regime=$achat->FK_regime;     
             $table_achat2->FK_type_payment=$achat->FK_type_payment;
@@ -396,13 +393,14 @@ class AchatController extends Controller
             $table_achat2->TTC_7=$achat->TTC_10;
             $table_achat2->FK_racines_7=$achat->FK_racines_10;
             $table_achat2->num_racine_7=$achat->num_racine_10;
-            $table_achat2->dateSaisie=$achat->dateSaisie;
+   
             $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
             $table_achat3[]=$table_achat2;
         }
         if($achat->	Taux14!=null)
         {
             $table_achat2=new achat();
+            $table_achat2->id=$achat->id;
             $table_achat2->N_facture=$achat->N_facture;
             $table_achat2->Date_facture=$achat->Date_facture;
             $table_achat2->Date_payment=$achat->Date_payment;
@@ -413,10 +411,7 @@ class AchatController extends Controller
             $table_achat2->M_HT_20=$achat->Nom_payment;
             $table_achat2->M_TTC=$achat->M_TTC;
             $table_achat2->Prorata=$achat->Prorata;
-            $table_achat2->TVA_deductible3=$achat->TVA_deductible3;
-            $table_achat2->TVA_deductible2=$achat->TVA_deductible2;
-            $table_achat2->TVA_deductible=$achat->TVA_deductible;
-            $table_achat2->MT_déduit=$achat->MT_déduit;           
+            $table_achat2->TVA_d7=$achat->TVA_d14;
             $table_achat2->Exercice=$achat->Exercice;   
             $table_achat2->FK_regime=$achat->FK_regime;     
             $table_achat2->FK_type_payment=$achat->FK_type_payment;
@@ -426,13 +421,14 @@ class AchatController extends Controller
             $table_achat2->TTC_7=$achat->TTC_14;
             $table_achat2->FK_racines_7=$achat->FK_racines_14;
             $table_achat2->num_racine_7=$achat->num_racine_14;
-            $table_achat2->dateSaisie=$achat->dateSaisie;
+
             $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
             $table_achat3[]=$table_achat2;
         }
         if($achat->	Taux20!=null)
         {
             $table_achat2=new achat();
+            $table_achat2->id=$achat->id;
             $table_achat2->N_facture=$achat->N_facture;
             $table_achat2->Date_facture=$achat->Date_facture;
             $table_achat2->Date_payment=$achat->Date_payment;
@@ -443,10 +439,7 @@ class AchatController extends Controller
             $table_achat2->M_HT_20=$achat->Nom_payment;
             $table_achat2->M_TTC=$achat->M_TTC;
             $table_achat2->Prorata=$achat->Prorata;
-            $table_achat2->TVA_deductible3=$achat->TVA_deductible3;
-            $table_achat2->TVA_deductible2=$achat->TVA_deductible2;
-            $table_achat2->TVA_deductible=$achat->TVA_deductible;
-            $table_achat2->MT_déduit=$achat->MT_déduit;           
+            $table_achat2->TVA_d7=$achat->TVA_d20;           
             $table_achat2->Exercice=$achat->Exercice;   
             $table_achat2->FK_regime=$achat->FK_regime;     
             $table_achat2->FK_type_payment=$achat->FK_type_payment;
@@ -456,7 +449,6 @@ class AchatController extends Controller
             $table_achat2->TTC_7=$achat->TTC_20;
             $table_achat2->FK_racines_7=$achat->FK_racines_20;
             $table_achat2->num_racine_7=$achat->num_racine_20;
-            $table_achat2->dateSaisie=$achat->dateSaisie;
             $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
             $table_achat3[]=$table_achat2;
         }
@@ -554,11 +546,7 @@ public function Update(Request $request)
             $achat->Date_payment=$request->input('date_p');
             $achat->Designation=$request->input('desc');
             $achat->M_TTC=$request->input('MTttc');
-            $achat->Prorata=$request->input('prorata');
-            $achat->TVA_deductible3=$request->input('tva_d3');
-            $achat->TVA_deductible2=$request->input('tva_d2');
-            $achat->TVA_deductible=$request->input('tva_d1');
-            $achat->MT_déduit=$request->input('mtd');           
+            $achat->Prorata=$request->input('prorata');         
             $achat->Exercice=$request->input('Exercice');   
             $achat->FK_regime=$request->input('periode');     
             $achat->FK_type_payment=$request->input('Mpayement');
@@ -568,7 +556,8 @@ public function Update(Request $request)
                 $achat->TVA_7=$request->input('tva_1');
                 $achat->M_HT_7=$request->input('MHT_1');
                 $achat->TTC_7=$request->input('ttc1');
-                if($request->input('racine2')!='null'){
+                $achat->TVA_d7=$request->input('tva_d1');
+                if($request->input('racine')!='null'){
                     $achat->FK_racines_7=$request->input('racine');
                 }
                 $num = racine::select('racines.Num_racines')
@@ -583,6 +572,7 @@ public function Update(Request $request)
                 $achat->TVA_7=$request->input('tva_2');
                 $achat->M_HT_7=$request->input('MHT_2');
                 $achat->TTC_7=$request->input('ttc2');
+                $achat->TVA_d7=$request->input('tva_d2');
                 if($request->input('racine2')!='null'){
                     $achat->FK_racines_7=$request->input('racine2');
                 }
@@ -599,6 +589,7 @@ public function Update(Request $request)
                 $achat->TVA_7=$request->input('tva_3');
                 $achat->M_HT_7=$request->input('MHT_3');
                 $achat->TTC_7=$request->input('ttc3');
+                $achat->TVA_d7=$request->input('tva_d3');            
                 if($request->input('racine3')!='null'){
                     $achat->FK_racines_7=$request->input('racine3');
                 }
@@ -610,10 +601,11 @@ public function Update(Request $request)
             }
             if($request->input('Taux1')==10)
             {
-            $achat->Taux10=$request->input('Taux1');
+             $achat->Taux10=$request->input('Taux1');
             $achat->TVA_10=$request->input('tva_1');
             $achat->M_HT_10=$request->input('MHT_1');
             $achat->TTC_10=$request->input('ttc1');
+            $achat->TVA_d10=$request->input('tva_d1');
             if($request->input('racine')!='null'){
                 $achat->FK_racines_10=$request->input('racine');
             }
@@ -629,6 +621,8 @@ public function Update(Request $request)
             $achat->TVA_10=$request->input('tva_2');
             $achat->M_HT_10=$request->input('MHT_2');
             $achat->TTC_10=$request->input('ttc2');
+            $achat->TVA_d10=$request->input('tva_d2');
+
             if($request->input('racine2')!='null'){
                 $achat->FK_racines_10=$request->input('racine2');
             }
@@ -644,6 +638,8 @@ public function Update(Request $request)
             $achat->TVA_10=$request->input('tva_3');
             $achat->M_HT_10=$request->input('MHT_3');
             $achat->TTC_10=$request->input('ttc3');
+            $achat->TVA_d10=$request->input('tva_d3');
+
             if($request->input('racine3')!='null'){
                 $achat->FK_racines_10=$request->input('racine3');
             }
@@ -660,6 +656,8 @@ public function Update(Request $request)
             $achat->TVA_14=$request->input('tva_1');
             $achat->M_HT_14=$request->input('MHT_1');
             $achat->TTC_14=$request->input('ttc1');
+            $achat->TVA_d14=$request->input('tva_d1');
+
             if($request->input('racine')!='null'){
                 $achat->FK_racines_14=$request->input('racine');
             }
@@ -675,6 +673,8 @@ public function Update(Request $request)
             $achat->TVA_14=$request->input('tva_2');
             $achat->M_HT_14=$request->input('MHT_2');
             $achat->TTC_14=$request->input('ttc2');
+            $achat->TVA_d14=$request->input('tva_d2');
+
             if($request->input('racine2')!='null'){
                 $achat->FK_racines_14=$request->input('racine2');
             }
@@ -690,6 +690,8 @@ public function Update(Request $request)
             $achat->TVA_14=$request->input('tva_3');
             $achat->M_HT_14=$request->input('MHT_3');
             $achat->TTC_14=$request->input('ttc3');
+            $achat->TVA_d14=$request->input('tva_d3');
+
             if($request->input('racine3')!='null'){
                 $achat->FK_racines_14=$request->input('racine3');
             }
@@ -705,6 +707,8 @@ public function Update(Request $request)
             $achat->TVA_20=$request->input('tva_1');
             $achat->M_HT_20=$request->input('MHT_1');
             $achat->TTC_20=$request->input('ttc1');
+            $achat->TVA_d20=$request->input('tva_d1');
+
             if($request->input('racine')!='null'){
                 $achat->FK_racines_20=$request->input('racine');
             }
@@ -720,13 +724,13 @@ public function Update(Request $request)
             $achat->TVA_20=$request->input('tva_2');
             $achat->M_HT_20=$request->input('MHT_2');
             $achat->TTC_20=$request->input('ttc2');
+            $achat->TVA_d20=$request->input('tva_d2');
             if($request->input('racine2')!='null'){
                 $achat->FK_racines_20=$request->input('racine2');
             }
             $num = racine::select('racines.Num_racines')
             ->where('racines.id',$request->input('racine2'))
             ->where('racines.deleted_at', '=', NULL)->first();
-          
             $achat->num_racine_20=$num->Num_racines;
             }  
             if($request->input('Taux3')==20)
@@ -735,6 +739,7 @@ public function Update(Request $request)
             $achat->TVA_20=$request->input('tva_3');
             $achat->M_HT_20=$request->input('MHT_3');
             $achat->TTC_20=$request->input('ttc3');
+            $achat->TVA_d20=$request->input('tva_d3');
             if($request->input('racine3')!='null'){
                 $achat->FK_racines_20=$request->input('racine3');
             }
@@ -744,8 +749,24 @@ public function Update(Request $request)
           
             $achat->num_racine_20=$num->Num_racines;
             }
-            $achat->FK_fournisseur=$request->input('frs');
-            
+            if($request->input('Taux4')==20)
+            {
+
+          
+            $achat->Taux20=$request->input('Taux4');
+            $achat->TVA_20=$request->input('tva_4');
+            $achat->M_HT_20=$request->input('MHT_4');
+            $achat->TTC_20=$request->input('ttc4');
+            $achat->TVA_d20=$request->input('tva_d4');
+            if($request->input('racine4')!='null'){
+                $achat->FK_racines_20=$request->input('racine4');
+            }
+            $num = racine::select('racines.Num_racines')
+            ->where('racines.id',$request->input('racine4'))
+            ->where('racines.deleted_at', '=', NULL)->first();
+            $achat->num_racine_20=$num->Num_racines;
+            }
+            $achat->FK_fournisseur=$request->input('frs');  
             $achat->save();
             return response()->json([
                 'status' => 200,
@@ -840,6 +861,7 @@ foreach ($table_achat as $key => $achat) {
     if($achat->	Taux7!=null)
     {
         $table_achat2=new achat();
+        $table_achat2->id=$achat->id;
         $table_achat2->N_facture=$achat->N_facture;
         $table_achat2->Date_facture=$achat->Date_facture;
         $table_achat2->Date_payment=$achat->Date_payment;
@@ -850,9 +872,7 @@ foreach ($table_achat as $key => $achat) {
         $table_achat2->M_HT_20=$achat->Nom_payment;
         $table_achat2->M_TTC=$achat->M_TTC;
         $table_achat2->Prorata=$achat->Prorata;
-        $table_achat2->TVA_deductible3=$achat->TVA_deductible3;
-        $table_achat2->TVA_deductible2=$achat->TVA_deductible2;
-        $table_achat2->TVA_deductible=$achat->TVA_deductible;
+        $table_achat2->TVA_d7e=$achat->TVA_d7;
         $table_achat2->MT_déduit=$achat->MT_déduit;           
         $table_achat2->Exercice=$achat->Exercice;   
         $table_achat2->FK_regime=$achat->FK_regime;     
@@ -863,13 +883,13 @@ foreach ($table_achat as $key => $achat) {
         $table_achat2->TTC_7=$achat->TTC_7;
         $table_achat2->FK_racines_7=$achat->FK_racines_7;
         $table_achat2->num_racine_7=$achat->num_racine_7;
-        $table_achat2->dateSaisie=$achat->dateSaisie;
         $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
         $table_achat3[]=$table_achat2;
     }
     if($achat->	Taux10!=null)
     {
         $table_achat2=new achat();
+        $table_achat2->id=$achat->id;
         $table_achat2->N_facture=$achat->N_facture;
         $table_achat2->Date_facture=$achat->Date_facture;
         $table_achat2->Date_payment=$achat->Date_payment;
@@ -880,10 +900,7 @@ foreach ($table_achat as $key => $achat) {
         $table_achat2->M_HT_20=$achat->Nom_payment;
         $table_achat2->M_TTC=$achat->M_TTC;
         $table_achat2->Prorata=$achat->Prorata;
-        $table_achat2->TVA_deductible3=$achat->TVA_deductible3;
-        $table_achat2->TVA_deductible2=$achat->TVA_deductible2;
-        $table_achat2->TVA_deductible=$achat->TVA_deductible;
-        $table_achat2->MT_déduit=$achat->MT_déduit;           
+        $table_achat2->TVA_d7=$achat->TVA_d10;
         $table_achat2->Exercice=$achat->Exercice;   
         $table_achat2->FK_regime=$achat->FK_regime;     
         $table_achat2->FK_type_payment=$achat->FK_type_payment;
@@ -893,13 +910,13 @@ foreach ($table_achat as $key => $achat) {
         $table_achat2->TTC_7=$achat->TTC_10;
         $table_achat2->FK_racines_7=$achat->FK_racines_10;
         $table_achat2->num_racine_7=$achat->num_racine_10;
-        $table_achat2->dateSaisie=$achat->dateSaisie;
         $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
         $table_achat3[]=$table_achat2;
     }
     if($achat->	Taux14!=null)
     {
         $table_achat2=new achat();
+        $table_achat2->id=$achat->id;
         $table_achat2->N_facture=$achat->N_facture;
         $table_achat2->Date_facture=$achat->Date_facture;
         $table_achat2->Date_payment=$achat->Date_payment;
@@ -910,10 +927,7 @@ foreach ($table_achat as $key => $achat) {
         $table_achat2->M_HT_20=$achat->Nom_payment;
         $table_achat2->M_TTC=$achat->M_TTC;
         $table_achat2->Prorata=$achat->Prorata;
-        $table_achat2->TVA_deductible3=$achat->TVA_deductible3;
-        $table_achat2->TVA_deductible2=$achat->TVA_deductible2;
-        $table_achat2->TVA_deductible=$achat->TVA_deductible;
-        $table_achat2->MT_déduit=$achat->MT_déduit;           
+        $table_achat2->TVA_d7=$achat->TVA_d14;
         $table_achat2->Exercice=$achat->Exercice;   
         $table_achat2->FK_regime=$achat->FK_regime;     
         $table_achat2->FK_type_payment=$achat->FK_type_payment;
@@ -923,13 +937,13 @@ foreach ($table_achat as $key => $achat) {
         $table_achat2->TTC_7=$achat->TTC_14;
         $table_achat2->FK_racines_7=$achat->FK_racines_14;
         $table_achat2->num_racine_7=$achat->num_racine_14;
-        $table_achat2->dateSaisie=$achat->dateSaisie;
         $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
         $table_achat3[]=$table_achat2;
     }
     if($achat->	Taux20!=null)
     {
         $table_achat2=new achat();
+        $table_achat2->id=$achat->id;
         $table_achat2->N_facture=$achat->N_facture;
         $table_achat2->Date_facture=$achat->Date_facture;
         $table_achat2->Date_payment=$achat->Date_payment;
@@ -940,10 +954,7 @@ foreach ($table_achat as $key => $achat) {
         $table_achat2->M_HT_20=$achat->Nom_payment;
         $table_achat2->M_TTC=$achat->M_TTC;
         $table_achat2->Prorata=$achat->Prorata;
-        $table_achat2->TVA_deductible3=$achat->TVA_deductible3;
-        $table_achat2->TVA_deductible2=$achat->TVA_deductible2;
-        $table_achat2->TVA_deductible=$achat->TVA_deductible;
-        $table_achat2->MT_déduit=$achat->MT_déduit;           
+        $table_achat2->TVA_d7=$achat->TVA_d20;           
         $table_achat2->Exercice=$achat->Exercice;   
         $table_achat2->FK_regime=$achat->FK_regime;     
         $table_achat2->FK_type_payment=$achat->FK_type_payment;
@@ -953,7 +964,6 @@ foreach ($table_achat as $key => $achat) {
         $table_achat2->TTC_7=$achat->TTC_20;
         $table_achat2->FK_racines_7=$achat->FK_racines_20;
         $table_achat2->num_racine_7=$achat->num_racine_20;
-        $table_achat2->dateSaisie=$achat->dateSaisie;
         $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
         $table_achat3[]=$table_achat2;
     }

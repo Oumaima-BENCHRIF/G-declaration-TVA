@@ -346,7 +346,7 @@
                                                                     id="tva_1" name="tva_1" placeholder="TVA"
                                                                         required>
                                                                 </div>
-                                                                <div class="col-md-2 mb-3 d-none">
+                                                                <div class="col-md-2 mb-3  d-none">
                                                                     <label for="validationCustom03">TVA</label>
                                                                     <input type="text" class="form-control"
                                                                     id="tva_d1" name="tva_d1" placeholder="TVA"
@@ -470,6 +470,11 @@
                                                                         id="tva_4" name="tva_4"  placeholder="TVA"
                                                                         >
                                                                 </div>
+                                                                <div class="col-md-2 mb-3 d-none">
+                                                                    <input type="text" class="form-control" 
+                                                                        id="tva_d4" name="tva_d4"  placeholder="TVA"
+                                                                        >
+                                                                </div>
                                                                 <div class="col-md-2 mb-3">            
                                                                     <input type="text" class="form-control" 
                                                                         id="MHT_4" name="MHT_4" onblur="calcul_HT4()"placeholder="MT HT"
@@ -495,7 +500,7 @@
                                                     <div class="modal-footer d-block">
                                                         
                                                         <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Close</button>
+                                                            data-dismiss="modal" id="close" >Close</button>
                                                         <button type="submit" id="add_ach" class="btn btn-primary">Ajouter</button>
                                                        <a class="btn btn-primary" id="update">modifier</a>
                                                     </div>
