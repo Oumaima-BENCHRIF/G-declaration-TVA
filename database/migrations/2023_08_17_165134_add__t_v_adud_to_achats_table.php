@@ -14,8 +14,10 @@ class AddTVAdudToAchatsTable extends Migration
     public function up()
     {
         Schema::connection('mysql_portal')->table('achats', function (Blueprint $table) {
-            $table->float('TVA_deductible2')->nullable();
-            $table->fkoat('TVA_deductible3')->nullable();
+            $table->float('TVA_d10')->nullable();
+            $table->fkoat('TVA_d14')->nullable();
+            $table->fkoat('TVA_d20')->nullable();
+
         });
     }
 

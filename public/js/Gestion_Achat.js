@@ -4,6 +4,7 @@ $(window).on("load", function () {
   Liste_FRS();
   Liste_Mpyement();
   Liste_Racine();
+
   setTimeout(function () {
     // table_Achat();
     get_table();
@@ -75,6 +76,7 @@ $(document).ready(function () {
     var tva_2 = $("#tva_2").val();
     var ttc2 = $("#ttc2").val();
     var racine3 = $("#racine3").val();
+    var racine4 = $("#racine4").val();
     var MHT_3 = $("#MHT_3").val();
     var tva_3 = $("#tva_3").val();
     var ttc3 = $("#ttc3").val();    
@@ -84,6 +86,7 @@ $(document).ready(function () {
     var tva_d1 = $("#tva_d1").val();
     var tva_d2 = $("#tva_d2").val();
     var tva_d3 = $("#tva_d3").val();
+    var tva_d4 = $("#tva_d4").val();
     var Exercice = $("#Exercice").val();
     var periode = $("#periode").val();
     var Taux1 = $("#taux1").val();
@@ -118,13 +121,15 @@ $(document).ready(function () {
       { name: "ttc4", value: ttc4 },
       { name: "tva_d1", value: tva_d1 },
       { name: "tva_d2", value: tva_d2 },
-      { name: "tva_d3", value: tva_d3 }, 
+      { name: "tva_d3", value: tva_d3 },
+      { name: "tva_d4", value: tva_d4 },  
       { name: "Exercice", value: Exercice },
       { name: "periode", value: periode },
       { name: "Taux1", value: Taux1 }, 
       { name: "Taux2", value: Taux2 },
       { name: "Taux3", value: Taux3 },
       { name: "Taux4", value: Taux4 },
+      { name: "racine4", value: racine4 }
     );
   
     jQuery.ajax({
@@ -249,6 +254,9 @@ $(document).ready(function () {
         },
     });
     get_table();
+  });
+  $("#close").on("click", function (e) {
+    viderChamps();
   });
   $('#basic-dt').DataTable({
     "language": {
@@ -946,6 +954,10 @@ function calcul_tva3() {
   let tva_3 = $("#tva_3").val();
   let taux3 = $("#taux3").val();
   let mttc = $("#MTttc").val();
+  var radioButtons = document.querySelectorAll("input[name='radios5']");
+
+  radioButtons.forEach(function (radio) {
+  if (radio.id === "TVA" && radio.checked){
   if (tva_3 != '') {
 
     if (taux3 == '') {
@@ -979,14 +991,14 @@ function calcul_tva3() {
           
           $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
       }
-    }tva_didu();
-  }
+    }}}tva_didu();
+  });
 
 }
 function calcul_tva4() {
   let tva_4 = $("#tva_4").val();
   let taux4 = $("#taux4").val();
-console.log(taux4);
+
   if (tva_4 != '') {
 
     if (taux4 == '') {
@@ -1028,7 +1040,11 @@ console.log(taux4);
 function calcul_HT() {
   let MHT_1 = $("#MHT_1").val();
   let taux1 = $("#taux1").val();
-  let mttc = $("#MTttc").val();
+
+  var radioButtons = document.querySelectorAll("input[name='radios5']");
+
+  radioButtons.forEach(function (radio) {
+  if (radio.id === "TVA" && radio.checked){
   if (MHT_1 != '') {
     if (taux1 == '') {
       alert('merci de choiser la rubrique de tva');
@@ -1062,13 +1078,16 @@ function calcul_HT() {
         $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
       }
     }
-  }tva_didu();
+  }tva_didu();}});
 
 }
 function calcul_HT2() {
   let MHT_2 = $("#MHT_2").val();
   let taux2 = $("#taux2").val();
-  let mttc = $("#MTttc").val();
+  var radioButtons = document.querySelectorAll("input[name='radios5']");
+
+  radioButtons.forEach(function (radio) {
+  if (radio.id === "TVA" && radio.checked){
   if (MHT_2 != '') {
     if (taux2 == '') {
       alert('merci de choiser la rubrique de tva');
@@ -1102,13 +1121,16 @@ function calcul_HT2() {
         $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
       }
     }
-  }tva_didu();
+  }tva_didu();}});
 
 }
 function calcul_HT3() {
   let MHT_3 = $("#MHT_3").val();
   let taux3 = $("#taux3").val();
-  let mttc = $("#MTttc").val();
+  var radioButtons = document.querySelectorAll("input[name='radios5']");
+
+  radioButtons.forEach(function (radio) {
+  if (radio.id === "TVA" && radio.checked){
   if (MHT_3 != '') {
     if (taux3 == '') {
       alert('merci de choiser la rubrique de tva');
@@ -1142,13 +1164,16 @@ function calcul_HT3() {
         $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
       }
     }
-  }tva_didu();
+  }tva_didu();}});
 
 }
 function calcul_HT4() {
   let MHT_4 = $("#MHT_4").val();
   let taux4 = $("#taux4").val();
-  let mttc = $("#MTttc").val();
+  var radioButtons = document.querySelectorAll("input[name='radios5']");
+
+  radioButtons.forEach(function (radio) {
+  if (radio.id === "TVA" && radio.checked){
   if (MHT_4 != '') {
     if (taux4 == '') {
       alert('merci de choiser la rubrique de tva');
@@ -1182,7 +1207,7 @@ function calcul_HT4() {
         $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
       }
     }
-  }tva_didu();
+  }tva_didu();}});
 
 }
 function tva_didu() {
@@ -1356,6 +1381,7 @@ function dataTable($tabledata)
               document.getElementById('add_ach').style.display='none';
               document.getElementById('update').style.display='initial';
               document.getElementById("id_achat").value =cell.getData().id;
+              console.log(cell.getData().id);
               jQuery.ajax({
                 url: "./get_achatbyID/" + cell.getData().id,
                 type: "GET", // Le nom du fichier indiqué dans le formulaire
@@ -1379,6 +1405,7 @@ function dataTable($tabledata)
                       document.getElementById("MHT_1").value = responce.get_achatb.M_HT_7;
                       document.getElementById("tva_1").value = responce.get_achatb.TVA_7;
                       document.getElementById("ttc1").value = responce.get_achatb.TTC_7;
+                      document.getElementById("tva_d1").value = responce.get_achatb.TVA_d7;
                       var idToSelect = responce.get_achatb.FK_racines_7;
                      
                       var selectElement = document.getElementById("racine");
@@ -1396,6 +1423,8 @@ function dataTable($tabledata)
                        document.getElementById("MHT_2").value = responce.get_achatb.M_HT_10;
                        document.getElementById("tva_2").value = responce.get_achatb.TVA_10;
                        document.getElementById("ttc2").value = responce.get_achatb.TTC_10;
+                      document.getElementById("tva_d2").value = responce.get_achatb.TVA_d10;
+
                        var idToSelect = responce.get_achatb.FK_racines_10;
                        var selectElement = document.getElementById("racine2");
                       for (var i = 0; i < selectElement.options.length; i++) {
@@ -1414,6 +1443,8 @@ function dataTable($tabledata)
                         document.getElementById("MHT_3").value = responce.get_achatb.M_HT_14;
                         document.getElementById("tva_3").value = responce.get_achatb.TVA_14;
                         document.getElementById("ttc3").value = responce.get_achatb.TTC_14;
+                      document.getElementById("tva_d3").value = responce.get_achatb.TVA_d14;
+
                         var idToSelect = responce.get_achatb.FK_racines_14;
                         var selectElement = document.getElementById("racine3");
                        for (var i = 0; i < selectElement.options.length; i++) {
@@ -1433,11 +1464,14 @@ function dataTable($tabledata)
                           document.getElementById("tva_4").value = responce.get_achatb.TVA_20;
                           document.getElementById("ttc4").value = responce.get_achatb.TTC_20;
                           document.getElementById("taux4").value = responce.get_achatb.Taux20;
+                      document.getElementById("tva_d4").value = responce.get_achatb.TVA_d20;
+
                           var idToSelect = responce.get_achatb.FK_racines_20;
                           var selectElement = document.getElementById("racine4");
                          for (var i = 0; i < selectElement.options.length; i++) {
                          var option = selectElement.options[i];
                          if (option.value == idToSelect) {
+                          console.log(option.value);
                           option.selected = true;
                           break; 
                            }
@@ -1457,9 +1491,7 @@ function dataTable($tabledata)
                 
                   $("#rowracine1").css("display", "none");
                  }
-                    document.getElementById("tva_d1").value = responce.get_achatb.TVA_deductible;
-                    document.getElementById("tva_d2").value = responce.get_achatb.TVA_deductible2;
-                    document.getElementById("tva_d3").value = responce.get_achatb.TVA_deductible3;
+                  
                     var idToSelect = responce.get_achatb.idfrs;
                     var selectElement = document.getElementById("frs");
                    for (var i = 0; i < selectElement.options.length; i++) {
@@ -1489,6 +1521,7 @@ function dataTable($tabledata)
           return a[0];
         },
       },
+<<<<<<< HEAD
       // {
       //   title: "TVA_deductible",
       //   field: "TVA_deductible",
@@ -1497,6 +1530,16 @@ function dataTable($tabledata)
       //   print: true,
       //   download: true,
       // },
+=======
+      {
+        title: "TVA deductible",
+        field: "TVA_d7",
+        minWidth: 100,
+        vertAlign: "middle",
+        // print: false,
+        // download: false,
+      },
+>>>>>>> b23ec96c7db28fce033d47461785ee9a891ed293
       {
         title: "prorata",
         field: "Prorata",
@@ -1801,6 +1844,7 @@ function get_table()
     },
   });
 }
+<<<<<<< HEAD
 
 function createTabulatorTable(data) {
 
@@ -1866,3 +1910,96 @@ console.log(dataArray);
     });
   });
 }
+=======
+function viderChamps(){
+  document.getElementById("N_ICE").value = '';
+  document.getElementById("id_fiscal").value = '';
+  document.getElementById("desc").value = '';
+  document.getElementById("n_fact").value ='';
+  document.getElementById("date_fact").value = '';
+  document.getElementById("date_p").value = '';
+  document.getElementById("MTttc").value ='';
+  // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
+  document.getElementById("prorata").value = '';
+
+   
+    document.getElementById("MHT_1").value = '';
+    document.getElementById("tva_1").value = '';
+    document.getElementById("ttc1").value = '';
+
+    var selectElement = document.getElementById("racine");
+   for (var i = 0; i < selectElement.options.length; i++) {
+   var option = selectElement.options[i]; if (option.value == "null") {
+    option.selected = true;
+    break; 
+     }
+    }
+   var event = new Event('change');
+   selectElement.dispatchEvent(event);
+  
+    
+     document.getElementById("MHT_2").value = '';
+     document.getElementById("tva_2").value = '';
+     document.getElementById("ttc2").value = '';
+     var selectElement = document.getElementById("racine2");
+    for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break; 
+       }
+     }
+     var event = new Event('change');
+     selectElement.dispatchEvent(event);
+ 
+      document.getElementById("MHT_3").value = '';
+      document.getElementById("tva_3").value = '';
+      document.getElementById("ttc3").value = '';
+   
+     var selectElement = document.getElementById("racine3");
+     for (var i = 0; i < selectElement.options.length; i++) {
+     var option = selectElement.options[i];
+     if (option.value == "null") {
+      option.selected = true;
+      break; 
+       }
+     }
+     var event = new Event('change');
+     selectElement.dispatchEvent(event);
+        document.getElementById("MHT_4").value = '';
+        document.getElementById("tva_4").value = '';
+        document.getElementById("ttc4").value = '';
+        document.getElementById("taux4").value = '';
+      
+        var selectElement = document.getElementById("racine4");
+        for (var i = 0; i < selectElement.options.length; i++) {
+        var option = selectElement.options[i];
+        if (option.value == "null") {
+         option.selected = true;
+         break; 
+          }
+        }
+        var event = new Event('change');
+        selectElement.dispatchEvent(event);
+        var selectElement = document.getElementById("frs");
+        for (var i = 0; i < selectElement.options.length; i++) {
+        var option = selectElement.options[i];
+        if (option.value == "null") {
+         option.selected = true;
+         break; 
+          }
+        }
+        var event = new Event('change');
+        selectElement.dispatchEvent(event);
+        var selectElement = document.getElementById("Mpayement");
+        for (var i = 0; i < selectElement.options.length; i++) {
+        var option = selectElement.options[i];
+        if (option.value == "null") {
+         option.selected = true;
+         break; 
+          }
+        }
+        var event = new Event('change');
+        selectElement.dispatchEvent(event);
+}
+>>>>>>> b23ec96c7db28fce033d47461785ee9a891ed293
