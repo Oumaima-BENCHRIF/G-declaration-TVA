@@ -336,6 +336,7 @@ class AchatController extends Controller
         ->where('achats.Exercice',$Exercice)
         ->where('achats.deleted_at', '=', NULL)
         ->get();
+    
         $table_achat3=[];
     
     foreach ($get_TBLachat as $key => $achat) {
@@ -513,7 +514,7 @@ public function table_achat($periode,$Exercice)
 
 }
 public function get_info()
-{   $id=2;
+{   $id=21;
     $get_info = agence::select('agences.*','regimes.libelle as libelle')
     ->join('regimes', 'regimes.id', 'agences.FK_Regime')
     ->where('agences.id',$id)->first();
@@ -807,7 +808,7 @@ public function Update(Request $request)
 
 public function generatePDF($periode,$Exercice)
 {
-    $id=2;
+    $id=21;
     $get_info = agence::select('agences.*','fait_generateurs.id as idf','fait_generateurs.libelle')
     ->join('fait_generateurs', 'fait_generateurs.id', 'agences.FK_fait_generateurs')
     ->where('agences.id',$id)
@@ -971,3 +972,4 @@ $table_achat3 = collect($table_achat3)->sortBy('num_racine_7')->values()->all();
    
 }
 }
+

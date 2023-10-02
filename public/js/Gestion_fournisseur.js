@@ -500,6 +500,16 @@ function handleFile(event) {
 //   });
 // }
 function createTabulatorTable(data) {
+  // Define the getTableColumns function
+  function getTableColumns(rowData) {
+    // Implement the logic to generate column definitions based on rowData
+    // For example:
+    const columns = [];
+    for (let i = 0; i < rowData.length; i++) {
+      columns.push({ title: rowData[i], field: rowData[i] });
+    }
+    return columns;
+  }
   const table = new Tabulator("#table", {
     data: data,
     layout: "fitColumns",

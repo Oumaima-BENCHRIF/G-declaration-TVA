@@ -145,7 +145,14 @@
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target=".bd-example-modal-lg">Ajouter</button>
                                                 <!-- onclick="generation_XML()" -->
-                                               
+                                                <a id="achat_pdf" class="btn btn-dark ">Generate PDF</a>
+                                                <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
+                                                <label for="file-upload" class="custom-file-upload ">
+                                                                        <a title="Attach a file" class="dt-button buttons-print btn btn-soft-info  mr-2   pointer ">
+                                                                        Importer
+                                                                        </a>
+                                                                    </label>
+                                                                    <input id="file-upload" name="upload_cont_img" type="file" style="display:none;">
                                             </div>
                                             <div class="row">
                                                 <div class="w-100 p-0">
@@ -156,9 +163,9 @@
                                                             <div class="widget-content widget-content-area br-6 px-0">
                                                            
                                                                 <div class="table-responsive mb-4">
-<!-- 
-                                                                    <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
-                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button> -->
+
+                                                                    <!-- <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button> -->
+                                                                    <!-- <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button> -->
                                                                
                                                                     <div id="Liste-Achat" style="width: 100%;" class="header-table"></div>
                                                 
@@ -176,9 +183,9 @@
                                 </div>
                                 <!-- END tableau -->
                                 <div class="row p-4 justify-content-end">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target=".bd-example-modal-lg">Ajouter</button>
-                                                <a id="achat_pdf" class="btn btn-primary">Generate PDF</a>
+                                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target=".bd-example-modal-lg">Ajouter</button> -->
+                                                <!-- <a id="achat_pdf" class="btn btn-primary">Generate PDF</a> -->
                                            
                                         </div>
                                

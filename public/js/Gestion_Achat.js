@@ -1317,7 +1317,8 @@ function dataTable($tabledata)
         responsive: 1,
         hozAlign: "center",
         vertAlign: "middle",
-
+        print: false,
+        download: false,
         formatter(cell, formatterParams) {
           let a = $(`<div class="flex lg:justify-center items-center">
                               
@@ -1493,24 +1494,24 @@ function dataTable($tabledata)
         field: "TVA_deductible",
         minWidth: 100,
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+        download: true,
       },
       {
         title: "prorata",
         field: "Prorata",
         minWidth: 100,
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+        download: true,
       },
       {
-        title: "Mode p",
+        title: "Mode_p",
         field: "M_HT_20",
         minWidth: 100,
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+        download: true,
         headerFilter:"input"
       },
       {
@@ -1518,33 +1519,33 @@ function dataTable($tabledata)
         field: "num_racine_7",
         minWidth: 100,
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+        download: true,
         headerFilter:"input"
       },
       {
-        title: "Date fact",
+        title: "Date_fact",
         field: "Date_facture",
         minWidth: 100,
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+        download: true,
       },
       {
-        title: "Date payement",
+        title: "Date_payement",
         field: "Date_payment",
         minWidth: 100,
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+        download: true,
       },
       {
-        title: "ID FIscal",
+        title: "ID_FIscal",
         field: "TVA_20",
         minWidth: 100,
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+            download: true,
         headerFilter:"input"
       },
       {
@@ -1552,8 +1553,8 @@ function dataTable($tabledata)
         field: "TVA_14",
         minWidth: 100,
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+        download: true,
         headerFilter:"input"
       },
       {
@@ -1561,32 +1562,32 @@ function dataTable($tabledata)
         field: "TVA_10",
         minWidth: 100,
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+        download: true,
       },
       {
         title: "TTC",
         field: "M_TTC",
         minWidth: 100,
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+            download: true,
       },
       {
         title: "TVA",
         field: "TVA_7",
         minWidth: 100,
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+        download: true,
       },
       {
         title: "taux",
         field: "Taux7",
         minWidth: 100,
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+        download: true,
         headerFilter:"input"
       },
       {
@@ -1596,8 +1597,8 @@ function dataTable($tabledata)
         field: "M_HT_7",
         hozAlign: "center",
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+        download: true,
       },
       {
         title: "des",
@@ -1606,8 +1607,8 @@ function dataTable($tabledata)
         field: "Designation",
         hozAlign: "center",
         vertAlign: "middle",
-        // print: false,
-        // download: false,
+        print: true,
+            download: true,
         headerFilter:"input",
         editor: true,
       },
@@ -1616,7 +1617,8 @@ function dataTable($tabledata)
         width: 95,
         field: "N_facture",
         vertAlign: "middle",
-        // print: false,
+        print: true,
+            download: true,
         editor: true,
         headerFilter:"input"
       },
@@ -1626,7 +1628,36 @@ function dataTable($tabledata)
 
     rowDblClick: function (e, row) { },
   });
+
+  document
+  .getElementById("download-xlsx")
+  .addEventListener("click", function () {
+    table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
+  });
 }
+
+document
+  .getElementById("file-upload")
+  .addEventListener("change", handleFile);
+
+function handleFile(event) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: "array" });
+
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+
+    const tableData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    createTabulatorTable(tableData);
+  };
+
+  reader.readAsArrayBuffer(file);
+}
+
 function tauxRacine1()
 { 
   let value = $('#racine').val();
@@ -1768,5 +1799,70 @@ function get_table()
           });
         });
     },
+  });
+}
+
+function createTabulatorTable(data) {
+
+  // Define the getTableColumns function
+  function getTableColumns(rowData) {
+    // Implement the logic to generate column definitions based on rowData
+    // For example:
+    const columns = [];
+    for (let i = 0; i < rowData.length; i++) {
+      columns.push({ title: rowData[i], field: rowData[i] });
+    }   
+    console.log(columns);
+    return columns; 
+  
+  }
+
+
+  const table = new Tabulator("#Liste-Achat", {
+    data: data,
+    layout: "fitColumns",
+    columns: getTableColumns(data[0]),
+  });
+
+  const dataArray = data.map((row) =>
+    Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))
+  );
+console.log(dataArray);
+
+  dataArray.forEach(row => {
+    var postData = {
+      TVA_deductible: row.TVA_deductible, // Assuming index 0 corresponds to 'nomFournisseurs'
+      prorata: row.prorata, // Assuming index 1 corresponds to 'Designation'
+      Mode_p: row.Mode_p, // Assuming index 2 corresponds to 'Adresse'
+      Date_fact: row.Date_fact,
+      Date_payement: row.Date_payement,
+      ID_FIscal: row.ID_FIscal,
+      ICE: row.ICE,
+      FRS:row.FRS,
+      TTC: row.TTC,
+      TVA: row.TVA,
+      taux: row.taux,
+      Mht: row.Mht,
+      des: row.des,
+      Nfact: row.Nfact,
+       
+    };
+    console.log(postData);
+    jQuery.ajax({
+      headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+      },
+      url: "./AddFournisseurjson",
+      type: "get",
+      data: postData,
+
+      success: function (response) {
+        toastr.success(response.message);
+        table_fournisseur();
+      },
+      error: function (response) {
+        toastr.error(response.Error);
+      },
+    });
   });
 }
