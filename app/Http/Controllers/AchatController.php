@@ -984,28 +984,118 @@ $table_achat3 = collect($table_achat3)->sortBy('num_racine_7')->values()->all();
 }
 public function Storesjson(Request $request)
 {
-    // dd($request);
-
+   
     try {
-        if(!empty($request->TVA_deductible) ||!empty($request->prorata)||!empty($request->Mode_p)||!empty($request->Date_fact)||!empty($request->Date_payement)||!empty($request->ID_FIscal)||!empty($request->ICE)||!empty($request->FRS)||!empty($request->TTC)||!empty($request->TVA)||!empty($request->taux)||!empty($request->Mht)||!empty($request->des)||!empty($request->Nfact)){
-        
-        
+        if(!empty($request->TVA_deductible) ||!empty($request->prorata)||!empty($request->Mode_p)||!empty($request->Date_fact)||!empty($request->Date_payement)||!empty($request->ID_FIscal)||!empty($request->ICE)||!empty($request->FRS)||!empty($request->TTC)||!empty($request->TVA)||!empty($request->taux)||!empty($request->Mht)||!empty($request->des)||!empty($request->Nfact)||!empty($request->Racine)){
+       
         $achat = new achat();
-        $achat->TVA_deductible = $request->TVA_deductible;
-        $achat->Prorata = $request->prorata;
-        $achat->FK_type_payment = $request->Mode_p;
-        $achat->Date_facture = $request->Date_fact;
-        $achat->Date_payment = $request->Date_payement;
-        $achat->FK_fournisseur = $request->ID_FIscal;
-        $achat->FK_fournisseur = $request->ICE;
-        $achat->FK_fournisseur = $request->FRS;
-        $achat->M_TTC = $request->TTC;
-        $achat->TVA_7 = $request->TVA;
-        $achat->Taux7 = $request->taux;
-        $achat->M_HT_7 = $request->Mht;
-        $achat->Designation = $request->des;
-        $achat->N_facture = $request->Nfact;
+        // $achat->TVA_deductible = $request->TVA_deductible;
+        // $achat->Prorata = $request->prorata;
+        // $achat->FK_type_payment = $request->Mode_p;
+        // $achat->Date_facture = $request->Date_fact;
+        // $achat->Date_payment = $request->Date_payement;
+        // $achat->FK_fournisseur = $request->ID_FIscal;
+        // $achat->FK_fournisseur = $request->ICE;
+        // $achat->FK_fournisseur = $request->FRS;
+        // $achat->M_TTC = $request->TTC;
+        // $achat->TVA_7 = $request->TVA;
+        // $achat->Taux7 = $request->taux;
+        // $achat->M_HT_7 = $request->Mht;
+        // $achat->Designation = $request->des;
+        // $achat->N_facture = $request->Nfact;
+
+        $frs=fournisseurs::select('fournisseurs.*')
+        ->where('fournisseurs.deleted_at', '=', NULL)
+        ->where('fournisseurs.nomFournisseurs',$request->FRS)->first();
+       
+        if(!$frs)
+        {
+            $fournisseurs = new fournisseurs();
+            $fournisseurs->ID_fiscale=$request->ID_FIscal;
+            $fournisseurs->NICE=$request->ICE;
+            $fournisseurs->Designation=$request->des;
+            $fournisseurs->nomFournisseurs=$request->FRS;
+            $fournisseurs->save();
+            $achat->FK_fournisseur=$fournisseurs->id;
+           
+        }else
+        {
+            $frs->Designation=$request->des;
+            $achat->FK_fournisseur=$frs->id;
+         
+
+        }   
+
+        $payments=type_payment::select('type_payments.*')
+        ->where('type_payments.deleted_at', '=', NULL)
+        ->where('type_payments.Nom_payment',$request->Mode_p)->first();
+       
+        if(!$payments)
+        {
+            $payments = new type_payment();
+            $payments->Nom_payment=$request->Mode_p;
+            $payments->save();
+            $payments->Num_payment=$fournisseurs->id;
+            $achat->FK_type_payment=$fournisseurs->id;
+           
+        }else
+        {
+           
+            $achat->FK_type_payment=$payments->id;
+           
+
+        }   
+        $achat->N_facture=$request->Nfact;
+        $achat->Date_facture=$request->Date_fact;
+        $achat->Date_payment=$request->Date_payement;
+        $achat->Designation=$request->des;
+        $achat->M_TTC=$request->TTC;
+        $achat->Prorata=$request->prorata;      
+        $achat->Exercice=$request->Exercice;   
+        $achat->FK_regime=$request->periode;     
+
+        if($request->taux==7)
+        {
+            $achat->Taux7=$request->taux;
+            $achat->TVA_7=$request->TVA;
+            $achat->M_HT_7=$request->Mht;
+            $achat->TTC_7=$request->TTC;
+            $achat->TVA_d7=$request->TVA_deductible;
+           
+            if($request->Racine!='null'){
+                $achat->num_racine_7=$request->Racine;
+            }
+            
+            $num = racine::select('racines.id')
+            ->where('racines.Num_racines',$request->Racine)
+            ->where('racines.deleted_at', '=', NULL)->first();
+          
+           
+            $achat->FK_racines_7=$num->id;
+           
+        }
+
+        if($request->taux==20)
+        {
+         $achat->Taux20=$request->taux;
+         $achat->TVA_20=$request->TVA;
+         $achat->M_HT_20=$request->Mht;
+         $achat->TTC_20=$request->TTC;
+         $achat->TVA_d20=$request->TVA_deductible;
+        
+         if($request->Racine!='null'){
+            $achat->num_racine_20=$request->Racine;
+         }
+         $num = racine::select('racines.id')
+         ->where('racines.Num_racines',$request->Racine)
+         ->where('racines.deleted_at', '=', NULL)->first();
+         $achat->FK_racines_20=$num->id;
+    
+         
+        }  
+
         $achat->save();
+        
         return response()->json([
             'status' => 200,
             'message' => 'Ajouter avec succès',

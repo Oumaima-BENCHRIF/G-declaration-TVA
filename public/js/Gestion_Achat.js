@@ -1521,14 +1521,14 @@ function dataTable($tabledata)
           return a[0];
         },
       },
-      // {
-      //   title: "TVA_deductible",
-      //   field: "TVA_deductible",
-      //   minWidth: 100,
-      //   vertAlign: "middle",
-      //   print: true,
-      //   download: true,
-      // },
+      {
+        title: "TVA_deductible",
+        field: "TVA_d7",
+        minWidth: 100,
+        vertAlign: "middle",
+        print: true,
+        download: true,
+      },
       {
         title: "prorata",
         field: "Prorata",
@@ -1860,7 +1860,8 @@ function createTabulatorTable(data) {
     Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))
   );
 console.log(dataArray);
-
+let Exercice =$("#Exercice").val();
+let periode = $('#periode').val();
   dataArray.forEach(row => {
     var postData = {
       TVA_deductible: row.TVA_deductible, // Assuming index 0 corresponds to 'nomFournisseurs'
@@ -1877,6 +1878,9 @@ console.log(dataArray);
       Mht: row.Mht,
       des: row.des,
       Nfact: row.Nfact,
+      Racine: row.Racine,
+      Exercice: Exercice,
+      periode: periode,
        
     };
     console.log(postData);
