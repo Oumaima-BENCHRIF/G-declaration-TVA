@@ -1521,7 +1521,6 @@ function dataTable($tabledata)
           return a[0];
         },
       },
-<<<<<<< HEAD
       // {
       //   title: "TVA_deductible",
       //   field: "TVA_deductible",
@@ -1530,16 +1529,6 @@ function dataTable($tabledata)
       //   print: true,
       //   download: true,
       // },
-=======
-      {
-        title: "TVA deductible",
-        field: "TVA_d7",
-        minWidth: 100,
-        vertAlign: "middle",
-        // print: false,
-        // download: false,
-      },
->>>>>>> b23ec96c7db28fce033d47461785ee9a891ed293
       {
         title: "prorata",
         field: "Prorata",
@@ -1844,7 +1833,6 @@ function get_table()
     },
   });
 }
-<<<<<<< HEAD
 
 function createTabulatorTable(data) {
 
@@ -1910,96 +1898,3 @@ console.log(dataArray);
     });
   });
 }
-=======
-function viderChamps(){
-  document.getElementById("N_ICE").value = '';
-  document.getElementById("id_fiscal").value = '';
-  document.getElementById("desc").value = '';
-  document.getElementById("n_fact").value ='';
-  document.getElementById("date_fact").value = '';
-  document.getElementById("date_p").value = '';
-  document.getElementById("MTttc").value ='';
-  // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
-  document.getElementById("prorata").value = '';
-
-   
-    document.getElementById("MHT_1").value = '';
-    document.getElementById("tva_1").value = '';
-    document.getElementById("ttc1").value = '';
-
-    var selectElement = document.getElementById("racine");
-   for (var i = 0; i < selectElement.options.length; i++) {
-   var option = selectElement.options[i]; if (option.value == "null") {
-    option.selected = true;
-    break; 
-     }
-    }
-   var event = new Event('change');
-   selectElement.dispatchEvent(event);
-  
-    
-     document.getElementById("MHT_2").value = '';
-     document.getElementById("tva_2").value = '';
-     document.getElementById("ttc2").value = '';
-     var selectElement = document.getElementById("racine2");
-    for (var i = 0; i < selectElement.options.length; i++) {
-    var option = selectElement.options[i];
-    if (option.value == "null") {
-      option.selected = true;
-      break; 
-       }
-     }
-     var event = new Event('change');
-     selectElement.dispatchEvent(event);
- 
-      document.getElementById("MHT_3").value = '';
-      document.getElementById("tva_3").value = '';
-      document.getElementById("ttc3").value = '';
-   
-     var selectElement = document.getElementById("racine3");
-     for (var i = 0; i < selectElement.options.length; i++) {
-     var option = selectElement.options[i];
-     if (option.value == "null") {
-      option.selected = true;
-      break; 
-       }
-     }
-     var event = new Event('change');
-     selectElement.dispatchEvent(event);
-        document.getElementById("MHT_4").value = '';
-        document.getElementById("tva_4").value = '';
-        document.getElementById("ttc4").value = '';
-        document.getElementById("taux4").value = '';
-      
-        var selectElement = document.getElementById("racine4");
-        for (var i = 0; i < selectElement.options.length; i++) {
-        var option = selectElement.options[i];
-        if (option.value == "null") {
-         option.selected = true;
-         break; 
-          }
-        }
-        var event = new Event('change');
-        selectElement.dispatchEvent(event);
-        var selectElement = document.getElementById("frs");
-        for (var i = 0; i < selectElement.options.length; i++) {
-        var option = selectElement.options[i];
-        if (option.value == "null") {
-         option.selected = true;
-         break; 
-          }
-        }
-        var event = new Event('change');
-        selectElement.dispatchEvent(event);
-        var selectElement = document.getElementById("Mpayement");
-        for (var i = 0; i < selectElement.options.length; i++) {
-        var option = selectElement.options[i];
-        if (option.value == "null") {
-         option.selected = true;
-         break; 
-          }
-        }
-        var event = new Event('change');
-        selectElement.dispatchEvent(event);
-}
->>>>>>> b23ec96c7db28fce033d47461785ee9a891ed293
