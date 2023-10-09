@@ -193,6 +193,8 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
 
     Route::get('Achat', function () {return view('apps.Achat');});
 
+    Route::post('/export-to-excel',  [App\Http\Controllers\AchatController::class, 'exportToExcel'])->name('exportToExcel');
+
 
     Route::get('login', function () {return view('authentications.style1.login');});
 

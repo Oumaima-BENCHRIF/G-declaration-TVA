@@ -562,12 +562,13 @@
                                                         <h5 class="modal-title" id="header-text">Importer</h5>
 
                                                     </div>
-                                                    <form  method="POST" id=""  action="">
+                                                    <form   method="POST" id="impo" action="{{ route('dashboard.exportToExcel') }}">
                                                     @csrf 
                                                     <div class="modal-body " id="mymodel" style="text-align: end;">
                                                    
-                                                        
-                                                         
+    <input type="text" name="inputText" placeholder="Entrez le texte A-Z">
+    <button type="submit">Exporter vers Excel</button>
+ 
                                                         
                                                     <div class="row">
                                                      <div class="col-md-4 mb-3"></div>
@@ -583,19 +584,19 @@
                                                              
 
                                                                 <div class="col-md-2 mb-3 ">
-                                                                    <label for="validationCustom03">TVA déductible</label>
+                                                                    <label for="TVA_deductible">TVA déductible</label>
                                                                     <input type="text" class="form-control" id="TVA_deductible"  name="TVA_deductible" placeholder="TVA déductible" oninput="validateInput(this)">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
-                                                                    <label for="validationCustom03">Prorata</label>
+                                                                    <label for="Prorata">Prorata</label>
                                                                     <input type="text" class="form-control"id="Prorata" name="Prorata" placeholder="Prorata" oninput="validateInput(this)">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 ">
-                                                                    <label for="validationCustom03">Mode payement</label>
+                                                                    <label for="mode_p">Mode payement</label>
                                                                     <input type="text" class="form-control"id="mode_p" name="mode_p" placeholder="Mode payement" oninput="validateInput(this)">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
-                                                                    <label>Racine</label>
+                                                                    <label for="Racine">Racine</label>
                                                                     <input type="text" class="form-control" id="Racine" name="Racine" placeholder="Racine" oninput="validateInput(this)">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">

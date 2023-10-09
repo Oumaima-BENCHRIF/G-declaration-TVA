@@ -8,14 +8,15 @@
         "php": "^7.3|^8.0",
         "barryvdh/laravel-dompdf": "^2.0",
         "barryvdh/laravel-ide-helper": "v2.10.0",
-        "dompdf/dompdf": "^2.0s",
         "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
+        "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.0",
-        "laravelcollective/html": "6.2.*"
+        "laravelcollective/html": "6.2.*",
+        "phpoffice/phpexcel": "^1.8",
+        "phpoffice/phpspreadsheet": "^1.29"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
