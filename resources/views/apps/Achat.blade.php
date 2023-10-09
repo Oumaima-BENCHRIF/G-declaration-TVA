@@ -150,11 +150,6 @@
                                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target=".bd-impo">impo</button>
 
-                                                
-                                      
-                                        <i id="addFolder" class="las la-folder-plus file-manager-icon"></i>
-                                    
-
                                                 <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
                                                 <label for="file-upload" class="custom-file-upload ">
                                                                         <a title="Attach a file" class="dt-button buttons-print btn btn-soft-info  mr-2   pointer ">
@@ -567,7 +562,7 @@
                                                         <h5 class="modal-title" id="header-text">Importer</h5>
 
                                                     </div>
-                                                    <form  method="POST" id="Add_Achat"  action="{{ route('dashboard.StoresAchat') }}">
+                                                    <form  method="POST" id=""  action="">
                                                     @csrf 
                                                     <div class="modal-body " id="mymodel" style="text-align: end;">
                                                    
@@ -577,37 +572,35 @@
                                                     <div class="row">
                                                      <div class="col-md-4 mb-3"></div>
                                                           
-                                                                
-                                                               
-                                                       
-                                                        <div class="row border border-light p-2 m-1"
-                                                            style="    background: #f0f6ff;">
-                                                            <div class="row" id="rowracine"                   style="width:-webkit-fill-available">
+                                                        <div class="row border border-light p-2 m-1" style="background: #f0f6ff;">
+                                                            <div class="row" id="rowracine" style="width:-webkit-fill-available">
                                                              
                                                                 <div class="col-md-2 mb-3 ">
-                                                                <label for="Date_payement">Date payement</label>
-                                                                    <input type="text" class="form-control" id="Date_payement"  name="Date_payement" placeholder="Date payement">
+                                                                    <label for="Date_payement">Date payement</label>
+                                                                    <input type="text" class="form-control" id="Date_payement"  name="Date_payement" placeholder="Date payement" oninput="validateInput(this)">
                                                                
                                                                 </div>
+                                                             
+
                                                                 <div class="col-md-2 mb-3 ">
                                                                     <label for="validationCustom03">TVA déductible</label>
-                                                                    <input type="text" class="form-control" id="TVA_deductible"  name="TVA_deductible" placeholder="TVA déductible">
+                                                                    <input type="text" class="form-control" id="TVA_deductible"  name="TVA_deductible" placeholder="TVA déductible" oninput="validateInput(this)">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="validationCustom03">Prorata</label>
-                                                                    <input type="text" class="form-control"id="Prorata" name="Prorata" placeholder="Prorata">
+                                                                    <input type="text" class="form-control"id="Prorata" name="Prorata" placeholder="Prorata" oninput="validateInput(this)">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 ">
                                                                     <label for="validationCustom03">Mode payement</label>
-                                                                    <input type="text" class="form-control"id="mode_p" name="mode_p" placeholder="Mode payement">
+                                                                    <input type="text" class="form-control"id="mode_p" name="mode_p" placeholder="Mode payement" oninput="validateInput(this)">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label>Racine</label>
-                                                                    <input type="text" class="form-control" id="Racine" name="Racine" placeholder="Racine">
+                                                                    <input type="text" class="form-control" id="Racine" name="Racine" placeholder="Racine" oninput="validateInput(this)">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="Date_facture">Date facture</label>
-                                                                    <input type="text" class="form-control"id="Date_facture" name="Date_facture"  placeholder="Date_facture">
+                                                                    <input type="text" class="form-control"id="Date_facture" name="Date_facture"  placeholder="Date_facture" oninput="validateInput(this)">
                                                                 </div>
                                                                 
                                                               </div>
@@ -616,32 +609,32 @@
                                                                 
                                                                 <div class="col-md-2 mb-3 ">
                                                                     <label for="ID_fiscale">ID fiscale</label>
-                                                                    <input type="text" class="form-control" id="ID_fiscale"  name="ID_fiscale" placeholder="ID fiscale">
+                                                                    <input type="text" class="form-control" id="ID_fiscale"  name="ID_fiscale" placeholder="ID fiscale" oninput="validateInput(this)">
                                                                 </div>
 
                                                                 <div class="col-md-2 mb-3 ">
                                                                     <label for="ICE">ICE</label>
-                                                                    <input type="text" class="form-control" id="ICE"  name="ICE" placeholder="ICE">
+                                                                    <input type="text" class="form-control" id="ICE"  name="ICE" placeholder="ICE" oninput="validateInput(this)">
                                                                 </div>
                                                                 
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="FRS">FRS</label>
-                                                                    <input type="text" class="form-control" id="FRS"  name="FRS" placeholder="FRS">
+                                                                    <input type="text" class="form-control" id="FRS"  name="FRS" placeholder="FRS"  oninput="validateInput(this)">
                                                                 </div>
 
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="TTC">TTC</label>
-                                                                    <input type="text" class="form-control" id="TTC"  name="TTC" placeholder="TTC">
+                                                                    <input type="text" class="form-control" id="TTC"  name="TTC" placeholder="TTC" oninput="validateInput(this)">
                                                                 </div>
                                                                 
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="TVA">TVA</label>
-                                                                    <input type="text" class="form-control" id="TVA"  name="TVA" placeholder="TVA">
+                                                                    <input type="text" class="form-control" id="TVA"  name="TVA" placeholder="TVA" oninput="validateInput(this)">
                                                                 </div>
 
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="Taux">Taux</label>
-                                                                    <input type="text" class="form-control" id="Taux"  name="Taux" placeholder="Taux">
+                                                                    <input type="text" class="form-control" id="Taux"  name="Taux" placeholder="Taux" oninput="validateInput(this)">
                                                                 </div>
 
                                                                 
@@ -653,21 +646,21 @@
                                                                 <div class="col-md-2 mb-3"></div>
                                                             <div class="col-md-2 mb-3 ">
                                                                     <label for="MHT">MHT</label>
-                                                                    <input type="text" class="form-control" id="MHT"  name="MHT" placeholder="MHT">
+                                                                    <input type="text" class="form-control" id="MHT"  name="MHT" placeholder="MHT" oninput="validateInput(this)">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 ">     
                                                                     <label for="Designation">Designation</label>
-                                                                    <input type="text" class="form-control" id="Designation"  name="Designation" placeholder="Designation">
+                                                                    <input type="text" class="form-control" id="Designation"  name="Designation" placeholder="Designation" oninput="validateInput(this)">
                                                                 </div>
                                                                 
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="NFACT">NFACT</label>
-                                                                    <input type="text" class="form-control" id="NFACT"  name="NFACT" placeholder="NFACT">
+                                                                    <input type="text" class="form-control" id="NFACT"  name="NFACT" placeholder="NFACT" oninput="validateInput(this)">
                                                             
                                                                 </div>
                                                                 
                                                             </div>
-                                                       
+                                                            <div class="flex: auto;" id="errorMessage" style="color: red;"></div>
                                                          
                                                         </div>
                                                         <!-- importation -->

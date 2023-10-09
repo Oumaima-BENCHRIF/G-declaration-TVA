@@ -1902,3 +1902,16 @@ let periode = $('#periode').val();
     });
   });
 }
+function validateInput(inputField) {
+  var inputValue = inputField.value;
+  var pattern = /^[A-Za-z]+$/;
+
+  if (!pattern.test(inputValue)) {
+      // document.getElementById('errorMessage').textContent = '.Seuls les caractères alphabétiques (A-Z) sont autorisés';
+      toastr.error(".Seuls les caractères alphabétiques (A-Z) sont autorisés");
+      inputField.value = inputValue.replace(/[^A-Za-z]/g, ''); // Remove non-alphabetic characters
+  } else {
+      document.getElementById('errorMessage').textContent = '';
+      
+  }
+}
