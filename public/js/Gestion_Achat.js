@@ -1726,11 +1726,7 @@ function dataTable($tabledata)
   });
 }
 
-<<<<<<< HEAD
 document
-=======
- document
->>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
   .getElementById("file-upload")
   .addEventListener("change", handleFile);
 
@@ -1908,7 +1904,6 @@ function createTabulatorTable(data) {
     }   
     console.log(columns);
     return columns; 
-<<<<<<< HEAD
   
   }
 
@@ -2077,78 +2072,3 @@ $(document).ready(function () {
   });
 
 })
-=======
-  
-  }
-
-
-  const table = new Tabulator("#Liste-Achat", {
-    data: data,
-    layout: "fitColumns",
-    columns: getTableColumns(data[0]),
-  });
-
-  const dataArray = data.map((row) =>
-    Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))
-  );
-console.log(dataArray);
-let Exercice =$("#Exercice").val();
-let periode = $('#periode').val();
-  dataArray.forEach(row => {
-    var postData = {
-      TVA_deductible: row.TVA_deductible, // Assuming index 0 corresponds to 'nomFournisseurs'
-      prorata: row.prorata, // Assuming index 1 corresponds to 'Designation'
-      Mode_p: row.Mode_p, // Assuming index 2 corresponds to 'Adresse'
-      Date_fact: row.Date_fact,
-      Date_payement: row.Date_payement,
-      ID_FIscal: row.ID_FIscal,
-      ICE: row.ICE,
-      FRS:row.FRS,
-      TTC: row.TTC,
-      TVA: row.TVA,
-      taux: row.taux,
-      Mht: row.Mht,
-      des: row.des,
-      Nfact: row.Nfact,
-      Racine: row.Racine,
-      Exercice: Exercice,
-      periode: periode,
-       
-    };
-    console.log(postData);
-    jQuery.ajax({
-      headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-      },
-      url: "./AddAchatjson",
-      type: "get",
-      data: postData,
-
-      success: function (response) {
-        toastr.success(response.message);
-        get_table();
-      },
-      error: function (response) {
-        toastr.error(response.Error);
-      },
-    });
-  });
-}
-function validateInput(inputField) {
-  var inputValue = inputField.value;
-  var pattern = /^[A-Za-z]+$/;
-
-  if (!pattern.test(inputValue)) {
-      // document.getElementById('errorMessage').textContent = '.Seuls les caractères alphabétiques (A-Z) sont autorisés';
-      toastr.options = {
-        progressBar: true,
-        closeButton: true,
-      };
-      toastr.error(".Seuls les caractères alphabétiques (A-Z) sont autorisés");
-      inputField.value = inputValue.replace(/[^A-Za-z]/g, ''); // Remove non-alphabetic characters
-  } else {
-      document.getElementById('errorMessage').textContent = '';
-      
-  }
-}
->>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9

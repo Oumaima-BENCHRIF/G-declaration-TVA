@@ -132,7 +132,22 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('update_XML/{update_id_XML}', [App\Http\Controllers\XMLController::class, 'Update'])->name('update_XML');
 
     /* ************************************************************** */
-
+    /* ************************************************************** Compte charges */
+    // View
+    Route::get('/compte_charges', [App\Http\Controllers\CompteChargesController::class, 'index'])->name('compte_charges');
+    // table Compte_charges
+    Route::get('table_CompteCharges', [App\Http\Controllers\CompteChargesController::class, 'table_CompteCharges'])->name('table_CompteCharges');
+    // ******* ajouter
+    Route::post('/AddCompteCharges', [App\Http\Controllers\CompteChargesController::class, 'Stores'])->name('AddCompteCharges');
+    // info CompteCharges
+    Route::get('/CompteCharges/{id_CompteCharges}', [App\Http\Controllers\CompteChargesController::class, 'info_CompteCharges'])->name('info_CompteCharges');
+    // delete CompteCharges
+    Route::post('DeleteCompteCharges', [App\Http\Controllers\CompteChargesController::class, 'destroy'])->name('DeleteCompteCharges');
+    // update CompteCharges
+    Route::get('update_CompteCharges/{update_id_CompteChargest}', [App\Http\Controllers\CompteChargesController::class, 'Update'])->name('update_CompteCharges');
+    // add json 
+    Route::get('/Add_CompteChargesjson', [App\Http\Controllers\CompteChargesController::class, 'Storesjson'])->name('Add_CompteChargesjson');
+    /* ************************************************************** */
 
     Route::get('utilisateur', function () {
         return view('auth.utilisateur');
@@ -151,8 +166,6 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
     // importation achat
     Route::get('/AddAchatjson', [App\Http\Controllers\AchatController::class, 'Storesjson'])->name('AddAchatjson');
-
-
     // Liste Mode de payement
     Route::get('FK_Mpayement', [App\Http\Controllers\AchatController::class, 'Liste_Mpyement'])->name('Liste_Mpyement');
     // Liste racine
@@ -161,7 +174,6 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('get_FRS/{id}', [App\Http\Controllers\AchatController::class, 'get_FRS'])->name('get_FRS');
     // get racine
     Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
-
     // ****** table succursale
     Route::get('table_succursale', [App\Http\Controllers\SuccursaleController::class, 'table_succursale'])->name('table_succursale');
     // gestion Achat
@@ -187,17 +199,21 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
     // get racine
     Route::get('get_info', [App\Http\Controllers\AchatController::class, 'get_info'])->name('get_info');
-    Route::get('fournisseur', function () {return view('apps.fournisseur');})->name('fournisseur');
+    Route::get('fournisseur', function () {
+        return view('apps.fournisseur'); })->name('fournisseur');
     Route::get('get_regimeByid/{id}', [App\Http\Controllers\AchatController::class, 'get_regimeByid'])->name('get_regimeByid');
 
-    Route::get('racine', function () { return view('apps.racine');});
+    Route::get('racine', function () {
+        return view('apps.racine'); });
 
-    Route::get('Achat', function () {return view('apps.Achat');});
+    Route::get('Achat', function () {
+        return view('apps.Achat'); });
 
-    Route::post('/export-to-excel',  [App\Http\Controllers\AchatController::class, 'exportToExcel'])->name('exportToExcel');
+    Route::post('/export-to-excel', [App\Http\Controllers\AchatController::class, 'exportToExcel'])->name('exportToExcel');
 
 
-    Route::get('login', function () {return view('authentications.style1.login');});
+    Route::get('login', function () {
+        return view('authentications.style1.login'); });
 
     Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');

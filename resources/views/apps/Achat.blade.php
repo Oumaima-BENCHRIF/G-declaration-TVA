@@ -160,15 +160,9 @@
                                             <button type="button" class="dt-button buttons-excel buttons-html5 btn " data-toggle="modal"
                                                 data-target=".bd-example-modal-lg" style="background-color: #eba802; ">Ajouter</button>
                                                 <!-- onclick="generation_XML()" -->
-<<<<<<< HEAD
                                                 <a id="achat_pdf" class="btn btn-dark ">Generate PDF</a>
                                                 
                                                 <button type="button" class="btn btn-primary" data-toggle="modal"
-=======
-                                                <a id="achat_pdf" style="background-color: #449dad; color:#fff" class="btn ">Generate PDF</a>
-                                                <button  type="submit" class="dt-button buttons-excel buttons-html5 btn " style="background-color: #587219; color:#fff">Génération XML</button>
-                                                <button type="button" class="btn " data-toggle="modal" style="background-color: #e37d2c; color:#fff"
->>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
                                                 data-target=".bd-impo">impo</button>
 
                                                 <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
@@ -588,7 +582,6 @@
                                                         <h5 class="modal-title" id="header-text">Importer</h5>
 
                                                     </div>
-<<<<<<< HEAD
                                                     <form   method="POST" id="impo"  action="{{ route('dashboard.exportToExcel') }}">
                                                     @csrf 
                                                     <div class="modal-body " id="mymodel" style="text-align: end;">
@@ -596,14 +589,6 @@
     <input type="text" name="inputText" placeholder="Entrez le texte A-Z">
     <button type="submit">Exporter vers Excel</button>
  
-=======
-                                                    <form  method="POST" id=""  action="">
-                                                    @csrf 
-                                                    <div class="modal-body " id="mymodel" style="text-align: end;">
-                                                   
-                                                        
-                                                         
->>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
                                                         
                                                     <div class="row">
                                                      <div class="col-md-4 mb-3"></div>
@@ -613,17 +598,12 @@
                                                              
                                                                 <div class="col-md-2 mb-3 ">
                                                                     <label for="Date_payement">Date payement</label>
-<<<<<<< HEAD
                                                                     <input type="text" class="form-control"   name="Date_payement" placeholder="Date payement" oninput="validateInput(this)">
-=======
-                                                                    <input type="text" class="form-control" id="Date_payement"  name="Date_payement" placeholder="Date payement" oninput="validateInput(this)">
->>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
                                                                
                                                                 </div>
                                                              
 
                                                                 <div class="col-md-2 mb-3 ">
-<<<<<<< HEAD
                                                                     <label for="TVA_deductible">TVA déductible</label>
                                                                     <input type="text" class="form-control"   name="TVA_deductible_label" placeholder="TVA déductible" oninput="validateInput(this)">
                                                                 </div>
@@ -637,21 +617,6 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="Racine">Racine</label>
-=======
-                                                                    <label for="validationCustom03">TVA déductible</label>
-                                                                    <input type="text" class="form-control" id="TVA_deductible"  name="TVA_deductible" placeholder="TVA déductible" oninput="validateInput(this)">
-                                                                </div>
-                                                                <div class="col-md-2 mb-3">
-                                                                    <label for="validationCustom03">Prorata</label>
-                                                                    <input type="text" class="form-control"id="Prorata" name="Prorata" placeholder="Prorata" oninput="validateInput(this)">
-                                                                </div>
-                                                                <div class="col-md-2 mb-3 ">
-                                                                    <label for="validationCustom03">Mode payement</label>
-                                                                    <input type="text" class="form-control"id="mode_p" name="mode_p" placeholder="Mode payement" oninput="validateInput(this)">
-                                                                </div>
-                                                                <div class="col-md-2 mb-3">
-                                                                    <label>Racine</label>
->>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
                                                                     <input type="text" class="form-control" id="Racine" name="Racine" placeholder="Racine" oninput="validateInput(this)">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
@@ -672,19 +637,11 @@
                                                                     <label for="ICE">ICE</label>
                                                                     <input type="text" class="form-control" id="ICE"  name="ICE" placeholder="ICE" oninput="validateInput(this)">
                                                                 </div>
-<<<<<<< HEAD
                                                                 
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="FRS">FRS</label>
                                                                     <input type="text" class="form-control" id="FRS"  name="FRS" placeholder="FRS"  oninput="validateInput(this)">
                                                                 </div>
-=======
-<!--                                                                 
-                                                                <div class="col-md-2 mb-3">
-                                                                    <label for="FRS">FRS</label>
-                                                                    <input type="text" class="form-control" id="FRS"  name="FRS" placeholder="FRS"  oninput="validateInput(this)">
-                                                                </div> -->
->>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
 
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="TTC">TTC</label>

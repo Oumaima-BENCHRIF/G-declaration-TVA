@@ -13,14 +13,10 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-<<<<<<< HEAD
 use PHPExcel;
 use PHPExcel_IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-=======
-
->>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 class AchatController extends Controller
 {
@@ -515,11 +511,7 @@ public function table_achat($periode,$Exercice)
 
 }
 public function get_info()
-<<<<<<< HEAD
 {   $id=21;
-=======
-{   $id=1;
->>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
     $get_info = agence::select('agences.*','regimes.libelle as libelle')
     ->join('regimes', 'regimes.id', 'agences.FK_Regime')
     ->where('agences.id',$id)->first();
@@ -852,11 +844,7 @@ public function Update(Request $request)
 
 public function generatePDF($periode,$Exercice)
 {
-<<<<<<< HEAD
     $id=21;
-=======
-    $id=1;
->>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
     $get_info = agence::select('agences.*','fait_generateurs.id as idf','fait_generateurs.libelle')
     ->join('fait_generateurs', 'fait_generateurs.id', 'agences.FK_fait_generateurs')
     ->where('agences.id',$id)
@@ -1142,7 +1130,6 @@ public function Storesjson(Request $request)
             ->withInput();
     }
 }
-<<<<<<< HEAD
 
     public function exportToExcel(Request $request)
     {
@@ -1187,7 +1174,5 @@ public function Storesjson(Request $request)
 
     }
 
-=======
->>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
 }
 
