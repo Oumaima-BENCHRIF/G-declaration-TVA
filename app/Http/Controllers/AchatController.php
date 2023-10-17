@@ -272,7 +272,7 @@ class AchatController extends Controller
     }
     public function Liste_Mpyement(Request $request)
     {
-        $Liste_payment = type_payment::where('type_payments.deleted_at', '=', NULL)->orderBy("id", "desc")->get();
+        $Liste_payment = type_payment::where('type_payments.deleted_at', '=', NULL)->orderBy("Num_payment", "asc")->get();
 
         return response()->json([
             'Liste_payment' => $Liste_payment

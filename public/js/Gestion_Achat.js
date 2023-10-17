@@ -637,7 +637,7 @@ function checkDate() {
     var month = parseInt(parts[1]);
     var day = parseInt(parts[2]);
     year = annee - 1;
-    month = month - 1;
+    month = month ;
     finPeriode = year + "-" + (month < 10 ? "0" : "") + month + "-" + day;
     peride=annee + "-" + parseInt(parts[1])+ "-" + day;
     console.log(finPeriode);
@@ -1313,18 +1313,17 @@ function checkNfact() {
         let mttc=0;
         jQuery.each($tabledata, function (key, item) {
           if (!duplicateFound) {
-            // mttc=item.M_TTC;
-            // let nfact=item.N_facture;
-         
-            // duplicateFound = true;
-            // ligne=ligne+'	N_facture :   '+nfact+ '         TTC :   '+mttc+'      \n';
+            alert('Cette facture déjà existe');
+            $("#n_fact").val('');
+            $("#n_fact").focus();
+             duplicateFound = true;
+            
           }
-          //  mtd=item.MT_déduit;
-          //   ligne=ligne+' '+'                    MT deduit :     '+item.MT_déduit+'        date   :   '+item.dateSaisie+   ' \n';
+          
         });
-        // ligne=ligne+'Total déduit  :   '+mtd;
-        // $("#MTttc").val(mttc);
-        alert('Cette facture déjà existe');
+  
+       
+     
       }
     },
   });
@@ -1551,7 +1550,6 @@ function dataTable($tabledata)
                 
                   $("#rowracine1").css("display", "none");
                  }
-                  
                     var idToSelect = responce.get_achatb.idfrs;
                     var selectElement = document.getElementById("frs");
                    for (var i = 0; i < selectElement.options.length; i++) {
@@ -1976,4 +1974,9 @@ function validateInput(inputField) {
       document.getElementById('errorMessage').textContent = '';
       
   }
+}
+function datePayment()
+{
+  let dateF = $("#date_fact").val();
+  $("#date_p").val(dateF);
 }

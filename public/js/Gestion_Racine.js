@@ -22,6 +22,7 @@ $(document).ready(function () {
         };
         toastr.success(response.message, { timeOut: 12000 });
         table_racine();
+        viderchamp();
       },
       error: function (response) {
         toastr.options = {
@@ -134,32 +135,8 @@ function table_racine() {
         },
         columns: [
           {
-            title: "Code racines",
-            width: 95,
-            field: "Num_racines",
-            vertAlign: "middle",
-            // print: false,
-            editor: true,
-          },
-          {
-            title: "Entilation deducations",
-            field: "Nom_racines",
-            minWidth: 100,
-            vertAlign: "middle",
-            // print: false,
-            // download: false,
-          },
-          {
-            title: "Taux",
-            field: "Taux",
-            minWidth: 100,
-            vertAlign: "middle",
-            // print: false,
-            // download: false,
-          },
-          {
             title: "Action",
-            minWidth: 110,
+            minWidth: 90,
             field: "actions",
             responsive: 1,
             hozAlign: "center",
@@ -168,9 +145,6 @@ function table_racine() {
             download: false,
             formatter(cell, formatterParams) {
               let a = $(`<div class="flex lg:justify-center items-center">
-                                          <a class="view  mr-3" title="Consulter">
-                                              <svg xmlns="http://www.w3.org/2000/svg " width="20 " height="20 " viewBox="0 0 24 24 " fill="none " stroke="currentColor " stroke-width="2 " stroke-linecap="round " stroke-linejoin="round " icon-name="eye " data-lucide="eye " class="lucide lucide-eye w-4 h-4 mr-1 "><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z "></path><circle cx="12 " cy="12 " r="3 "></circle></svg>
-                                          </a>
                                               <a  class="edit lex items-center text-success   mr-3" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#update-confirmation-modal">
                                               <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
                                           </a>
@@ -199,39 +173,12 @@ function table_racine() {
                     },
                   });
                 });
-
-              $(a)
-                .find(".view")
-                .on("click", function () {
-                  document.getElementById("Update").style.display = "none";
-                  document.getElementById("Enregistrer").style.display =
-                    "initial";
-                  document.getElementById("Nouveau").style.display = "initial";
-
-                  jQuery.ajax({
-                    url: "./Racine/" + cell.getData().id,
-                    type: "GET", // Le nom du fichier indiqué dans le formulaire
-                    dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-                    success: function (responce) {
-                      // affichage select
-
-                      jQuery.each(responce.info_racines, function (key, item) {
-                        document.getElementById("Taux").value = item.Taux;
-                        document.getElementById(
-                          "Nom_racines"
-                        ).value = item.Nom_racines;
-                        document.getElementById("Num_racines").value =
-                          item.Num_racines;
-                      });
-                    },
-                  });
-                });
               $(a)
                 .find(".edit")
                 .on("click", function () {
                   document.getElementById("Update").style.display = "block";
                   document.getElementById("Enregistrer").style.display = "none";
-                  document.getElementById("Nouveau").style.display = "none";
+                  // document.getElementById("Nouveau").style.display = "none";
                   jQuery.ajax({
                     url: "./Racine/" + cell.getData().id,
                     type: "GET", // Le nom du fichier indiqué dans le formulaire
@@ -255,6 +202,31 @@ function table_racine() {
               return a[0];
             },
           },
+          {
+            title: "Taux",
+            field: "Taux",
+            minWidth: 100,
+            vertAlign: "middle",
+            // print: false,
+            // download: false,
+          },
+          {
+            title: "Entilation deducations",
+            field: "Nom_racines",
+            minWidth: 100,
+            vertAlign: "middle",
+            // print: false,
+            // download: false,
+          },
+          {
+            title: "Code racines",
+            width: 110,
+            field: "Num_racines",
+            vertAlign: "middle",
+            // print: false,
+            editor: true,
+          }
+         
           // For print format
         ],
 

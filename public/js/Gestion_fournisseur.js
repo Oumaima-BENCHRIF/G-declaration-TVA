@@ -320,14 +320,6 @@ function table_fournisseur() {
             },
           },
           {
-            title: "nomFournisseurs",
-            width: 150,
-            field: "nomFournisseurs",
-            vertAlign: "middle",
-            //print: false,
-            headerFilter:"input"
-          },
-          {
             title: "Designation",
             field: "Designation",
             minWidth: 100,
@@ -363,11 +355,18 @@ function table_fournisseur() {
             download: true,
           },
           {
-            title: "NICE",
-            field: "NICE",
+            title: "Fax",
+            field: "Fax",
+            minWidth: 100,
+            visible: false, 
+            print: true,
+            download: true,
+          },
+          {
+            title: "Num_compte_comptable",
+            field: "Num_compte_comptable",
             minWidth: 100,
             vertAlign: "middle",
-            headerFilter:"input"
             // print: false,
             // download: false,
           },
@@ -382,21 +381,22 @@ function table_fournisseur() {
             // download: false,
           },
           {
-            title: "Num_compte_comptable",
-            field: "Num_compte_comptable",
-            minWidth: 100,
+            title: "nomFournisseurs",
+            width: 150,
+            field: "nomFournisseurs",
             vertAlign: "middle",
-            // print: false,
-            // download: false,
+            //print: false,
+            headerFilter:"input"
           },
           {
-            title: "Fax",
-            field: "Fax",
+            title: "NICE",
+            field: "NICE",
             minWidth: 100,
-            visible: false, 
-            print: true,
-            download: true,
-          },
+            vertAlign: "middle",
+            headerFilter:"input"
+            // print: false,
+            // download: false,
+          }
        
           // For print format
         ],

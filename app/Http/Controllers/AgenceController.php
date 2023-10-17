@@ -58,8 +58,12 @@ class AgenceController extends Controller
     //liste regimes
     public function Liste_Regime(Request $request)
     {
-        $Liste_regimes = regime::where('regimes.deleted_at', '=', NULL)
-            ->orderBy("id", "desc")->get();
+        // $Liste_regimes = regime::select('regimes.libelle','regimes.id')
+        // ->where('regimes.deleted_at', '=', NULL)
+        //     ->orderBy("id", "desc")->get();
+        $Liste_regimes = regime::whereNull('deleted_at') // Use whereNull to check for NULL in the "deleted_at" column.
+    ->whereIn('id', [1, 5])
+    ->get();
 
         return response()->json([
             'Liste_regimes' => $Liste_regimes
@@ -98,9 +102,10 @@ class AgenceController extends Controller
     public function info_agence(Request $request)
     {
         
-        $info_agences = agence::where('agences.deleted_at', '=', NULL)
+        $info_agences = agence::select('agences.*')
+        ->where('agences.deleted_at', '=', NULL)
         ->where('agences.id', $request->id_agence)->get();
-     
+  
         if ($info_agences != null) {
             return response()->json([
                 'info_agence' => $info_agences,

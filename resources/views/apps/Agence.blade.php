@@ -172,7 +172,7 @@
                                                     </div> -->
                                                 <div id="flex-container">
                                                 <button class="btn btn-primary" id="Enregistrer" name="Enregistrer" type="submit"><i class="las la-check-double"></i>Enregistrer</button>
-                                                    <button type="button" onclick=" viderchamp()" class="btn btn-soft-primary  "><i class="las la-info-circle"></i>Nouveau</button>
+                                                    <!-- <button type="button" onclick=" " class="btn btn-soft-primary  "><i class="las la-info-circle"></i>Nouveau</button> -->
                                                    
                                                 </div>
                                             </form>
@@ -196,8 +196,8 @@
                                                            
                                                                 <div class="table-responsive mb-4">
 
-                                                                    <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
-                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button>
+                                                                    <!-- <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
+                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button> -->
                                                                
                                                                     <div id="Liste-succursale" style="width: 100%;" class="header-table"></div>
                                                 
