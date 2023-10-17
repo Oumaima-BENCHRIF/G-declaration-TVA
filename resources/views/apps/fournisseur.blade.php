@@ -23,6 +23,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+<style>
+    #Add_fournisseur
+    {
+        padding:10px;
+    }
+    #flex-container{
+        padding-right: 16px;
+    }
+    [type=search] {
+    padding: 0px !important;
+    border: none !important;
+}
+</style>
 
 @endpush
 @section('content')

@@ -19,7 +19,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
-
+<style>
+    #Add_racin{
+        padding: 10px;
+    }
+    #Update{
+        padding: 10px;
+        margin-right: 10px;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -85,8 +93,8 @@
                                                 </div>
                                                 <div id="flex-container">
                                                     <button class="btn btn-primary mt-3"  id="Enregistrer" name="Enregistrer"  type="submit"><i class="las la-check-double"></i>Enregistrer</button>
-                                                    <button onclick=" viderchamp()" id="Nouveau" name="Nouveau"  type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
-                                                    class="las la-info-circle"></i>Nouveau</button>
+                                                    <!-- <button onclick=" viderchamp()" id="Nouveau" name="Nouveau"  type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
+                                                    class="las la-info-circle"></i>Nouveau</button> -->
                                                 </div>
                                                 <input type="hidden" name="update_id_racine" id="update_id_racine">
                                             </form>

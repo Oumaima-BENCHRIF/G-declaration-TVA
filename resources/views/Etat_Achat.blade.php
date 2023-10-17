@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -186,7 +185,7 @@
 
  
  <div class="logo_impo">
-
+ <!-- <img src="{{ public_path('assets/img/logo_impo.png') }}" alt="Logo"> -->
    </div>
 <div class="w-40 float-left">
 
@@ -205,7 +204,7 @@
                 </tr>
                 <tr>
                     <td>période</td>
-                    <td>Du 01/01/2023 AU 31/01/2023</td>
+                    <td>Du 01/01/  AU 31/01/2023</td>
 
                 </tr>
                 <tr class="tr1">
@@ -225,7 +224,8 @@
 </div> 
 
     <div style=" margin-left: 45%;" > 
-      
+    <!-- <img src="{{ public_path('assets/img/logo_minister.png') }}" alt="Logo" height="10%" width="10%" style=""> -->
+
     </div>
 
 <div class="add-detail " >
