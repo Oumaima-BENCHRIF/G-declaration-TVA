@@ -147,10 +147,6 @@ function viderchamp() {
 
 function table_fournisseur() {
 
-  // *********************************************************************
-
-
-  // *********************************************************************
   jQuery.ajax({
     url: "table_fournisseur",
     type: "GET", // Le nom du fichier indiqué dans le formulaire

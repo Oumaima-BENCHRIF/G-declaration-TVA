@@ -51,6 +51,11 @@
                 <li class=" {{ active_class(['apps/Type_payment']) }}">
                     <a data-active="{{ is_active_route(['apps/Type_payment']) }}" href="{{ url('/apps/Type_payment') }}"> Type payment </a>
                 </li>
+
+                <li class=" {{ active_class(['apps/compte_charges']) }}">
+                    <a data-active="{{ is_active_route(['apps/compte_charges']) }}" href="{{ url('/apps/compte_charges') }}">Champte charges</a>
+                </li>
+
             </ul>
         </li>
         <li class="menu">

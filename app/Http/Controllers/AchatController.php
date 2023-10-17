@@ -13,7 +13,10 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-
+use PHPExcel;
+use PHPExcel_IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 class AchatController extends Controller
 {
@@ -508,7 +511,7 @@ public function table_achat($periode,$Exercice)
 
 }
 public function get_info()
-{   $id=1;
+{   $id=21;
     $get_info = agence::select('agences.*','regimes.libelle as libelle')
     ->join('regimes', 'regimes.id', 'agences.FK_Regime')
     ->where('agences.id',$id)->first();
@@ -841,7 +844,7 @@ public function Update(Request $request)
 
 public function generatePDF($periode,$Exercice)
 {
-    $id=1;
+    $id=21;
     $get_info = agence::select('agences.*','fait_generateurs.id as idf','fait_generateurs.libelle')
     ->join('fait_generateurs', 'fait_generateurs.id', 'agences.FK_fait_generateurs')
     ->where('agences.id',$id)
@@ -1127,5 +1130,49 @@ public function Storesjson(Request $request)
             ->withInput();
     }
 }
+
+    public function exportToExcel(Request $request)
+    {
+       
+            // Récupérez les données de l'input de type texte A-Z
+            $data = $request->input('inputText');
+            // $Date_payement = $request->input('Date_payement');
+            // $TVA_deductible = $request->input('TVA_deductible');
+            // $Prorata = $request->input('Prorata');
+            // $mode_p = $request->input('mode_p');
+            // $Racine = $request->input('Racine');
+            // $Date_facture = $request->input('Date_facture');
+            // $ID_fiscale = $request->input('ID_fiscale');
+            // $ICE = $request->input('ICE');
+            // $FRS = $request->input('FRS');
+            // $TTC = $request->input('TTC');
+            // $TVA = $request->input('TVA');
+            // $Taux = $request->input('Taux');
+            // $MHT = $request->input('MHT');
+            // $NFACT = $request->input('NFACT');
+
+            // Créez un nouvel objet Spreadsheet (classe de PhpSpreadsheet)
+            $spreadsheet = new Spreadsheet();
+
+            // Sélectionnez la première feuille de calcul (par défaut)
+            $sheet = $spreadsheet->getActiveSheet();
+
+            // Placez les données dans la cellule A1 du fichier Excel
+            $sheet->setCellValue('B1', $data);
+
+            // Créez un objet Writer pour sauvegarder le fichier Excel
+            $writer = new Xlsx($spreadsheet);
+
+            // Spécifiez le chemin où vous souhaitez enregistrer le fichier Excel
+            $excelFilePath = public_path('votre_fichier.xlsx');
+
+            // Enregistrez le fichier Excel
+            $writer->save($excelFilePath);
+
+            // Retournez le chemin du fichier Excel généré (vous pouvez rediriger l'utilisateur vers ce fichier)
+            return response()->download($excelFilePath)->deleteFileAfterSend(true);
+
+    }
+
 }
 

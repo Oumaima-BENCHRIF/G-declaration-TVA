@@ -391,6 +391,96 @@ $(document).ready(function () {
     column.visible(!column.visible());
     $(this).toggleClass("toggle-clicked");
   });
+  $("#impo").on("submit", function (e) {
+    e.preventDefault();
+    var formData = [];
+    var $this = jQuery(this);
+    var formData = jQuery($this).serializeArray();
+    // let Exercice =$("#inputText").val();
+    // let Date_payement =$("#Date_payement").val(); 
+    // let TVA_deductible =$("#TVA_deductible").val();  
+    // let Prorata =$("#Prorata").val();    
+    // let mode_p =$("#mode_p").val();    
+    // let Racine =$("#Racine").val();     
+    // let Date_facture =$("#Date_facture").val();       
+    // let ID_fiscale =$("#ID_fiscale").val();       
+    // let ICE =$("#ICE").val();        
+    // let FRS =$("#FRS").val();   
+    // let TTC =$("#TTC").val();    
+    // let TVA =$("#TVA").val();    
+    // let Taux =$("#Taux").val();    
+    // let MHT =$("#MHT").val();     
+    // let NFACT =$("#NFACT").val();     
+    // var Date_payement = document.querySelector('label[for="Date_payement"]').innerText;
+    // var TVA_deductible = document.querySelector('label[for="TVA_deductible"]').innerText;
+    // var Prorata = document.querySelector('label[for="Prorata"]').innerText;
+    // var mode_p = document.querySelector('label[for="mode_p"]').innerText;
+    // var Racine = document.querySelector('label[for="Racine"]').innerText;
+    // var Date_facture = document.querySelector('label[for="Date_facture"]').innerText;
+    // var ID_fiscale = document.querySelector('label[for="ID_fiscale"]').innerText;
+    // var ICE = document.querySelector('label[for="ICE"]').innerText;
+    // var FRS = document.querySelector('label[for="FRS"]').innerText;
+    // var TTC = document.querySelector('label[for="TTC"]').innerText;
+    // var TVA = document.querySelector('label[for="TVA"]').innerText;
+    // var Taux = document.querySelector('label[for="Taux"]').innerText;
+    // var MHT = document.querySelector('label[for="MHT"]').innerText;
+    // var Designation = document.querySelector('label[for="Designation"]').innerText;
+    // var NFACT = document.querySelector('label[for="NFACT"]').innerText;
+  
+    
+    // Loop through the input fields and add their corresponding labels to formData
+    jQuery(this).find('input[type="text"]').each(function () {
+        var inputName = $(this).attr("name");
+        var labelName = inputName ;
+        var labelValue = $("input[name='" + labelName + "']").val();
+        
+        formData.push({ name: labelName, value: labelValue });
+    });
+
+    console.log(formData);
+    // formData.push(
+    //   { name: "Date_payement", value: Date_payement },
+    //   { name: "TVA_deductible", value: TVA_deductible },
+    //   { name: "Prorata", value: Prorata },
+    //   { name: "mode_p", value: mode_p },
+    //   { name: "Racine", value: Racine },
+    //   { name: "Date_facture", value: Date_facture },
+    //   { name: "ID_fiscale", value: ID_fiscale },
+    //   { name: "ICE", value: ICE },
+    //   { name: "FRS", value: FRS },
+    //   { name: "TTC", value: TTC },
+    //   { name: "TVA", value: TVA },
+    //   { name: "Taux", value: Taux },
+    //   { name: "MHT", value: MHT },
+    //   { name: "Designation", value: Designation },
+    //   { name: "NFACT", value: NFACT },
+    // );
+   
+    jQuery.ajax({
+      url: $this.attr("action"),
+      type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+      data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+      // dataFilter: 'json', //forme data
+      success: function (response) {
+        // Je récupère la réponse du fichier PHP
+        toastr.options = {
+          progressBar: true,
+          closeButton: true,
+        };
+       
+        toastr.success(response.message, { timeOut: 12000 });
+       
+      },
+      error: function (response) {
+        toastr.options = {
+          progressBar: true,
+          closeButton: true,
+        };
+        toastr.error("Merci de vérifier les champs");
+      },
+    });
+    
+  });
   // $('#racine').change(function () {
   //   setTimeout(function () {
   //     let ttc = $("#ttc").val();
@@ -1724,7 +1814,7 @@ function dataTable($tabledata)
   });
 }
 
- document
+document
   .getElementById("file-upload")
   .addEventListener("change", handleFile);
 
@@ -1960,7 +2050,8 @@ let periode = $('#periode').val();
 }
 function validateInput(inputField) {
   var inputValue = inputField.value;
-  var pattern = /^[A-Za-z]+$/;
+  var pattern = /^[A-Za-z0-9]+$/;
+
 
   if (!pattern.test(inputValue)) {
       // document.getElementById('errorMessage').textContent = '.Seuls les caractères alphabétiques (A-Z) sont autorisés';
@@ -1968,7 +2059,7 @@ function validateInput(inputField) {
         progressBar: true,
         closeButton: true,
       };
-      toastr.error(".Seuls les caractères alphabétiques (A-Z) sont autorisés");
+      toastr.error(".Seuls les caractères alphabétiques (A-Z) sont autorisés", { timeOut: 12000 });
       inputField.value = inputValue.replace(/[^A-Za-z]/g, ''); // Remove non-alphabetic characters
   } else {
       document.getElementById('errorMessage').textContent = '';
@@ -1980,3 +2071,4 @@ function datePayment()
   let dateF = $("#date_fact").val();
   $("#date_p").val(dateF);
 }
+
