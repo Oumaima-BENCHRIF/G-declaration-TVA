@@ -562,7 +562,7 @@
                                                         <h5 class="modal-title" id="header-text">Importer</h5>
 
                                                     </div>
-                                                    <form   method="POST" id="impo" action="{{ route('dashboard.exportToExcel') }}">
+                                                    <form   method="POST" id="impo"  action="{{ route('dashboard.exportToExcel') }}">
                                                     @csrf 
                                                     <div class="modal-body " id="mymodel" style="text-align: end;">
                                                    
@@ -578,14 +578,14 @@
                                                              
                                                                 <div class="col-md-2 mb-3 ">
                                                                     <label for="Date_payement">Date payement</label>
-                                                                    <input type="text" class="form-control" id="Date_payement"  name="Date_payement" placeholder="Date payement" oninput="validateInput(this)">
+                                                                    <input type="text" class="form-control"   name="Date_payement" placeholder="Date payement" oninput="validateInput(this)">
                                                                
                                                                 </div>
                                                              
 
                                                                 <div class="col-md-2 mb-3 ">
                                                                     <label for="TVA_deductible">TVA déductible</label>
-                                                                    <input type="text" class="form-control" id="TVA_deductible"  name="TVA_deductible" placeholder="TVA déductible" oninput="validateInput(this)">
+                                                                    <input type="text" class="form-control"   name="TVA_deductible_label" placeholder="TVA déductible" oninput="validateInput(this)">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="Prorata">Prorata</label>

@@ -1122,23 +1122,23 @@ public function Storesjson(Request $request)
 
     public function exportToExcel(Request $request)
     {
-        
+       
             // Récupérez les données de l'input de type texte A-Z
             $data = $request->input('inputText');
-            $Date_payement = $request->input('Date_payement');
-            $TVA_deductible = $request->input('TVA_deductible');
-            $Prorata = $request->input('Prorata');
-            $mode_p = $request->input('mode_p');
-            $Racine = $request->input('Racine');
-            $Date_facture = $request->input('Date_facture');
-            $ID_fiscale = $request->input('ID_fiscale');
-            $ICE = $request->input('ICE');
-            $FRS = $request->input('FRS');
-            $TTC = $request->input('TTC');
-            $TVA = $request->input('TVA');
-            $Taux = $request->input('Taux');
-            $MHT = $request->input('MHT');
-            $NFACT = $request->input('NFACT');
+            // $Date_payement = $request->input('Date_payement');
+            // $TVA_deductible = $request->input('TVA_deductible');
+            // $Prorata = $request->input('Prorata');
+            // $mode_p = $request->input('mode_p');
+            // $Racine = $request->input('Racine');
+            // $Date_facture = $request->input('Date_facture');
+            // $ID_fiscale = $request->input('ID_fiscale');
+            // $ICE = $request->input('ICE');
+            // $FRS = $request->input('FRS');
+            // $TTC = $request->input('TTC');
+            // $TVA = $request->input('TVA');
+            // $Taux = $request->input('Taux');
+            // $MHT = $request->input('MHT');
+            // $NFACT = $request->input('NFACT');
 
             // Créez un nouvel objet Spreadsheet (classe de PhpSpreadsheet)
             $spreadsheet = new Spreadsheet();
