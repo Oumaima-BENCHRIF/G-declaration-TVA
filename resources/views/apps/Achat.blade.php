@@ -32,7 +32,19 @@
 .table > tbody > tr > td {
     font-size: 13px !important; 
 }
+[type=search] {
+    padding: 0px !important;
+    border: none !important;
+}
+.tabulator.tabulator-rtl .tabulator-header .tabulator-col.tabulator-sortable .tabulator-col-title {
+    padding-right: 0;
+    font-size: 10px;
+    padding-left: 0px;
+}
+.tabulator.tabulator-rtl .tabulator-row .tabulator-cell {
 
+    font-size: 10px !important;
+}
 
 </style>
 <!--  Navbar Starts / Breadcrumb Area Starts -->
@@ -87,11 +99,12 @@
             </a>
         </header>
     </div>
+    <form method="POST"  action="{{ route('dashboard.xml') }}" class="needs-validation" novalidate action="javascript:void(0);">
+                                            @csrf 
                                 <div class="widget-content widget-content-area br-color border border-light p-0 m-3">
                                     <div class="form-group row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <form method="POST"  action="{{ route('dashboard.xml') }}" class="needs-validation" novalidate action="javascript:void(0);">
-                                            @csrf 
+                                           
                                                 <div class="form-row  pt-5 rounded mb-3 mb-md-0">
                                                     <div class="col-md-4 mb-4">
 
@@ -131,23 +144,31 @@
                                                     </div>
                                                 </div>
                                                  
-                                                <button  type="submit" style="position: absolute;top: 72px;right: 29px;"  class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Génération de Fichier XML</button>
-                                                
-                                            </form>
+                                               
+                                        
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
+                          
+                                                
+                            
                                         <!-- Debut tableau -->
-                                        <div class="layout-px-spacing">
-                                    <div class="layout-top-spacing mb-2">
+                                <div class="layout-px-spacing">
+                                          <div class="layout-top-spacing mb-2">
                                         <div class="col-md-12">
                                         <div class="justify-content-end">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target=".bd-example-modal-lg">Ajouter</button>
+                                            <button type="button" class="dt-button buttons-excel buttons-html5 btn " data-toggle="modal"
+                                                data-target=".bd-example-modal-lg" style="background-color: #eba802; ">Ajouter</button>
                                                 <!-- onclick="generation_XML()" -->
+<<<<<<< HEAD
                                                 <a id="achat_pdf" class="btn btn-dark ">Generate PDF</a>
                                                 
                                                 <button type="button" class="btn btn-primary" data-toggle="modal"
+=======
+                                                <a id="achat_pdf" style="background-color: #449dad; color:#fff" class="btn ">Generate PDF</a>
+                                                <button  type="submit" class="dt-button buttons-excel buttons-html5 btn " style="background-color: #587219; color:#fff">Génération XML</button>
+                                                <button type="button" class="btn " data-toggle="modal" style="background-color: #e37d2c; color:#fff"
+>>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
                                                 data-target=".bd-impo">impo</button>
 
                                                 <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
@@ -185,6 +206,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                                 <!-- END tableau -->
                                         <div class="row p-4 justify-content-end">
                                             <!-- <button type="button" class="btn btn-primary" data-toggle="modal"
@@ -248,20 +270,21 @@
                                                         <div class="row">
 
                                                             <div class="col-md-4 mb-3">
-                                                                <label for="validationCustom03">date fact</label>
-                                                                <input class="form-control "  style="text-align: start"
-                                                                type="date"  id="date_fact" name="date_fact"  required>
-                                                                <div class="invalid-feedback">
-                                                                    Please provide a valid date fact.
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="validationCustom03">N°FACT</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="n_fact"  name="n_fact" onblur="checkNfact()"
+                                                            <label for="validationCustom03">N°FACT</label>
+                                                                <input type="text" class="form-control" onblur="checkNfact()"
+                                                                    id="n_fact"  name="n_fact" 
                                                                     placeholder="N°FACT" required>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid N°FACT.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 mb-3">
+                                                                <label for="validationCustom03">N°Comptable</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="n_compt"  name="n_compt" 
+                                                                    placeholder=" N° Comptable" readonly>
+                                                                <div class="invalid-feedback">
+                                                                    Please provide a valid n_comptable.
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4 mb-3">
@@ -275,26 +298,23 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="validationCustom03">TTC</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="MTttc"name="MTttc"  replaceholder="TTC"  required  >
-
-                                                                <div class="invalid-feedback">
-                                                                    Please provide a valid TTC.
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
+                                                        <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">Mode de payement</label>
 
                                                                 <select class="form-control select2 py-3" id="Mpayement" name="Mpayement" required >
-
-                                                                
                                                                 </select>
-                                                                <div class="invalid-feedback">
-                                                                    Please provide a valid date Mode de payement.
-                                                                </div>
+                                                                
                                                             </div>
+                                                            <div class="col-md-4 mb-3">
+                                                            <label for="validationCustom03">date fact</label>
+                                                                <input class="form-control "  style="text-align: start"
+                                                                type="date"  id="date_fact" name="date_fact"  required>
+                                                                <div class="invalid-feedback">
+                                                                    Please provide a valid date fact.
+                                                                </div>
+                                                             
+                                                            </div>
+                                                            
 
                                                             <div class="col-md-4 mb-3">
                                                                 <label for="validationCustom03">date payement</label>
@@ -306,7 +326,7 @@
 
                                                         </div>
                                                     <div class="row">
-                                                     <div class="col-md-4 mb-3"></div>
+                                                    
                                                           <div class="border border-primary rounded  col-md-4 mb-3" id="select"  style="display: table;">
                                                             <div class="col-9 col-form-label">
                                                                 <div class="radio-inline d-flex">
@@ -328,6 +348,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="col-md-4 mb-3">
+                                                     <label for="validationCustom03">TTC</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="MTttc"name="MTttc"  replaceholder="TTC"  required  >
+
+                                                     </div>
                                                                 <div class="col-md-4 mb-3">
                                                                     <label for="validationCustom03"> % Prorata</label>
                                                                     <input type="text" onblur="tva_didu()" class="form-control" value="100"
@@ -562,6 +588,7 @@
                                                         <h5 class="modal-title" id="header-text">Importer</h5>
 
                                                     </div>
+<<<<<<< HEAD
                                                     <form   method="POST" id="impo"  action="{{ route('dashboard.exportToExcel') }}">
                                                     @csrf 
                                                     <div class="modal-body " id="mymodel" style="text-align: end;">
@@ -569,6 +596,14 @@
     <input type="text" name="inputText" placeholder="Entrez le texte A-Z">
     <button type="submit">Exporter vers Excel</button>
  
+=======
+                                                    <form  method="POST" id=""  action="">
+                                                    @csrf 
+                                                    <div class="modal-body " id="mymodel" style="text-align: end;">
+                                                   
+                                                        
+                                                         
+>>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
                                                         
                                                     <div class="row">
                                                      <div class="col-md-4 mb-3"></div>
@@ -578,12 +613,17 @@
                                                              
                                                                 <div class="col-md-2 mb-3 ">
                                                                     <label for="Date_payement">Date payement</label>
+<<<<<<< HEAD
                                                                     <input type="text" class="form-control"   name="Date_payement" placeholder="Date payement" oninput="validateInput(this)">
+=======
+                                                                    <input type="text" class="form-control" id="Date_payement"  name="Date_payement" placeholder="Date payement" oninput="validateInput(this)">
+>>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
                                                                
                                                                 </div>
                                                              
 
                                                                 <div class="col-md-2 mb-3 ">
+<<<<<<< HEAD
                                                                     <label for="TVA_deductible">TVA déductible</label>
                                                                     <input type="text" class="form-control"   name="TVA_deductible_label" placeholder="TVA déductible" oninput="validateInput(this)">
                                                                 </div>
@@ -597,6 +637,21 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="Racine">Racine</label>
+=======
+                                                                    <label for="validationCustom03">TVA déductible</label>
+                                                                    <input type="text" class="form-control" id="TVA_deductible"  name="TVA_deductible" placeholder="TVA déductible" oninput="validateInput(this)">
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="validationCustom03">Prorata</label>
+                                                                    <input type="text" class="form-control"id="Prorata" name="Prorata" placeholder="Prorata" oninput="validateInput(this)">
+                                                                </div>
+                                                                <div class="col-md-2 mb-3 ">
+                                                                    <label for="validationCustom03">Mode payement</label>
+                                                                    <input type="text" class="form-control"id="mode_p" name="mode_p" placeholder="Mode payement" oninput="validateInput(this)">
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label>Racine</label>
+>>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
                                                                     <input type="text" class="form-control" id="Racine" name="Racine" placeholder="Racine" oninput="validateInput(this)">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
@@ -617,11 +672,19 @@
                                                                     <label for="ICE">ICE</label>
                                                                     <input type="text" class="form-control" id="ICE"  name="ICE" placeholder="ICE" oninput="validateInput(this)">
                                                                 </div>
+<<<<<<< HEAD
                                                                 
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="FRS">FRS</label>
                                                                     <input type="text" class="form-control" id="FRS"  name="FRS" placeholder="FRS"  oninput="validateInput(this)">
                                                                 </div>
+=======
+<!--                                                                 
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="FRS">FRS</label>
+                                                                    <input type="text" class="form-control" id="FRS"  name="FRS" placeholder="FRS"  oninput="validateInput(this)">
+                                                                </div> -->
+>>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
 
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="TTC">TTC</label>
@@ -754,32 +817,7 @@
         @push('custom-scripts')
     <script>
         $(document).ready(function() {
-    $('#frs').select2({
-      tags: true,
-      createTag: function(params) {
-        var term = $.trim(params.term);
 
-        if (term === '') {
-          return null;
-        }
-
-        return {
-          id: term,
-          text: term,
-          newTag: true ,
-           // Add this to indicate it's a new tag
-        };
-      }
-    }).on('select2:select', function (e) {
-  var selectedOption = e.params.data;
-  
-  // Check if the selected option is a new tag
-  if (selectedOption.newTag) {
-    // Remove the "readonly" attribute from an element with the ID "id_fiscal"
-    $('#id_fiscal').removeAttr("readonly");
-    $('#N_ICE').removeAttr("readonly");
-  }
-});
   });
     </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>

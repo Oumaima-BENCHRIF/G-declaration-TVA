@@ -195,6 +195,7 @@ $(document).ready(function () {
           $("#N_ICE").val($tabledata.NICE);
           $("#id_fiscal").val($tabledata.ID_fiscale);
           $("#desc").val($tabledata.Designation);
+          $("#n_compt").val($tabledata.Num_compte_comptable);
           // myFunction();
         });
 
@@ -431,7 +432,37 @@ $(document).ready(function () {
   //     }
   //   }, 500);
   // });
+  $('#frs').select2({
+    tags: true,
+    createTag: function(params) {
+      var term = $.trim(params.term);
 
+      if (term === '') {
+        return null;
+      }
+
+      return {
+        id: term,
+        text: term,
+        newTag: true ,
+         // Add this to indicate it's a new tag
+      };
+    }
+  }).on('select2:select', function (e) {
+var selectedOption = e.params.data;
+
+// Check if the selected option is a new tag
+if (selectedOption.newTag) {
+  // Remove the "readonly" attribute from an element with the ID "id_fiscal"
+  $('#id_fiscal').removeAttr("readonly");
+  $('#N_ICE').removeAttr("readonly");
+  $('#n_compt').removeAttr("readonly");
+  $('#id_fiscal').prop("required", true);
+  $('#N_ICE').prop("required", true);
+  $('#n_compt').prop("required", true);
+  $('#n_compt').val('4411');
+}
+});
 
 });
 
@@ -522,6 +553,7 @@ function get_info() {
     $tabledata = responce.Liste_regimes;
   
       jQuery.each( $tabledata, function (key, item) {
+        console.log(responce.regime[0].libelle);
           if(item.libelle==responce.regime[0].libelle){
           $lignes =
           $lignes +
@@ -582,17 +614,45 @@ function Liste_Racine() {
 }
 function checkDate() {
 
-  var inputDate = new Date(document.getElementById("date_p").value);
-  var currentDate = new Date();
+  var inputDate  = $("#date_p").val();
+ 
+  // var currentDate = new Date();
+ finPeriode="";
+  // // Calculate the date exactly one year ago from the current date
+  // var oneYearAgo = new Date();
+  // oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
+  let id = $('#periode').val();
+  let annee = $('#Exercice').val();
+  jQuery.ajax({
+    url: "./get_regimeByid/"+id,
+    type: "GET",
+    dataType: "json",
+    success: function (responce) {
+    
+      
+      finPeriode=responce.regime.AU;
+      finPeriode = finPeriode.trim();
+      var parts = finPeriode.split('-');
+    var year = parseInt(parts[0]);
+    var month = parseInt(parts[1]);
+    var day = parseInt(parts[2]);
+    year = annee - 1;
+    month = month - 1;
+    finPeriode = year + "-" + (month < 10 ? "0" : "") + month + "-" + day;
+    peride=annee + "-" + parseInt(parts[1])+ "-" + day;
+    console.log(finPeriode);
+      if (inputDate < finPeriode) {
+        alert("Attention la date de paiement dépasse 1 an par rapport à la date de déclaration ");
+        document.getElementById("date_p").value = '';
+      }
+      if (inputDate > peride) {
+        alert("Attention la date de paiement dépasse la période de déclaration ");
+        document.getElementById("date_p").value = '';
+      }
+    },
 
-  // Calculate the date exactly one year ago from the current date
-  var oneYearAgo = new Date();
-  oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
+  }); 
 
-  if (inputDate < oneYearAgo) {
-    alert("la date est supérieur plus un an que la date de systeme");
-    document.getElementById("date_p").value = '';
-  }
 }
 document.addEventListener("DOMContentLoaded", function () {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
@@ -858,7 +918,7 @@ function calcul_ttc4() {
 function calcul_tva() {
   let tva_1 = $("#tva_1").val();
   let taux1 = $("#taux1").val();
-  let mttc = $("#MTttc").val();
+
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
@@ -881,7 +941,7 @@ function calcul_tva() {
         let ttc2 = $("#ttc2").val();
         let ttc3 = $("#ttc3").val();
         let ttc4 = $("#ttc4").val();
-        ttc4=parseFloat(ttc4).toFixed(2);
+       
         if(ttc1=='')
         {
           ttc1=0;
@@ -906,7 +966,7 @@ function calcul_tva() {
 function calcul_tva2() {
   let tva_2 = $("#tva_2").val();
   let taux2 = $("#taux2").val();
-  let mttc = $("#MTttc").val();
+
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
@@ -1044,7 +1104,7 @@ function calcul_HT() {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "TVA" && radio.checked){
+  if (radio.id === "HT" && radio.checked){
   if (MHT_1 != '') {
     if (taux1 == '') {
       alert('merci de choiser la rubrique de tva');
@@ -1087,7 +1147,7 @@ function calcul_HT2() {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "TVA" && radio.checked){
+  if (radio.id === "HT" && radio.checked){
   if (MHT_2 != '') {
     if (taux2 == '') {
       alert('merci de choiser la rubrique de tva');
@@ -1130,7 +1190,7 @@ function calcul_HT3() {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "TVA" && radio.checked){
+  if (radio.id === "HT" && radio.checked){
   if (MHT_3 != '') {
     if (taux3 == '') {
       alert('merci de choiser la rubrique de tva');
@@ -1253,18 +1313,18 @@ function checkNfact() {
         let mttc=0;
         jQuery.each($tabledata, function (key, item) {
           if (!duplicateFound) {
-            mttc=item.M_TTC;
-            let nfact=item.N_facture;
+            // mttc=item.M_TTC;
+            // let nfact=item.N_facture;
          
-            duplicateFound = true;
-            ligne=ligne+'	N_facture :   '+nfact+ '         TTC :   '+mttc+'      \n';
+            // duplicateFound = true;
+            // ligne=ligne+'	N_facture :   '+nfact+ '         TTC :   '+mttc+'      \n';
           }
-           mtd=item.MT_déduit;
-            ligne=ligne+' '+'                    MT deduit :     '+item.MT_déduit+'        date   :   '+item.dateSaisie+   ' \n';
+          //  mtd=item.MT_déduit;
+          //   ligne=ligne+' '+'                    MT deduit :     '+item.MT_déduit+'        date   :   '+item.dateSaisie+   ' \n';
         });
-        ligne=ligne+'Total déduit  :   '+mtd;
-        $("#MTttc").val(mttc);
-      //  alert(ligne);
+        // ligne=ligne+'Total déduit  :   '+mtd;
+        // $("#MTttc").val(mttc);
+        alert('Cette facture déjà existe');
       }
     },
   });
@@ -1337,7 +1397,7 @@ function dataTable($tabledata)
     columns: [
       {
         title: "Action",
-        minWidth: 110,
+        minWidth: 60,
         field: "actions",
         responsive: 1,
         hozAlign: "center",
@@ -1532,7 +1592,7 @@ function dataTable($tabledata)
       {
         title: "prorata",
         field: "Prorata",
-        minWidth: 100,
+        minWidth: 50,
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1549,7 +1609,7 @@ function dataTable($tabledata)
       {
         title: "Racine",
         field: "num_racine_7",
-        minWidth: 100,
+        minWidth: 50,
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1616,7 +1676,7 @@ function dataTable($tabledata)
       {
         title: "taux",
         field: "Taux7",
-        minWidth: 100,
+        minWidth: 40,
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1627,7 +1687,6 @@ function dataTable($tabledata)
         minWidth: 100,
         width: 43,
         field: "M_HT_7",
-        hozAlign: "center",
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1637,7 +1696,6 @@ function dataTable($tabledata)
         minWidth: 100,
         width: 43,
         field: "Designation",
-        hozAlign: "center",
         vertAlign: "middle",
         print: true,
             download: true,
@@ -1668,7 +1726,11 @@ function dataTable($tabledata)
   });
 }
 
+<<<<<<< HEAD
 document
+=======
+ document
+>>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9
   .getElementById("file-upload")
   .addEventListener("change", handleFile);
 
@@ -1705,7 +1767,7 @@ function tauxRacine1()
       },
     });
 }
-function tauxRacine2()
+  function tauxRacine2()
 { 
   
   let value = $('#racine2').val();
@@ -1846,6 +1908,7 @@ function createTabulatorTable(data) {
     }   
     console.log(columns);
     return columns; 
+<<<<<<< HEAD
   
   }
 
@@ -2014,3 +2077,78 @@ $(document).ready(function () {
   });
 
 })
+=======
+  
+  }
+
+
+  const table = new Tabulator("#Liste-Achat", {
+    data: data,
+    layout: "fitColumns",
+    columns: getTableColumns(data[0]),
+  });
+
+  const dataArray = data.map((row) =>
+    Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))
+  );
+console.log(dataArray);
+let Exercice =$("#Exercice").val();
+let periode = $('#periode').val();
+  dataArray.forEach(row => {
+    var postData = {
+      TVA_deductible: row.TVA_deductible, // Assuming index 0 corresponds to 'nomFournisseurs'
+      prorata: row.prorata, // Assuming index 1 corresponds to 'Designation'
+      Mode_p: row.Mode_p, // Assuming index 2 corresponds to 'Adresse'
+      Date_fact: row.Date_fact,
+      Date_payement: row.Date_payement,
+      ID_FIscal: row.ID_FIscal,
+      ICE: row.ICE,
+      FRS:row.FRS,
+      TTC: row.TTC,
+      TVA: row.TVA,
+      taux: row.taux,
+      Mht: row.Mht,
+      des: row.des,
+      Nfact: row.Nfact,
+      Racine: row.Racine,
+      Exercice: Exercice,
+      periode: periode,
+       
+    };
+    console.log(postData);
+    jQuery.ajax({
+      headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+      },
+      url: "./AddAchatjson",
+      type: "get",
+      data: postData,
+
+      success: function (response) {
+        toastr.success(response.message);
+        get_table();
+      },
+      error: function (response) {
+        toastr.error(response.Error);
+      },
+    });
+  });
+}
+function validateInput(inputField) {
+  var inputValue = inputField.value;
+  var pattern = /^[A-Za-z]+$/;
+
+  if (!pattern.test(inputValue)) {
+      // document.getElementById('errorMessage').textContent = '.Seuls les caractères alphabétiques (A-Z) sont autorisés';
+      toastr.options = {
+        progressBar: true,
+        closeButton: true,
+      };
+      toastr.error(".Seuls les caractères alphabétiques (A-Z) sont autorisés");
+      inputField.value = inputValue.replace(/[^A-Za-z]/g, ''); // Remove non-alphabetic characters
+  } else {
+      document.getElementById('errorMessage').textContent = '';
+      
+  }
+}
+>>>>>>> 9450f7df6d7c4d13b50f958dfbc37bd3ac612ff9

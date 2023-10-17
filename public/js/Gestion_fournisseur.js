@@ -192,84 +192,7 @@ function table_fournisseur() {
         },
 
         columns: [
-          {
-            title: "nomFournisseurs",
-            width: 150,
-            field: "nomFournisseurs",
-            vertAlign: "middle",
-            //print: false,
-            headerFilter:"input"
-          },
-          {
-            title: "Designation",
-            field: "Designation",
-            minWidth: 100,
-            vertAlign: "middle",
-            // print: false,
-            // download: false,
-            
-          },
-          {
-            title: "Adresse",
-            field: "Adresse",
-            minWidth: 100,
-            vertAlign: "middle",
-            visible: false, 
-            print: true,
-            download: true,
-          },
-          {
-            title: "Telephone",
-            field: "telephone",
-            minWidth: 100,
-            vertAlign: "middle",
-            // print: false,
-            // download: false,
-          },
-          {
-            title: "Ville",
-            field: "ville",
-            minWidth: 100,
-            vertAlign: "middle",
-            visible: false, 
-            print: true,
-            download: true,
-          },
-          {
-            title: "NICE",
-            field: "NICE",
-            minWidth: 100,
-            vertAlign: "middle",
-            headerFilter:"input"
-            // print: false,
-            // download: false,
-          },
-          {
-            title: "ID_fiscale",
-            field: "ID_fiscale",
-            headerFilter:"input",
-            // minWidth: 100,
-            width:100,
-            vertAlign: "middle",
-            // print: false,
-            // download: false,
-          },
-          {
-            title: "Num_compte_comptable",
-            field: "Num_compte_comptable",
-            minWidth: 100,
-            vertAlign: "middle",
-            // print: false,
-            // download: false,
-          },
-          {
-            title: "Fax",
-            field: "Fax",
-            minWidth: 100,
-            visible: false, 
-            print: true,
-            download: true,
-          },
+          
           {
             title: "Action",
             width:90,
@@ -396,6 +319,85 @@ function table_fournisseur() {
               return a[0];
             },
           },
+          {
+            title: "nomFournisseurs",
+            width: 150,
+            field: "nomFournisseurs",
+            vertAlign: "middle",
+            //print: false,
+            headerFilter:"input"
+          },
+          {
+            title: "Designation",
+            field: "Designation",
+            minWidth: 100,
+            vertAlign: "middle",
+            // print: false,
+            // download: false,
+            
+          },
+          {
+            title: "Adresse",
+            field: "Adresse",
+            minWidth: 100,
+            vertAlign: "middle",
+            visible: false, 
+            print: true,
+            download: true,
+          },
+          {
+            title: "Telephone",
+            field: "telephone",
+            minWidth: 100,
+            vertAlign: "middle",
+            // print: false,
+            // download: false,
+          },
+          {
+            title: "Ville",
+            field: "ville",
+            minWidth: 100,
+            vertAlign: "middle",
+            visible: false, 
+            print: true,
+            download: true,
+          },
+          {
+            title: "NICE",
+            field: "NICE",
+            minWidth: 100,
+            vertAlign: "middle",
+            headerFilter:"input"
+            // print: false,
+            // download: false,
+          },
+          {
+            title: "ID_fiscale",
+            field: "ID_fiscale",
+            headerFilter:"input",
+            // minWidth: 100,
+            width:100,
+            vertAlign: "middle",
+            // print: false,
+            // download: false,
+          },
+          {
+            title: "Num_compte_comptable",
+            field: "Num_compte_comptable",
+            minWidth: 100,
+            vertAlign: "middle",
+            // print: false,
+            // download: false,
+          },
+          {
+            title: "Fax",
+            field: "Fax",
+            minWidth: 100,
+            visible: false, 
+            print: true,
+            download: true,
+          },
+       
           // For print format
         ],
 

@@ -229,7 +229,7 @@ function table_racine() {
               $(a)
                 .find(".edit")
                 .on("click", function () {
-                  document.getElementById("Update").style.display = "initial";
+                  document.getElementById("Update").style.display = "block";
                   document.getElementById("Enregistrer").style.display = "none";
                   document.getElementById("Nouveau").style.display = "none";
                   jQuery.ajax({
