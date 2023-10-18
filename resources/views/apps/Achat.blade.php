@@ -148,9 +148,7 @@
                                         
                                         </div>
                                     </div>
-                                </div> 
-                          
-                                                
+                                </div>                                                
                             
                                         <!-- Debut tableau -->
                                 <div class="layout-px-spacing">

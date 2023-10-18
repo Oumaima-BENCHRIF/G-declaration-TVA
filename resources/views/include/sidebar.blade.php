@@ -53,7 +53,7 @@
                 </li>
 
                 <li class=" {{ active_class(['apps/compte_charges']) }}">
-                    <a data-active="{{ is_active_route(['apps/compte_charges']) }}" href="{{ url('/apps/compte_charges') }}">Champte charges</a>
+                    <a data-active="{{ is_active_route(['apps/compte_charges']) }}" href="{{ url('/apps/compte_charges') }}">Compte charges</a>
                 </li>
 
             </ul>
