@@ -31,11 +31,12 @@ class XMLController extends Controller
         ->where('achats.Exercice', $request->Exercice)
         ->where('achats.deleted_at', '=', NULL)
         ->get();
-   
+   $cpt=0;
         // Créez une nouvelle instance de SimpleXMLElement pour créer un document XML.
         $xml = new \SimpleXMLElement('<?xml version="1.0"?><DeclarationReleveDeduction></DeclarationReleveDeduction>'); // Parcourez les données et ajoutez-les au document XML.
         // Ajoutez les données à la structure XML manuellement.
         if($data->isNotEmpty()){
+            $cpt= $cpt+1;
             foreach ($data as $row) {
                 if (!empty($row->M_HT_7) && !empty($row->TVA_7)) {
                     $xml->addChild('identifiantFiscal', $row->ID_Fiscale);
@@ -44,7 +45,7 @@ class XMLController extends Controller
                     $xml->addChild('regime', $row->periode);
                     $releveDeductions = $xml->addChild('releveDeductions');
                     $rd = $releveDeductions->addChild('rd');
-                    $rd->addChild('ord', $row->id);
+                    $rd->addChild('ord', $cpt);
                     $rd->addChild('num', $row->N_facture);
                     $rd->addChild('des', $row->Designation);
                     $rd->addChild('mht', $row->M_HT_7);
@@ -68,7 +69,7 @@ class XMLController extends Controller
                     $xml->addChild('regime', $row->periode);
                     $releveDeductions = $xml->addChild('releveDeductions');
                     $rd = $releveDeductions->addChild('rd');
-                    $rd->addChild('ord', $row->id);
+                    $rd->addChild('ord',  $cpt);
                     $rd->addChild('num', $row->N_facture);
                     $rd->addChild('des', $row->Designation);
                     $rd->addChild('mht', $row->M_HT_10);
@@ -92,7 +93,7 @@ class XMLController extends Controller
                     $xml->addChild('regime', $row->periode);
                     $releveDeductions = $xml->addChild('releveDeductions');
                     $rd = $releveDeductions->addChild('rd');
-                    $rd->addChild('ord', $row->id);
+                    $rd->addChild('ord',  $cpt);
                     $rd->addChild('num', $row->N_facture);
                     $rd->addChild('des', $row->Designation);
                     $rd->addChild('mht', $row->M_HT_14);
@@ -117,7 +118,7 @@ class XMLController extends Controller
                     $xml->addChild('regime', $row->periode);
                     $releveDeductions = $xml->addChild('releveDeductions');
                     $rd = $releveDeductions->addChild('rd');
-                    $rd->addChild('ord', $row->id);
+                    $rd->addChild('ord',  $cpt);
                     $rd->addChild('num', $row->N_facture);
                     $rd->addChild('des', $row->Designation);
                     $rd->addChild('mht', $row->M_HT_20);
