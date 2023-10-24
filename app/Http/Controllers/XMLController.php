@@ -14,23 +14,30 @@ class XMLController extends Controller
     //
     function xml(Request $request)
     {
+        // $data = achat::select('achats.*', 'fournisseurs.NICE', 'fournisseurs.ID_fiscale', 'fournisseurs.nomFournisseurs', 'type_payments.Nom_payment', 'racines.Num_racines', 'racines.Taux', 'regimes.periode as periode')
+        //     ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
+        //     ->join('regimes', 'regimes.id', 'achats.FK_racines_7')
+        //     ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
+        //     ->join('fait_generateurs', 'fait_generateurs.id', 'achats.FK_fait_generateur')
+        //     ->join('racines', 'racines.id', 'achats.num_racine_7')
+        //     ->where('achats.FK_regime', $request->periode)
+        //     ->where('achats.Exercice', $request->Exercice)
+        //     ->where('achats.deleted_at', '=', NULL)->get();
 
-        $data = achat::select('achats.*', 'fournisseurs.NICE', 'fournisseurs.ID_fiscale', 'fournisseurs.nomFournisseurs', 'type_payments.Nom_payment', 'racines.Num_racines', 'racines.Taux', 'regimes.periode as periode')
-            ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
-            ->join('regimes', 'regimes.id', 'achats.FK_racines_1')
-            ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
-            ->join('fait_generateurs', 'fait_generateurs.id', 'achats.FK_fait_generateur')
-            ->join('racines', 'racines.id', 'achats.FK_racines_1')
-            ->where('achats.FK_regime', $request->periode)
-            ->where('achats.Exercice', $request->Exercice)
-            ->where('achats.deleted_at', '=', NULL)->get();
-
+        $data = achat::select('achats.*','fournisseurs.NICE as NICE','fournisseurs.ID_fiscale as ID_fiscale','fournisseurs.nomFournisseurs as nomFournisseurs','type_payments.Nom_payment as Nom_payment')
+        ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
+        ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
+        ->where('achats.FK_regime', $request->periode)
+        ->where('achats.Exercice', $request->Exercice)
+        ->where('achats.deleted_at', '=', NULL)
+        ->get();
+   
         // Créez une nouvelle instance de SimpleXMLElement pour créer un document XML.
         $xml = new \SimpleXMLElement('<?xml version="1.0"?><DeclarationReleveDeduction></DeclarationReleveDeduction>'); // Parcourez les données et ajoutez-les au document XML.
         // Ajoutez les données à la structure XML manuellement.
         if($data->isNotEmpty()){
             foreach ($data as $row) {
-                if (!empty($row->M_HT_1) && !empty($row->TVA_1)) {
+                if (!empty($row->M_HT_7) && !empty($row->TVA_7)) {
                     $xml->addChild('identifiantFiscal', $row->ID_Fiscale);
                     $xml->addChild('annee', $row->Exercice);
                     $xml->addChild('periode', "1");
@@ -40,8 +47,8 @@ class XMLController extends Controller
                     $rd->addChild('ord', $row->id);
                     $rd->addChild('num', $row->N_facture);
                     $rd->addChild('des', $row->Designation);
-                    $rd->addChild('mht', $row->M_HT_1);
-                    $rd->addChild('tva', $row->TVA_1);
+                    $rd->addChild('mht', $row->M_HT_7);
+                    $rd->addChild('tva', $row->TVA_7);
                     $rd->addChild('ttc', $row->M_TTC);
                     $refF = $rd->addChild('refF');
                     $refF->addChild('if', $row->ID_fiscale);
@@ -54,7 +61,7 @@ class XMLController extends Controller
                     $rd->addChild('dpai', $row->Date_payment);
                     $rd->addChild('dfac', $row->Date_facture);
                 }
-                if (!empty($row->M_HT_2) && !empty($row->TVA_2)) {
+                if (!empty($row->M_HT_10) && !empty($row->TVA_10)) {
                     $xml->addChild('identifiantFiscal', $row->ID_Fiscale);
                     $xml->addChild('annee', $row->Exercice);
                     $xml->addChild('periode', "1");
@@ -64,8 +71,8 @@ class XMLController extends Controller
                     $rd->addChild('ord', $row->id);
                     $rd->addChild('num', $row->N_facture);
                     $rd->addChild('des', $row->Designation);
-                    $rd->addChild('mht', $row->M_HT_2);
-                    $rd->addChild('tva', $row->TVA_2);
+                    $rd->addChild('mht', $row->M_HT_10);
+                    $rd->addChild('tva', $row->TVA_10);
                     $rd->addChild('ttc', $row->M_TTC);
                     $refF = $rd->addChild('refF');
                     $refF->addChild('if', $row->ID_fiscale);
@@ -78,7 +85,7 @@ class XMLController extends Controller
                     $rd->addChild('dpai', $row->Date_payment);
                     $rd->addChild('dfac', $row->Date_facture);
                 }
-                if (!empty($row->M_HT_3) && !empty($row->TVA_3)) {
+                if (!empty($row->M_HT_14) && !empty($row->TVA_14)) {
                     $xml->addChild('identifiantFiscal', $row->ID_Fiscale);
                     $xml->addChild('annee', $row->Exercice);
                     $xml->addChild('periode', "1");
@@ -88,8 +95,33 @@ class XMLController extends Controller
                     $rd->addChild('ord', $row->id);
                     $rd->addChild('num', $row->N_facture);
                     $rd->addChild('des', $row->Designation);
-                    $rd->addChild('mht', $row->M_HT_3);
-                    $rd->addChild('tva', $row->TVA_3);
+                    $rd->addChild('mht', $row->M_HT_14);
+                    $rd->addChild('tva', $row->TVA_14);
+                    $rd->addChild('ttc', $row->M_TTC);
+                    $refF = $rd->addChild('refF');
+                    $refF->addChild('if', $row->ID_fiscale);
+                    $refF->addChild('nom', $row->nomFournisseurs);
+                    $refF->addChild('ice', $row->NICE);
+                    $rd->addChild('tx', $row->Taux);
+                    $rd->addChild('prorata', $row->Prorata);
+                    $mp = $rd->addChild('mp');
+                    $mp->addChild('id', $row->Num_payment);
+                    $rd->addChild('dpai', $row->Date_payment);
+                    $rd->addChild('dfac', $row->Date_facture);
+    
+                }
+                if (!empty($row->M_HT_20) && !empty($row->TVA_20)) {
+                    $xml->addChild('identifiantFiscal', $row->ID_Fiscale);
+                    $xml->addChild('annee', $row->Exercice);
+                    $xml->addChild('periode', "1");
+                    $xml->addChild('regime', $row->periode);
+                    $releveDeductions = $xml->addChild('releveDeductions');
+                    $rd = $releveDeductions->addChild('rd');
+                    $rd->addChild('ord', $row->id);
+                    $rd->addChild('num', $row->N_facture);
+                    $rd->addChild('des', $row->Designation);
+                    $rd->addChild('mht', $row->M_HT_20);
+                    $rd->addChild('tva', $row->TVA_20);
                     $rd->addChild('ttc', $row->M_TTC);
                     $refF = $rd->addChild('refF');
                     $refF->addChild('if', $row->ID_fiscale);

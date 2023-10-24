@@ -35,7 +35,7 @@ class achat extends Model
         'FK_racines_14',
         'FK_racines_20',
         'FK_type_payment',
-        'FK_regime',
+        'c',
         'FK_fait_generateur',
         'TVA_d10',
         'TVA_d14',
