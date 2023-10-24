@@ -183,6 +183,8 @@
                                           <div class="layout-top-spacing mb-2">
                                         <div class="col-md-12">
                                         <div class="justify-content-end">
+                                        <button type="button" class="dt-button buttons-excel buttons-html5 btn " 
+                                                id="vider" style="background-color:lightcoral; color:#f0f6ff" data-toggle="modal" data-target="#delet_All_table">Vider</button>
                                             <button type="button" class="dt-button buttons-excel buttons-html5 btn " data-toggle="modal"
                                                 data-target=".bd-example-modal-lg" id="ajou" style="background-color: #eba802; ">Ajouter</button>
                                              
@@ -583,8 +585,9 @@
                                             </div> </div>
                                         </div>
                                          <!--end modal ajouter -->
-                                         <!--start modal delete -->
-                                         <div id="delet_achat" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
+
+                                         <!--start modal delete  -->
+                                           <div id="delet_achat" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
                                             <div class="modal-dialog">
                                                 <!-- Modal content-->
                                                 <div class="modal-content">
@@ -607,8 +610,34 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                        </div>
+                                          </div>
                                          <!--end modal delete -->
+                                        <!--start modal delete All table -->
+                                            <div id="delet_All_table" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
+                                            <div class="modal-dialog">
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">?Êtes-vous sûr'</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <i class="las la-times"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="modal-text">? Voulez-vous vraiment supprimer ces enregistrements  <br> Ce processus ne peut pas être annulé </p>
+                                                    </div>
+                                                    <form id="Delet_Achat" name="Delet_Achat" action="{{ route('dashboard.viderTable') }}"  method="post">
+                                                    <div class="modal-footer md-button">
+                                                        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Annuler</button>
+                                                        
+                                                        {{ csrf_field() }}
+                                                        <button type="submit" class="btn btn-primary">Supprimer</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                         </div>
+                                         <!--end modal delete All table -->
 
                             </div>
                         </div>
