@@ -177,7 +177,8 @@
                                         
                                         </div>
                                     </div>
-                                </div>  
+                                </div>                                                
+                            
                                         <!-- Debut tableau -->
                                 <div class="layout-px-spacing">
                                           <div class="layout-top-spacing mb-2">

@@ -228,6 +228,7 @@ function table_CompteCharge() {
             vertAlign: "middle",
             print: true,
             download: true,
+            headerFilter:"input"
           },
           {
             title: "Intitulé",
@@ -235,6 +236,7 @@ function table_CompteCharge() {
             vertAlign: "middle",
             print: true,
             download: true,
+            headerFilter:"input"
           },
         ],
 

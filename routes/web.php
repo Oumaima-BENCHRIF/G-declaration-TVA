@@ -50,9 +50,6 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     //   Route::get('update_succursale', [App\Http\Controllers\SuccursaleController::class, 'Update'])->name('update_succursale');
     Route::get('update_Agence/{update_id_agence}', [App\Http\Controllers\AgenceController::class, 'Update'])->name('update_Agence');
 
-
-
-
     /* ************************************************************** fournisseur */
     // View
     Route::get('/Fourniseur', [App\Http\Controllers\FournisuerController::class, 'index'])->name('Fourniseur');
@@ -132,20 +129,21 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('update_XML/{update_id_XML}', [App\Http\Controllers\XMLController::class, 'Update'])->name('update_XML');
 
     /* ************************************************************** */
+
     /* ************************************************************** Compte charges */
-    // View
+    //  ******* View
     Route::get('/compte_charges', [App\Http\Controllers\CompteChargesController::class, 'index'])->name('compte_charges');
-    // table Compte_charges
+    //  ******* table Compte charges
     Route::get('table_CompteCharges', [App\Http\Controllers\CompteChargesController::class, 'table_CompteCharges'])->name('table_CompteCharges');
     // ******* ajouter
     Route::post('/AddCompteCharges', [App\Http\Controllers\CompteChargesController::class, 'Stores'])->name('AddCompteCharges');
-    // info CompteCharges
+    //  ******* info CompteCharges
     Route::get('/CompteCharges/{id_CompteCharges}', [App\Http\Controllers\CompteChargesController::class, 'info_CompteCharges'])->name('info_CompteCharges');
-    // delete CompteCharges
+    //  ******* delete CompteCharges
     Route::post('DeleteCompteCharges', [App\Http\Controllers\CompteChargesController::class, 'destroy'])->name('DeleteCompteCharges');
-    // update CompteCharges
+    //  ******* update CompteCharges
     Route::get('update_CompteCharges/{update_id_CompteChargest}', [App\Http\Controllers\CompteChargesController::class, 'Update'])->name('update_CompteCharges');
-    // add json 
+    //  ******* add json 
     Route::get('/Add_CompteChargesjson', [App\Http\Controllers\CompteChargesController::class, 'Storesjson'])->name('Add_CompteChargesjson');
     /* ************************************************************** */
 
