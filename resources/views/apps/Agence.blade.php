@@ -20,6 +20,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+<style>
+    .txt{
+        font-weight: 900;
+    }
+    .check{
+            padding-top: 3%;
+    }
+    #divPro{
+        display: none;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -135,14 +146,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-
-                                                
-                                                
-                                                  
                                                     <div class="col-md-3 mb-3">
                                                     
                                                         <label for="Exercice">Exercice</label>
-                                                             <select id="Exercice"class="form-control select2 py-3" name="Exercice">
+                                                             <select id="Exercice"class="form-control select2 " name="Exercice">
 
                                                              </select>
                                                     </div>
@@ -167,12 +174,34 @@
 
                                                    
                                                 </div>
+                                                <div class="form-row">
+                                                <div class="col-md-3 mb-3 pt-3">
+                                                <button class="btn btn-primary" id="Enregistrer"  style="float: inline-start;" name="Enregistrer" type="submit"><i class="las la-check-double"></i>Enregistrer</button>
+                                                </div>
+                                                <!-- <div class="col-md-3 mb-3"> </div> -->
+                                                <div class="col-md-3 mb-3 ">  
+                                            <div id="divPro">
+                                                    <label for="prorata">prorata</label>
+                                                         <input id="prorata" type="text" class="form-control" name="prorata"> 
+                                                </div></div>
+                                                  
+                                                <div class="col-md-6 mb-3 check">
+                                                 <div class="radio-inline">
+                                                        <label class="radio radio-success">
+                                                            <input type="radio" id="non" name="radios5"    checked="checked">
+                                                            <span></span>Non</label>
+                                                        <label class="radio radio-success">
+                                                            <input type="radio" id="oui"  name="radios5" >
+                                                            <span></span> <span class="txt">Assujettie partielle à la tvA&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>    Oui  </label>
+                                                    </div>
+                                                </div>
+                                                </div>
 <!--                                                 
                                                 <div class="col-md-3 mb-3 pt-4">
                                                     </div> -->
                                                 <div id="flex-container">
-                                                <button class="btn btn-primary" id="Enregistrer" name="Enregistrer" type="submit"><i class="las la-check-double"></i>Enregistrer</button>
-                                                    <button type="button" onclick=" viderchamp()" class="btn btn-soft-primary  "><i class="las la-info-circle"></i>Nouveau</button>
+                                               
+                                                    <!-- <button type="button" onclick=" " class="btn btn-soft-primary  "><i class="las la-info-circle"></i>Nouveau</button> -->
                                                    
                                                 </div>
                                             </form>
@@ -196,8 +225,8 @@
                                                            
                                                                 <div class="table-responsive mb-4">
 
-                                                                    <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
-                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button>
+                                                                    <!-- <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
+                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button> -->
                                                                
                                                                     <div id="Liste-succursale" style="width: 100%;" class="header-table"></div>
                                                 
@@ -301,6 +330,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
 $('.select2').select2();
+</script>
+<script>
+    const nonRadioButton = document.getElementById('non');
+    const ouiRadioButton = document.getElementById('oui');
+    const prorataInput = document.getElementById('divPro');
+    const prorata = document.getElementById('prorata');
+    // Add event listeners to the radio buttons
+    nonRadioButton.addEventListener('change', function () {
+        prorataInput.style.display = 'none';
+       
+    });
+
+    ouiRadioButton.addEventListener('change', function () {
+        prorataInput.style.display = 'contents';
+    
+    });
 </script>
 
 <script type="text/javascript" src="{{URL::asset('js/Gestion_Agence.js')}}"></script>

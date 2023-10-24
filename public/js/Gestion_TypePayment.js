@@ -131,23 +131,6 @@ $(window).on("load", function () {
           },
           columns: [
             {
-              title: "Nom payment",
-              minWidth: 80,
-              field: "Nom_payment",
-              vertAlign: "middle",
-              // print: false,
-              editor: true,
-            },
-            {
-              title: "Num payment",
-              field: "Num_payment",
-              hozAlign:"center",
-              minWidth: 80,
-              // print: false,
-              // download: false,
-            },
-        
-            {
               title: "Action",
               minWidth: 110,
               field: "actions",
@@ -158,9 +141,7 @@ $(window).on("load", function () {
               download: false,
               formatter(cell, formatterParams) {
                 let a = $(`<div class="flex lg:justify-center items-center">
-                                            <a class="view  mr-3" title="Consulter">
-                                                <svg xmlns="http://www.w3.org/2000/svg " width="20 " height="20 " viewBox="0 0 24 24 " fill="none " stroke="currentColor " stroke-width="2 " stroke-linecap="round " stroke-linejoin="round " icon-name="eye " data-lucide="eye " class="lucide lucide-eye w-4 h-4 mr-1 "><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z "></path><circle cx="12 " cy="12 " r="3 "></circle></svg>
-                                            </a>
+                                          
                                                 <a  class="edit lex items-center text-success   mr-3" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#update-confirmation-modal">
                                                 <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
                                             </a>
@@ -218,7 +199,7 @@ $(window).on("load", function () {
                     viderchamp();
                     document.getElementById("Update").style.display = "initial";
                     document.getElementById("Enregistrer").style.display = "none";
-                    document.getElementById("Nouveau").style.display = "none";
+                    // document.getElementById("Nouveau").style.display = "none";
                     jQuery.ajax({
                       url: "./TypePayment/" + cell.getData().id,
                       type: "GET", // Le nom du fichier indiqué dans le formulaire
@@ -237,6 +218,22 @@ $(window).on("load", function () {
                 return a[0];
               },
             },
+            {
+              title: "Num payment",
+              field: "Num_payment",
+              hozAlign:"center",
+              minWidth: 80,
+              // print: false,
+              // download: false,
+            },{
+              title: "Nom payment",
+              minWidth: 80,
+              field: "Nom_payment",
+              vertAlign: "middle",
+              // print: false,
+              editor: true,
+            }
+          
             // For print format
           ],
   

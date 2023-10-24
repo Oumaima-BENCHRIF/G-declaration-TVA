@@ -9,6 +9,7 @@ use App\Models\type_payment;
 use App\Models\racine;
 use Illuminate\Support\Facades\DB;
 use App\Models\regime;
+use App\Models\CompteCharges;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ use PHPExcel;
 use PHPExcel_IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 class AchatController extends Controller
 {
@@ -28,8 +30,6 @@ class AchatController extends Controller
         public function Stores(Request $request)
         { 
             try {
-            
-     
             $frs=fournisseurs::select('fournisseurs.*')
             ->where('fournisseurs.deleted_at', '=', NULL)
             ->where('fournisseurs.id',$request->input('frs'))->first();
@@ -52,15 +52,35 @@ class AchatController extends Controller
                 $frs->save();
 
             }   
+            $order=achat::select('achats.order','achats.order')
+            ->where('achats.deleted_at', '=', NULL)
+            ->where('achats.Exercice',$request->input('Exercice'))
+            ->where('achats.FK_regime',$request->input('periode')) ->latest()
+            ->first(); 
+           
+         if($order)
+               {
+                $achat->order=$order->order+1;
+               }else
+               {
+             $achat->order=1;
+             }
+
             $achat->N_facture=$request->input('n_fact');
             $achat->Date_facture=$request->input('date_fact');
             $achat->Date_payment=$request->input('date_p');
             $achat->Designation=$request->input('desc');
             $achat->M_TTC=$request->input('MTttc');
-            $achat->Prorata=$request->input('prorata');      
+             
             $achat->Exercice=$request->input('Exercice');   
             $achat->FK_regime=$request->input('periode');     
             $achat->FK_type_payment=$request->input('Mpayement');
+            $achat->FK_Ccharge=$request->input('charge');
+            if($request->input('prorata')!=''){
+                $achat->Prorata=$request->input('prorata');
+            }else{
+                $achat->Prorata=100;
+            }
             if($request->input('taux1')==7)
             {
                 $achat->Taux7=$request->input('taux1');
@@ -275,7 +295,7 @@ class AchatController extends Controller
     }
     public function Liste_Mpyement(Request $request)
     {
-        $Liste_payment = type_payment::where('type_payments.deleted_at', '=', NULL)->orderBy("id", "desc")->get();
+        $Liste_payment = type_payment::where('type_payments.deleted_at', '=', NULL)->orderBy("Num_payment", "asc")->get();
 
         return response()->json([
             'Liste_payment' => $Liste_payment
@@ -284,10 +304,19 @@ class AchatController extends Controller
     public function Liste_Racine(Request $request)
     {
         
-        $Liste_Racine = racine::where('racines.deleted_at', '=', NULL)->orderBy("id", "desc")->get();
+        $Liste_Racine = racine::where('racines.deleted_at', '=', NULL)->orderBy("Num_racines", "asc")->get();
 
         return response()->json([
             'Liste_Racine' => $Liste_Racine
+        ]);
+    }
+    public function Liste_Ccharge(Request $request)
+    {
+        
+        $Liste_Ccharge = CompteCharges::where('compte_charges.deleted_at', '=', NULL)->orderBy("N_compte_charges_immob", "asc")->get();
+
+        return response()->json([
+            'Liste_Ccharge' => $Liste_Ccharge
         ]);
     }
     public function get_FRS($id)
@@ -316,6 +345,7 @@ class AchatController extends Controller
     }
     public function get_achat($nfact)
     {
+        
         $get_achat = achat::where('achats.N_facture',$nfact)
         ->where('achats.deleted_at', '=', NULL)->get();
         return response()->json([
@@ -343,14 +373,19 @@ class AchatController extends Controller
         ->where('achats.Exercice',$Exercice)
         ->where('achats.deleted_at', '=', NULL)
         ->get();
-    
+   
+
         $table_achat3=[];
+        $totalHT=0;
+        $totalTTC=0;
+        $totalTVA=0;
     
-    foreach ($get_TBLachat as $key => $achat) {
+       foreach ($get_TBLachat as $key => $achat) {
     
         if($achat->	Taux7!=null)
         {
             $table_achat2=new achat();
+            $table_achat2->order=$achat->order;
             $table_achat2->id=$achat->id;
             $table_achat2->N_facture=$achat->N_facture;
             $table_achat2->Date_facture=$achat->Date_facture;
@@ -362,14 +397,18 @@ class AchatController extends Controller
             $table_achat2->M_HT_20=$achat->Nom_payment;
             $table_achat2->M_TTC=$achat->M_TTC;
             $table_achat2->Prorata=$achat->Prorata;
-            $table_achat2->TVA_d7=$achat->TVA_d7;          
+            $table_achat2->TVA_d7=$achat->TVA_d7;  
+     
             $table_achat2->Exercice=$achat->Exercice;   
             $table_achat2->FK_regime=$achat->FK_regime;     
             $table_achat2->FK_type_payment=$achat->FK_type_payment;
             $table_achat2->Taux7=$achat->Taux7;
             $table_achat2->TVA_7=$achat->TVA_7;
+        $totalTVA=$totalTVA+$achat->TVA_7;
             $table_achat2->M_HT_7=$achat->M_HT_7;
+        $totalHT=$totalHT+$achat->M_HT_7;
             $table_achat2->TTC_7=$achat->TTC_7;
+        $totalTTC=$totalTTC+$achat->TTC_7;
             $table_achat2->FK_racines_7=$achat->FK_racines_7;
             $table_achat2->num_racine_7=$achat->num_racine_7;
             $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
@@ -378,6 +417,7 @@ class AchatController extends Controller
         if($achat->	Taux10!=null)
         {
             $table_achat2=new achat();
+            $table_achat2->order=$achat->order;
             $table_achat2->id=$achat->id;
             $table_achat2->N_facture=$achat->N_facture;
             $table_achat2->Date_facture=$achat->Date_facture;
@@ -395,8 +435,11 @@ class AchatController extends Controller
             $table_achat2->FK_type_payment=$achat->FK_type_payment;
             $table_achat2->Taux7=$achat->Taux10;
             $table_achat2->TVA_7=$achat->TVA_10;
+        $totalTVA=$totalTVA+$achat->TVA_10;
             $table_achat2->M_HT_7=$achat->M_HT_10;
+        $totalHT=$totalHT+$achat->M_HT_10;
             $table_achat2->TTC_7=$achat->TTC_10;
+        $totalTTC=$totalTTC+$achat->TTC_10;
             $table_achat2->FK_racines_7=$achat->FK_racines_10;
             $table_achat2->num_racine_7=$achat->num_racine_10;
    
@@ -406,6 +449,7 @@ class AchatController extends Controller
         if($achat->	Taux14!=null)
         {
             $table_achat2=new achat();
+            $table_achat2->order=$achat->order;
             $table_achat2->id=$achat->id;
             $table_achat2->N_facture=$achat->N_facture;
             $table_achat2->Date_facture=$achat->Date_facture;
@@ -423,8 +467,11 @@ class AchatController extends Controller
             $table_achat2->FK_type_payment=$achat->FK_type_payment;
             $table_achat2->Taux7=$achat->Taux14;
             $table_achat2->TVA_7=$achat->TVA_14;
+        $totalTVA=$totalTVA+$achat->TVA_14;
             $table_achat2->M_HT_7=$achat->M_HT_14;
+        $totalHT=$totalHT+$achat->M_HT_14;
             $table_achat2->TTC_7=$achat->TTC_14;
+        $totalTTC=$totalTTC+$achat->TTC_14;
             $table_achat2->FK_racines_7=$achat->FK_racines_14;
             $table_achat2->num_racine_7=$achat->num_racine_14;
 
@@ -434,6 +481,7 @@ class AchatController extends Controller
         if($achat->	Taux20!=null)
         {
             $table_achat2=new achat();
+            $table_achat2->order=$achat->order;
             $table_achat2->id=$achat->id;
             $table_achat2->N_facture=$achat->N_facture;
             $table_achat2->Date_facture=$achat->Date_facture;
@@ -451,21 +499,29 @@ class AchatController extends Controller
             $table_achat2->FK_type_payment=$achat->FK_type_payment;
             $table_achat2->Taux7=$achat->Taux20;
             $table_achat2->TVA_7=$achat->TVA_20;
+        $totalTVA=$totalTVA+$achat->TVA_20;
             $table_achat2->M_HT_7=$achat->M_HT_20;
+        $totalHT=$totalHT+$achat->M_HT_20;
             $table_achat2->TTC_7=$achat->TTC_20;
+        $totalTTC=$totalTTC+$achat->TTC_20;
             $table_achat2->FK_racines_7=$achat->FK_racines_20;
             $table_achat2->num_racine_7=$achat->num_racine_20;
             $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
             $table_achat3[]=$table_achat2;
         }
-    }
+     }
     
-    $table_achat3 = collect($table_achat3)->sortBy('num_racine_7')->values()->all();
-    
+       $table_achat3 = collect($table_achat3)->sortBy('num_racine_7')->values()->all();
+        $totalHT=number_format($totalHT, 2);
+        $totalTTC=number_format($totalTTC, 2);
+        $totalTVA=number_format($totalTVA, 2);
     
        
         return response()->json([
-            'get_TBLachat' => $table_achat3
+            'get_TBLachat' => $table_achat3,
+            'totalHT' => $totalHT,
+            'totalTTC' => $totalTTC,
+            'totalTVA' => $totalTVA,
         ]);
     }
     public function get_achatbyID($id)
@@ -511,7 +567,7 @@ public function table_achat($periode,$Exercice)
 
 }
 public function get_info()
-{   $id=21;
+{   $id=1;
     $get_info = agence::select('agences.*','regimes.libelle as libelle')
     ->join('regimes', 'regimes.id', 'agences.FK_Regime')
     ->where('agences.id',$id)->first();
@@ -554,10 +610,13 @@ public function Update(Request $request)
             $achat->Date_payment=$request->input('date_p');
             $achat->Designation=$request->input('desc');
             $achat->M_TTC=$request->input('MTttc');
-            $achat->Prorata=$request->input('prorata');         
+            $achat->Prorata=$request->input('prorata');  
             $achat->Exercice=$request->input('Exercice');   
             $achat->FK_regime=$request->input('periode');     
             $achat->FK_type_payment=$request->input('Mpayement');
+          
+            $achat->FK_Ccharge=$request->input('charge');
+
             if($request->input('Taux1')==7)
             {
                 $achat->Taux7=$request->input('Taux1');
@@ -844,7 +903,7 @@ public function Update(Request $request)
 
 public function generatePDF($periode,$Exercice)
 {
-    $id=21;
+    $id=1;
     $get_info = agence::select('agences.*','fait_generateurs.id as idf','fait_generateurs.libelle')
     ->join('fait_generateurs', 'fait_generateurs.id', 'agences.FK_fait_generateurs')
     ->where('agences.id',$id)
@@ -872,7 +931,7 @@ public function generatePDF($periode,$Exercice)
     // dd($SAMTVA);
     $table_achat3=[];
 
-foreach ($table_achat as $key => $achat) {
+ foreach ($table_achat as $key => $achat) {
 
     if($achat->	Taux7!=null)
     {
@@ -983,9 +1042,9 @@ foreach ($table_achat as $key => $achat) {
         $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
         $table_achat3[]=$table_achat2;
     }
-}
+ }
 
-$table_achat3 = collect($table_achat3)->sortBy('num_racine_7')->values()->all();
+ $table_achat3 = collect($table_achat3)->sortBy('num_racine_7')->values()->all();
 
 
     $pdf = PDF::loadView('Etat_Achat',[
@@ -1000,9 +1059,8 @@ public function Storesjson(Request $request)
 {
    
     try {
-        if(!empty($request->TVA_deductible) ||!empty($request->prorata)||!empty($request->Mode_p)||!empty($request->Date_fact)||!empty($request->Date_payement)||!empty($request->ID_FIscal)||!empty($request->ICE)||!empty($request->FRS)||!empty($request->TTC)||!empty($request->TVA)||!empty($request->taux)||!empty($request->Mht)||!empty($request->des)||!empty($request->Nfact)||!empty($request->Racine)){
-       
-        $achat = new achat();
+    
+        if(!empty($request->Mode_p)||!empty($request->Date_fact)||!empty($request->Date_payement)||!empty($request->ID_FIscal)||!empty($request->ICE)||!empty($request->FRS)||!empty($request->TTC)||!empty($request->TVA)||!empty($request->taux)||!empty($request->Mht)||!empty($request->des)||!empty($request->Nfact)||!empty($request->Racine)){
         // $achat->TVA_deductible = $request->TVA_deductible;
         // $achat->Prorata = $request->prorata;
         // $achat->FK_type_payment = $request->Mode_p;
@@ -1017,11 +1075,10 @@ public function Storesjson(Request $request)
         // $achat->M_HT_7 = $request->Mht;
         // $achat->Designation = $request->des;
         // $achat->N_facture = $request->Nfact;
-
         $frs=fournisseurs::select('fournisseurs.*')
         ->where('fournisseurs.deleted_at', '=', NULL)
         ->where('fournisseurs.nomFournisseurs',$request->FRS)->first();
-       
+        $achat = new achat();
         if(!$frs)
         {
             $fournisseurs = new fournisseurs();
@@ -1029,73 +1086,189 @@ public function Storesjson(Request $request)
             $fournisseurs->NICE=$request->ICE;
             $fournisseurs->Designation=$request->des;
             $fournisseurs->nomFournisseurs=$request->FRS;
+            $fournisseurs->Num_compte_comptable=$request->compte;
             $fournisseurs->save();
             $achat->FK_fournisseur=$fournisseurs->id;
            
         }else
         {
             $frs->Designation=$request->des;
+            $frs->Num_compte_comptable=$request->compte;
             $achat->FK_fournisseur=$frs->id;
-         
-
-        }   
+        } 
 
         $payments=type_payment::select('type_payments.*')
         ->where('type_payments.deleted_at', '=', NULL)
-        ->where('type_payments.Nom_payment',$request->Mode_p)->first();
-       
-        if(!$payments)
-        {
-            $payments = new type_payment();
-            $payments->Nom_payment=$request->Mode_p;
-            $payments->save();
-            $payments->Num_payment=$fournisseurs->id;
-            $achat->FK_type_payment=$fournisseurs->id;
-           
-        }else
-        {
-           
-            $achat->FK_type_payment=$payments->id;
-           
+        ->where('type_payments.Num_payment',$request->Mode_p)->first();
+        $achat->FK_type_payment=$payments->id;
 
-        }   
-        $achat->N_facture=$request->Nfact;
+//         $order=achat::select('achats.order')
+//         ->where('achats.deleted_at', '=', NULL)
+//         ->where('achats.Exercice',$request->Exercice)
+//         ->where('achats.FK_regime',$request->periode) ->latest()->First(); 
+      
+// if($order)
+// {
+//     $ord=$order->order+1;
+   
+// }else
+// {
+//     $ord=1;
+// }
+
+
+        $nfac= $request->Nfact;
+       $lastCH=substr($nfac, -1);
+       $lastCH2=substr($nfac, -2);
+       if($lastCH==='7' && $request->des === 'ELECTRICITE')
+       {
+        $nfac = substr($nfac, 0, -1);
+       }
+       if($lastCH2==='14' || $lastCH2==='10'|| $lastCH2==='20' && $request->des === 'ELECTRICITE')
+       {
+        $nfac = substr($nfac, 0, -2);
+       }
+        $get_achat = achat::where('achats.N_facture',$nfac)
+        ->where('achats.deleted_at', '=', NULL)->First();
+       
+     if($get_achat)
+     {   $get_achat->M_TTC=$get_achat->M_TTC+$request->TTC;
+        if($request->taux==7)
+        {
+            $get_achat->Taux7=$request->taux;
+            $get_achat->TVA_7=$request->TVA;
+            $get_achat->M_HT_7=$request->Mht;
+            $get_achat->TTC_7=$request->TTC;
+            $get_achat->TVA_d7=$request->TVA;;
+            if($request->Racine!='null'){
+                $get_achat->num_racine_7=$request->Racine;
+            }  
+            $num = racine::select('racines.id')
+            ->where('racines.Num_racines',$request->Racine)
+            ->where('racines.deleted_at', '=', NULL)->first();
+            $get_achat->FK_racines_7=$num->id;
+        }
+        if($request->taux==10)
+        {
+         $get_achat->Taux10=$request->taux;
+         $get_achat->TVA_10=$request->TVA;
+         $get_achat->M_HT_10=$request->Mht;
+         $get_achat->TTC_10=$request->TTC;
+         $get_achat->TVA_d10=$request->TVA;;
+        
+         if($request->Racine!='null'){
+            $get_achat->num_racine_10=$request->Racine;
+         }
+         $num = racine::select('racines.id')
+         ->where('racines.Num_racines',$request->Racine)
+         ->where('racines.deleted_at', '=', NULL)->first();
+         $get_achat->FK_racines_10=$num->id;
+        }  
+             
+        if($request->taux==14)
+        {
+         $get_achat->Taux14=$request->taux;
+         $get_achat->TVA_14=$request->TVA;
+         $get_achat->M_HT_14=$request->Mht;
+         $get_achat->TTC_14=$request->TTC;
+         $get_achat->TVA_d14=$request->TVA;;
+        
+         if($request->Racine!='null'){
+            $get_achat->num_racine_14=$request->Racine;
+         }
+         $num = racine::select('racines.id')
+         ->where('racines.Num_racines',$request->Racine)
+         ->where('racines.deleted_at', '=', NULL)->first();
+         $get_achat->FK_racines_14=$num->id;
+    
+         
+        }  
+        if($request->taux==20)
+        {
+         $get_achat->Taux20=$request->taux;
+         $get_achat->TVA_20=$request->TVA;
+         $get_achat->M_HT_20=$request->Mht;
+         $get_achat->TTC_20=$request->TTC;
+         $get_achat->TVA_d20=$request->TVA;;
+        
+         if($request->Racine!='null'){
+            $get_achat->num_racine_20=$request->Racine;
+         }
+         $num = racine::select('racines.id')
+         ->where('racines.Num_racines',$request->Racine)
+         ->where('racines.deleted_at', '=', NULL)->first();
+         $get_achat->FK_racines_20=$num->id;     
+        }  
+        $get_achat->save();
+     }else{
+        
+        $achat->N_facture=$nfac;
         $achat->Date_facture=$request->Date_fact;
         $achat->Date_payment=$request->Date_payement;
         $achat->Designation=$request->des;
         $achat->M_TTC=$request->TTC;
-        $achat->Prorata=$request->prorata;      
+        $achat->Prorata=100;      
         $achat->Exercice=$request->Exercice;   
         $achat->FK_regime=$request->periode;     
-
+        $achat->order=$request->order;  
         if($request->taux==7)
         {
             $achat->Taux7=$request->taux;
             $achat->TVA_7=$request->TVA;
             $achat->M_HT_7=$request->Mht;
             $achat->TTC_7=$request->TTC;
-            $achat->TVA_d7=$request->TVA_deductible;
-           
+            $achat->TVA_d7=$request->TVA;;
             if($request->Racine!='null'){
                 $achat->num_racine_7=$request->Racine;
-            }
-            
+            }  
             $num = racine::select('racines.id')
             ->where('racines.Num_racines',$request->Racine)
             ->where('racines.deleted_at', '=', NULL)->first();
-          
-           
             $achat->FK_racines_7=$num->id;
-           
         }
-
+        if($request->taux==10)
+        {
+         $achat->Taux10=$request->taux;
+         $achat->TVA_10=$request->TVA;
+         $achat->M_HT_10=$request->Mht;
+         $achat->TTC_10=$request->TTC;
+         $achat->TVA_d10=$request->TVA;;
+        
+         if($request->Racine!='null'){
+            $achat->num_racine_10=$request->Racine;
+         }
+         $num = racine::select('racines.id')
+         ->where('racines.Num_racines',$request->Racine)
+         ->where('racines.deleted_at', '=', NULL)->first();
+         $achat->FK_racines_10=$num->id;
+    
+         
+         if($request->taux==14)
+         {
+          $achat->Taux14=$request->taux;
+          $achat->TVA_14=$request->TVA;
+          $achat->M_HT_14=$request->Mht;
+          $achat->TTC_14=$request->TTC;
+          $achat->TVA_d14=$request->TVA;;
+         
+          if($request->Racine!='null'){
+             $achat->num_racine_14=$request->Racine;
+          }
+          $num = racine::select('racines.id')
+          ->where('racines.Num_racines',$request->Racine)
+          ->where('racines.deleted_at', '=', NULL)->first();
+          $achat->FK_racines_14=$num->id;
+     
+          
+         }  
+        }  
         if($request->taux==20)
         {
          $achat->Taux20=$request->taux;
          $achat->TVA_20=$request->TVA;
          $achat->M_HT_20=$request->Mht;
          $achat->TTC_20=$request->TTC;
-         $achat->TVA_d20=$request->TVA_deductible;
+         $achat->TVA_d20=$request->TVA;;
         
          if($request->Racine!='null'){
             $achat->num_racine_20=$request->Racine;
@@ -1109,6 +1282,9 @@ public function Storesjson(Request $request)
         }  
 
         $achat->save();
+     }
+         
+      
         
         return response()->json([
             'status' => 200,
@@ -1131,48 +1307,48 @@ public function Storesjson(Request $request)
     }
 }
 
-    public function exportToExcel(Request $request)
-    {
+    // public function exportToExcel(Request $request)
+    // {
        
-            // Récupérez les données de l'input de type texte A-Z
-            $data = $request->input('inputText');
-            // $Date_payement = $request->input('Date_payement');
-            // $TVA_deductible = $request->input('TVA_deductible');
-            // $Prorata = $request->input('Prorata');
-            // $mode_p = $request->input('mode_p');
-            // $Racine = $request->input('Racine');
-            // $Date_facture = $request->input('Date_facture');
-            // $ID_fiscale = $request->input('ID_fiscale');
-            // $ICE = $request->input('ICE');
-            // $FRS = $request->input('FRS');
-            // $TTC = $request->input('TTC');
-            // $TVA = $request->input('TVA');
-            // $Taux = $request->input('Taux');
-            // $MHT = $request->input('MHT');
-            // $NFACT = $request->input('NFACT');
+    //         // Récupérez les données de l'input de type texte A-Z
+    //         $data = $request->input('inputText');
+    //         // $Date_payement = $request->input('Date_payement');
+    //         // $TVA_deductible = $request->input('TVA_deductible');
+    //         // $Prorata = $request->input('Prorata');
+    //         // $mode_p = $request->input('mode_p');
+    //         // $Racine = $request->input('Racine');
+    //         // $Date_facture = $request->input('Date_facture');
+    //         // $ID_fiscale = $request->input('ID_fiscale');
+    //         // $ICE = $request->input('ICE');
+    //         // $FRS = $request->input('FRS');
+    //         // $TTC = $request->input('TTC');
+    //         // $TVA = $request->input('TVA');
+    //         // $Taux = $request->input('Taux');
+    //         // $MHT = $request->input('MHT');
+    //         // $NFACT = $request->input('NFACT');
 
-            // Créez un nouvel objet Spreadsheet (classe de PhpSpreadsheet)
-            $spreadsheet = new Spreadsheet();
+    //         // Créez un nouvel objet Spreadsheet (classe de PhpSpreadsheet)
+    //         $spreadsheet = new Spreadsheet();
 
-            // Sélectionnez la première feuille de calcul (par défaut)
-            $sheet = $spreadsheet->getActiveSheet();
+    //         // Sélectionnez la première feuille de calcul (par défaut)
+    //         $sheet = $spreadsheet->getActiveSheet();
 
-            // Placez les données dans la cellule A1 du fichier Excel
-            $sheet->setCellValue('B1', $data);
+    //         // Placez les données dans la cellule A1 du fichier Excel
+    //         $sheet->setCellValue('B1', $data);
 
-            // Créez un objet Writer pour sauvegarder le fichier Excel
-            $writer = new Xlsx($spreadsheet);
+    //         // Créez un objet Writer pour sauvegarder le fichier Excel
+    //         $writer = new Xlsx($spreadsheet);
 
-            // Spécifiez le chemin où vous souhaitez enregistrer le fichier Excel
-            $excelFilePath = public_path('votre_fichier.xlsx');
+    //         // Spécifiez le chemin où vous souhaitez enregistrer le fichier Excel
+    //         $excelFilePath = public_path('votre_fichier.xlsx');
 
-            // Enregistrez le fichier Excel
-            $writer->save($excelFilePath);
+    //         // Enregistrez le fichier Excel
+    //         $writer->save($excelFilePath);
 
-            // Retournez le chemin du fichier Excel généré (vous pouvez rediriger l'utilisateur vers ce fichier)
-            return response()->download($excelFilePath)->deleteFileAfterSend(true);
+    //         // Retournez le chemin du fichier Excel généré (vous pouvez rediriger l'utilisateur vers ce fichier)
+    //         return response()->download($excelFilePath)->deleteFileAfterSend(true);
 
-    }
+    // }
 
 }
 

@@ -65,8 +65,8 @@
                                             <form id="Add_TypePayment" name="Add_TypePayment" method="POST"  action="{{ route('dashboard.AddTypePayment') }}" class="needs-validation" novalidate action="javascript:void(0);">
                                             @csrf 
                                             <div class="form-rowd d-flex">
-                                            <div class="col-md-4 mb-4">
-                                            <button class="btn btn-primary mt-3"  id="Enregistrer" name="Enregistrer"  type="submit"><i class="las la-check-double"></i>Enregistrer</button>
+                                            <div class="col-md-4 mb-4 " style="    text-align: right">
+                                            <button class="btn btn-primary mt-3 "  id="Enregistrer" name="Enregistrer"  type="submit"><i class="las la-check-double"></i>Enregistrer</button>
                                             <button class="btn btn btn-secondary mt-3" type="button"  id="Update" name="Update" onclick="update_TypePayment()"><i class="las la-edit"></i>Update</button>
                                             </div>
                                                     <div class="col-md-4 mb-4">
