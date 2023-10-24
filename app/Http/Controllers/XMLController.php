@@ -38,6 +38,7 @@ class XMLController extends Controller
         if($data->isNotEmpty()){
             $cpt= $cpt+1;
             foreach ($data as $row) {
+
                 if (!empty($row->M_HT_7) && !empty($row->TVA_7)) {
                     $xml->addChild('identifiantFiscal', $row->ID_Fiscale);
                     $xml->addChild('annee', $row->Exercice);
@@ -61,6 +62,7 @@ class XMLController extends Controller
                     $mp->addChild('id', $row->Num_payment);
                     $rd->addChild('dpai', $row->Date_payment);
                     $rd->addChild('dfac', $row->Date_facture);
+                    $cpt= $cpt+1;
                 }
                 if (!empty($row->M_HT_10) && !empty($row->TVA_10)) {
                     $xml->addChild('identifiantFiscal', $row->ID_Fiscale);
@@ -85,6 +87,7 @@ class XMLController extends Controller
                     $mp->addChild('id', $row->Num_payment);
                     $rd->addChild('dpai', $row->Date_payment);
                     $rd->addChild('dfac', $row->Date_facture);
+                    $cpt= $cpt+1;
                 }
                 if (!empty($row->M_HT_14) && !empty($row->TVA_14)) {
                     $xml->addChild('identifiantFiscal', $row->ID_Fiscale);
@@ -109,7 +112,7 @@ class XMLController extends Controller
                     $mp->addChild('id', $row->Num_payment);
                     $rd->addChild('dpai', $row->Date_payment);
                     $rd->addChild('dfac', $row->Date_facture);
-    
+                    $cpt= $cpt+1;
                 }
                 if (!empty($row->M_HT_20) && !empty($row->TVA_20)) {
                     $xml->addChild('identifiantFiscal', $row->ID_Fiscale);
@@ -134,7 +137,7 @@ class XMLController extends Controller
                     $mp->addChild('id', $row->Num_payment);
                     $rd->addChild('dpai', $row->Date_payment);
                     $rd->addChild('dfac', $row->Date_facture);
-    
+                    $cpt= $cpt+1;
                 }
     
             }
