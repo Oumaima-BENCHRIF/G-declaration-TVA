@@ -2,6 +2,7 @@ $('.select2').select2();
 $(window).on("load", function () {
   get_info();
   Liste_FRS();
+  Liste_Ccharge();
   Liste_Mpyement();
   Liste_Racine();
 
@@ -13,6 +14,8 @@ $(window).on("load", function () {
   gestYears();
   document.getElementById('update').style.display='none';
   $("#rowracine3").css("display", "none");
+  $("#rowracine1").css("display", "none");
+  $("#rowracine2").css("display", "none");
   // $("#taux1").prop("readonly", true);
 });
 
@@ -44,6 +47,7 @@ $(document).ready(function () {
         toastr.success(response.message, { timeOut: 12000 });
         // table_Achat();
         get_table();
+        viderChamps();
       },
       error: function (response) {
         toastr.options = {
@@ -93,6 +97,7 @@ $(document).ready(function () {
     var Taux2 = $("#taux2").val(); 
     var Taux3 = $("#taux3").val();
     var Taux4 = $("#taux4").val();
+    var charge = $("#charge").val();
     formData.push(
       { name: "id", value: id },
       { name: "frs", value: frs },
@@ -129,7 +134,8 @@ $(document).ready(function () {
       { name: "Taux2", value: Taux2 },
       { name: "Taux3", value: Taux3 },
       { name: "Taux4", value: Taux4 },
-      { name: "racine4", value: racine4 }
+      { name: "racine4", value: racine4 },
+      { name: "charge", value: charge }
     );
   
     jQuery.ajax({
@@ -362,6 +368,16 @@ $(document).ready(function () {
     "lengthMenu": [5, 10, 15, 20],
     "pageLength": 5
   });
+  $("#add-btn").on("click", function (e) {
+
+     $("#rowracine1").css("display", "inherit");
+     $("#add-btn").css("display", "none");
+  });
+  $("#add-btn2").on("click", function (e) {
+
+    $("#rowracine2").css("display", "inherit");
+    $("#add-btn2").css("display", "none");
+ });
   // Search
   table.columns().every(function () {
     var that = this;
@@ -481,47 +497,11 @@ $(document).ready(function () {
     });
     
   });
-  // $('#racine').change(function () {
-  //   setTimeout(function () {
-  //     let ttc = $("#ttc").val();
-  //     let tva_1 = $("#tva_1").val();
-  //     let MHT_1 = $("#MHT_1").val();
+  $('#date_p').change(function () {
+    console.log('Event triggered!');
+   checkDate();
+  });
 
-  //     if (ttc != '') {
-
-  //       let taux1 = parseFloat($("#taux1").val());
-  //       let mht = ttc / (1 + taux1);
-  //       mht = mht.toFixed(2);
-  //       let tva = ttc - mht;
-  //       tva = tva.toFixed(2);
-  //       $("#MHT_1").val(mht);
-  //       $("#tva_1").val(tva);
-
-
-  //     } else {
-  //       if (tva_1 != '') {
-  //         let taux1 = $("#taux1").val();
-  //         console.log(taux1);
-  //         let mht = tva_1 / taux1;
-  //         let ttc = mht + parseFloat(tva_1);
-  //         mht = mht.toFixed(2);
-  //         ttc = parseFloat(ttc).toFixed(2);
-  //         $("#MHT_1").val(mht);
-  //         $("#ttc").val(ttc);
-  //       } else {
-  //         if (MHT_1 = '') {
-  //           let taux1 = parseFloat($("#taux1").val());
-  //           let TVA = MHT_1 * taux1;
-  //           let ttc = MHT_1 + TVA;
-  //           MHT_1 = MHT_1.toFixed(2);
-  //           ttc = ttc.toFixed(2);
-  //           $("#tva_1").val(TVA);
-  //           $("#ttc").val(ttc);
-  //         }
-  //       }
-  //     }
-  //   }, 500);
-  // });
   $('#frs').select2({
     tags: true,
     createTag: function(params) {
@@ -539,7 +519,7 @@ $(document).ready(function () {
       };
     }
   }).on('select2:select', function (e) {
-var selectedOption = e.params.data;
+    var selectedOption = e.params.data;
 
 // Check if the selected option is a new tag
 if (selectedOption.newTag) {
@@ -553,7 +533,12 @@ if (selectedOption.newTag) {
   $('#n_compt').val('4411');
 }
 });
-
+$("#ajou").on("click", function (e) {
+  $("#rowracine").css("display", "inherit");
+  $("#rowracine3").css("display", "none");
+  $("#rowracine1").css("display", "none");
+  $("#rowracine2").css("display", "none");
+});
 });
 
 // function myFunction() {
@@ -610,6 +595,26 @@ function Liste_FRS() {
     },
   });
 }
+function Liste_Ccharge() {
+  jQuery.ajax({
+    url: "./FK_Ccharge",
+    type: "GET",
+    dataType: "json",
+    success: function (responce) {
+      var $lignes = '<option value="null">Sélectionner</option>';
+      jQuery.each(responce.Liste_Ccharge, function (key, item) {
+        $lignes =
+          $lignes +
+          '<option value="' +
+          item.id +
+          '">' +
+          item.N_compte_charges_immob +'  | ' + item.Intitule
+          "</option>";
+      });
+      $("#charge").html($lignes);
+    },
+  });
+}
 function Liste_Mpyement() {
   jQuery.ajax({
     url: "./FK_Mpayement",
@@ -655,7 +660,7 @@ function get_info() {
         $i++;
         }
         $("#periode").html($lignes);
-       
+        $("#prorata").val(responce.get_info.Prorata);
       });
       console.log(responce.periode)
       $("#periode").val(responce.periode);
@@ -705,7 +710,8 @@ function Liste_Racine() {
 function checkDate() {
 
   var inputDate  = $("#date_p").val();
- 
+  console.log(inputDate);
+  if (!inputDate === null || !inputDate.trim() === ""){
   // var currentDate = new Date();
  finPeriode="";
   // // Calculate the date exactly one year ago from the current date
@@ -730,7 +736,7 @@ function checkDate() {
     month = month ;
     finPeriode = year + "-" + (month < 10 ? "0" : "") + month + "-" + day;
     peride=annee + "-" + parseInt(parts[1])+ "-" + day;
-    console.log(finPeriode);
+
       if (inputDate < finPeriode) {
         alert("Attention la date de paiement dépasse 1 an par rapport à la date de déclaration ");
         document.getElementById("date_p").value = '';
@@ -742,7 +748,7 @@ function checkDate() {
     },
 
   }); 
-
+ }
 }
 document.addEventListener("DOMContentLoaded", function () {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
@@ -833,7 +839,7 @@ function calcul_ttc1() {
     } else {
       if (ttc1 != '') {
         // console.log(ttc1);
-        
+        taux1=taux1/100;
         let mht = parseFloat(ttc1) / (1 + parseFloat(taux1));
         mht = mht.toFixed(2);
         let tva = parseFloat(ttc1) - parseFloat(mht);
@@ -881,7 +887,7 @@ function calcul_ttc2() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (ttc2 != '') {
-        
+        taux2=taux2/100;
         let mht = parseFloat(ttc2) / (1 + parseFloat(taux2));
         mht = parseFloat(mht).toFixed(2);
         let tva = parseFloat(ttc2) - parseFloat(mht);
@@ -927,6 +933,7 @@ function calcul_ttc3() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (ttc3 != '') {
+        taux3=taux3/100;
         $("#MTttc").val(parseFloat(ttc)+parseFloat(ttc3));
         let mht = parseFloat(ttc3) / (1 + parseFloat(taux3));
         mht = mht.toFixed(2);
@@ -973,6 +980,7 @@ function calcul_ttc4() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (ttc4 != '') {
+        taux4=taux4/100;
         $("#MTttc").val(parseFloat(ttc)+parseFloat(ttc4));
         let mht = parseFloat(ttc4) / (1 + parseFloat(taux4));
         mht = mht.toFixed(2);
@@ -1020,6 +1028,7 @@ function calcul_tva() {
     } else {
       if (tva_1 != '') {
         // console.log(tva_1);
+        taux1=taux1/100;
         let mht = parseFloat(tva_1) / parseFloat(taux1);
 
         let ttc = parseFloat(mht) + parseFloat(tva_1);
@@ -1067,6 +1076,7 @@ function calcul_tva2() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (tva_2 != '') {
+        taux2=taux2/100;
         let mht = parseFloat(tva_2) / parseFloat(taux2);
 
            let ttc=parseFloat(mht)+parseFloat(tva_2);
@@ -1114,6 +1124,7 @@ function calcul_tva3() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (tva_3 != '') {
+        taux3=taux3/100;
            let mht = parseFloat(tva_3) / parseFloat(taux3);
            let ttc=parseFloat(mht)+parseFloat(tva_3);
            mht = parseFloat(mht).toFixed(2);
@@ -1155,6 +1166,7 @@ function calcul_tva4() {
       alert('merci de choiser la rubrique de tvaaaaa');
     } else {
       if (tva_4 != '') {
+        taux4=taux4/100;
            let mht = parseFloat(tva_4) / parseFloat(taux4);
            let ttc=parseFloat(mht)+parseFloat(tva_4);
            mht = parseFloat(mht).toFixed(2);
@@ -1200,6 +1212,7 @@ function calcul_HT() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (MHT_1 != '') {
+        taux1=taux1/100;
         let TVA = parseFloat(MHT_1) * parseFloat(taux1);
         let ttc = parseFloat(MHT_1) + parseFloat(TVA);
         MHT_1 = parseFloat(MHT_1).toFixed(2);
@@ -1243,6 +1256,7 @@ function calcul_HT2() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (MHT_2 != '') {
+        taux2=taux2/100;
         let TVA = parseFloat(MHT_2) * parseFloat(taux2);
         let ttc = parseFloat(MHT_2) + parseFloat(TVA);
         MHT_2 = parseFloat(MHT_2).toFixed(2);
@@ -1286,6 +1300,7 @@ function calcul_HT3() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (MHT_3 != '') {
+        taux3=taux3/100;
         let TVA = parseFloat(MHT_3) * parseFloat(taux3);
         let ttc = parseFloat(MHT_3) + parseFloat(TVA);
         MHT_3 = parseFloat(MHT_3).toFixed(2);
@@ -1329,6 +1344,7 @@ function calcul_HT4() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (MHT_4 != '') {
+        taux4=taux4/100;
         let TVA = parseFloat(MHT_4) * parseFloat(taux4);
         let ttc = parseFloat(MHT_4) + parseFloat(TVA);
         MHT_4 = parseFloat(MHT_4).toFixed(2);
@@ -1458,7 +1474,14 @@ function table_Achat() {
   });
 }
 function dataTable($tabledata)
-{
+{ console.log($tabledata);
+  $tabledata.forEach(function(row) {
+    var nFactureParts = row.N_facture.split(' ');
+    if (nFactureParts.length === 2) {
+        row.N_facture = nFactureParts[0] + nFactureParts[1];
+    }
+    // If N_facture does not contain two parts, leave it as is
+});
   var table = new Tabulator("#Liste-Achat", {
     printAsHtml: true,
     printStyled: true,
@@ -1486,7 +1509,7 @@ function dataTable($tabledata)
     columns: [
       {
         title: "Action",
-        minWidth: 60,
+        minWidth: 70,
         field: "actions",
         responsive: 1,
         hozAlign: "center",
@@ -1496,7 +1519,7 @@ function dataTable($tabledata)
         formatter(cell, formatterParams) {
           let a = $(`<div class="flex lg:justify-center items-center">
                               
-                                        <a  class="edit lex items-center text-success"  data-toggle="modal"  data-target=".bd-example-modal-lg"  mr-3" title="Modifier" href="javascript:;"  >
+                                        <a  class="edit lex items-center text-success"  style="font-size: large;" data-toggle="modal"  data-target=".bd-example-modal-lg"  mr-3" title="Modifier" href="javascript:;"  >
                                         <i class="las la-edit"></i>
                                         </a>
                                         <a  class="mb-2 mr-2 delete" data-toggle="modal" data-target="#delet_achat">
@@ -1530,6 +1553,7 @@ function dataTable($tabledata)
               document.getElementById('add_ach').style.display='none';
               document.getElementById('update').style.display='initial';
               document.getElementById("id_achat").value =cell.getData().id;
+              $(".add").css("display", "none");
               console.log(cell.getData().id);
               jQuery.ajax({
                 url: "./get_achatbyID/" + cell.getData().id,
@@ -1547,8 +1571,7 @@ function dataTable($tabledata)
                     document.getElementById("date_p").value = responce.get_achatb.Date_payment;
                     document.getElementById("MTttc").value =responce.get_achatb.M_TTC;
                     // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
-                    document.getElementById("prorata").value = responce.get_achatb.Prorata;
-                
+                    document.getElementById("prorata").value = responce.get_achatb.Prorata;             
                     if(responce.get_achatb.Taux7==7)
                    {    
                       document.getElementById("MHT_1").value = responce.get_achatb.M_HT_7;
@@ -1568,7 +1591,7 @@ function dataTable($tabledata)
                      selectElement.dispatchEvent(event);
                     }
                     if(responce.get_achatb.Taux10==10)
-                    {    
+                    {    console.log(responce.get_achatb.Taux10);
                        document.getElementById("MHT_2").value = responce.get_achatb.M_HT_10;
                        document.getElementById("tva_2").value = responce.get_achatb.TVA_10;
                        document.getElementById("ttc2").value = responce.get_achatb.TTC_10;
@@ -1585,6 +1608,7 @@ function dataTable($tabledata)
                        }
                        var event = new Event('change');
                        selectElement.dispatchEvent(event);
+                       $("#rowracine1").css("display", "inherit");
                      }
                      if(responce.get_achatb.Taux14==14)
                      {    
@@ -1605,6 +1629,7 @@ function dataTable($tabledata)
                        }
                        var event = new Event('change');
                        selectElement.dispatchEvent(event);
+                       $("#rowracine2").css("display", "inherit");
                        }
                        if(responce.get_achatb.Taux20==20)
                        {    
@@ -1662,6 +1687,19 @@ function dataTable($tabledata)
                    }
                    var event = new Event('change');
                    selectElement.dispatchEvent(event);
+
+                   var idToSelect = responce.get_achatb.FK_Ccharge;
+                   var selectElement = document.getElementById("charge");
+                  for (var i = 0; i < selectElement.options.length; i++) {
+                  var option = selectElement.options[i];
+                  if (option.value == idToSelect) {
+          
+                   option.selected = true;
+                   break; 
+                    }
+                  }
+                  var event = new Event('change');
+                  selectElement.dispatchEvent(event);
                   });
                 },
               });
@@ -1680,7 +1718,7 @@ function dataTable($tabledata)
       {
         title: "prorata",
         field: "Prorata",
-        minWidth: 50,
+        minWidth: 30,
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1688,7 +1726,7 @@ function dataTable($tabledata)
       {
         title: "Mode_p",
         field: "M_HT_20",
-        minWidth: 100,
+        minWidth: 60,
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1697,7 +1735,7 @@ function dataTable($tabledata)
       {
         title: "Racine",
         field: "num_racine_7",
-        minWidth: 50,
+        minWidth: 30,
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1706,7 +1744,7 @@ function dataTable($tabledata)
       {
         title: "Date_fact",
         field: "Date_facture",
-        minWidth: 100,
+        minWidth: 80,
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1714,7 +1752,7 @@ function dataTable($tabledata)
       {
         title: "Date_payement",
         field: "Date_payment",
-        minWidth: 100,
+        minWidth: 80,
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1764,7 +1802,7 @@ function dataTable($tabledata)
       {
         title: "taux",
         field: "Taux7",
-        minWidth: 40,
+        minWidth: 30,
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1794,6 +1832,16 @@ function dataTable($tabledata)
         title: "Nfact",
         width: 95,
         field: "N_facture",
+        vertAlign: "middle",
+        print: true,
+            download: true,
+        editor: true,
+        headerFilter:"input"
+      },,
+      {
+        title: "Order",
+        width: 30,
+        field: "order",
         vertAlign: "middle",
         print: true,
             download: true,
@@ -1846,7 +1894,7 @@ function tauxRacine1()
       dataType: "json",
       success: function (responce) {
         $tabledata = responce.get_racine;
-   
+   console.log($tabledata);
         $("#taux1").val($tabledata.Taux);
       },
     });
@@ -1960,6 +2008,10 @@ function get_table()
       });
       
        dataTable($tabledata);
+       console.log(responce.totalTTC);
+       $("#totalTTC").text(responce.totalTTC);
+       $("#totalTVA").text(responce.totalTVA);
+       $("#totalHT").text(responce.totalHT);
       //trigger download of data.xlsx file
       document
         .getElementById("download-xlsx")
@@ -2005,31 +2057,57 @@ function createTabulatorTable(data) {
   const dataArray = data.map((row) =>
     Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))
   );
+  
+  
 console.log(dataArray);
 let Exercice =$("#Exercice").val();
 let periode = $('#periode').val();
   dataArray.forEach(row => {
+    function convertExcelDate(excelDate) {
+      if (!excelDate) {
+        return null; // Handle undefined or empty date values
+      }
+      
+      const excelSerialNumber = parseFloat(excelDate);
+    
+      if (!isNaN(excelSerialNumber)) {
+        const date = new Date((excelSerialNumber - 25569) * 86400 * 1000);
+    
+        if (!isNaN(date)) {
+          const formattedDate = date.toISOString().split('T')[0];
+          return formattedDate;
+        }
+      }
+    
+      return null; // Handle invalid date values
+    }
+    const dateFactValue = row["dfac"];
+const datePaymentValue = row["dpai"];
+
+const dateFact = convertExcelDate(dateFactValue);
+const datePayment = convertExcelDate(datePaymentValue);
     var postData = {
-      TVA_deductible: row.TVA_deductible, // Assuming index 0 corresponds to 'nomFournisseurs'
-      prorata: row.prorata, // Assuming index 1 corresponds to 'Designation'
-      Mode_p: row.Mode_p, // Assuming index 2 corresponds to 'Adresse'
-      Date_fact: row.Date_fact,
-      Date_payement: row.Date_payement,
-      ID_FIscal: row.ID_FIscal,
-      ICE: row.ICE,
-      FRS:row.FRS,
-      TTC: row.TTC,
-      TVA: row.TVA,
-      taux: row.taux,
-      Mht: row.Mht,
-      des: row.des,
-      Nfact: row.Nfact,
-      Racine: row.Racine,
+      // TVA_deductible: row.TVA_deductible, // Assuming index 0 corresponds to 'nomFournisseurs'
+      // prorata: row.prorata, // Assuming index 1 corresponds to 'Designation'
+      Mode_p: row["id"], // Assuming index 2 corresponds to 'Adresse'
+      Date_fact: dateFact,
+      Date_payement: datePayment,
+      ID_FIscal: row["if"],
+      ICE: row["ice"],
+      FRS:row["nom"],
+      TTC: row["ttc"],
+      TVA: row["tva"],
+      taux: row["tx"],
+      Mht: row["mht"],
+      des: row["des"],
+      Nfact: row["num"],
+      Racine: row["racine"],
+      order: row["ord"],
+      compte: row["compte frs"],
       Exercice: Exercice,
-      periode: periode,
-       
+      periode: periode,    
     };
-    console.log(postData);
+    console.log(postData ,"dataaaaa");
     jQuery.ajax({
       headers: {
         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -2070,5 +2148,97 @@ function datePayment()
 {
   let dateF = $("#date_fact").val();
   $("#date_p").val(dateF);
+  checkDate();
+}
+function viderChamps(){
+  document.getElementById("N_ICE").value = '';
+  document.getElementById("id_fiscal").value = '';
+  document.getElementById("desc").value = '';
+  document.getElementById("n_fact").value ='';
+  document.getElementById("date_fact").value = '';
+  document.getElementById("date_p").value = '';
+  document.getElementById("MTttc").value ='';
+  // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
+  document.getElementById("prorata").value = '';
+
+   
+    document.getElementById("MHT_1").value = '';
+    document.getElementById("tva_1").value = '';
+    document.getElementById("ttc1").value = '';
+
+    var selectElement = document.getElementById("racine");
+   for (var i = 0; i < selectElement.options.length; i++) {
+   var option = selectElement.options[i]; if (option.value == "null") {
+    option.selected = true;
+    break; 
+     }
+    }
+   var event = new Event('change');
+   selectElement.dispatchEvent(event);
+  
+    
+     document.getElementById("MHT_2").value = '';
+     document.getElementById("tva_2").value = '';
+     document.getElementById("ttc2").value = '';
+     var selectElement = document.getElementById("racine2");
+    for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break; 
+       }
+     }
+     var event = new Event('change');
+     selectElement.dispatchEvent(event);
+ 
+      document.getElementById("MHT_3").value = '';
+      document.getElementById("tva_3").value = '';
+      document.getElementById("ttc3").value = '';
+   
+     var selectElement = document.getElementById("racine3");
+     for (var i = 0; i < selectElement.options.length; i++) {
+     var option = selectElement.options[i];
+     if (option.value == "null") {
+      option.selected = true;
+      break; 
+       }
+     }
+     var event = new Event('change');
+     selectElement.dispatchEvent(event);
+        document.getElementById("MHT_4").value = '';
+        document.getElementById("tva_4").value = '';
+        document.getElementById("ttc4").value = '';
+        document.getElementById("taux4").value = '';
+      
+        var selectElement = document.getElementById("racine4");
+        for (var i = 0; i < selectElement.options.length; i++) {
+        var option = selectElement.options[i];
+        if (option.value == "null") {
+         option.selected = true;
+         break; 
+          }
+        }
+        var event = new Event('change');
+        selectElement.dispatchEvent(event);
+        var selectElement = document.getElementById("frs");
+        for (var i = 0; i < selectElement.options.length; i++) {
+        var option = selectElement.options[i];
+        if (option.value == "null") {
+         option.selected = true;
+         break; 
+          }
+        }
+        var event = new Event('change');
+        selectElement.dispatchEvent(event);
+        var selectElement = document.getElementById("Mpayement");
+        for (var i = 0; i < selectElement.options.length; i++) {
+        var option = selectElement.options[i];
+        if (option.value == "null") {
+         option.selected = true;
+         break; 
+          }
+        }
+        var event = new Event('change');
+        selectElement.dispatchEvent(event);
 }
 

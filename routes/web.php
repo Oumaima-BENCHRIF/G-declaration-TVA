@@ -170,6 +170,8 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('FK_Mpayement', [App\Http\Controllers\AchatController::class, 'Liste_Mpyement'])->name('Liste_Mpyement');
     // Liste racine
     Route::get('FK_racine', [App\Http\Controllers\AchatController::class, 'Liste_Racine'])->name('Liste_Racine');
+     // liste FRS
+     Route::get('FK_Ccharge', [App\Http\Controllers\AchatController::class, 'Liste_Ccharge'])->name('Liste_Ccharge');
     // get FRS
     Route::get('get_FRS/{id}', [App\Http\Controllers\AchatController::class, 'get_FRS'])->name('get_FRS');
     // get racine
