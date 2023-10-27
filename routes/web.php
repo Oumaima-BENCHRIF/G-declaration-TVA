@@ -165,7 +165,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     // importation achat
     Route::get('/AddAchatjson', [App\Http\Controllers\AchatController::class, 'Storesjson'])->name('AddAchatjson');
       // vider la table
-      Route::get('/viderTable', [App\Http\Controllers\AchatController::class, 'viderTable'])->name('viderTable');
+      Route::post('/viderTable', [App\Http\Controllers\AchatController::class, 'viderTable'])->name('viderTable');
     // Liste Mode de payement
     Route::get('FK_Mpayement', [App\Http\Controllers\AchatController::class, 'Liste_Mpyement'])->name('Liste_Mpyement');
     // Liste racine

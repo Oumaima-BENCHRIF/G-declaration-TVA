@@ -627,10 +627,11 @@
                                                     <div class="modal-body">
                                                         <p class="modal-text">? Voulez-vous vraiment supprimer ces enregistrements  <br> Ce processus ne peut pas être annulé </p>
                                                     </div>
-                                                    <form id="Delet_Achat" name="Delet_Achat" action="{{ route('dashboard.viderTable') }}"  method="post">
+                                                    <form id="Delet_periode" name="Delet_periode" action="{{ route('dashboard.viderTable') }}"  method="post">
                                                     <div class="modal-footer md-button">
                                                         <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Annuler</button>
-                                                        
+                                                        <input type="hidden" id="delete_exercice" name="delete_exercice">
+                                                        <input type="hidden" id="delete_periode" name="delete_periode">
                                                         {{ csrf_field() }}
                                                         <button type="submit" class="btn btn-primary">Supprimer</button>
                                                     </div>

@@ -50,7 +50,7 @@ class XMLController extends Controller
                     $rd->addChild('num', $row->N_facture);
                     $rd->addChild('des', $row->Designation);
                     $rd->addChild('mht', $row->M_HT_7);
-                    $rd->addChild('tva', $row->TVA_7);
+                    $rd->addChild('tva', $row->TVA_d7);
                     $rd->addChild('ttc', $row->M_TTC);
                     $refF = $rd->addChild('refF');
                     $refF->addChild('if', $row->ID_fiscale);
@@ -75,7 +75,7 @@ class XMLController extends Controller
                     $rd->addChild('num', $row->N_facture);
                     $rd->addChild('des', $row->Designation);
                     $rd->addChild('mht', $row->M_HT_10);
-                    $rd->addChild('tva', $row->TVA_10);
+                    $rd->addChild('tva', $row->TVA_d10);
                     $rd->addChild('ttc', $row->M_TTC);
                     $refF = $rd->addChild('refF');
                     $refF->addChild('if', $row->ID_fiscale);
@@ -100,7 +100,7 @@ class XMLController extends Controller
                     $rd->addChild('num', $row->N_facture);
                     $rd->addChild('des', $row->Designation);
                     $rd->addChild('mht', $row->M_HT_14);
-                    $rd->addChild('tva', $row->TVA_14);
+                    $rd->addChild('tva', $row->TVA_d14);
                     $rd->addChild('ttc', $row->M_TTC);
                     $refF = $rd->addChild('refF');
                     $refF->addChild('if', $row->ID_fiscale);
@@ -125,7 +125,7 @@ class XMLController extends Controller
                     $rd->addChild('num', $row->N_facture);
                     $rd->addChild('des', $row->Designation);
                     $rd->addChild('mht', $row->M_HT_20);
-                    $rd->addChild('tva', $row->TVA_20);
+                    $rd->addChild('tva', $row->TVA_d20);
                     $rd->addChild('ttc', $row->M_TTC);
                     $refF = $rd->addChild('refF');
                     $refF->addChild('if', $row->ID_fiscale);

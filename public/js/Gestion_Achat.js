@@ -150,6 +150,7 @@ $(document).ready(function () {
       success: function (response) {
           // Je récupère la réponse du fichier PHP
           toastr.success(response.messages);
+          get_table();
       },
       error: function (response) {
           toastr.error(response.Error);
@@ -158,29 +159,36 @@ $(document).ready(function () {
 
   });
   $("#vider").on("click", function (e) {
- 
     var Exercice = $("#Exercice").val();
     var periode = $("#periode").val();
-    
-   
-  
-    jQuery.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
+    $("#delete_periode").val(periode);
+    $("#delete_exercice").val(Exercice)
 
-      url: "./viderTable/"+Exercice+"/"+ periode,
-      type: "get", // Le nom du fichier indiqué dans le formulaire
-      data:formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-  
+  });
+  $("#Delet_periode").on("submit", function (e) {
+ 
+    e.preventDefault();
+    var $this = jQuery(this);
+    var formData = jQuery($this).serializeArray();
+    jQuery.ajax({
+      url: $this.attr("action"),
+      type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+      data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+      // dataFilter: 'json', //forme data
       success: function (response) {
-          // Je récupère la réponse du fichier PHP
-          toastr.success(response.messages);
+        // Je récupère la réponse du fichier PHP
+        toastr.options = {
+          progressBar: true,
+          closeButton: true,
+        };
+        toastr.success(response.message, { timeOut: 12000 });
+        jQuery("#Delet_Achat").trigger("click");
+        table_Achat();
       },
       error: function (response) {
-          toastr.error(response.Error);
+        toastr.error(response.danger);
       },
-  });
+    });
 
   });
   $("#Delet_Achat").on("submit", function (e) {
@@ -216,7 +224,7 @@ $(document).ready(function () {
   $('#frs').on('select2:select', function (e) {
     // myFunction();
     let value = $('#frs').val();
-
+    console.log(value);
     jQuery.ajax({
       url: "./get_FRS/" + value,
       type: "GET",
@@ -228,7 +236,7 @@ $(document).ready(function () {
           $("#id_fiscal").val($tabledata.ID_fiscale);
           $("#desc").val($tabledata.Designation);
           $("#n_compt").val($tabledata.Num_compte_comptable);
-          // myFunction();
+  
         });
 
       },
@@ -895,7 +903,7 @@ function calcul_ttc1() {
       ttc4=0;
     }
     
-      $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
+      $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)).toFixed(2));
     
   
   });tva_didu();
@@ -942,7 +950,7 @@ function calcul_ttc2() {
     ttc4=0;
   }
   
-    $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
+    $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)).toFixed(2));
 });tva_didu();
 }
 function calcul_ttc3() {
@@ -989,7 +997,7 @@ function calcul_ttc3() {
       ttc4=0;
     }
     
-    $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));}
+    $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));}
 });tva_didu();
 }
 function calcul_ttc4() {
@@ -1036,7 +1044,7 @@ function calcul_ttc4() {
       ttc3=0;
     }
     
-      $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));}
+      $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));}
 });tva_didu();
 }
 function calcul_tva() {
@@ -1082,7 +1090,7 @@ function calcul_tva() {
           ttc4=0;
         }
         
-        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4).toFixed(2)));
       }}}
     }tva_didu();
 
@@ -1129,7 +1137,7 @@ function calcul_tva2() {
            ttc4=0;
          }
          
-         $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+         $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }
   }}tva_didu();
@@ -1176,7 +1184,7 @@ function calcul_tva3() {
             ttc4=0;
           }
           
-          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+          $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }}}tva_didu();
   });
@@ -1219,7 +1227,7 @@ function calcul_tva4() {
             ttc4=0;
           }
           
-          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+          $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }tva_didu();
   }
@@ -1264,7 +1272,7 @@ function calcul_HT() {
           ttc4=0;
         }
         
-        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }
   }tva_didu();}});
@@ -1308,7 +1316,7 @@ function calcul_HT2() {
           ttc4=0;
         }
         
-        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }
   }tva_didu();}});
@@ -1352,7 +1360,7 @@ function calcul_HT3() {
           ttc4=0;
         }
         
-        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }
   }tva_didu();}});
@@ -1396,7 +1404,7 @@ function calcul_HT4() {
           ttc4=0;
         }
         
-        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }
   }tva_didu();}});
@@ -1406,6 +1414,7 @@ function tva_didu() {
   let tva_1 = $("#tva_1").val();
   let tva_2 = $("#tva_2").val();
   let tva_3 = $("#tva_3").val();
+  let tva_4 = $("#tva_4").val();
   let prorata = $("#prorata").val();
   if(prorata!=''){
   if (tva_1 != '') {
@@ -1419,13 +1428,20 @@ function tva_didu() {
   if (tva_3 != '') {
     let tva_did = tva_3 * prorata / 100;
     $("#tva_d3").val(tva_did);
-  }}else{
+  }
+  if (tva_4 != '') {
+    let tva_did = tva_4 * prorata / 100;
+    $("#tva_d4").val(tva_did);
+  }
+}else{
     if (tva_1 != '') {
     $("#tva_d1").val(tva_1);}
     if (tva_2 != '') {
     $("#tva_d2").val(tva_2);}
     if (tva_3 != '') {
     $("#tva_d3").val(tva_3);}
+    if (tva_4 != '') {
+      $("#tva_d4").val(tva_4);}
   }
   
 }
@@ -1599,6 +1615,8 @@ function dataTable($tabledata)
                     document.getElementById("date_fact").value = responce.get_achatb.Date_facture;
                     document.getElementById("date_p").value = responce.get_achatb.Date_payment;
                     document.getElementById("MTttc").value =responce.get_achatb.M_TTC;
+                    document.getElementById("n_compt").value =responce.get_achatb.Num_compte_comptable;
+
                     // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
                     document.getElementById("prorata").value = responce.get_achatb.Prorata;             
                     if(responce.get_achatb.Taux7==7)
@@ -1760,6 +1778,7 @@ function dataTable($tabledata)
         print: true,
         download: true,
         headerFilter:"input"
+        
       },
       {
         title: "Racine",
@@ -1769,6 +1788,7 @@ function dataTable($tabledata)
         print: true,
         download: true,
         headerFilter:"input"
+        
       },
       {
         title: "Date_fact",
@@ -1777,6 +1797,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         print: true,
         download: true,
+        headerFilter:"input"
       },
       {
         title: "Date_payement",
@@ -1785,6 +1806,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         print: true,
         download: true,
+        headerFilter:"input"
       },
       {
         title: "ID_FIscal",
@@ -2193,6 +2215,7 @@ function viderChamps(){
     document.getElementById("MHT_1").value = '';
     document.getElementById("tva_1").value = '';
     document.getElementById("ttc1").value = '';
+    document.getElementById("n_compt").value = '';
 
     var selectElement = document.getElementById("racine");
    for (var i = 0; i < selectElement.options.length; i++) {
@@ -2204,7 +2227,16 @@ function viderChamps(){
    var event = new Event('change');
    selectElement.dispatchEvent(event);
   
-    
+   var selectElement = document.getElementById("charge");
+   for (var i = 0; i < selectElement.options.length; i++) {
+   var option = selectElement.options[i]; if (option.value == "null") {
+    option.selected = true;
+    break; 
+     }
+    }
+   var event = new Event('change');
+   selectElement.dispatchEvent(event);
+
      document.getElementById("MHT_2").value = '';
      document.getElementById("tva_2").value = '';
      document.getElementById("ttc2").value = '';
