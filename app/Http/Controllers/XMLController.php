@@ -62,7 +62,7 @@ class XMLController extends Controller
             $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
             $xml->addChild('annee', $data[0]->Exercice);
             $xml->addChild('periode', $data[0]->prRegime);
-            $xml->addChild('regime', $data[0]);
+            $xml->addChild('regime', $reg);
             foreach ($data as $row) {
  
               
