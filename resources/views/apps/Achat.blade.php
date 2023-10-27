@@ -613,9 +613,7 @@
                                             </div>
                                           </div>
                                          <!--end modal delete -->
-<<<<<<< HEAD
  <!-- Debut impo model -->
-=======
                                         <!--start modal delete All table -->
                                             <div id="delet_All_table" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
                                             <div class="modal-dialog">
@@ -643,7 +641,6 @@
                                             </div>
                                          </div>
                                          <!--end modal delete All table -->
->>>>>>> a8ccb8161db05a2915465c119fc73eb0572233a4
 
  <div class="modal fade bd-impo"  role="dialog"
                                             aria-labelledby="myLargeModalLabel" aria-hidden="true">

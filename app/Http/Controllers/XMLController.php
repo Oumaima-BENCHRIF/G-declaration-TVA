@@ -46,27 +46,29 @@ class XMLController extends Controller
         // Ajoutez les données à la structure XML manuellement.
         if($data->isNotEmpty()){
             $cpt= $cpt+1;
-            foreach ($data as $row) {
- 
-                $regime = regime::select('regimes.libelle')
-                ->where('regimes.deleted_at', '=', NULL)
-                ->where('regimes.id', '=',$row->FK_regime)->first();
-                $reg=0;
-                if($regime==='Mensuel')
-                {
-                    $reg=1;
-                }else{
-                    if($regime==='trimestriel'){
-                        $reg=2;
-                    }
-
+            $regime = regime::select('regimes.*')
+            ->where('regimes.deleted_at', '=', NULL)
+            ->where('regimes.id', '=',$data[0]->FK_regime)->first();
+            $reg=0;
+            if($regime->libelle=='Mensuel')
+            {
+                $reg=1;
+            }else{
+                if($regime->libelle=='trimestriel'){
+                    $reg=2;
                 }
 
+            }
+            $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
+            $xml->addChild('annee', $data[0]->Exercice);
+            $xml->addChild('periode', $data[0]->prRegime);
+            $xml->addChild('regime', $data[0]);
+            foreach ($data as $row) {
+ 
+              
+
                 if (!empty($row->M_HT_7) && !empty($row->TVA_7)) {
-                    $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
-                    $xml->addChild('annee', $row->Exercice);
-                    $xml->addChild('periode', $row->prRegime);
-                    $xml->addChild('regime', $reg);
+               ;
                     $releveDeductions = $xml->addChild('releveDeductions');
                     $rd = $releveDeductions->addChild('rd');
                     $rd->addChild('ord', $cpt);
@@ -88,24 +90,12 @@ class XMLController extends Controller
                     $cpt= $cpt+1;
                 }
                 if (!empty($row->M_HT_10) && !empty($row->TVA_10)) {
-                    $regime = regime::select('regimes.libelle')
-                    ->where('regimes.deleted_at', '=', NULL)
-                    ->where('regimes.id', '=',$row->FK_regime)->first();
-                    $reg=0;
-                    if($regime==='Mensuel')
-                    {
-                        $reg=1;
-                    }else{
-                        if($regime==='trimestriel'){
-                            $reg=2;
-                        }
+                 
     
-                    }
-    
-                    $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
-                    $xml->addChild('annee', $row->Exercice);
-                    $xml->addChild('periode', $row->prRegime);
-                    $xml->addChild('regime', $reg);
+                    // $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
+                    // $xml->addChild('annee', $row->Exercice);
+                    // $xml->addChild('periode', $row->prRegime);
+                    // $xml->addChild('regime', $reg);
                     $releveDeductions = $xml->addChild('releveDeductions');
                     $rd = $releveDeductions->addChild('rd');
                     $rd->addChild('ord',  $cpt);
@@ -127,23 +117,11 @@ class XMLController extends Controller
                     $cpt= $cpt+1;
                 }
                 if (!empty($row->M_HT_14) && !empty($row->TVA_14)) {
-                    $regime = regime::select('regimes.libelle')
-                    ->where('regimes.deleted_at', '=', NULL)
-                    ->where('regimes.id', '=',$row->FK_regime)->first();
-                    $reg=0;
-                    if($regime==='Mensuel')
-                    {
-                        $reg=1;
-                    }else{
-                        if($regime==='trimestriel'){
-                            $reg=2;
-                        }
-    
-                    }
-                    $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
-                    $xml->addChild('annee', $row->Exercice);
-                    $xml->addChild('periode', $row->prRegime);
-                    $xml->addChild('regime', $reg);
+                 
+                    // $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
+                    // $xml->addChild('annee', $row->Exercice);
+                    // $xml->addChild('periode', $row->prRegime);
+                    // $xml->addChild('regime', $reg);
                     $releveDeductions = $xml->addChild('releveDeductions');
                     $rd = $releveDeductions->addChild('rd');
                     $rd->addChild('ord',  $cpt);
@@ -165,24 +143,11 @@ class XMLController extends Controller
                     $cpt= $cpt+1;
                 }
                 if (!empty($row->M_HT_20) && !empty($row->TVA_20)) {
-                    $regime = regime::select('regimes.libelle')
-                    ->where('regimes.deleted_at', '=', NULL)
-                    ->where('regimes.id', '=',$row->FK_regime)->first();
-                    $reg=0;
-                    if($regime==='Mensuel')
-                    {
-                        $reg=1;
-                    }else{
-                        if($regime==='trimestriel'){
-                            $reg=2;
-                        }
-    
-                    }
-    
-                    $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
-                    $xml->addChild('annee', $row->Exercice);
-                    $xml->addChild('periode', $row->prRegime);
-                    $xml->addChild('regime', $reg);
+                // 
+                    // $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
+                    // $xml->addChild('annee', $row->Exercice);
+                    // $xml->addChild('periode', $row->prRegime);
+                    // $xml->addChild('regime', $reg);
                     $releveDeductions = $xml->addChild('releveDeductions');
                     $rd = $releveDeductions->addChild('rd');
                     $rd->addChild('ord',  $cpt);
