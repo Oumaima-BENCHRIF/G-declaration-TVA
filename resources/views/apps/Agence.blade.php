@@ -186,7 +186,7 @@
                                                 </div></div>
                                                   
                                                 <div class="col-md-6 mb-3 check">
-                                                 <div class="radio-inline">
+                                                    <div class="radio-inline">
                                                         <label class="radio radio-success">
                                                             <input type="radio" id="non" name="radios5"    checked="checked">
                                                             <span></span>Non</label>
@@ -194,6 +194,7 @@
                                                             <input type="radio" id="oui"  name="radios5" >
                                                             <span></span> <span class="txt">Assujettie partielle à la tvA&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>    Oui  </label>
                                                     </div>
+                                                    
                                                 </div>
                                                 </div>
 <!--                                                 
@@ -205,6 +206,8 @@
                                                    
                                                 </div>
                                             </form>
+
+                                           
                                             <div class="" style="text-align: right;">
                                             <button class="btn btn btn-secondary " type="button"  id="Update" name="Update" onclick="update_agence()"><i class="las la-edit"></i>Update</button>
                                             </div>
