@@ -613,6 +613,9 @@
                                             </div>
                                           </div>
                                          <!--end modal delete -->
+<<<<<<< HEAD
+ <!-- Debut impo model -->
+=======
                                         <!--start modal delete All table -->
                                             <div id="delet_All_table" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
                                             <div class="modal-dialog">
@@ -640,7 +643,180 @@
                                             </div>
                                          </div>
                                          <!--end modal delete All table -->
+>>>>>>> a8ccb8161db05a2915465c119fc73eb0572233a4
 
+ <div class="modal fade bd-impo"  role="dialog"
+                                            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+
+                                                        <button type="button" class="close m-0" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                        <h5 class="modal-title" id="header-text">Importer</h5>
+
+                                                    </div>
+                                                    <form  method="POST" id="Add_Achat"  action="{{ route('dashboard.StoresAchat') }}">
+                                                    @csrf 
+                                                    <div class="modal-body " id="mymodel" style="text-align: end;">
+
+
+
+
+                                                    <div class="row">
+                                                     <div class="col-md-4 mb-3"></div>
+
+
+
+
+                                                        <div class="row border border-light p-2 m-1"
+                                                            style="    background: #f0f6ff;">
+                                                            <div class="row" id="rowracine"                   style="width:-webkit-fill-available">
+
+                                                                <div class="col-md-2 mb-3 ">
+                                                                <label for="Date_payement">Date payement</label>
+                                                                    <input type="text" class="form-control" id="Date_payement"  name="Date_payement" placeholder="Date payement">
+
+                                                                </div>
+                                                                <div class="col-md-2 mb-3 ">
+                                                                    <label for="validationCustom03">TVA déductible</label>
+                                                                    <input type="text" class="form-control" id="TVA_deductible"  name="TVA_deductible" placeholder="TVA déductible">
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="validationCustom03">Prorata</label>
+                                                                    <input type="text" class="form-control"id="Prorata" name="Prorata" placeholder="Prorata">
+                                                                </div>
+                                                                <div class="col-md-2 mb-3 ">
+                                                                    <label for="validationCustom03">Mode payement</label>
+                                                                    <input type="text" class="form-control"id="mode_p" name="mode_p" placeholder="Mode payement">
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label>Racine</label>
+                                                                    <input type="text" class="form-control" id="Racine" name="Racine" placeholder="Racine">
+                                                                </div>
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="Date_facture">Date facture</label>
+                                                                    <input type="text" class="form-control"id="Date_facture" name="Date_facture"  placeholder="Date_facture">
+                                                                </div>
+
+                                                              </div>
+                                                              <!--  -->
+                                                             <div class="row" id="rowracine1" style="width: -webkit-fill-available">
+
+                                                                <div class="col-md-2 mb-3 ">
+                                                                    <label for="ID_fiscale">ID fiscale</label>
+                                                                    <input type="text" class="form-control" id="ID_fiscale"  name="ID_fiscale" placeholder="ID fiscale">
+                                                                </div>
+
+                                                                <div class="col-md-2 mb-3 ">
+                                                                    <label for="ICE">ICE</label>
+                                                                    <input type="text" class="form-control" id="ICE"  name="ICE" placeholder="ICE">
+                                                                </div>
+
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="FRS">FRS</label>
+                                                                    <input type="text" class="form-control" id="FRS"  name="FRS" placeholder="FRS">
+                                                                </div>
+
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="TTC">TTC</label>
+                                                                    <input type="text" class="form-control" id="TTC"  name="TTC" placeholder="TTC">
+                                                                </div>
+
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="TVA">TVA</label>
+                                                                    <input type="text" class="form-control" id="TVA"  name="TVA" placeholder="TVA">
+                                                                </div>
+
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="Taux">Taux</label>
+                                                                    <input type="text" class="form-control" id="Taux"  name="Taux" placeholder="Taux">
+                                                                </div>
+
+
+
+                                                            </div>
+                                                            <div class="row" id="rowracine2"   style="width:-webkit-fill-available">
+                                                            <div class="col-md-2 mb-3"></div>
+                                                                <div class="col-md-2 mb-3"></div>
+                                                                <div class="col-md-2 mb-3"></div>
+                                                            <div class="col-md-2 mb-3 ">
+                                                                    <label for="MHT">MHT</label>
+                                                                    <input type="text" class="form-control" id="MHT"  name="MHT" placeholder="MHT">
+                                                                </div>
+                                                                <div class="col-md-2 mb-3 ">     
+                                                                    <label for="Designation">Designation</label>
+                                                                    <input type="text" class="form-control" id="Designation"  name="Designation" placeholder="Designation">
+                                                                </div>
+
+                                                                <div class="col-md-2 mb-3">
+                                                                    <label for="NFACT">NFACT</label>
+                                                                    <input type="text" class="form-control" id="NFACT"  name="NFACT" placeholder="NFACT">
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                        <!-- importation -->
+                                                        <!-- <div class="w-100 mb-4 text-right">
+                                                            <form>
+                                                                <label for="file-upload" class="custom-file-upload mb-0">
+                                                                    <a title="{{__('Attach a file')}}" class="btn btn-sm btn-primary  mr-2 pointer ">
+                                                                        {{__('Add files')}}
+                                                                    </a>
+                                                                </label>
+                                                                <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">
+                                                            </form>
+                                                         </div> -->
+                                                         <!--  -->
+                                                        <!-- <div class="d-flex mb-4"> -->
+                                                            <!-- <div class="w-100">
+                                                                <div class="">
+                                                                    <div class="card mb-1 shadow-none border border-light">
+                                                                        <div class="p-2">
+                                                                            <div class="row align-items-center">
+                                                                                <div class="col-auto">
+                                                                                    <div class="avatar-sm">
+                                                                                                <span class="avatar-sm background-success-teal text-white rounded d-flex align-center justify-content-center">
+                                                                                                    .JPG
+                                                                                                </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col pl-0">
+                                                                                    <a href="javascript:void(0);" class="text-success-teal strong">{{__('design-changes.jpg')}}</a>
+                                                                                    <p class="mb-0">3.25 MB</p>
+                                                                                </div>
+                                                                                <div class="col-auto">
+                                                                                Button  
+                                                                                    <a href="javascript:void(0);" class="font-25 text-danger mr-2">
+                                                                                        <i class="las la-times-circle"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> -->
+                                                        <!-- </div> -->
+                                                         <!--  -->
+                                                    </div>
+
+                                                        <div class="modal-footer d-block">
+                                                            <div class="modal-footer justify-content-center">
+                                                                <button class="btn btn-sm btn-danger" data-dismiss="modal">{{__('Close')}}</button>
+                                                                <button class="btn btn-sm btn-primary">{{__('Create')}}</button>
+                                                            </div>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                            </div> </div>
+                                        </div>
+                                         <!-- model -->
                             </div>
                         </div>
                     </div>
