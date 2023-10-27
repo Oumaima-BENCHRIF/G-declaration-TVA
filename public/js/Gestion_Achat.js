@@ -157,6 +157,32 @@ $(document).ready(function () {
   });
 
   });
+  $("#vider").on("click", function (e) {
+ 
+    var Exercice = $("#Exercice").val();
+    var periode = $("#periode").val();
+    
+   
+  
+    jQuery.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+
+      url: "./viderTable/"+Exercice+"/"+ periode,
+      type: "get", // Le nom du fichier indiqué dans le formulaire
+      data:formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+  
+      success: function (response) {
+          // Je récupère la réponse du fichier PHP
+          toastr.success(response.messages);
+      },
+      error: function (response) {
+          toastr.error(response.Error);
+      },
+  });
+
+  });
   $("#Delet_Achat").on("submit", function (e) {
     e.preventDefault();
     var $this = jQuery(this);
@@ -1474,14 +1500,15 @@ function table_Achat() {
   });
 }
 function dataTable($tabledata)
-{ console.log($tabledata);
-  $tabledata.forEach(function(row) {
-    var nFactureParts = row.N_facture.split(' ');
-    if (nFactureParts.length === 2) {
-        row.N_facture = nFactureParts[0] + nFactureParts[1];
-    }
-    // If N_facture does not contain two parts, leave it as is
-});
+{ 
+  console.log($tabledata);
+//   $tabledata.forEach(function(row) {
+//     var nFactureParts = row.N_facture.split(' ');
+//     if (nFactureParts.length === 2) {
+//         row.N_facture = nFactureParts[0] + nFactureParts[1];
+//     }
+//     If N_facture does not contain two parts, leave it as is
+// });
   var table = new Tabulator("#Liste-Achat", {
     printAsHtml: true,
     printStyled: true,
@@ -1489,6 +1516,8 @@ function dataTable($tabledata)
     data: $tabledata,
     layout: "fitColumns",
     pagination: "local",
+    renderHorizontal:"virtual",
+    height:"500px",
     printHeader: "",
     printFooter: "",
     paginationSize: 40,
@@ -1782,6 +1811,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         print: true,
         download: true,
+        headerFilter:"input"
       },
       {
         title: "TTC",
@@ -2159,9 +2189,7 @@ function viderChamps(){
   document.getElementById("date_p").value = '';
   document.getElementById("MTttc").value ='';
   // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
-  document.getElementById("prorata").value = '';
-
-   
+  // document.getElementById("prorata").value = '';
     document.getElementById("MHT_1").value = '';
     document.getElementById("tva_1").value = '';
     document.getElementById("ttc1").value = '';

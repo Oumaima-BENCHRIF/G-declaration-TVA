@@ -71,7 +71,7 @@ class AchatController extends Controller
             $achat->Date_payment=$request->input('date_p');
             $achat->Designation=$request->input('desc');
             $achat->M_TTC=$request->input('MTttc');
-             
+            $achat->FK_fait_generateur=$request->input('faitG');   
             $achat->Exercice=$request->input('Exercice');   
             $achat->FK_regime=$request->input('periode');     
             $achat->FK_type_payment=$request->input('Mpayement');
@@ -876,12 +876,9 @@ public function Update(Request $request)
     try {
         // dd($request->delete_id_achat);
         $check = achat::where('id', $request->delete_id_achat)->first();
-        
         if ($check != null) {
             $niveauurgence = achat::find($request->delete_id_achat);
             $niveauurgence->delete();
-            
-          
             return response()->json([
                 'status' => 200,
                 'message' => 'Suppression avec succès',
@@ -1102,19 +1099,19 @@ public function Storesjson(Request $request)
         ->where('type_payments.Num_payment',$request->Mode_p)->first();
         $achat->FK_type_payment=$payments->id;
 
-//         $order=achat::select('achats.order')
-//         ->where('achats.deleted_at', '=', NULL)
-//         ->where('achats.Exercice',$request->Exercice)
-//         ->where('achats.FK_regime',$request->periode) ->latest()->First(); 
+ //         $order=achat::select('achats.order')
+        //         ->where('achats.deleted_at', '=', NULL)
+        //         ->where('achats.Exercice',$request->Exercice)
+       //         ->where('achats.FK_regime',$request->periode) ->latest()->First(); 
       
-// if($order)
-// {
-//     $ord=$order->order+1;
+        // if($order)
+         // {
+        //     $ord=$order->order+1;
    
-// }else
-// {
-//     $ord=1;
-// }
+        // }else
+        // {
+        //     $ord=1;
+        // }
 
 
         $nfac= $request->Nfact;
@@ -1349,6 +1346,32 @@ public function Storesjson(Request $request)
     //         return response()->download($excelFilePath)->deleteFileAfterSend(true);
 
     // }
+    function viderTable($Exercice,$periode){
+        try {
+       
+            $check = achat::where('Exercice', $Exercice)
+            ->where('FK_regime', $periode)->get();
+            if ($check != null) {
+              
+                $check->delete();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Suppression avec succès',
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 200,
+                    'danger' => 'Vérifiez votre données',
+                ]);
+            }
+        } catch (\Exception $e) {
+    
+            return redirect()
+                ->back()
+                ->with('danger', 'Merci de vérifier la connexion internet, si non Contacter le service IT')
+                ->withInput();
+        }
+    }
 
 }
 
