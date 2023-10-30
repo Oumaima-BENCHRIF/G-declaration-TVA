@@ -160,7 +160,7 @@ class XMLController extends Controller
                     $refF->addChild('if', $row->ID_fiscale);
                     $refF->addChild('nom', $row->nomFournisseurs);
                     $refF->addChild('ice', $row->NICE);
-                    $rd->addChild('tx', $row->Taux20);
+                    $rd->addChild('tx',number_format( $row->Taux20,2));
                     $rd->addChild('prorata', $row->Prorata);
                     $mp = $rd->addChild('mp');
                     $mp->addChild('id', $row->Num_payment);

@@ -245,6 +245,12 @@ $(document).ready(function () {
   });
   $('#racine').on('select2:select', function (e) {
     tauxRacine1();
+    // var isReadOnly = $("#tva_1").prop('readonly');
+    // if(!isReadOnly)
+    // {
+      calcul_tva();
+    // }
+   
 
   });
   $('#racine2').on('select2:select', function (e) {
@@ -569,6 +575,8 @@ if (selectedOption.newTag) {
 });
 $("#ajou").on("click", function (e) {
   $("#rowracine").css("display", "inherit");
+  $("#add-btn").css("display", "inline");
+  // $("#col-add").css("text-align", "center");
   $("#rowracine3").css("display", "none");
   $("#rowracine1").css("display", "none");
   $("#rowracine2").css("display", "none");
@@ -724,27 +732,34 @@ function Liste_Racine() {
     dataType: "json",
     success: function (responce) {
       var $lignes = '<option value="null">Sélectionner</option>';
+      var categories = {};
       jQuery.each(responce.Liste_Racine, function (key, item) {
-        $lignes =
-          $lignes +
-          '<option value="' +
-          item.id +
-          '">' +
-          item.Num_racines + '  | ' + item.Nom_racines + '  | ' + item.Taux
-        "</option>";
+      
 
-        var optgroup = $('select#racine optgroup[label="' + item.categorie + '"]');
-        if (optgroup.length === 0) {
-          optgroup = $('<optgroup label="' + item.categorie + '">');
-          $('select#racine').append(optgroup);
+        var option = '<option value="' + item.id + '">' + item.Num_racines + ' | ' + item.Nom_racines + ' | ' + item.Taux + '</option>';
+        if (!categories[item.categorie]) {
+          categories[item.categorie] = [];
         }
-        optgroup.append(option);
+        categories[item.categorie].push(option);
+
+
       });
-      $("#racine").html($lignes);
-      // $("#racine4").html($lignes);
+      var $lignes = '<option value="null">Sélectionner</option>';
+for (var categorie in categories) {
+  $lignes += '<optgroup label="' + categorie + '">' + categories[categorie].join('') + '</optgroup>';
+}
+
+$("#racine").html($lignes);
       $("#racine2").html($lignes);
        $("#racine3").html($lignes);
        $("#racine4").html($lignes);
+
+$('select#racine').select2();
+$('select#racine2').select2();
+$('select#racine3').select2();
+$('select#racine4').select2();
+    
+    
     },
   });
 }

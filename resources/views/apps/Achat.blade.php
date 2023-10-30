@@ -407,7 +407,7 @@
                                                             style="    background: #f0f6ff;">
                                                             <div class="row"    id="rowracine"                        style="width:-webkit-fill-available">
                                                              
-                                                                <div class="col-md-2 mb-3 col-add pt-3">
+                                                                <div class="col-md-2 mb-3 col-add pt-3" id="col-add">
                                                                 <button type="button" id="add-btn" class="add">+</button>
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 ">
@@ -436,7 +436,7 @@
                                                                         required>
 
                                                                 </div>
-                                                                <div class="col-md-2 mb-3 d-none">
+                                                                <div class="col-md-2 mb-3 ">
 
                                                                     <label for="taux1"> % Taux </label>
                                                                     <input type="text" class="form-control"
