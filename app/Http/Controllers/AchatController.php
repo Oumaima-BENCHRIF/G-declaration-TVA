@@ -404,7 +404,6 @@ class AchatController extends Controller
             $table_achat2->M_TTC=$achat->M_TTC;
             $table_achat2->Prorata=$achat->Prorata;
             $table_achat2->TVA_d7=$achat->TVA_d7;  
-     
             $table_achat2->Exercice=$achat->Exercice;   
             $table_achat2->FK_regime=$achat->FK_regime;     
             $table_achat2->FK_type_payment=$achat->FK_type_payment;
@@ -418,6 +417,7 @@ class AchatController extends Controller
             $table_achat2->FK_racines_7=$achat->FK_racines_7;
             $table_achat2->num_racine_7=$achat->num_racine_7;
             $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
+           
             $table_achat3[]=$table_achat2;
             $ord=$ord+1;
         }
@@ -449,8 +449,8 @@ class AchatController extends Controller
         $totalTTC=$totalTTC+$achat->TTC_10;
             $table_achat2->FK_racines_7=$achat->FK_racines_10;
             $table_achat2->num_racine_7=$achat->num_racine_10;
-   
             $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
+           
             $table_achat3[]=$table_achat2;
             $ord=$ord+1;
         }
@@ -482,8 +482,8 @@ class AchatController extends Controller
         $totalTTC=$totalTTC+$achat->TTC_14;
             $table_achat2->FK_racines_7=$achat->FK_racines_14;
             $table_achat2->num_racine_7=$achat->num_racine_14;
-
             $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
+          
             $table_achat3[]=$table_achat2;
             $ord=$ord+1;
         }
@@ -516,6 +516,7 @@ class AchatController extends Controller
             $table_achat2->FK_racines_7=$achat->FK_racines_20;
             $table_achat2->num_racine_7=$achat->num_racine_20;
             $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
+           
             $table_achat3[]=$table_achat2;
             $ord=$ord+1;
         }
@@ -1014,6 +1015,11 @@ public function generatePDF($periode,$Exercice)
         $table_achat2->FK_racines_7=$achat->FK_racines_7;
         $table_achat2->num_racine_7=$racine->Num_racines;
         $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
+        $cat = racine::select('racines.categorie')
+        ->where('racines.id',$achat->FK_racines_7)
+        ->where('racines.deleted_at', '=', NULL)->first();
+        $table_achat2->TTC_10=$cat->categorie;
+        // dd($cat);
         $table_achat3[]=$table_achat2;
         $ord=$ord+1;
     }
@@ -1047,6 +1053,11 @@ public function generatePDF($periode,$Exercice)
         $table_achat2->FK_racines_7=$achat->FK_racines_10;
         $table_achat2->num_racine_7=$racine->Num_racines;
         $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
+        $cat = racine::select('racines.categorie')
+        ->where('racines.id',$achat->FK_racines_10)
+        ->where('racines.deleted_at', '=', NULL)->first();
+        $table_achat2->TTC_10=$cat->categorie;
+        // dd($cat);
         $table_achat3[]=$table_achat2;
         $ord=$ord+1;
     }
@@ -1080,6 +1091,11 @@ public function generatePDF($periode,$Exercice)
         $table_achat2->FK_racines_7=$achat->FK_racines_14;
         $table_achat2->num_racine_7=$racine->Num_racines;
         $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
+        $cat = racine::select('racines.categorie')
+        ->where('racines.id',$achat->FK_racines_14)
+        ->where('racines.deleted_at', '=', NULL)->first();
+        $table_achat2->TTC_10=$cat->categorie;
+        // dd($cat);
         $ord=$ord+1;
         $table_achat3[]=$table_achat2;
 
@@ -1114,6 +1130,11 @@ public function generatePDF($periode,$Exercice)
         $table_achat2->FK_racines_7=$achat->FK_racines_20;
         $table_achat2->num_racine_7=$racine->Num_racines;
         $table_achat2->FK_fournisseur=$achat->FK_fournisseur;
+        $cat = racine::select('racines.categorie')
+        ->where('racines.id',$achat->FK_racines_20)
+        ->where('racines.deleted_at', '=', NULL)->first();
+        $table_achat2->TTC_10=$cat->categorie;
+// dd($cat);
         $table_achat3[]=$table_achat2;
         $ord=$ord+1;
     }
