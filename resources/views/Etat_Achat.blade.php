@@ -270,6 +270,7 @@
       
         @php
         $currentGroup = null ;
+        $Taux=null;
         $TOT_MHT=0;
         
         $TOT_TTC=0;
@@ -284,7 +285,7 @@
                 @if( $currentGroup !== null)
                 echo "<tr class="text-bold">
             <td class="bg-gray"> </td>
-            <td colspan="6" class="text-center "> {{  $currentGroup .'     '. $achat->M_HT_14.'   '.$achat->Taux7 }}  %</td>
+            <td colspan="6" class="text-center "> {{  $currentGroup .'     '. $achat->M_HT_14.'   '.$Taux }}  %</td>
             <td>{{ $totalHT }}  </td>
             <td class="bg-gray">  </td>
             <td> {{ $totalTVA }}</td>
@@ -298,6 +299,7 @@
                 $totalHT = 0;
                 $totalTTC = 0;
                  $currentGroup = $achat->num_racine_7;
+                 $Taux = $achat->Taux7;
                  @endphp
                  @endif
         <tr>
@@ -308,12 +310,12 @@
                     <td  style="height: 30px;">{{ $achat->TVA_20 }}</td>
                     <td  style="height: 30px;">{{ $achat->TVA_14 }}</td>
                     <td  style="height: 30px;">{{ $achat->Designation }}</td>
-                    <td  style="height: 30px;">{{ $achat->M_HT_7 }}</td>
+                    <td  style="height: 30px;">{{ number_format($achat->M_HT_7,2) }}</td>
                     @php $TOT_MHT+=$achat->M_HT_7 @endphp
                     <td  style="height: 30px;">{{ $achat->Taux7 }}</td>
-                    <td  style="height: 30px;">{{ $achat->TVA_7 }}</td>
+                    <td  style="height: 30px;">{{ number_format($achat->TVA_7,2) }}</td>
                     @php $totalTVAG+=$achat->TVA_7 @endphp
-                    <td  style="height: 30px;">{{ $achat->TTC_7 }}</td>
+                    <td  style="height: 30px;">{{ number_format($achat->TTC_7,2) }}</td>
                     @php $TOT_TTC+=$achat->TTC_7 @endphp
                     <td  style="height: 30px;">{{ $achat->Date_payment }}</td>
       

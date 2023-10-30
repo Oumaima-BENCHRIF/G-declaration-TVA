@@ -35,6 +35,8 @@ class AgenceController extends Controller
             $agence->FK_Regime = $request->input('FK_Regime');
             $agence->FK_fait_generateurs = $request->input('FK_fait_generateurs');
             $agence->Exercice = $request->input('Exercice');
+            $agence->code = $request->input('code');
+            $agence->chemain = $request->input('Chemain');
             if($request->input('prorata')=='')
             {
                 $agence->Prorata=100;
@@ -178,7 +180,8 @@ class AgenceController extends Controller
             $update_agence->FK_fait_generateurs = $request->FK_fait_generateurs;
             $update_agence->nomBD = $request->nomBD;
             $update_agence->Exercice = $request->Exercice;
-            $update_agence->Prorata = $request->Prorata;
+            $update_agence->code = $request->code;
+            $update_agence->chemain = $request->Chemain;
             if($request->Prorata!=''){
             $update_agence->Prorata=$request->Prorata;
             }else{

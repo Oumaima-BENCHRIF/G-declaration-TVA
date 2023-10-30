@@ -48,9 +48,9 @@
                 <li class=" {{ active_class(['apps/racine']) }}">
                     <a data-active="{{ is_active_route(['apps/racine']) }}" href="{{ url('/apps/racine') }}"> Racine </a>
                 </li>
-                <li class=" {{ active_class(['apps/Type_payment']) }}">
+                <!-- <li class=" {{ active_class(['apps/Type_payment']) }}">
                     <a data-active="{{ is_active_route(['apps/Type_payment']) }}" href="{{ url('/apps/Type_payment') }}"> Type payment </a>
-                </li>
+                </li> -->
 
                 <li class=" {{ active_class(['apps/compte_charges']) }}">
                     <a data-active="{{ is_active_route(['apps/compte_charges']) }}" href="{{ url('/apps/compte_charges') }}">Compte charges</a>
