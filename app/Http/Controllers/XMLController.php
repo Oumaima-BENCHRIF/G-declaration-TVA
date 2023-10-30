@@ -81,7 +81,7 @@ class XMLController extends Controller
                     $refF->addChild('if', $row->ID_fiscale);
                     $refF->addChild('nom', $row->nomFournisseurs);
                     $refF->addChild('ice', $row->NICE);
-                    $rd->addChild('tx', $row->Taux7);
+                    $rd->addChild('tx', number_format( $row->Taux7,2));
                     $rd->addChild('prorata', $row->Prorata);
                     $mp = $rd->addChild('mp');
                     $mp->addChild('id', $row->Num_payment);
@@ -108,7 +108,7 @@ class XMLController extends Controller
                     $refF->addChild('if', $row->ID_fiscale);
                     $refF->addChild('nom', $row->nomFournisseurs);
                     $refF->addChild('ice', $row->NICE);
-                    $rd->addChild('tx', $row->Taux10);
+                    $rd->addChild('tx', number_format( $row->Taux10,2));
                     $rd->addChild('prorata', $row->Prorata);
                     $mp = $rd->addChild('mp');
                     $mp->addChild('id', $row->Num_payment);
@@ -134,7 +134,7 @@ class XMLController extends Controller
                     $refF->addChild('if', $row->ID_fiscale);
                     $refF->addChild('nom', $row->nomFournisseurs);
                     $refF->addChild('ice', $row->NICE);
-                    $rd->addChild('tx', $row->Taux14);
+                    $rd->addChild('tx', number_format( $row->Taux14,2));
                     $rd->addChild('prorata', $row->Prorata);
                     $mp = $rd->addChild('mp');
                     $mp->addChild('id', $row->Num_payment);
