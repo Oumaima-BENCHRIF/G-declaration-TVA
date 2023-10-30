@@ -68,7 +68,7 @@ class XMLController extends Controller
               
 
                 if (!empty($row->M_HT_7) && !empty($row->TVA_7)) {
-               ;
+               
                     $releveDeductions = $xml->addChild('releveDeductions');
                     $rd = $releveDeductions->addChild('rd');
                     $rd->addChild('ord', $cpt);

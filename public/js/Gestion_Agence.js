@@ -134,6 +134,8 @@ function update_agence() {
   var update_id_agence = $("#update_id_agence").val();
   var Exercice = $("#Exercice").val();
   var Prorata = $("#prorata").val();
+  var code = $("#code").val();
+  var Chemain = $("#Chemain").val();
   formData.push(
     { name: "ICE", value: ICE },
     { name: "Email", value: Email },
@@ -149,11 +151,10 @@ function update_agence() {
     { name: "nomBD", value: "nomBD" },
     { name: "update_id_agence", value: update_id_agence },
     { name: "Exercice", value: Exercice },
+    { name: "Chemain", value: Chemain },
     { name: "Prorata", value: Prorata },
+    { name: "code", value: code },
   );
-
-
-
   jQuery.ajax({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -227,6 +228,8 @@ function viderchamp() {
   document.getElementById("Fax").value = "";
   document.getElementById("Exercice").value = "";
   document.getElementById("prorata").value = "";
+  document.getElementById("Chemain").value = "";
+  document.getElementById("code").value = "";
 
   $lignes = "";
   Liste_Regime();
@@ -350,6 +353,8 @@ function table_Agence() {
                         document.getElementById("Fax").value = item.Fax;
                         document.getElementById("Exercice").value = item.Exercice;
                         document.getElementById("prorata").value = item.Prorata;
+                        document.getElementById("code").value = item.code;
+                        document.getElementById("Chemain").value = item.chemain;
                         
               
                        var idToSelect = item.FK_fait_generateurs;

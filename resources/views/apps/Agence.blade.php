@@ -74,10 +74,7 @@
                                         <form id="Add_Agence"  method="POST"  action="{{ route('dashboard.AddAgence') }}" class="needs-validation" novalidate action="javascript:void(0);">
                                         @csrf 
                                                 <div class="form-row">
-                                                    <div class="col-md-3 mb-3">
-                                                        <label for="Email">Email</label>
-                                                        <input id="Email" name="Email" type="text" class="form-control" placeholder="Email" >
-                                                    </div>
+                                                    
                                                     <div class="col-md-3 mb-3">
                                                         <label for="validationCustom04">ICE</label>
                                                         <input  type="text" class="form-control" id="ICE" name="ICE"
@@ -97,12 +94,15 @@
                                                     <div class="col-md-3 mb-3">
                                                         <label for="nom_succorsale">Nom</label>
                                                         <input type="text" class="form-control" id="nom_succorsale" name="nom_succorsale"
-                                                            placeholder="Nom succursale" required>
+                                                            placeholder="Nom Agence" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Nom.
                                                         </div>
                                                     </div>
-                                                  
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="code">CODE</label>
+                                                        <input id="code" name="code" type="text" class="form-control" placeholder="code" >
+                                                    </div>
                                                      
                                                         <input type="hidden" id="update_id_agence" name="update_id_agence" required>
                                                       
@@ -146,14 +146,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="col-md-3 mb-3">
-                                                    
-                                                        <label for="Exercice">Exercice</label>
-                                                             <select id="Exercice"class="form-control select2 " name="Exercice">
-
-                                                             </select>
-                                                    </div>
-
+                                                  
                                                     <div class="col-md-3 mb-3">
                                                         <label for="Fax">Fax</label>
                                                         <input  type="number" class="form-control" id="Fax" name="Fax"
@@ -171,13 +164,18 @@
                                                         <input type="number" class="form-control" id="Tele" name="Tele"
                                                               placeholder="Téléphone" > 
                                                     </div>
+                                                    <div class="col-md-3 mb-3">
+                                                    
+                                                    <label for="Exercice">Exercice</label>
+                                                         <select id="Exercice"class="form-control select2 " name="Exercice">
+
+                                                         </select>
+                                                </div>
 
                                                    
                                                 </div>
-                                                <div class="form-row">
-                                                <div class="col-md-3 mb-3 pt-3">
-                                                <button class="btn btn-primary" id="Enregistrer"  style="float: inline-start;" name="Enregistrer" type="submit"><i class="las la-check-double"></i>Enregistrer</button>
-                                                </div>
+                                        <div class="form-row">
+                                                  
                                                 <!-- <div class="col-md-3 mb-3"> </div> -->
                                                 <div class="col-md-3 mb-3 ">  
                                             <div id="divPro">
@@ -195,6 +193,20 @@
                                                             <span></span> <span class="txt">Assujettie partielle à la tvA&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>    Oui  </label>
                                                     </div>
                                                     
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                        <label for="Email">Email</label>
+                                                        <input id="Email" name="Email" type="text" class="form-control" placeholder="Email" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                <div class="col-md-3 mb-3 pt-3">
+                                                <button class="btn btn-primary" id="Enregistrer"  style="float: inline-start;" name="Enregistrer" type="submit"><i class="las la-check-double"></i>Enregistrer</button>
+                                                </div>
+                                                <div class="col-md-6 mb-3 pt-3"></div>
+                                                <div class="col-md-3 mb-3 pt-3">
+                                               <label for="chemain">Chemain</label>
+                                                         <input id="Chemain" type="text" class="form-control" name="Chemain"> 
                                                 </div>
                                                 </div>
 <!--                                                 

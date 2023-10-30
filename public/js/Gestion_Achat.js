@@ -1295,8 +1295,8 @@ function calcul_HT2() {
         let ttc = parseFloat(MHT_2) + parseFloat(TVA);
         MHT_2 = parseFloat(MHT_2).toFixed(2);
         ttc = parseFloat(ttc).toFixed(2);
-        $("#tva_2").val(TVA);
-        $("#ttc2").val(ttc);
+        $("#tva_2").val(parseFloat(TVA).toFixed(2));
+        $("#ttc2").val(parseFloat(ttc).toFixed(2));
         let ttc1 = $("#ttc1").val();
         let ttc2 = $("#ttc2").val();
         let ttc3 = $("#ttc3").val();
@@ -1339,8 +1339,8 @@ function calcul_HT3() {
         let ttc = parseFloat(MHT_3) + parseFloat(TVA);
         MHT_3 = parseFloat(MHT_3).toFixed(2);
         ttc = parseFloat(ttc).toFixed(2);
-        $("#tva_3").val(TVA);
-        $("#ttc3").val(ttc);
+        $("#tva_3").val(parseFloat(TVA).toFixed(2));
+        $("#ttc3").val(parseFloat(ttc).toFixed(2));
         let ttc1 = $("#ttc1").val();
         let ttc2 = $("#ttc2").val();
         let ttc3 = $("#ttc3").val();
