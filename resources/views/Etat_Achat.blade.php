@@ -271,6 +271,7 @@
         @php
         $currentGroup = null ;
         $Taux=null;
+        $cat=null;
         $TOT_MHT=0;
         
         $TOT_TTC=0;
@@ -285,7 +286,7 @@
                 @if( $currentGroup !== null)
                 echo "<tr class="text-bold">
             <td class="bg-gray"> </td>
-            <td colspan="6" class="text-center "> {{  $currentGroup .'     '. $achat->M_HT_14.'   '.$Taux }}  %</td>
+            <td colspan="6" class="text-center "> {{  $currentGroup .'     '.$cat.'  :     '. $achat->M_HT_14.'   '.$Taux }}  %</td>
             <td>{{ $totalHT }}  </td>
             <td class="bg-gray">  </td>
             <td> {{ $totalTVA }}</td>
@@ -300,6 +301,7 @@
                 $totalTTC = 0;
                  $currentGroup = $achat->num_racine_7;
                  $Taux = $achat->Taux7;
+                 $cat = $achat->TTC_10;
                  @endphp
                  @endif
         <tr>
@@ -333,7 +335,7 @@
       
         echo "<tr class="text-bold">
             <td class="bg-gray"></td>
-            <td colspan="6" class="text-center"> {{  $achat->num_racine_7 }} {{ $achat->M_HT_14 }} {{ $achat->Taux7 }} %</td>
+            <td colspan="6" class="text-center"> {{  $achat->num_racine_7 }} {{ $achat->TTC_10}}  : {{ $achat->M_HT_14 }} {{ $achat->Taux7 }} %</td>
             <td>{{ $totalHT }}  </td>
             <td class="bg-gray"></td>
             <td > {{ $totalTVA }}</td>

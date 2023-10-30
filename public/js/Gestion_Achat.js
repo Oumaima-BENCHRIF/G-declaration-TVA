@@ -732,6 +732,13 @@ function Liste_Racine() {
           '">' +
           item.Num_racines + '  | ' + item.Nom_racines + '  | ' + item.Taux
         "</option>";
+
+        var optgroup = $('select#racine optgroup[label="' + item.categorie + '"]');
+        if (optgroup.length === 0) {
+          optgroup = $('<optgroup label="' + item.categorie + '">');
+          $('select#racine').append(optgroup);
+        }
+        optgroup.append(option);
       });
       $("#racine").html($lignes);
       // $("#racine4").html($lignes);

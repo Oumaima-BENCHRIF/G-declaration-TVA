@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCategorieToAgencesTable extends Migration
+class AddCategorieToRacinesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,19 @@ class AddCategorieToAgencesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_portal')->table('agences', function (Blueprint $table) {
+        Schema::connection('mysql_portal')->table('racines', function (Blueprint $table) {
             $table->longText('categorie')->after('id');
         });
     }
 
     /**
-     * Reverse the migrations.
-     *
+     * Reverse the .
+     *migrations
      * @return void
      */
     public function down()
     {
-        Schema::table('agences', function (Blueprint $table) {
+        Schema::table('racines', function (Blueprint $table) {
             //
         });
     }
