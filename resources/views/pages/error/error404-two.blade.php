@@ -12,7 +12,7 @@
             <a class="navbar-brand" href="{{ url('/dashboard/dashboard2') }}">NEPTUNE</a>
             <div class="error-left-content">
                 <h1 class="mb-3 text-white">{{__('Oops!')}}</h1>
-                <p class="font-25 mb-5 text-white">{{__('Sorry, We can\'t seem to find the page you\'re looking for.')}}</p>
+                <p class="font-25 mb-5 text-white">{{__('Une erreur s\'est produite,Merci de contacter le service IT.')}}</p>
                 <a class="btn bg-gradient-primary text-white" href="{{ url('/dashboard/dashboard1') }}">{{__('Back to Home')}}</a>
             </div>
         </div>
