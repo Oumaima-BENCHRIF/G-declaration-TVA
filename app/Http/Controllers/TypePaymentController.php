@@ -13,7 +13,7 @@ class TypePaymentController extends Controller
     {
         return view('apps.Type_payment');
     }
-    //Enregister fournisseurs
+    //Enregister Type payement
     public function Stores(Request $request)
     {
 

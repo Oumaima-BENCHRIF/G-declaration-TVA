@@ -185,17 +185,7 @@
                                                             <div class="widget-content widget-content-area br-6">
                                                            
                                                                 <div class="table-responsive mb-4">
-<<<<<<< HEAD
                                                                     
-=======
-
-                                                                    <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
-                                                                    <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button>
-                                                               
-                                                                    <div id="Liste-succursale" style="width: 100%;" class="header-table"></div>
-                                                
-                                                                   
->>>>>>> main
                                                                 </div>
                                                             </div>
                                                         </div>

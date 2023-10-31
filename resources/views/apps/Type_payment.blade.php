@@ -64,8 +64,11 @@
                                         <!-- id="Add_typePayment" name="Add_typePayment" -->
                                             <form id="Add_TypePayment" name="Add_TypePayment" method="POST"  action="{{ route('dashboard.AddTypePayment') }}" class="needs-validation" novalidate action="javascript:void(0);">
                                             @csrf 
-                                            <div class="form-rowd">
-                                                
+                                            <div class="form-rowd d-flex">
+                                            <div class="col-md-4 mb-4 " style="    text-align: right">
+                                            <button class="btn btn-primary mt-3 "  id="Enregistrer" name="Enregistrer"  type="submit"><i class="las la-check-double"></i>Enregistrer</button>
+                                            <button class="btn btn btn-secondary mt-3" type="button"  id="Update" name="Update" onclick="update_TypePayment()"><i class="las la-edit"></i>Update</button>
+                                            </div>
                                                     <div class="col-md-4 mb-4">
                                                         <label for="Nom_payment">Nom payment</label>
                                                         <input type="text" class="form-control" id="Nom_payment" name="Nom_payment" placeholder="Nom payment"  required>
@@ -83,13 +86,13 @@
                                                    
                                                 </div>
                                                 <div id="flex-container">
-                                                    <button class="btn btn-primary mt-3"  id="Enregistrer" name="Enregistrer"  type="submit"><i class="las la-check-double"></i>Enregistrer</button>
-                                                    <button onclick=" viderchamp()" id="Nouveau" name="Nouveau"  type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
-                                                    class="las la-info-circle"></i>Nouveau</button>
+                                                
+                                                    <!-- <button onclick=" viderchamp()" id="Nouveau" name="Nouveau"  type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
+                                                    class="las la-info-circle"></i>Nouveau</button> -->
                                                 </div>
                                                 <input type="hidden" name="update_id_TypePayment" id="update_id_TypePayment">
                                             </form>
-                                            <button class="btn btn btn-secondary mt-3" type="button"  id="Update" name="Update" onclick="update_TypePayment()"><i class="las la-edit"></i>Update</button>
+                                           
 
                                         </div>
                                     </div>

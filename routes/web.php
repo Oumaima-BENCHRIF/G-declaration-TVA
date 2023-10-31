@@ -46,15 +46,12 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     // Route::post('DeleteSuccursalse', [App\Http\Controllers\SuccursaleController::class, 'destroy'])->name('DeleteSuccursale');
     Route::post('DeleteAgence', [App\Http\Controllers\AgenceController::class, 'destroy'])->name('DeleteAgence');
     // Liste regimes
-    Route::get('FK_Regime', [App\Http\Controllers\SuccursaleController::class, 'Liste_Regime'])->name('Liste_Regime');
+    Route::get('FK_Regime', [App\Http\Controllers\AgenceController::class, 'Liste_Regime'])->name('Liste_Regime');
     // Liste fait generateurs
-    Route::get('FK_fait_generateurs', [App\Http\Controllers\SuccursaleController::class, 'Liste_generateurs'])->name('Liste_generateurs');
+    Route::get('FK_fait_generateurs', [App\Http\Controllers\AgenceController::class, 'Liste_generateurs'])->name('Liste_generateurs');
     // update succursale
     //   Route::get('update_succursale', [App\Http\Controllers\SuccursaleController::class, 'Update'])->name('update_succursale');
     Route::get('update_Agence/{update_id_agence}', [App\Http\Controllers\AgenceController::class, 'Update'])->name('update_Agence');
-
-
-
 
     /* ************************************************************** fournisseur */
     // View
@@ -136,8 +133,27 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
 
     /* ************************************************************** */
 
+<<<<<<< HEAD
   /* ************************************************************** Utilisateur */
     Route::get('utilisateur', function () {return view('auth.utilisateur');});
+=======
+    /* ************************************************************** Compte charges */
+    //  ******* View
+    Route::get('/compte_charges', [App\Http\Controllers\CompteChargesController::class, 'index'])->name('compte_charges');
+    //  ******* table Compte charges
+    Route::get('table_CompteCharges', [App\Http\Controllers\CompteChargesController::class, 'table_CompteCharges'])->name('table_CompteCharges');
+    // ******* ajouter
+    Route::post('/AddCompteCharges', [App\Http\Controllers\CompteChargesController::class, 'Stores'])->name('AddCompteCharges');
+    //  ******* info CompteCharges
+    Route::get('/CompteCharges/{id_CompteCharges}', [App\Http\Controllers\CompteChargesController::class, 'info_CompteCharges'])->name('info_CompteCharges');
+    //  ******* delete CompteCharges
+    Route::post('DeleteCompteCharges', [App\Http\Controllers\CompteChargesController::class, 'destroy'])->name('DeleteCompteCharges');
+    //  ******* update CompteCharges
+    Route::get('update_CompteCharges/{update_id_CompteChargest}', [App\Http\Controllers\CompteChargesController::class, 'Update'])->name('update_CompteCharges');
+    //  ******* add json 
+    Route::get('/Add_CompteChargesjson', [App\Http\Controllers\CompteChargesController::class, 'Storesjson'])->name('Add_CompteChargesjson');
+    /* ************************************************************** */
+>>>>>>> main
 
     Route::post('/register', [App\Http\Controllers\AuthController::class, 'store'])->name('register');
 
@@ -157,17 +173,18 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
     // importation achat
     Route::get('/AddAchatjson', [App\Http\Controllers\AchatController::class, 'Storesjson'])->name('AddAchatjson');
-
-
+      // vider la table
+      Route::post('/viderTable', [App\Http\Controllers\AchatController::class, 'viderTable'])->name('viderTable');
     // Liste Mode de payement
     Route::get('FK_Mpayement', [App\Http\Controllers\AchatController::class, 'Liste_Mpyement'])->name('Liste_Mpyement');
     // Liste racine
     Route::get('FK_racine', [App\Http\Controllers\AchatController::class, 'Liste_Racine'])->name('Liste_Racine');
+     // liste FRS
+     Route::get('FK_Ccharge', [App\Http\Controllers\AchatController::class, 'Liste_Ccharge'])->name('Liste_Ccharge');
     // get FRS
     Route::get('get_FRS/{id}', [App\Http\Controllers\AchatController::class, 'get_FRS'])->name('get_FRS');
     // get racine
     Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
-
     // ****** table succursale
     Route::get('table_succursale', [App\Http\Controllers\SuccursaleController::class, 'table_succursale'])->name('table_succursale');
     // gestion Achat
@@ -193,14 +210,21 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
     // get racine
     Route::get('get_info', [App\Http\Controllers\AchatController::class, 'get_info'])->name('get_info');
-    Route::get('fournisseur', function () {return view('apps.fournisseur');})->name('fournisseur');
+    Route::get('fournisseur', function () {
+        return view('apps.fournisseur'); })->name('fournisseur');
+    Route::get('get_regimeByid/{id}', [App\Http\Controllers\AchatController::class, 'get_regimeByid'])->name('get_regimeByid');
 
-    Route::get('racine', function () { return view('apps.racine');});
+    Route::get('racine', function () {
+        return view('apps.racine'); });
 
-    Route::get('Achat', function () {return view('apps.Achat');});
+    Route::get('Achat', function () {
+        return view('apps.Achat'); });
+
+    Route::post('/export-to-excel', [App\Http\Controllers\AchatController::class, 'exportToExcel'])->name('exportToExcel');
 
 
-    Route::get('login', function () {return view('authentications.style1.login');});
+    Route::get('login', function () {
+        return view('authentications.style1.login'); });
 
     Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');

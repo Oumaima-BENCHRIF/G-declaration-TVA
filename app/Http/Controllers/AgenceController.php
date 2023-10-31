@@ -35,6 +35,15 @@ class AgenceController extends Controller
             $agence->FK_Regime = $request->input('FK_Regime');
             $agence->FK_fait_generateurs = $request->input('FK_fait_generateurs');
             $agence->Exercice = $request->input('Exercice');
+            $agence->code = $request->input('code');
+            $agence->chemain = $request->input('Chemain');
+            if($request->input('prorata')=='')
+            {
+                $agence->Prorata=100;
+            }else
+            {
+                $agence->Prorata = $request->input('prorata');
+            }
             
             $agence->save();
 
@@ -58,8 +67,12 @@ class AgenceController extends Controller
     //liste regimes
     public function Liste_Regime(Request $request)
     {
-        $Liste_regimes = regime::where('regimes.deleted_at', '=', NULL)
-            ->orderBy("id", "desc")->get();
+        // $Liste_regimes = regime::select('regimes.libelle','regimes.id')
+        // ->where('regimes.deleted_at', '=', NULL)
+        //     ->orderBy("id", "desc")->get();
+        $Liste_regimes = regime::whereNull('deleted_at') // Use whereNull to check for NULL in the "deleted_at" column.
+     ->whereIn('id', [1, 5])
+     ->get();
 
         return response()->json([
             'Liste_regimes' => $Liste_regimes
@@ -98,9 +111,10 @@ class AgenceController extends Controller
     public function info_agence(Request $request)
     {
         
-        $info_agences = agence::where('agences.deleted_at', '=', NULL)
+        $info_agences = agence::select('agences.*')
+        ->where('agences.deleted_at', '=', NULL)
         ->where('agences.id', $request->id_agence)->get();
-     
+  
         if ($info_agences != null) {
             return response()->json([
                 'info_agence' => $info_agences,
@@ -157,9 +171,7 @@ class AgenceController extends Controller
             $update_agence->Email = $request->Email;
             $update_agence->Activite = $request->Activite;
             $update_agence->ID_Fiscale = $request->ID_Fiscale;
-            $update_agence->Ville = $request->Ville;
-
-          
+            $update_agence->Ville = $request->Ville;          
             $update_agence->Tele = $request->Tele;
             $update_agence->Adresse = $request->Adresse;
             $update_agence->nom_succorsale = $request->nom_succorsale;
@@ -168,7 +180,13 @@ class AgenceController extends Controller
             $update_agence->FK_fait_generateurs = $request->FK_fait_generateurs;
             $update_agence->nomBD = $request->nomBD;
             $update_agence->Exercice = $request->Exercice;
-
+            $update_agence->code = $request->code;
+            $update_agence->chemain = $request->Chemain;
+            if($request->Prorata!=''){
+            $update_agence->Prorata=$request->Prorata;
+            }else{
+                $update_agence->Prorata=100;   
+            } 
             $update_agence->save();
 
             return response()->json([

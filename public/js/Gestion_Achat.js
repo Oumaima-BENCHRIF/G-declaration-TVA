@@ -2,8 +2,10 @@ $('.select2').select2();
 $(window).on("load", function () {
   get_info();
   Liste_FRS();
+  Liste_Ccharge();
   Liste_Mpyement();
   Liste_Racine();
+
   setTimeout(function () {
     // table_Achat();
     get_table();
@@ -12,6 +14,8 @@ $(window).on("load", function () {
   gestYears();
   document.getElementById('update').style.display='none';
   $("#rowracine3").css("display", "none");
+  $("#rowracine1").css("display", "none");
+  $("#rowracine2").css("display", "none");
   // $("#taux1").prop("readonly", true);
 });
 
@@ -43,6 +47,7 @@ $(document).ready(function () {
         toastr.success(response.message, { timeOut: 12000 });
         // table_Achat();
         get_table();
+        viderChamps();
       },
       error: function (response) {
         toastr.options = {
@@ -75,6 +80,7 @@ $(document).ready(function () {
     var tva_2 = $("#tva_2").val();
     var ttc2 = $("#ttc2").val();
     var racine3 = $("#racine3").val();
+    var racine4 = $("#racine4").val();
     var MHT_3 = $("#MHT_3").val();
     var tva_3 = $("#tva_3").val();
     var ttc3 = $("#ttc3").val();    
@@ -84,12 +90,14 @@ $(document).ready(function () {
     var tva_d1 = $("#tva_d1").val();
     var tva_d2 = $("#tva_d2").val();
     var tva_d3 = $("#tva_d3").val();
+    var tva_d4 = $("#tva_d4").val();
     var Exercice = $("#Exercice").val();
     var periode = $("#periode").val();
     var Taux1 = $("#taux1").val();
     var Taux2 = $("#taux2").val(); 
     var Taux3 = $("#taux3").val();
     var Taux4 = $("#taux4").val();
+    var charge = $("#charge").val();
     formData.push(
       { name: "id", value: id },
       { name: "frs", value: frs },
@@ -118,13 +126,16 @@ $(document).ready(function () {
       { name: "ttc4", value: ttc4 },
       { name: "tva_d1", value: tva_d1 },
       { name: "tva_d2", value: tva_d2 },
-      { name: "tva_d3", value: tva_d3 }, 
+      { name: "tva_d3", value: tva_d3 },
+      { name: "tva_d4", value: tva_d4 },  
       { name: "Exercice", value: Exercice },
       { name: "periode", value: periode },
       { name: "Taux1", value: Taux1 }, 
       { name: "Taux2", value: Taux2 },
       { name: "Taux3", value: Taux3 },
       { name: "Taux4", value: Taux4 },
+      { name: "racine4", value: racine4 },
+      { name: "charge", value: charge }
     );
   
     jQuery.ajax({
@@ -139,11 +150,45 @@ $(document).ready(function () {
       success: function (response) {
           // Je récupère la réponse du fichier PHP
           toastr.success(response.messages);
+          get_table();
       },
       error: function (response) {
           toastr.error(response.Error);
       },
   });
+
+  });
+  $("#vider").on("click", function (e) {
+    var Exercice = $("#Exercice").val();
+    var periode = $("#periode").val();
+    $("#delete_periode").val(periode);
+    $("#delete_exercice").val(Exercice)
+
+  });
+  $("#Delet_periode").on("submit", function (e) {
+ 
+    e.preventDefault();
+    var $this = jQuery(this);
+    var formData = jQuery($this).serializeArray();
+    jQuery.ajax({
+      url: $this.attr("action"),
+      type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+      data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+      // dataFilter: 'json', //forme data
+      success: function (response) {
+        // Je récupère la réponse du fichier PHP
+        toastr.options = {
+          progressBar: true,
+          closeButton: true,
+        };
+        toastr.success(response.message, { timeOut: 12000 });
+        jQuery("#Delet_Achat").trigger("click");
+        table_Achat();
+      },
+      error: function (response) {
+        toastr.error(response.danger);
+      },
+    });
 
   });
   $("#Delet_Achat").on("submit", function (e) {
@@ -179,7 +224,7 @@ $(document).ready(function () {
   $('#frs').on('select2:select', function (e) {
     // myFunction();
     let value = $('#frs').val();
-
+    console.log(value);
     jQuery.ajax({
       url: "./get_FRS/" + value,
       type: "GET",
@@ -190,7 +235,8 @@ $(document).ready(function () {
           $("#N_ICE").val($tabledata.NICE);
           $("#id_fiscal").val($tabledata.ID_fiscale);
           $("#desc").val($tabledata.Designation);
-          // myFunction();
+          $("#n_compt").val($tabledata.Num_compte_comptable);
+  
         });
 
       },
@@ -199,6 +245,12 @@ $(document).ready(function () {
   });
   $('#racine').on('select2:select', function (e) {
     tauxRacine1();
+    // var isReadOnly = $("#tva_1").prop('readonly');
+    // if(!isReadOnly)
+    // {
+      calcul_tva();
+    // }
+   
 
   });
   $('#racine2').on('select2:select', function (e) {
@@ -249,6 +301,9 @@ $(document).ready(function () {
         },
     });
     get_table();
+  });
+  $("#close").on("click", function (e) {
+    viderChamps();
   });
   $('#basic-dt').DataTable({
     "language": {
@@ -353,6 +408,16 @@ $(document).ready(function () {
     "lengthMenu": [5, 10, 15, 20],
     "pageLength": 5
   });
+  $("#add-btn").on("click", function (e) {
+
+     $("#rowracine1").css("display", "inherit");
+     $("#add-btn").css("display", "none");
+  });
+  $("#add-btn2").on("click", function (e) {
+
+    $("#rowracine2").css("display", "inherit");
+    $("#add-btn2").css("display", "none");
+ });
   // Search
   table.columns().every(function () {
     var that = this;
@@ -382,49 +447,140 @@ $(document).ready(function () {
     column.visible(!column.visible());
     $(this).toggleClass("toggle-clicked");
   });
-  // $('#racine').change(function () {
-  //   setTimeout(function () {
-  //     let ttc = $("#ttc").val();
-  //     let tva_1 = $("#tva_1").val();
-  //     let MHT_1 = $("#MHT_1").val();
+  $("#impo").on("submit", function (e) {
+    e.preventDefault();
+    var formData = [];
+    var $this = jQuery(this);
+    var formData = jQuery($this).serializeArray();
+    // let Exercice =$("#inputText").val();
+    // let Date_payement =$("#Date_payement").val(); 
+    // let TVA_deductible =$("#TVA_deductible").val();  
+    // let Prorata =$("#Prorata").val();    
+    // let mode_p =$("#mode_p").val();    
+    // let Racine =$("#Racine").val();     
+    // let Date_facture =$("#Date_facture").val();       
+    // let ID_fiscale =$("#ID_fiscale").val();       
+    // let ICE =$("#ICE").val();        
+    // let FRS =$("#FRS").val();   
+    // let TTC =$("#TTC").val();    
+    // let TVA =$("#TVA").val();    
+    // let Taux =$("#Taux").val();    
+    // let MHT =$("#MHT").val();     
+    // let NFACT =$("#NFACT").val();     
+    // var Date_payement = document.querySelector('label[for="Date_payement"]').innerText;
+    // var TVA_deductible = document.querySelector('label[for="TVA_deductible"]').innerText;
+    // var Prorata = document.querySelector('label[for="Prorata"]').innerText;
+    // var mode_p = document.querySelector('label[for="mode_p"]').innerText;
+    // var Racine = document.querySelector('label[for="Racine"]').innerText;
+    // var Date_facture = document.querySelector('label[for="Date_facture"]').innerText;
+    // var ID_fiscale = document.querySelector('label[for="ID_fiscale"]').innerText;
+    // var ICE = document.querySelector('label[for="ICE"]').innerText;
+    // var FRS = document.querySelector('label[for="FRS"]').innerText;
+    // var TTC = document.querySelector('label[for="TTC"]').innerText;
+    // var TVA = document.querySelector('label[for="TVA"]').innerText;
+    // var Taux = document.querySelector('label[for="Taux"]').innerText;
+    // var MHT = document.querySelector('label[for="MHT"]').innerText;
+    // var Designation = document.querySelector('label[for="Designation"]').innerText;
+    // var NFACT = document.querySelector('label[for="NFACT"]').innerText;
+  
+    
+    // Loop through the input fields and add their corresponding labels to formData
+    jQuery(this).find('input[type="text"]').each(function () {
+        var inputName = $(this).attr("name");
+        var labelName = inputName ;
+        var labelValue = $("input[name='" + labelName + "']").val();
+        
+        formData.push({ name: labelName, value: labelValue });
+    });
 
-  //     if (ttc != '') {
+    console.log(formData);
+    // formData.push(
+    //   { name: "Date_payement", value: Date_payement },
+    //   { name: "TVA_deductible", value: TVA_deductible },
+    //   { name: "Prorata", value: Prorata },
+    //   { name: "mode_p", value: mode_p },
+    //   { name: "Racine", value: Racine },
+    //   { name: "Date_facture", value: Date_facture },
+    //   { name: "ID_fiscale", value: ID_fiscale },
+    //   { name: "ICE", value: ICE },
+    //   { name: "FRS", value: FRS },
+    //   { name: "TTC", value: TTC },
+    //   { name: "TVA", value: TVA },
+    //   { name: "Taux", value: Taux },
+    //   { name: "MHT", value: MHT },
+    //   { name: "Designation", value: Designation },
+    //   { name: "NFACT", value: NFACT },
+    // );
+   
+    jQuery.ajax({
+      url: $this.attr("action"),
+      type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+      data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+      // dataFilter: 'json', //forme data
+      success: function (response) {
+        // Je récupère la réponse du fichier PHP
+        toastr.options = {
+          progressBar: true,
+          closeButton: true,
+        };
+       
+        toastr.success(response.message, { timeOut: 12000 });
+       
+      },
+      error: function (response) {
+        toastr.options = {
+          progressBar: true,
+          closeButton: true,
+        };
+        toastr.error("Merci de vérifier les champs");
+      },
+    });
+    
+  });
+  $('#date_p').change(function () {
+    console.log('Event triggered!');
+   checkDate();
+  });
 
-  //       let taux1 = parseFloat($("#taux1").val());
-  //       let mht = ttc / (1 + taux1);
-  //       mht = mht.toFixed(2);
-  //       let tva = ttc - mht;
-  //       tva = tva.toFixed(2);
-  //       $("#MHT_1").val(mht);
-  //       $("#tva_1").val(tva);
+  $('#frs').select2({
+    tags: true,
+    createTag: function(params) {
+      var term = $.trim(params.term);
 
+      if (term === '') {
+        return null;
+      }
 
-  //     } else {
-  //       if (tva_1 != '') {
-  //         let taux1 = $("#taux1").val();
-  //         console.log(taux1);
-  //         let mht = tva_1 / taux1;
-  //         let ttc = mht + parseFloat(tva_1);
-  //         mht = mht.toFixed(2);
-  //         ttc = parseFloat(ttc).toFixed(2);
-  //         $("#MHT_1").val(mht);
-  //         $("#ttc").val(ttc);
-  //       } else {
-  //         if (MHT_1 = '') {
-  //           let taux1 = parseFloat($("#taux1").val());
-  //           let TVA = MHT_1 * taux1;
-  //           let ttc = MHT_1 + TVA;
-  //           MHT_1 = MHT_1.toFixed(2);
-  //           ttc = ttc.toFixed(2);
-  //           $("#tva_1").val(TVA);
-  //           $("#ttc").val(ttc);
-  //         }
-  //       }
-  //     }
-  //   }, 500);
-  // });
+      return {
+        id: term,
+        text: term,
+        newTag: true ,
+         // Add this to indicate it's a new tag
+      };
+    }
+  }).on('select2:select', function (e) {
+    var selectedOption = e.params.data;
 
-
+// Check if the selected option is a new tag
+if (selectedOption.newTag) {
+  // Remove the "readonly" attribute from an element with the ID "id_fiscal"
+  $('#id_fiscal').removeAttr("readonly");
+  $('#N_ICE').removeAttr("readonly");
+  $('#n_compt').removeAttr("readonly");
+  $('#id_fiscal').prop("required", true);
+  $('#N_ICE').prop("required", true);
+  $('#n_compt').prop("required", true);
+  $('#n_compt').val('4411');
+}
+});
+$("#ajou").on("click", function (e) {
+  $("#rowracine").css("display", "inherit");
+  $("#add-btn").css("display", "inline");
+  // $("#col-add").css("text-align", "center");
+  $("#rowracine3").css("display", "none");
+  $("#rowracine1").css("display", "none");
+  $("#rowracine2").css("display", "none");
+});
 });
 
 // function myFunction() {
@@ -481,6 +637,26 @@ function Liste_FRS() {
     },
   });
 }
+function Liste_Ccharge() {
+  jQuery.ajax({
+    url: "./FK_Ccharge",
+    type: "GET",
+    dataType: "json",
+    success: function (responce) {
+      var $lignes = '<option value="null">Sélectionner</option>';
+      jQuery.each(responce.Liste_Ccharge, function (key, item) {
+        $lignes =
+          $lignes +
+          '<option value="' +
+          item.id +
+          '">' +
+          item.N_compte_charges_immob +'  | ' + item.Intitule
+          "</option>";
+      });
+      $("#charge").html($lignes);
+    },
+  });
+}
 function Liste_Mpyement() {
   jQuery.ajax({
     url: "./FK_Mpayement",
@@ -514,6 +690,7 @@ function get_info() {
     $tabledata = responce.Liste_regimes;
   
       jQuery.each( $tabledata, function (key, item) {
+        console.log(responce.regime[0].libelle);
           if(item.libelle==responce.regime[0].libelle){
           $lignes =
           $lignes +
@@ -525,7 +702,7 @@ function get_info() {
         $i++;
         }
         $("#periode").html($lignes);
-       
+        $("#prorata").val(responce.get_info.Prorata);
       });
       console.log(responce.periode)
       $("#periode").val(responce.periode);
@@ -555,36 +732,79 @@ function Liste_Racine() {
     dataType: "json",
     success: function (responce) {
       var $lignes = '<option value="null">Sélectionner</option>';
+      var categories = {};
       jQuery.each(responce.Liste_Racine, function (key, item) {
-        $lignes =
-          $lignes +
-          '<option value="' +
-          item.id +
-          '">' +
-          item.Num_racines + '  | ' + item.Nom_racines + '  | ' + item.Taux
-        "</option>";
+      
+
+        var option = '<option value="' + item.id + '">' + item.Num_racines + ' | ' + item.Nom_racines + ' | ' + item.Taux + '</option>';
+        if (!categories[item.categorie]) {
+          categories[item.categorie] = [];
+        }
+        categories[item.categorie].push(option);
+
+
       });
-      $("#racine").html($lignes);
-      // $("#racine4").html($lignes);
+      var $lignes = '<option value="null">Sélectionner</option>';
+for (var categorie in categories) {
+  $lignes += '<optgroup label="' + categorie + '">' + categories[categorie].join('') + '</optgroup>';
+}
+
+$("#racine").html($lignes);
       $("#racine2").html($lignes);
        $("#racine3").html($lignes);
        $("#racine4").html($lignes);
+
+$('select#racine').select2();
+$('select#racine2').select2();
+$('select#racine3').select2();
+$('select#racine4').select2();
+    
+    
     },
   });
 }
 function checkDate() {
 
-  var inputDate = new Date(document.getElementById("date_p").value);
-  var currentDate = new Date();
+  var inputDate  = $("#date_p").val();
+  console.log(inputDate);
+  if (!inputDate === null || !inputDate.trim() === ""){
+  // var currentDate = new Date();
+ finPeriode="";
+  // // Calculate the date exactly one year ago from the current date
+  // var oneYearAgo = new Date();
+  // oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
+  let id = $('#periode').val();
+  let annee = $('#Exercice').val();
+  jQuery.ajax({
+    url: "./get_regimeByid/"+id,
+    type: "GET",
+    dataType: "json",
+    success: function (responce) {
+    
+      
+      finPeriode=responce.regime.AU;
+      finPeriode = finPeriode.trim();
+      var parts = finPeriode.split('-');
+    var year = parseInt(parts[0]);
+    var month = parseInt(parts[1]);
+    var day = parseInt(parts[2]);
+    year = annee - 1;
+    month = month ;
+    finPeriode = year + "-" + (month < 10 ? "0" : "") + month + "-" + day;
+    peride=annee + "-" + parseInt(parts[1])+ "-" + day;
 
-  // Calculate the date exactly one year ago from the current date
-  var oneYearAgo = new Date();
-  oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
+      if (inputDate < finPeriode) {
+        alert("Attention la date de paiement dépasse 1 an par rapport à la date de déclaration ");
+        document.getElementById("date_p").value = '';
+      }
+      if (inputDate > peride) {
+        alert("Attention la date de paiement dépasse la période de déclaration ");
+        document.getElementById("date_p").value = '';
+      }
+    },
 
-  if (inputDate < oneYearAgo) {
-    alert("la date est supérieur plus un an que la date de systeme");
-    document.getElementById("date_p").value = '';
-  }
+  }); 
+ }
 }
 document.addEventListener("DOMContentLoaded", function () {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
@@ -675,7 +895,7 @@ function calcul_ttc1() {
     } else {
       if (ttc1 != '') {
         // console.log(ttc1);
-        
+        taux1=taux1/100;
         let mht = parseFloat(ttc1) / (1 + parseFloat(taux1));
         mht = mht.toFixed(2);
         let tva = parseFloat(ttc1) - parseFloat(mht);
@@ -705,7 +925,7 @@ function calcul_ttc1() {
       ttc4=0;
     }
     
-      $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
+      $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)).toFixed(2));
     
   
   });tva_didu();
@@ -723,7 +943,7 @@ function calcul_ttc2() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (ttc2 != '') {
-        
+        taux2=taux2/100;
         let mht = parseFloat(ttc2) / (1 + parseFloat(taux2));
         mht = parseFloat(mht).toFixed(2);
         let tva = parseFloat(ttc2) - parseFloat(mht);
@@ -752,7 +972,7 @@ function calcul_ttc2() {
     ttc4=0;
   }
   
-    $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3));
+    $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)).toFixed(2));
 });tva_didu();
 }
 function calcul_ttc3() {
@@ -769,6 +989,7 @@ function calcul_ttc3() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (ttc3 != '') {
+        taux3=taux3/100;
         $("#MTttc").val(parseFloat(ttc)+parseFloat(ttc3));
         let mht = parseFloat(ttc3) / (1 + parseFloat(taux3));
         mht = mht.toFixed(2);
@@ -798,7 +1019,7 @@ function calcul_ttc3() {
       ttc4=0;
     }
     
-    $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));}
+    $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));}
 });tva_didu();
 }
 function calcul_ttc4() {
@@ -815,6 +1036,7 @@ function calcul_ttc4() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (ttc4 != '') {
+        taux4=taux4/100;
         $("#MTttc").val(parseFloat(ttc)+parseFloat(ttc4));
         let mht = parseFloat(ttc4) / (1 + parseFloat(taux4));
         mht = mht.toFixed(2);
@@ -844,13 +1066,13 @@ function calcul_ttc4() {
       ttc3=0;
     }
     
-      $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));}
+      $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));}
 });tva_didu();
 }
 function calcul_tva() {
   let tva_1 = $("#tva_1").val();
   let taux1 = $("#taux1").val();
-  let mttc = $("#MTttc").val();
+
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
@@ -862,6 +1084,7 @@ function calcul_tva() {
     } else {
       if (tva_1 != '') {
         // console.log(tva_1);
+        taux1=taux1/100;
         let mht = parseFloat(tva_1) / parseFloat(taux1);
 
         let ttc = parseFloat(mht) + parseFloat(tva_1);
@@ -873,7 +1096,7 @@ function calcul_tva() {
         let ttc2 = $("#ttc2").val();
         let ttc3 = $("#ttc3").val();
         let ttc4 = $("#ttc4").val();
-        ttc4=parseFloat(ttc4).toFixed(2);
+       
         if(ttc1=='')
         {
           ttc1=0;
@@ -889,7 +1112,7 @@ function calcul_tva() {
           ttc4=0;
         }
         
-        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4).toFixed(2)));
       }}}
     }tva_didu();
 
@@ -898,7 +1121,7 @@ function calcul_tva() {
 function calcul_tva2() {
   let tva_2 = $("#tva_2").val();
   let taux2 = $("#taux2").val();
-  let mttc = $("#MTttc").val();
+
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
@@ -909,6 +1132,7 @@ function calcul_tva2() {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (tva_2 != '') {
+        taux2=taux2/100;
         let mht = parseFloat(tva_2) / parseFloat(taux2);
 
            let ttc=parseFloat(mht)+parseFloat(tva_2);
@@ -935,7 +1159,7 @@ function calcul_tva2() {
            ttc4=0;
          }
          
-         $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+         $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }
   }}tva_didu();
@@ -946,12 +1170,17 @@ function calcul_tva3() {
   let tva_3 = $("#tva_3").val();
   let taux3 = $("#taux3").val();
   let mttc = $("#MTttc").val();
+  var radioButtons = document.querySelectorAll("input[name='radios5']");
+
+  radioButtons.forEach(function (radio) {
+  if (radio.id === "TVA" && radio.checked){
   if (tva_3 != '') {
 
     if (taux3 == '') {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (tva_3 != '') {
+        taux3=taux3/100;
            let mht = parseFloat(tva_3) / parseFloat(taux3);
            let ttc=parseFloat(mht)+parseFloat(tva_3);
            mht = parseFloat(mht).toFixed(2);
@@ -977,22 +1206,23 @@ function calcul_tva3() {
             ttc4=0;
           }
           
-          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+          $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
-    }tva_didu();
-  }
+    }}}tva_didu();
+  });
 
 }
 function calcul_tva4() {
   let tva_4 = $("#tva_4").val();
   let taux4 = $("#taux4").val();
-console.log(taux4);
+
   if (tva_4 != '') {
 
     if (taux4 == '') {
       alert('merci de choiser la rubrique de tvaaaaa');
     } else {
       if (tva_4 != '') {
+        taux4=taux4/100;
            let mht = parseFloat(tva_4) / parseFloat(taux4);
            let ttc=parseFloat(mht)+parseFloat(tva_4);
            mht = parseFloat(mht).toFixed(2);
@@ -1019,7 +1249,7 @@ console.log(taux4);
             ttc4=0;
           }
           
-          $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+          $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }tva_didu();
   }
@@ -1028,12 +1258,17 @@ console.log(taux4);
 function calcul_HT() {
   let MHT_1 = $("#MHT_1").val();
   let taux1 = $("#taux1").val();
-  let mttc = $("#MTttc").val();
+
+  var radioButtons = document.querySelectorAll("input[name='radios5']");
+
+  radioButtons.forEach(function (radio) {
+  if (radio.id === "HT" && radio.checked){
   if (MHT_1 != '') {
     if (taux1 == '') {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (MHT_1 != '') {
+        taux1=taux1/100;
         let TVA = parseFloat(MHT_1) * parseFloat(taux1);
         let ttc = parseFloat(MHT_1) + parseFloat(TVA);
         MHT_1 = parseFloat(MHT_1).toFixed(2);
@@ -1059,27 +1294,31 @@ function calcul_HT() {
           ttc4=0;
         }
         
-        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }
-  }tva_didu();
+  }tva_didu();}});
 
 }
 function calcul_HT2() {
   let MHT_2 = $("#MHT_2").val();
   let taux2 = $("#taux2").val();
-  let mttc = $("#MTttc").val();
+  var radioButtons = document.querySelectorAll("input[name='radios5']");
+
+  radioButtons.forEach(function (radio) {
+  if (radio.id === "HT" && radio.checked){
   if (MHT_2 != '') {
     if (taux2 == '') {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (MHT_2 != '') {
+        taux2=taux2/100;
         let TVA = parseFloat(MHT_2) * parseFloat(taux2);
         let ttc = parseFloat(MHT_2) + parseFloat(TVA);
         MHT_2 = parseFloat(MHT_2).toFixed(2);
         ttc = parseFloat(ttc).toFixed(2);
-        $("#tva_2").val(TVA);
-        $("#ttc2").val(ttc);
+        $("#tva_2").val(parseFloat(TVA).toFixed(2));
+        $("#ttc2").val(parseFloat(ttc).toFixed(2));
         let ttc1 = $("#ttc1").val();
         let ttc2 = $("#ttc2").val();
         let ttc3 = $("#ttc3").val();
@@ -1099,27 +1338,31 @@ function calcul_HT2() {
           ttc4=0;
         }
         
-        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }
-  }tva_didu();
+  }tva_didu();}});
 
 }
 function calcul_HT3() {
   let MHT_3 = $("#MHT_3").val();
   let taux3 = $("#taux3").val();
-  let mttc = $("#MTttc").val();
+  var radioButtons = document.querySelectorAll("input[name='radios5']");
+
+  radioButtons.forEach(function (radio) {
+  if (radio.id === "HT" && radio.checked){
   if (MHT_3 != '') {
     if (taux3 == '') {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (MHT_3 != '') {
+        taux3=taux3/100;
         let TVA = parseFloat(MHT_3) * parseFloat(taux3);
         let ttc = parseFloat(MHT_3) + parseFloat(TVA);
         MHT_3 = parseFloat(MHT_3).toFixed(2);
         ttc = parseFloat(ttc).toFixed(2);
-        $("#tva_3").val(TVA);
-        $("#ttc3").val(ttc);
+        $("#tva_3").val(parseFloat(TVA).toFixed(2));
+        $("#ttc3").val(parseFloat(ttc).toFixed(2));
         let ttc1 = $("#ttc1").val();
         let ttc2 = $("#ttc2").val();
         let ttc3 = $("#ttc3").val();
@@ -1139,21 +1382,25 @@ function calcul_HT3() {
           ttc4=0;
         }
         
-        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }
-  }tva_didu();
+  }tva_didu();}});
 
 }
 function calcul_HT4() {
   let MHT_4 = $("#MHT_4").val();
   let taux4 = $("#taux4").val();
-  let mttc = $("#MTttc").val();
+  var radioButtons = document.querySelectorAll("input[name='radios5']");
+
+  radioButtons.forEach(function (radio) {
+  if (radio.id === "TVA" && radio.checked){
   if (MHT_4 != '') {
     if (taux4 == '') {
       alert('merci de choiser la rubrique de tva');
     } else {
       if (MHT_4 != '') {
+        taux4=taux4/100;
         let TVA = parseFloat(MHT_4) * parseFloat(taux4);
         let ttc = parseFloat(MHT_4) + parseFloat(TVA);
         MHT_4 = parseFloat(MHT_4).toFixed(2);
@@ -1179,16 +1426,17 @@ function calcul_HT4() {
           ttc4=0;
         }
         
-        $("#MTttc").val(parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4));
+        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
       }
     }
-  }tva_didu();
+  }tva_didu();}});
 
 }
 function tva_didu() {
   let tva_1 = $("#tva_1").val();
   let tva_2 = $("#tva_2").val();
   let tva_3 = $("#tva_3").val();
+  let tva_4 = $("#tva_4").val();
   let prorata = $("#prorata").val();
   if(prorata!=''){
   if (tva_1 != '') {
@@ -1202,13 +1450,20 @@ function tva_didu() {
   if (tva_3 != '') {
     let tva_did = tva_3 * prorata / 100;
     $("#tva_d3").val(tva_did);
-  }}else{
+  }
+  if (tva_4 != '') {
+    let tva_did = tva_4 * prorata / 100;
+    $("#tva_d4").val(tva_did);
+  }
+}else{
     if (tva_1 != '') {
     $("#tva_d1").val(tva_1);}
     if (tva_2 != '') {
     $("#tva_d2").val(tva_2);}
     if (tva_3 != '') {
     $("#tva_d3").val(tva_3);}
+    if (tva_4 != '') {
+      $("#tva_d4").val(tva_4);}
   }
   
 }
@@ -1228,18 +1483,17 @@ function checkNfact() {
         let mttc=0;
         jQuery.each($tabledata, function (key, item) {
           if (!duplicateFound) {
-            mttc=item.M_TTC;
-            let nfact=item.N_facture;
-         
-            duplicateFound = true;
-            ligne=ligne+'	N_facture :   '+nfact+ '         TTC :   '+mttc+'      \n';
+            alert('Cette facture déjà existe');
+            $("#n_fact").val('');
+            $("#n_fact").focus();
+             duplicateFound = true;
+            
           }
-           mtd=item.MT_déduit;
-            ligne=ligne+' '+'                    MT deduit :     '+item.MT_déduit+'        date   :   '+item.dateSaisie+   ' \n';
+          
         });
-        ligne=ligne+'Total déduit  :   '+mtd;
-        $("#MTttc").val(mttc);
-      //  alert(ligne);
+  
+       
+     
       }
     },
   });
@@ -1284,7 +1538,15 @@ function table_Achat() {
   });
 }
 function dataTable($tabledata)
-{
+{ 
+  console.log($tabledata);
+//   $tabledata.forEach(function(row) {
+//     var nFactureParts = row.N_facture.split(' ');
+//     if (nFactureParts.length === 2) {
+//         row.N_facture = nFactureParts[0] + nFactureParts[1];
+//     }
+//     If N_facture does not contain two parts, leave it as is
+// });
   var table = new Tabulator("#Liste-Achat", {
     printAsHtml: true,
     printStyled: true,
@@ -1292,6 +1554,8 @@ function dataTable($tabledata)
     data: $tabledata,
     layout: "fitColumns",
     pagination: "local",
+    renderHorizontal:"virtual",
+    height:"500px",
     printHeader: "",
     printFooter: "",
     paginationSize: 40,
@@ -1312,7 +1576,7 @@ function dataTable($tabledata)
     columns: [
       {
         title: "Action",
-        minWidth: 110,
+        minWidth: 70,
         field: "actions",
         responsive: 1,
         hozAlign: "center",
@@ -1322,7 +1586,7 @@ function dataTable($tabledata)
         formatter(cell, formatterParams) {
           let a = $(`<div class="flex lg:justify-center items-center">
                               
-                                        <a  class="edit lex items-center text-success"  data-toggle="modal"  data-target=".bd-example-modal-lg"  mr-3" title="Modifier" href="javascript:;"  >
+                                        <a  class="edit lex items-center text-success"  style="font-size: large;" data-toggle="modal"  data-target=".bd-example-modal-lg"  mr-3" title="Modifier" href="javascript:;"  >
                                         <i class="las la-edit"></i>
                                         </a>
                                         <a  class="mb-2 mr-2 delete" data-toggle="modal" data-target="#delet_achat">
@@ -1356,6 +1620,8 @@ function dataTable($tabledata)
               document.getElementById('add_ach').style.display='none';
               document.getElementById('update').style.display='initial';
               document.getElementById("id_achat").value =cell.getData().id;
+              $(".add").css("display", "none");
+              console.log(cell.getData().id);
               jQuery.ajax({
                 url: "./get_achatbyID/" + cell.getData().id,
                 type: "GET", // Le nom du fichier indiqué dans le formulaire
@@ -1371,14 +1637,16 @@ function dataTable($tabledata)
                     document.getElementById("date_fact").value = responce.get_achatb.Date_facture;
                     document.getElementById("date_p").value = responce.get_achatb.Date_payment;
                     document.getElementById("MTttc").value =responce.get_achatb.M_TTC;
+                    document.getElementById("n_compt").value =responce.get_achatb.Num_compte_comptable;
+
                     // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
-                    document.getElementById("prorata").value = responce.get_achatb.Prorata;
-                
+                    document.getElementById("prorata").value = responce.get_achatb.Prorata;             
                     if(responce.get_achatb.Taux7==7)
                    {    
                       document.getElementById("MHT_1").value = responce.get_achatb.M_HT_7;
                       document.getElementById("tva_1").value = responce.get_achatb.TVA_7;
                       document.getElementById("ttc1").value = responce.get_achatb.TTC_7;
+                      document.getElementById("tva_d1").value = responce.get_achatb.TVA_d7;
                       var idToSelect = responce.get_achatb.FK_racines_7;
                      
                       var selectElement = document.getElementById("racine");
@@ -1392,10 +1660,12 @@ function dataTable($tabledata)
                      selectElement.dispatchEvent(event);
                     }
                     if(responce.get_achatb.Taux10==10)
-                    {    
+                    {    console.log(responce.get_achatb.Taux10);
                        document.getElementById("MHT_2").value = responce.get_achatb.M_HT_10;
                        document.getElementById("tva_2").value = responce.get_achatb.TVA_10;
                        document.getElementById("ttc2").value = responce.get_achatb.TTC_10;
+                      document.getElementById("tva_d2").value = responce.get_achatb.TVA_d10;
+
                        var idToSelect = responce.get_achatb.FK_racines_10;
                        var selectElement = document.getElementById("racine2");
                       for (var i = 0; i < selectElement.options.length; i++) {
@@ -1407,6 +1677,7 @@ function dataTable($tabledata)
                        }
                        var event = new Event('change');
                        selectElement.dispatchEvent(event);
+                       $("#rowracine1").css("display", "inherit");
                      }
                      if(responce.get_achatb.Taux14==14)
                      {    
@@ -1414,6 +1685,8 @@ function dataTable($tabledata)
                         document.getElementById("MHT_3").value = responce.get_achatb.M_HT_14;
                         document.getElementById("tva_3").value = responce.get_achatb.TVA_14;
                         document.getElementById("ttc3").value = responce.get_achatb.TTC_14;
+                      document.getElementById("tva_d3").value = responce.get_achatb.TVA_d14;
+
                         var idToSelect = responce.get_achatb.FK_racines_14;
                         var selectElement = document.getElementById("racine3");
                        for (var i = 0; i < selectElement.options.length; i++) {
@@ -1425,6 +1698,7 @@ function dataTable($tabledata)
                        }
                        var event = new Event('change');
                        selectElement.dispatchEvent(event);
+                       $("#rowracine2").css("display", "inherit");
                        }
                        if(responce.get_achatb.Taux20==20)
                        {    
@@ -1433,11 +1707,14 @@ function dataTable($tabledata)
                           document.getElementById("tva_4").value = responce.get_achatb.TVA_20;
                           document.getElementById("ttc4").value = responce.get_achatb.TTC_20;
                           document.getElementById("taux4").value = responce.get_achatb.Taux20;
+                      document.getElementById("tva_d4").value = responce.get_achatb.TVA_d20;
+
                           var idToSelect = responce.get_achatb.FK_racines_20;
                           var selectElement = document.getElementById("racine4");
                          for (var i = 0; i < selectElement.options.length; i++) {
                          var option = selectElement.options[i];
                          if (option.value == idToSelect) {
+                          console.log(option.value);
                           option.selected = true;
                           break; 
                            }
@@ -1457,9 +1734,6 @@ function dataTable($tabledata)
                 
                   $("#rowracine1").css("display", "none");
                  }
-                    document.getElementById("tva_d1").value = responce.get_achatb.TVA_deductible;
-                    document.getElementById("tva_d2").value = responce.get_achatb.TVA_deductible2;
-                    document.getElementById("tva_d3").value = responce.get_achatb.TVA_deductible3;
                     var idToSelect = responce.get_achatb.idfrs;
                     var selectElement = document.getElementById("frs");
                    for (var i = 0; i < selectElement.options.length; i++) {
@@ -1482,6 +1756,19 @@ function dataTable($tabledata)
                    }
                    var event = new Event('change');
                    selectElement.dispatchEvent(event);
+
+                   var idToSelect = responce.get_achatb.FK_Ccharge;
+                   var selectElement = document.getElementById("charge");
+                  for (var i = 0; i < selectElement.options.length; i++) {
+                  var option = selectElement.options[i];
+                  if (option.value == idToSelect) {
+          
+                   option.selected = true;
+                   break; 
+                    }
+                  }
+                  var event = new Event('change');
+                  selectElement.dispatchEvent(event);
                   });
                 },
               });
@@ -1489,18 +1776,18 @@ function dataTable($tabledata)
           return a[0];
         },
       },
-      // {
-      //   title: "TVA_deductible",
-      //   field: "TVA_deductible",
-      //   minWidth: 100,
-      //   vertAlign: "middle",
-      //   print: true,
-      //   download: true,
-      // },
+      {
+        title: "TVA_deductible",
+        field: "TVA_d7",
+        minWidth: 100,
+        vertAlign: "middle",
+        print: true,
+        download: true,
+      },
       {
         title: "prorata",
         field: "Prorata",
-        minWidth: 100,
+        minWidth: 30,
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1508,36 +1795,40 @@ function dataTable($tabledata)
       {
         title: "Mode_p",
         field: "M_HT_20",
-        minWidth: 100,
+        minWidth: 60,
         vertAlign: "middle",
         print: true,
         download: true,
         headerFilter:"input"
+        
       },
       {
         title: "Racine",
         field: "num_racine_7",
-        minWidth: 100,
+        minWidth: 30,
+        vertAlign: "middle",
+        print: true,
+        download: true,
+        headerFilter:"input"
+        
+      },
+      {
+        title: "Date_fact",
+        field: "Date_facture",
+        minWidth: 80,
         vertAlign: "middle",
         print: true,
         download: true,
         headerFilter:"input"
       },
       {
-        title: "Date_fact",
-        field: "Date_facture",
-        minWidth: 100,
-        vertAlign: "middle",
-        print: true,
-        download: true,
-      },
-      {
         title: "Date_payement",
         field: "Date_payment",
-        minWidth: 100,
+        minWidth: 80,
         vertAlign: "middle",
         print: true,
         download: true,
+        headerFilter:"input"
       },
       {
         title: "ID_FIscal",
@@ -1564,6 +1855,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         print: true,
         download: true,
+        headerFilter:"input"
       },
       {
         title: "TTC",
@@ -1584,7 +1876,7 @@ function dataTable($tabledata)
       {
         title: "taux",
         field: "Taux7",
-        minWidth: 100,
+        minWidth: 30,
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1595,7 +1887,6 @@ function dataTable($tabledata)
         minWidth: 100,
         width: 43,
         field: "M_HT_7",
-        hozAlign: "center",
         vertAlign: "middle",
         print: true,
         download: true,
@@ -1605,7 +1896,6 @@ function dataTable($tabledata)
         minWidth: 100,
         width: 43,
         field: "Designation",
-        hozAlign: "center",
         vertAlign: "middle",
         print: true,
             download: true,
@@ -1616,6 +1906,16 @@ function dataTable($tabledata)
         title: "Nfact",
         width: 95,
         field: "N_facture",
+        vertAlign: "middle",
+        print: true,
+            download: true,
+        editor: true,
+        headerFilter:"input"
+      },,
+      {
+        title: "Order",
+        width: 30,
+        field: "order",
         vertAlign: "middle",
         print: true,
             download: true,
@@ -1668,12 +1968,12 @@ function tauxRacine1()
       dataType: "json",
       success: function (responce) {
         $tabledata = responce.get_racine;
-   
+   console.log($tabledata);
         $("#taux1").val($tabledata.Taux);
       },
     });
 }
-function tauxRacine2()
+  function tauxRacine2()
 { 
   
   let value = $('#racine2').val();
@@ -1782,6 +2082,10 @@ function get_table()
       });
       
        dataTable($tabledata);
+       console.log(responce.totalTTC);
+       $("#totalTTC").text(responce.totalTTC);
+       $("#totalTVA").text(responce.totalTVA);
+       $("#totalHT").text(responce.totalHT);
       //trigger download of data.xlsx file
       document
         .getElementById("download-xlsx")
@@ -1827,27 +2131,57 @@ function createTabulatorTable(data) {
   const dataArray = data.map((row) =>
     Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))
   );
+  
+  
 console.log(dataArray);
-
+let Exercice =$("#Exercice").val();
+let periode = $('#periode').val();
   dataArray.forEach(row => {
+    function convertExcelDate(excelDate) {
+      if (!excelDate) {
+        return null; // Handle undefined or empty date values
+      }
+      
+      const excelSerialNumber = parseFloat(excelDate);
+    
+      if (!isNaN(excelSerialNumber)) {
+        const date = new Date((excelSerialNumber - 25569) * 86400 * 1000);
+    
+        if (!isNaN(date)) {
+          const formattedDate = date.toISOString().split('T')[0];
+          return formattedDate;
+        }
+      }
+    
+      return null; // Handle invalid date values
+    }
+    const dateFactValue = row["dfac"];
+const datePaymentValue = row["dpai"];
+
+const dateFact = convertExcelDate(dateFactValue);
+const datePayment = convertExcelDate(datePaymentValue);
     var postData = {
-      TVA_deductible: row.TVA_deductible, // Assuming index 0 corresponds to 'nomFournisseurs'
-      prorata: row.prorata, // Assuming index 1 corresponds to 'Designation'
-      Mode_p: row.Mode_p, // Assuming index 2 corresponds to 'Adresse'
-      Date_fact: row.Date_fact,
-      Date_payement: row.Date_payement,
-      ID_FIscal: row.ID_FIscal,
-      ICE: row.ICE,
-      FRS:row.FRS,
-      TTC: row.TTC,
-      TVA: row.TVA,
-      taux: row.taux,
-      Mht: row.Mht,
-      des: row.des,
-      Nfact: row.Nfact,
-       
+      // TVA_deductible: row.TVA_deductible, // Assuming index 0 corresponds to 'nomFournisseurs'
+      // prorata: row.prorata, // Assuming index 1 corresponds to 'Designation'
+      Mode_p: row["id"], // Assuming index 2 corresponds to 'Adresse'
+      Date_fact: dateFact,
+      Date_payement: datePayment,
+      ID_FIscal: row["if"],
+      ICE: row["ice"],
+      FRS:row["nom"],
+      TTC: row["ttc"],
+      TVA: row["tva"],
+      taux: row["tx"],
+      Mht: row["mht"],
+      des: row["des"],
+      Nfact: row["num"],
+      Racine: row["racine"],
+      order: row["ord"],
+      compte: row["compte frs"],
+      Exercice: Exercice,
+      periode: periode,    
     };
-    console.log(postData);
+    console.log(postData ,"dataaaaa");
     jQuery.ajax({
       headers: {
         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -1866,3 +2200,127 @@ console.log(dataArray);
     });
   });
 }
+function validateInput(inputField) {
+  var inputValue = inputField.value;
+  var pattern = /^[A-Za-z0-9]+$/;
+
+
+  if (!pattern.test(inputValue)) {
+      // document.getElementById('errorMessage').textContent = '.Seuls les caractères alphabétiques (A-Z) sont autorisés';
+      toastr.options = {
+        progressBar: true,
+        closeButton: true,
+      };
+      toastr.error(".Seuls les caractères alphabétiques (A-Z) sont autorisés", { timeOut: 12000 });
+      inputField.value = inputValue.replace(/[^A-Za-z]/g, ''); // Remove non-alphabetic characters
+  } else {
+      document.getElementById('errorMessage').textContent = '';
+      
+  }
+}
+function datePayment()
+{
+  let dateF = $("#date_fact").val();
+  $("#date_p").val(dateF);
+  checkDate();
+}
+function viderChamps(){
+  document.getElementById("N_ICE").value = '';
+  document.getElementById("id_fiscal").value = '';
+  document.getElementById("desc").value = '';
+  document.getElementById("n_fact").value ='';
+  document.getElementById("date_fact").value = '';
+  document.getElementById("date_p").value = '';
+  document.getElementById("MTttc").value ='';
+  // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
+  // document.getElementById("prorata").value = '';
+    document.getElementById("MHT_1").value = '';
+    document.getElementById("tva_1").value = '';
+    document.getElementById("ttc1").value = '';
+    document.getElementById("n_compt").value = '';
+
+    var selectElement = document.getElementById("racine");
+   for (var i = 0; i < selectElement.options.length; i++) {
+   var option = selectElement.options[i]; if (option.value == "null") {
+    option.selected = true;
+    break; 
+     }
+    }
+   var event = new Event('change');
+   selectElement.dispatchEvent(event);
+  
+   var selectElement = document.getElementById("charge");
+   for (var i = 0; i < selectElement.options.length; i++) {
+   var option = selectElement.options[i]; if (option.value == "null") {
+    option.selected = true;
+    break; 
+     }
+    }
+   var event = new Event('change');
+   selectElement.dispatchEvent(event);
+
+     document.getElementById("MHT_2").value = '';
+     document.getElementById("tva_2").value = '';
+     document.getElementById("ttc2").value = '';
+     var selectElement = document.getElementById("racine2");
+    for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break; 
+       }
+     }
+     var event = new Event('change');
+     selectElement.dispatchEvent(event);
+ 
+      document.getElementById("MHT_3").value = '';
+      document.getElementById("tva_3").value = '';
+      document.getElementById("ttc3").value = '';
+   
+     var selectElement = document.getElementById("racine3");
+     for (var i = 0; i < selectElement.options.length; i++) {
+     var option = selectElement.options[i];
+     if (option.value == "null") {
+      option.selected = true;
+      break; 
+       }
+     }
+     var event = new Event('change');
+     selectElement.dispatchEvent(event);
+        document.getElementById("MHT_4").value = '';
+        document.getElementById("tva_4").value = '';
+        document.getElementById("ttc4").value = '';
+        document.getElementById("taux4").value = '';
+      
+        var selectElement = document.getElementById("racine4");
+        for (var i = 0; i < selectElement.options.length; i++) {
+        var option = selectElement.options[i];
+        if (option.value == "null") {
+         option.selected = true;
+         break; 
+          }
+        }
+        var event = new Event('change');
+        selectElement.dispatchEvent(event);
+        var selectElement = document.getElementById("frs");
+        for (var i = 0; i < selectElement.options.length; i++) {
+        var option = selectElement.options[i];
+        if (option.value == "null") {
+         option.selected = true;
+         break; 
+          }
+        }
+        var event = new Event('change');
+        selectElement.dispatchEvent(event);
+        var selectElement = document.getElementById("Mpayement");
+        for (var i = 0; i < selectElement.options.length; i++) {
+        var option = selectElement.options[i];
+        if (option.value == "null") {
+         option.selected = true;
+         break; 
+          }
+        }
+        var event = new Event('change');
+        selectElement.dispatchEvent(event);
+}
+

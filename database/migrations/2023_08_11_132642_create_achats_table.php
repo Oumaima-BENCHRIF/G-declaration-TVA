@@ -27,7 +27,7 @@ class CreateAchatsTable extends Migration
             $table->longText('M_HT_14')->nullable();
             $table->longText('M_TTC')->nullable();
             $table->longText('Prorata')->nullable();
-            $table->longText('TVA_deductible')->nullable();
+            $table->longText('TVA_d7')->nullable();
 
             $table->unsignedBigInteger('FK_fournisseur');
             $table->foreign('FK_fournisseur')

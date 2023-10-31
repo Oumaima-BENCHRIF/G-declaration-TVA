@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,7 +138,7 @@
     margin-top: 18px;
 }
 .ml-10{
-    margin-left: 10%;
+    margin-left: 48%;
 }
 .ml-30{
     margin-left: 40%;
@@ -179,14 +178,17 @@
    }
    .text-bold
    {
-    font-weight : 900;
+    font-weight : bolder;
+   }
+   .bg-gray{
+    background-color: #d9d2d2;
    }
 </style> 
 <body>
 
  
  <div class="logo_impo">
-
+ <!-- <img src="{{ public_path('assets/img/logo_impo.png') }}" alt="Logo"> -->
    </div>
 <div class="w-40 float-left">
 
@@ -201,15 +203,15 @@
                 </tr>
                 <tr>
                     <td>Année</td>
-                    <td>{{ $get_info->Exercice}}</td>
+                    <td>{{ $Exercice}}</td>
                 </tr>
                 <tr>
-                    <td>période</td>
-                    <td>Du 01/01/2023 AU 31/01/2023</td>
+                    <td>Période de déclaration</td>
+                    <td>DU  {{ $DU }}  AU  {{ $AU }}</td>
 
                 </tr>
                 <tr class="tr1">
-                    <td>regime</td>
+                    <td>Fait générateur</td>
                     <!-- <td class="td1">
                         <table>
                             <tr class="tr1">
@@ -225,7 +227,8 @@
 </div> 
 
     <div style=" margin-left: 45%;" > 
-      
+    <!-- <img src="{{ public_path('assets/img/logo_minister.png') }}" alt="Logo" height="10%" width="10%" style=""> -->
+
     </div>
 
 <div class="add-detail " >
@@ -247,15 +250,12 @@
 
 
 
-    <table class="table w-100 mt-10">
-    <tr class>
-            <td style="font-weight: 600;text-align: center;" colspan="13">RELEVE DES FACTURES D'ACHAT PRESTATION ET FOURNISSEURS PAYEES</td>
-        </tr>
+    <table class="table w-100 mt-10"> 
         <tr>
         <td style="width: 6px; height: 20px;font-weight: 600;text-align: center">N°</td>
-        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">DATE</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">DATE_fact</td>
         <td  style="width: 10px; height: 20px; font-weight: 600;text-align: center">N°fact</td>
-        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">Furnissuers</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">Fournisseurs</td>
         <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">IF</td>
         <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">ICE</td>
         <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">NATURE PDT</td>
@@ -263,56 +263,62 @@
         <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">Taux</td>
         <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">TVA</td>
         <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">TTC</td>
-        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">Date Reglts</td>
-        
-        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">Id_Pai</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">Date_Reglts</td>
+        <td style="width: 20px; height: 20px; font-weight: 600;text-align: center">Mode_Pai</td>
       
-        </tr>
+        </tr >
       
         @php
         $currentGroup = null ;
+        $Taux=null;
+        $cat=null;
         $TOT_MHT=0;
+        
         $TOT_TTC=0;
         $totalTVA = 0;
         $totalHT = 0;
         $totalTTC = 0;
+        $totalTVAG=0;
         @endphp
         @foreach($table_achat as $achat)    
         
             @if (  $currentGroup !== $achat->num_racine_7 ) 
                 @if( $currentGroup !== null)
                 echo "<tr class="text-bold">
-            <td> </td>
-            <td colspan="6" class="text-center "> {{  $currentGroup }}</td>
+            <td class="bg-gray"> </td>
+            <td colspan="6" class="text-center "> {{  $currentGroup .'     '.$cat.'  :     '. $achat->M_HT_14.'   '.$Taux }}  %</td>
             <td>{{ $totalHT }}  </td>
-            <td>  </td>
+            <td class="bg-gray">  </td>
             <td> {{ $totalTVA }}</td>
             <td> {{ $totalTTC }}</td>
-            <td></td>
-            <td></td>
+            <td class="bg-gray"></td>
+            <td class="bg-gray"></td>
             </tr>";   @endif
                 @php
+               
                 $totalTVA=0;
                 $totalHT = 0;
                 $totalTTC = 0;
                  $currentGroup = $achat->num_racine_7;
+                 $Taux = $achat->Taux7;
+                 $cat = $achat->TTC_10;
                  @endphp
                  @endif
         <tr>
-                    <td  style="height: 30px;">{{ $achat->id }}</td>
+                    <td  style="height: 30px;">{{ $achat->order }}</td>
                     <td  style="height: 30px;">{{ $achat->Date_facture }}</td>
                     <td  style="height: 30px;">{{ $achat->N_facture }}</td>
                     <td  style="height: 30px;">{{ $achat->TVA_10 }}</td>
                     <td  style="height: 30px;">{{ $achat->TVA_20 }}</td>
                     <td  style="height: 30px;">{{ $achat->TVA_14 }}</td>
                     <td  style="height: 30px;">{{ $achat->Designation }}</td>
-                    <td  style="height: 30px;">{{ $achat->M_HT_7 }}</td>
+                    <td  style="height: 30px;">{{ number_format($achat->M_HT_7,2) }}</td>
                     @php $TOT_MHT+=$achat->M_HT_7 @endphp
                     <td  style="height: 30px;">{{ $achat->Taux7 }}</td>
-                    <td  style="height: 30px;">{{ $achat->TVA_7 }}</td>
-                  
-                    <td  style="height: 30px;">{{ $achat->M_TTC }}</td>
-                    @php $TOT_TTC+=$achat->M_TTC @endphp
+                    <td  style="height: 30px;">{{ number_format($achat->TVA_7,2) }}</td>
+                    @php $totalTVAG+=$achat->TVA_7 @endphp
+                    <td  style="height: 30px;">{{ number_format($achat->TTC_7,2) }}</td>
+                    @php $TOT_TTC+=$achat->TTC_7 @endphp
                     <td  style="height: 30px;">{{ $achat->Date_payment }}</td>
       
                     <td  style="height: 30px;">{{$achat->M_HT_20}}</td>
@@ -320,6 +326,7 @@
                 </tr>
                 @php
                 $totalTVA += $achat->TVA_7;
+             
                 $totalHT += $achat->M_HT_7 ;
                 $totalTTC += $achat->M_TTC ;
                 @endphp
@@ -327,25 +334,25 @@
         @endforeach
       
         echo "<tr class="text-bold">
-            <td></td>
-            <td colspan="6" class="text-center"> {{  $achat->num_racine_7 }}</td>
+            <td class="bg-gray"></td>
+            <td colspan="6" class="text-center"> {{  $achat->num_racine_7 }} {{ $achat->TTC_10}}  : {{ $achat->M_HT_14 }} {{ $achat->Taux7 }} %</td>
             <td>{{ $totalHT }}  </td>
-            <td>  </td>
-            <td> {{ $totalTVA }}</td>
-            <td> {{ $totalTTC }}</td>
-            <td></td>
-            <td></td>
-            </tr>"; 
-         
-    </table>
- <table class="table w-80 mt-10 ml-10">
- <tr class="text-bold">
-                <td  style="text-align: center;" colspan="7">TOTALE GENERAL</td>
-                <td>{{number_format($TOT_MHT, 2)}}</td>
+            <td class="bg-gray"></td>
+            <td > {{ $totalTVA }}</td>
+            <td > {{ $totalTTC }}</td>
+            <td class="bg-gray"></td>
+            <td class="bg-gray"></td>
+            </tr>";
+            <tr class="text-bold">
+            <td class="bg-gray" ></td>
+                <td  style="text-align: center; height: 18px; font-size:15px;" colspan="6"> 182 TOTAL DES DEDUCTIONS</td>
+                <td style="text-align: center; height: 18px; font-size:15px;">{{number_format($TOT_MHT, 2)}}</td>
+                <td class="bg-gray"></td>
+                <td style="text-align: center; height: 18px; font-size:15px;">{{number_format($totalTVAG, 2)}}</td>
                 @php
                 $total_rec=0;
                  @endphp
-                @foreach($SAMTVA as $TVA)    
+                <!-- @foreach($SAMTVA as $TVA)    
                 <td>{{number_format($TVA->STVA_7 , 2)}}</td>
                 @php $total_rec+=$TVA->STVA_7 @endphp
                 <td>{{number_format($TVA->STVA_10 , 2)}}</td>
@@ -354,15 +361,20 @@
                 @php $total_rec+=$TVA->STVA_14 @endphp
                 <td>{{number_format($TVA->STVA_20 , 2)}}</td>
                 @php $total_rec+=$TVA->STVA_20 @endphp
-                @endforeach
-                <td>{{number_format($TOT_TTC, 2)}}</td>
-
-            </tr>
- </table>
- <table class="table w-50  ml-30">
+                @endforeach -->
+                <td style="text-align: center; height: 18px; font-size:15px;">{{ number_format($TOT_TTC,2) }}</td>
+                <td class="bg-gray"></td>
+            <td class="bg-gray"></td>
+            </tr> 
+         
+    </table>
+ <!-- <table class="table w-40 mt-10 ml-10">
+ 
+ </table> -->
+ <!-- <table class="table w-50  ml-30">
  <tr class="text-bold">
                 <td  style="text-align: center;" colspan="7">TOTALE TVA RECUPEREE</td>
                 <td>{{number_format($total_rec, 2)}}</td>
             </tr>
- </table>
+ </table> -->
 </html> 

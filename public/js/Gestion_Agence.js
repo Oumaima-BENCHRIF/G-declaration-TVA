@@ -27,6 +27,7 @@ $(document).ready(function () {
         };
         toastr.success(response.message, { timeOut: 12000 });
         table_Agence();
+        viderchamp();
       },
       error: function (response) {
         toastr.options = {
@@ -128,10 +129,13 @@ function update_agence() {
   var nom_succorsale = $("#nom_succorsale").val();
   var FK_Regime = $("#FK_Regime").val();
   var FK_fait_generateurs = $("#FK_fait_generateurs").val();
-  var nomBD = $("#nomBD").val();
+  // var nomBD = $("#nomBD").val();
   var Fax = $("#Fax").val();
   var update_id_agence = $("#update_id_agence").val();
   var Exercice = $("#Exercice").val();
+  var Prorata = $("#prorata").val();
+  var code = $("#code").val();
+  var Chemain = $("#Chemain").val();
   formData.push(
     { name: "ICE", value: ICE },
     { name: "Email", value: Email },
@@ -147,10 +151,10 @@ function update_agence() {
     { name: "nomBD", value: "nomBD" },
     { name: "update_id_agence", value: update_id_agence },
     { name: "Exercice", value: Exercice },
+    { name: "Chemain", value: Chemain },
+    { name: "Prorata", value: Prorata },
+    { name: "code", value: code },
   );
-
-
-
   jQuery.ajax({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -187,7 +191,7 @@ function Liste_Regime() {
           '<option value="' +
           item.id +
           '">' +
-          item.libelle +' | '+item.periode+
+          item.libelle 
           "</option>";
       });
       $("#FK_Regime").html($lignes);
@@ -223,6 +227,10 @@ function viderchamp() {
   document.getElementById("Adresse").value = "";
   document.getElementById("Fax").value = "";
   document.getElementById("Exercice").value = "";
+  document.getElementById("prorata").value = "";
+  document.getElementById("Chemain").value = "";
+  document.getElementById("code").value = "";
+
   $lignes = "";
   Liste_Regime();
   if ($("#FK_Regime").val() !== "R-18") {
@@ -275,33 +283,114 @@ function table_Agence() {
 
         columns: [
           {
-            title: "Nom",
-            width: 95,
-            field: "nom_succorsale",
-            vertAlign: "middle",
-            // print: false,
-            editor: true,
-          },
-          {
-            title: "ICE",
-            minWidth: 100,
-            width: 43,
-            field: "ICE",
+            title: "Action",
+            minWidth: 110,
+            field: "actions",
+            responsive: 1,
             hozAlign: "center",
             vertAlign: "middle",
-            // print: false,
-            // download: false,
-            editor: true,
-          },
-          {
-            title: "ID Fiscale",
-            minWidth: 100,
-            width: 43,
-            field: "ID_Fiscale",
-            hozAlign: "center",
-            vertAlign: "middle",
-            // print: false,
-            // download: false,
+            print: false,
+            download: false,
+
+            formatter(cell, formatterParams) {
+              let a = $(`<div class="flex lg:justify-center items-center">
+                                     
+                                          <a  class="edit lex items-center text-success   mr-3" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#update-confirmation-modal">
+                                          <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
+                                      </a>
+                                      <a  class="mb-2 mr-2 delete" data-toggle="modal" data-target="#delet_succursale">
+                                      <i class="lar la-trash-alt text-danger font-20 mr-2"></i>
+                                      </a>
+  
+                                     
+                          </div>`);
+
+              $(a)
+                .find(".delete")
+                .on("click", function () {
+                  jQuery.ajax({
+                    url: "./Agence/" + cell.getData().id,
+                    type: "GET", // Le nom du fichier indiqué dans le formulaire
+                    dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                    // dataFilter: 'json', //forme data
+                    success: function (responce) {
+                      jQuery.each(responce.info_agence, function (key, item) {
+                        document.getElementById("delete_id_agence").value =
+                          item.id;
+                      });
+                    },
+                  });
+                });
+
+              $(a)
+                .find(".edit")
+                .on("click", function () {
+                  document.getElementById("Update").style.display = "initial";
+                  document.getElementById("Enregistrer").style.display = "none";
+                  // $("#nouveau").css("display", "none");
+                  jQuery.ajax({
+                    url: "./Agence/" + cell.getData().id,
+                    type: "GET", // Le nom du fichier indiqué dans le formulaire
+                    dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                    success: function (responce) {
+                      // affichage select
+
+                      jQuery.each(responce.info_agence, function (key, item) {
+                       
+                        document.getElementById("update_id_agence").value =
+                          item.id;
+                        document.getElementById("nom_succorsale").value =
+                          item.nom_succorsale;
+                        document.getElementById("ICE").value = item.ICE;
+                        document.getElementById("Email").value = item.Email;
+                        document.getElementById("Activite").value =
+                          item.Activite;
+                        document.getElementById("ID_Fiscale").value =
+                          item.ID_Fiscale;
+                        document.getElementById("Ville").value = item.Ville;
+                        document.getElementById("Tele").value = item.Tele;
+                        document.getElementById("Adresse").value = item.Adresse;
+                        document.getElementById("Fax").value = item.Fax;
+                        document.getElementById("Exercice").value = item.Exercice;
+                        document.getElementById("prorata").value = item.Prorata;
+                        document.getElementById("code").value = item.code;
+                        document.getElementById("Chemain").value = item.chemain;
+                        
+              
+                       var idToSelect = item.FK_fait_generateurs;
+                       var selectElement = document.getElementById("FK_fait_generateurs");
+                      for (var i = 0; i < selectElement.options.length; i++) {
+                      var option = selectElement.options[i];
+                      if (option.value == idToSelect) {
+                       option.selected = true;
+                       break; 
+                        }
+                      }
+                      var event = new Event('change');
+                      selectElement.dispatchEvent(event);
+
+
+                   var idToSelect = item.FK_Regime;
+                   var selectElement = document.getElementById("FK_Regime");
+                  for (var i = 0; i < selectElement.options.length; i++) {
+                  var option = selectElement.options[i];
+                  if (option.value == idToSelect) {
+                   option.selected = true;
+                   break; 
+                    }
+                  }
+                  var event = new Event('change');
+                  selectElement.dispatchEvent(event);
+                  });
+                  
+                 
+                      // var $newOption = $("<option selected='selected'></option>").text(responce.info_agence.FK_fait_generateurs).val(responce.info_agence.id);
+                
+                    },
+                  });
+                });
+              return a[0];
+            },
           },
           {
             title: "Ville",
@@ -345,132 +434,35 @@ function table_Agence() {
             // download: false,
           },
           {
-            title: "Action",
-            minWidth: 110,
-            field: "actions",
-            responsive: 1,
+            title: "ICE",
+            minWidth: 100,
+            width: 43,
+            field: "ICE",
             hozAlign: "center",
             vertAlign: "middle",
-            print: false,
-            download: false,
-
-            formatter(cell, formatterParams) {
-              let a = $(`<div class="flex lg:justify-center items-center">
-                                      <a class="view  mr-3" title="Consulter">
-                                          <svg xmlns="http://www.w3.org/2000/svg " width="20 " height="20 " viewBox="0 0 24 24 " fill="none " stroke="currentColor " stroke-width="2 " stroke-linecap="round " stroke-linejoin="round " icon-name="eye " data-lucide="eye " class="lucide lucide-eye w-4 h-4 mr-1 "><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z "></path><circle cx="12 " cy="12 " r="3 "></circle></svg>
-                                      </a>
-                                          <a  class="edit lex items-center text-success   mr-3" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#update-confirmation-modal">
-                                          <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
-                                      </a>
-                                      <a  class="mb-2 mr-2 delete" data-toggle="modal" data-target="#delet_succursale">
-                                      <i class="lar la-trash-alt text-danger font-20 mr-2"></i>
-                                      </a>
-  
-                                     
-                          </div>`);
-
-              $(a)
-                .find(".delete")
-                .on("click", function () {
-                  jQuery.ajax({
-                    url: "./Agence/" + cell.getData().id,
-                    type: "GET", // Le nom du fichier indiqué dans le formulaire
-                    dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-                    // dataFilter: 'json', //forme data
-                    success: function (responce) {
-                      jQuery.each(responce.info_agence, function (key, item) {
-                        document.getElementById("delete_id_agence").value =
-                          item.id;
-                      });
-                    },
-                  });
-                });
-
-              $(a)
-                .find(".view")
-                .on("click", function () {
-    
-                  jQuery.ajax({
-                    url: "./Agence/" + cell.getData().id,
-                    type: "GET", // Le nom du fichier indiqué dans le formulaire
-                    dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-                    success: function (responce) {
-                      // affichage select
-
-                      jQuery.each(responce.info_agence, function (key, item) {
-                       
-                        document.getElementById("nom_succorsale").value =
-                          item.nom_succorsale;
-                        document.getElementById("ICE").value = item.ICE;
-                        document.getElementById("Email").value = item.Email;
-                        document.getElementById("Activite").value =
-                          item.Activite;
-                        document.getElementById("ID_Fiscale").value =
-                          item.ID_Fiscale;
-                        document.getElementById("Ville").value = item.Ville;
-                        document.getElementById("Tele").value = item.Tele;
-                        document.getElementById("Adresse").value = item.Adresse;
-                        document.getElementById("Fax").value = item.Fax;
-                        document.getElementById("Exercice").value = item.Exercice;
-                        document.getElementById("FK_Regime").value =
-                          item.FK_Regime;
-                        document.getElementById("FK_fait_generateurs").value =
-                          item.FK_fait_generateurs;
-                        document.getElementById("Update").style.display =
-                          "none";
-                        document.getElementById("Enregistrer").style.display =
-                          "initial";
-                      });
-                    },
-                  });
-                });
-              $(a)
-                .find(".edit")
-                .on("click", function () {
-                  document.getElementById("Update").style.display = "initial";
-                  document.getElementById("Enregistrer").style.display = "none";
-                  $("#nouveau").css("display", "none");
-                  jQuery.ajax({
-                    url: "./Agence/" + cell.getData().id,
-                    type: "GET", // Le nom du fichier indiqué dans le formulaire
-                    dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-                    success: function (responce) {
-                      // affichage select
-
-                      jQuery.each(responce.info_agence, function (key, item) {
-                       
-                        document.getElementById("update_id_agence").value =
-                          item.id;
-                        document.getElementById("nom_succorsale").value =
-                          item.nom_succorsale;
-                        document.getElementById("ICE").value = item.ICE;
-                        document.getElementById("Email").value = item.Email;
-                        document.getElementById("Activite").value =
-                          item.Activite;
-                        document.getElementById("ID_Fiscale").value =
-                          item.ID_Fiscale;
-                        document.getElementById("Ville").value = item.Ville;
-                        document.getElementById("Tele").value = item.Tele;
-                        document.getElementById("Adresse").value = item.Adresse;
-                        document.getElementById("Fax").value = item.Fax;
-                        document.getElementById("Exercice").value = item.Exercice;
-                        document.getElementById("FK_Regime").value =
-                          item.FK_Regime;
-                        document.getElementById("FK_fait_generateurs").value =
-                          item.FK_fait_generateurs;
-                        var $newOption = $("<option selected='selected'></option>").text(item.FK_fait_generateurs).val(item.FK_fait_generateurs);
-                       console.log($newOption)
-                       $("#FK_fait_generateurs").append($newOption).trigger('change');
-                         
-                      });
-                      // var $newOption = $("<option selected='selected'></option>").text(responce.info_agence.FK_fait_generateurs).val(responce.info_agence.id);
-                
-                    },
-                  });
-                });
-              return a[0];
-            },
+            // print: false,
+            // download: false,
+            editor: true,
           },
+          {
+            title: "ID Fiscale",
+            minWidth: 100,
+            width: 43,
+            field: "ID_Fiscale",
+            hozAlign: "center",
+            vertAlign: "middle",
+            // print: false,
+            // download: false,
+          },
+          {
+            title: "Nom",
+            width: 95,
+            field: "nom_succorsale",
+            vertAlign: "middle",
+            // print: false,
+            editor: true,
+          }
+          
           // For print format
         ],
 

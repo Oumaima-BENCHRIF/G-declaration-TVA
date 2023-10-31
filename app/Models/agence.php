@@ -25,6 +25,7 @@ class agence extends Model
         'Fax',
         'FK_Regime',
         'FK_fait_generateurs',
+        'chemin_dossier',
         'nomBD',
     ];
 
