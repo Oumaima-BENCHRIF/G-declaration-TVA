@@ -206,7 +206,7 @@
                                                 <div class="col-md-6 mb-3 pt-3"></div>
                                                 <div class="col-md-3 mb-3 pt-3">
                                                <label for="chemain">Chemain</label>
-                                                         <input id="Chemain" type="text" class="form-control" name="Chemain"> 
+                                                         <input id="Chemain" type="text" class="form-control" name="Chemain" required> 
                                                 </div>
                                                 </div>
 <!--                                                 

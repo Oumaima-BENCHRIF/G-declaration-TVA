@@ -17,8 +17,7 @@ class XMLController extends Controller
     //
     function xml(Request $request)
     {
-        // try {
-
+        try {
             // $data = achat::select('achats.*', 'fournisseurs.NICE', 'fournisseurs.ID_fiscale', 'fournisseurs.nomFournisseurs', 'type_payments.Nom_payment', 'racines.Num_racines', 'racines.Taux', 'regimes.periode as periode')
             //     ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
             //     ->join('regimes', 'regimes.id', 'achats.FK_racines_7')
@@ -43,7 +42,7 @@ class XMLController extends Controller
                 ->where('achats.deleted_at', '=', NULL)
                 ->get();
             $cpt = 0;
-        
+
             // Créez une nouvelle instance de SimpleXMLElement pour créer un document XML.
             $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><DeclarationReleveDeduction></DeclarationReleveDeduction>'); // Parcourez les données et ajoutez-les au document XML.
             // Ajoutez les données à la structure XML manuellement.
@@ -181,49 +180,54 @@ class XMLController extends Controller
 
                 $responses = Response::make($xml->asXML(), 200);
                 $responses->header('Content-Type', 'application/xml');
-                $filenames = 'EDI_TVA_00'.$data[0]->prRegime.'_'. $request->Exercice.'_COMP.xml';
-                
+                $filenames = 'EDI_TVA_00' . $data[0]->prRegime . '_' . $request->Exercice . '_COMP.xml';
+
                 $responses->header('Content-Disposition', 'attachment; filename="' . $filenames . '"');
-                $xml->asXML($get_info->chemain . '/EDI_TVA_00'.$data[0]->prRegime.'_'. $request->Exercice.'_COMP.xml');
+                
+                if (!empty($get_info->chemain)) {
+                    $xml->asXML($get_info->chemain . '/EDI_TVA_00' . $data[0]->prRegime . '_' . $request->Exercice . '_COMP.xml');
+                    // Specify the path for the ZIP file.
+                    $zipFileName = $get_info->chemain . '/EDI_TVA_00' . $data[0]->prRegime . '_' . $request->Exercice . '_COMP.zip';
+                    // Create a new ZipArchive.
+                    $zip = new ZipArchive();
 
-                // Specify the path for the ZIP file.
-                // $zipFileName = $get_info->chemain . '/exported_data.zip';
+                    if ($zip->open($zipFileName, ZipArchive::CREATE) === true) {
+                        // Specify the path to the XML file you want to add to the ZIP archive.
+                        $xmlFileName = $get_info->chemain . '/EDI_TVA_00' . $data[0]->prRegime . '_' . $request->Exercice . '_COMP.xml';
 
-                // Create a new ZipArchive.
-                // $zip = new ZipArchive();
+                        // Add the XML file to the ZIP archive with a specified name.
+                        $zip->addFile($xmlFileName, 'EDI_TVA_00' . $data[0]->prRegime . '_' . $request->Exercice . '_COMP.xml');
+                        $zip->close();
 
-                // if ($zip->open($zipFileName, ZipArchive::CREATE) === true) {
-                //     // Specify the path to the XML file you want to add to the ZIP archive.
-                //     $xmlFileName = $get_info->chemain . '/exported_data.xml';
-
-                //     // Add the XML file to the ZIP archive with a specified name.
-                //     $zip->addFile($xmlFileName, 'exported_data.xml');
-                //     $zip->close();
-
-                //     // Set the appropriate HTTP headers for automatic download.
-                //     header('Content-Type: application/zip');
-                //     header('Content-Disposition: attachment; filename="exported_data.zip"');
-                //     readfile($zipFileName);
-                // } else {
-                //     return view('pages.error.error404')->with('message', '.Le chemin n\'est pas valide. Assurez-vous qu\'il est correct');
-                // }
-
-            } 
-            // else {
-            //     // $message = "Hello, World!";
-            //     // $script = "alert('" . addslashes($message) . "');";
-            //     // return response($script)->header('Content-Type', 'application/javascript');
-            //     return view('pages.error.error404')->with('message', '.La soumission du formulaire a échoué en raison de données manquantes');
-            // }
+                        // Set the appropriate HTTP headers for automatic download.
+                        header('Content-Type: application/zip');
+                        header('Content-Disposition: attachment; filename="EDI_TVA_00' . $data[0]->prRegime . '_' . $request->Exercice . '_COMP.zip"');
+                        readfile($zipFileName);
+                    } else {
+                        return view('pages.error.error404')->with('message', '.Le chemin n\'est pas valide. Assurez-vous qu\'il est correct');
+                    }
+                }else{
+                    return view('pages.error.error404')->with('message', '.Le chemin n\'existe pas. Assurez-vous qu\'il est saisi correctement');
+                }
 
 
-        // } catch (\Exception $e) {
-        //     // return redirect()
-        //     //     ->back()
-        //     //     ->with('danger', 'Une erreur s\'est produite. Merci de contacter le service IT.')
-        //     //     ->withInput();
 
-        //         return view('pages.error.error404')->with('message', '.Une erreur s\'est produite. Merci de contacter le service IT');
-        // }
+
+            } else {
+                // $message = "Hello, World!";
+                // $script = "alert('" . addslashes($message) . "');";
+                // return response($script)->header('Content-Type', 'application/javascript');
+                return view('pages.error.error404')->with('message', '.La soumission du formulaire a échoué en raison de données manquantes');
+            }
+
+
+        } catch (\Exception $e) {
+            // return redirect()
+            //     ->back()
+            //     ->with('danger', 'Une erreur s\'est produite. Merci de contacter le service IT.')
+            //     ->withInput();
+
+            return view('pages.error.error404')->with('message', '.Une erreur s\'est produite. Merci de contacter le service IT');
+        }
     }
 }
