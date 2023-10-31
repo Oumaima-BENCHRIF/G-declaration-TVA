@@ -133,10 +133,10 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
 
     /* ************************************************************** */
 
-<<<<<<< HEAD
+
   /* ************************************************************** Utilisateur */
     Route::get('utilisateur', function () {return view('auth.utilisateur');});
-=======
+
     /* ************************************************************** Compte charges */
     //  ******* View
     Route::get('/compte_charges', [App\Http\Controllers\CompteChargesController::class, 'index'])->name('compte_charges');
@@ -153,7 +153,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     //  ******* add json 
     Route::get('/Add_CompteChargesjson', [App\Http\Controllers\CompteChargesController::class, 'Storesjson'])->name('Add_CompteChargesjson');
     /* ************************************************************** */
->>>>>>> main
+
 
     Route::post('/register', [App\Http\Controllers\AuthController::class, 'store'])->name('register');
 
