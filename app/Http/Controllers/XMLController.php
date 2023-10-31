@@ -210,9 +210,6 @@ class XMLController extends Controller
                     return view('pages.error.error404')->with('message', '.Le chemin n\'existe pas. Assurez-vous qu\'il est saisi correctement');
                 }
 
-
-
-
             } else {
                 // $message = "Hello, World!";
                 // $script = "alert('" . addslashes($message) . "');";
