@@ -162,13 +162,13 @@
    .mt-10{
     margin-top:10px !important;
    }
-   .logo_impo{
-    width: 200px;
+   /* .logo_impo{
+    width: 20%;
     text-align: center;
     text-transform: uppercase;
-    display: block; 
+    display: flex; 
     margin: 0 80%;
-   }
+   } */
    .logo_impo img{
     height:15%;
     width:90%;
@@ -186,10 +186,8 @@
 </style> 
 <body>
 
- 
- <div class="logo_impo">
- <!-- <img src="{{ public_path('assets/img/logo_impo.png') }}" alt="Logo"> -->
-   </div>
+ <div style="display: flex">
+
 <div class="w-40 float-left">
 
     <table class=" w-85">
@@ -225,13 +223,15 @@
   </table> 
 
 </div> 
-
-    <div style=" margin-left: 45%;" > 
-    <!-- <img src="{{ public_path('assets/img/logo_minister.png') }}" alt="Logo" height="10%" width="10%" style=""> -->
+<div style="width: 20%; display:inline-flex; "> 
+ <img src="{{ public_path('assets/img/logo_impo.png') }}" alt="Logo" style="width: 100%;">
+ 
+    </div>
+    <div style=" display:inline-flex; margin-left:55%; margin-top: -13%;" > 
+    <img src="{{ public_path('assets/img/logo_minister.png') }}" alt="Logo" height="10%" width="30%" >
 
     </div>
-
-<div class="add-detail " >
+    <div class="add-detail " style="display:inline-flex; text-align: center; margin-left:50%; margin-top: -7.5%;" >
 
     <table class=" table w-10 float-left info">
                 <tr>
@@ -244,6 +244,10 @@
    
     <div style="clear: both;"></div>
 </div>
+   
+    </div>
+
+
 <div class="add-detail ">
 </div>
 
