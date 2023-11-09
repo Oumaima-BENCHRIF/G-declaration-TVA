@@ -209,7 +209,12 @@
                                                 </div>
                                                 <div class="col-md-6 mb-3 pt-3"></div>
                                                 <div class="col-md-3 mb-3 pt-3">
+<<<<<<< HEAD
                                                
+=======
+                                               <label for="chemain">Chemain</label>
+                                                         <input id="Chemain" type="text" class="form-control" name="Chemain" required> 
+>>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
                                                 </div>
                                                 </div>
 <!--                                                 

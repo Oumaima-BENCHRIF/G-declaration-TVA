@@ -1,5 +1,6 @@
-$('.select2').select2();
+$(".select2").select2();
 $(window).on("load", function () {
+  Excel_impo();
   get_info();
   Liste_FRS();
   Liste_Ccharge();
@@ -9,10 +10,10 @@ $(window).on("load", function () {
   setTimeout(function () {
     // table_Achat();
     get_table();
-  }, 1500); 
- 
+  }, 1500);
+
   gestYears();
-  document.getElementById('update').style.display='none';
+  document.getElementById("update").style.display = "none";
   $("#rowracine3").css("display", "none");
   $("#rowracine1").css("display", "none");
   $("#rowracine2").css("display", "none");
@@ -20,20 +21,22 @@ $(window).on("load", function () {
   // $("#taux1").prop("readonly", true);
 });
 
+
+
+
 $(document).ready(function () {
- 
   $("#Add_Achat").on("submit", function (e) {
     e.preventDefault();
     var formData = [];
     var $this = jQuery(this);
     var formData = jQuery($this).serializeArray();
-    let Exercice =$("#Exercice").val();
-    let periode =$("#periode").val(); 
+    let Exercice = $("#Exercice").val();
+    let periode = $("#periode").val();
     formData.push(
       { name: "Exercice", value: Exercice },
-      { name: "periode", value: periode },
+      { name: "periode", value: periode }
     );
-   
+
     jQuery.ajax({
       url: $this.attr("action"),
       type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
@@ -58,12 +61,11 @@ $(document).ready(function () {
         toastr.error("Merci de vérifier les champs");
       },
     });
-    
   });
   $("#update").on("click", function (e) {
-    var id = $('#id_achat').val();
+    var id = $("#id_achat").val();
     var formData = [];
-    var frs = $('#frs').val();
+    var frs = $("#frs").val();
     var desc = $("#desc").val();
     var n_fact = $("#n_fact").val();
     var date_fact = $("#date_fact").val();
@@ -84,10 +86,10 @@ $(document).ready(function () {
     var racine4 = $("#racine4").val();
     var MHT_3 = $("#MHT_3").val();
     var tva_3 = $("#tva_3").val();
-    var ttc3 = $("#ttc3").val();    
+    var ttc3 = $("#ttc3").val();
     var MHT_4 = $("#MHT_4").val();
     var tva_4 = $("#tva_4").val();
-    var ttc4 = $("#ttc4").val();  
+    var ttc4 = $("#ttc4").val();
     var tva_d1 = $("#tva_d1").val();
     var tva_d2 = $("#tva_d2").val();
     var tva_d3 = $("#tva_d3").val();
@@ -95,7 +97,7 @@ $(document).ready(function () {
     var Exercice = $("#Exercice").val();
     var periode = $("#periode").val();
     var Taux1 = $("#taux1").val();
-    var Taux2 = $("#taux2").val(); 
+    var Taux2 = $("#taux2").val();
     var Taux3 = $("#taux3").val();
     var Taux4 = $("#taux4").val();
     var charge = $("#charge").val();
@@ -128,46 +130,43 @@ $(document).ready(function () {
       { name: "tva_d1", value: tva_d1 },
       { name: "tva_d2", value: tva_d2 },
       { name: "tva_d3", value: tva_d3 },
-      { name: "tva_d4", value: tva_d4 },  
+      { name: "tva_d4", value: tva_d4 },
       { name: "Exercice", value: Exercice },
       { name: "periode", value: periode },
-      { name: "Taux1", value: Taux1 }, 
+      { name: "Taux1", value: Taux1 },
       { name: "Taux2", value: Taux2 },
       { name: "Taux3", value: Taux3 },
       { name: "Taux4", value: Taux4 },
       { name: "racine4", value: racine4 },
       { name: "charge", value: charge }
     );
-  
+
     jQuery.ajax({
       headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+      },
 
       url: "./update_achat",
       type: "get", // Le nom du fichier indiqué dans le formulaire
-      data:formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-  
+      data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+
       success: function (response) {
-          // Je récupère la réponse du fichier PHP
-          toastr.success(response.messages);
-          get_table();
+        // Je récupère la réponse du fichier PHP
+        toastr.success(response.messages);
+        get_table();
       },
       error: function (response) {
-          toastr.error(response.Error);
+        toastr.error(response.Error);
       },
-  });
-
+    });
   });
   $("#vider").on("click", function (e) {
     var Exercice = $("#Exercice").val();
     var periode = $("#periode").val();
     $("#delete_periode").val(periode);
-    $("#delete_exercice").val(Exercice)
-
+    $("#delete_exercice").val(Exercice);
   });
   $("#Delet_periode").on("submit", function (e) {
- 
     e.preventDefault();
     var $this = jQuery(this);
     var formData = jQuery($this).serializeArray();
@@ -190,7 +189,6 @@ $(document).ready(function () {
         toastr.error(response.danger);
       },
     });
-
   });
   $("#Delet_Achat").on("submit", function (e) {
     e.preventDefault();
@@ -217,14 +215,13 @@ $(document).ready(function () {
     });
   });
   $("#achat_pdf").on("click", function (e) {
-    let periode = $('#periode').val();
-    let Exercice = $('#Exercice').val();
+    let periode = $("#periode").val();
+    let Exercice = $("#Exercice").val();
     window.open("./Etat_Achat/" + periode + "/" + Exercice);
-
   });
-  $('#frs').on('select2:select', function (e) {
+  $("#frs").on("select2:select", function (e) {
     // myFunction();
-    let value = $('#frs').val();
+    let value = $("#frs").val();
     console.log(value);
     jQuery.ajax({
       url: "./get_FRS/" + value,
@@ -237,172 +234,175 @@ $(document).ready(function () {
           $("#id_fiscal").val($tabledata.ID_fiscale);
           $("#desc").val($tabledata.Designation);
           $("#n_compt").val($tabledata.Num_compte_comptable);
-  
         });
-
       },
     });
-
   });
-  $('#racine').on('select2:select', function (e) {
+  $("#racine").on("select2:select", function (e) {
     tauxRacine1();
+<<<<<<< HEAD
+=======
+    // var isReadOnly = $("#tva_1").prop('readonly');
+    // if(!isReadOnly)
+    // {
+    calcul_tva();
+    // }
+>>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
   });
-  $('#racine2').on('select2:select', function (e) {
+  $("#racine2").on("select2:select", function (e) {
     tauxRacine2();
-
   });
-  $('#racine3').on('select2:select', function (e) {
+  $("#racine3").on("select2:select", function (e) {
     tauxRacine3();
   });
-  $('#racine4').on('select2:select', function (e) {
+  $("#racine4").on("select2:select", function (e) {
     tauxRacine4();
   });
 
-  $('#periode').on('select2:select', function (e) {
+  $("#periode").on("select2:select", function (e) {
     get_table();
   });
-  $('#Exercice').on('select2:select', function (e) {
-    
-    let Exercice = $('#Exercice').val();
-   
-  
+  $("#Exercice").on("select2:select", function (e) {
+    let Exercice = $("#Exercice").val();
+
     jQuery.ajax({
-      url: "./get_regime/" +Exercice,
+      url: "./get_regime/" + Exercice,
       type: "GET",
       dataType: "json",
       success: function (responce) {
-    
-           let selectElement=("#Exercice");
-           var $lignes;
-           $tabledata = responce.Liste_regimes;
-           let regime=responce.regime.libelle;
-         
-          jQuery.each($tabledata, function (key, item) {
-        
-            if(regime==item.libelle){
-             
-              $lignes =
+        let selectElement = "#Exercice";
+        var $lignes;
+        $tabledata = responce.Liste_regimes;
+        let regime = responce.regime.libelle;
+
+        jQuery.each($tabledata, function (key, item) {
+          if (regime == item.libelle) {
+            $lignes =
               $lignes +
               '<option value="' +
               item.id +
               '">' +
-              item.	periode +
-            "</option>";
-            }
-            $("#periode").html($lignes);
-          });
-        
-        },
+              item.periode +
+              "</option>";
+          }
+          $("#periode").html($lignes);
+        });
+      },
     });
     get_table();
   });
   $("#close").on("click", function (e) {
     viderChamps();
   });
-  $('#basic-dt').DataTable({
-    "language": {
-      "paginate": {
-        "previous": "<i class='las la-angle-left'></i>",
-        "next": "<i class='las la-angle-right'></i>"
-      }
+  $("#basic-dt").DataTable({
+    language: {
+      paginate: {
+        previous: "<i class='las la-angle-left'></i>",
+        next: "<i class='las la-angle-right'></i>",
+      },
     },
-    "lengthMenu": [5, 10, 15, 20],
-    "pageLength": 5
+    lengthMenu: [5, 10, 15, 20],
+    pageLength: 5,
   });
-  $('#dropdown-dt').DataTable({
-    "language": {
-      "paginate": {
-        "previous": "<i class='las la-angle-left'></i>",
-        "next": "<i class='las la-angle-right'></i>"
-      }
+  $("#dropdown-dt").DataTable({
+    language: {
+      paginate: {
+        previous: "<i class='las la-angle-left'></i>",
+        next: "<i class='las la-angle-right'></i>",
+      },
     },
-    "lengthMenu": [5, 10, 15, 20],
-    "pageLength": 5
+    lengthMenu: [5, 10, 15, 20],
+    pageLength: 5,
   });
-  $('#last-page-dt').DataTable({
-    "pagingType": "full_numbers",
-    "language": {
-      "paginate": {
-        "first": "<i class='las la-angle-double-left'></i>",
-        "previous": "<i class='las la-angle-left'></i>",
-        "next": "<i class='las la-angle-right'></i>",
-        "last": "<i class='las la-angle-double-right'></i>"
-      }
+  $("#last-page-dt").DataTable({
+    pagingType: "full_numbers",
+    language: {
+      paginate: {
+        first: "<i class='las la-angle-double-left'></i>",
+        previous: "<i class='las la-angle-left'></i>",
+        next: "<i class='las la-angle-right'></i>",
+        last: "<i class='las la-angle-double-right'></i>",
+      },
     },
-    "lengthMenu": [3, 6, 9, 12],
-    "pageLength": 3
+    lengthMenu: [3, 6, 9, 12],
+    pageLength: 3,
   });
-   $.fn.dataTable.ext.search.push(
-    function (settings, data, dataIndex) {
-      var min = parseInt($('#min').val(), 10);
-      var max = parseInt($('#max').val(), 10);
-      var age = parseFloat(data[3]) || 0; // use data for the age column
-      if ((isNaN(min) && isNaN(max)) ||
-        (isNaN(min) && age <= max) ||
-        (min <= age && isNaN(max)) ||
-        (min <= age && age <= max)) {
-        return true;
-      }
-      return false;
+  $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    var min = parseInt($("#min").val(), 10);
+    var max = parseInt($("#max").val(), 10);
+    var age = parseFloat(data[3]) || 0; // use data for the age column
+    if (
+      (isNaN(min) && isNaN(max)) ||
+      (isNaN(min) && age <= max) ||
+      (min <= age && isNaN(max)) ||
+      (min <= age && age <= max)
+    ) {
+      return true;
     }
-  );
-  var table = $('#range-dt').DataTable({
-    "language": {
-      "paginate": {
-        "previous": "<i class='las la-angle-left'></i>",
-        "next": "<i class='las la-angle-right'></i>"
-      }
-    },
-    "lengthMenu": [5, 10, 15, 20],
-    "pageLength": 5
+    return false;
   });
-  $('#min, #max').keyup(function () {
+  var table = $("#range-dt").DataTable({
+    language: {
+      paginate: {
+        previous: "<i class='las la-angle-left'></i>",
+        next: "<i class='las la-angle-right'></i>",
+      },
+    },
+    lengthMenu: [5, 10, 15, 20],
+    pageLength: 5,
+  });
+  $("#min, #max").keyup(function () {
     table.draw();
   });
-  $('#export-dt').DataTable({
+  $("#export-dt").DataTable({
     dom: '<"row"<"col-md-6"B><"col-md-6"f> ><""rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>>',
     buttons: {
-      buttons: [{
-        extend: 'excel',
-        className: 'btn btn-soft-secondary'
-      },
-      {
-        extend: 'pdf',
-        className: 'btn btn-secondary'
-      },
-      {
-        extend: 'print',
-        className: 'btn btn-soft-info'
-      }
-      ]
+      buttons: [
+        {
+          extend: "excel",
+          className: "btn btn-soft-secondary",
+        },
+        {
+          extend: "pdf",
+          className: "btn btn-secondary",
+        },
+        {
+          extend: "print",
+          className: "btn btn-soft-info",
+        },
+      ],
     },
-    "language": {
-      "paginate": {
-        "previous": "<i class='las la-angle-left'></i>",
-        "next": "<i class='las la-angle-right'></i>"
-      }
+    language: {
+      paginate: {
+        previous: "<i class='las la-angle-left'></i>",
+        next: "<i class='las la-angle-right'></i>",
+      },
     },
-    "lengthMenu": [7, 10, 20, 50],
-    "pageLength": 7
+    lengthMenu: [7, 10, 20, 50],
+    pageLength: 7,
   });
   // Add text input to the footer
-  $('#single-column-search tfoot th').each(function () {
+  $("#single-column-search tfoot th").each(function () {
     var title = $(this).text();
-    $(this).html('<input type="text" class="form-control" placeholder="Search ' + title +
-      '" />');
+    $(this).html(
+      '<input type="text" class="form-control" placeholder="Search ' +
+        title +
+        '" />'
+    );
   });
   // Generate Datatable
-  var table = $('#single-column-search').DataTable({
-    "language": {
-      "paginate": {
-        "previous": "<i class='las la-angle-left'></i>",
-        "next": "<i class='las la-angle-right'></i>"
-      }
+  var table = $("#single-column-search").DataTable({
+    language: {
+      paginate: {
+        previous: "<i class='las la-angle-left'></i>",
+        next: "<i class='las la-angle-right'></i>",
+      },
     },
-    "lengthMenu": [5, 10, 15, 20],
-    "pageLength": 5
+    lengthMenu: [5, 10, 15, 20],
+    pageLength: 5,
   });
   $("#add-btn").on("click", function (e) {
+<<<<<<< HEAD
     if($("#rowracine1").css("display")==="none")
     {
      $("#rowracine1").css("display", "inherit");
@@ -520,31 +520,38 @@ if(hiddenElementsCount==1)
 }
   
 });
+=======
+    $("#rowracine1").css("display", "inherit");
+    $("#add-btn").css("display", "none");
+  });
+  $("#add-btn2").on("click", function (e) {
+    $("#rowracine2").css("display", "inherit");
+    $("#add-btn2").css("display", "none");
+  });
+>>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
   // Search
   table.columns().every(function () {
     var that = this;
-    $('input', this.footer()).on('keyup change', function () {
+    $("input", this.footer()).on("keyup change", function () {
       if (that.search() !== this.value) {
-        that
-          .search(this.value)
-          .draw();
+        that.search(this.value).draw();
       }
     });
   });
-  var table = $('#toggle-column').DataTable({
-    "language": {
-      "paginate": {
-        "previous": "<i class='las la-angle-left'></i>",
-        "next": "<i class='las la-angle-right'></i>"
-      }
+  var table = $("#toggle-column").DataTable({
+    language: {
+      paginate: {
+        previous: "<i class='las la-angle-left'></i>",
+        next: "<i class='las la-angle-right'></i>",
+      },
     },
-    "lengthMenu": [5, 10, 15, 20],
-    "pageLength": 5
+    lengthMenu: [5, 10, 15, 20],
+    pageLength: 5,
   });
-  $('a.toggle-btn').on('click', function (e) {
+  $("a.toggle-btn").on("click", function (e) {
     e.preventDefault();
     // Get the column API object
-    var column = table.column($(this).attr('data-column'));
+    var column = table.column($(this).attr("data-column"));
     // Toggle the visibility
     column.visible(!column.visible());
     $(this).toggleClass("toggle-clicked");
@@ -555,20 +562,20 @@ if(hiddenElementsCount==1)
     var $this = jQuery(this);
     var formData = jQuery($this).serializeArray();
     // let Exercice =$("#inputText").val();
-    // let Date_payement =$("#Date_payement").val(); 
-    // let TVA_deductible =$("#TVA_deductible").val();  
-    // let Prorata =$("#Prorata").val();    
-    // let mode_p =$("#mode_p").val();    
-    // let Racine =$("#Racine").val();     
-    // let Date_facture =$("#Date_facture").val();       
-    // let ID_fiscale =$("#ID_fiscale").val();       
-    // let ICE =$("#ICE").val();        
-    // let FRS =$("#FRS").val();   
-    // let TTC =$("#TTC").val();    
-    // let TVA =$("#TVA").val();    
-    // let Taux =$("#Taux").val();    
-    // let MHT =$("#MHT").val();     
-    // let NFACT =$("#NFACT").val();     
+    // let Date_payement =$("#Date_payement").val();
+    // let TVA_deductible =$("#TVA_deductible").val();
+    // let Prorata =$("#Prorata").val();
+    // let mode_p =$("#mode_p").val();
+    // let Racine =$("#Racine").val();
+    // let Date_facture =$("#Date_facture").val();
+    // let ID_fiscale =$("#ID_fiscale").val();
+    // let ICE =$("#ICE").val();
+    // let FRS =$("#FRS").val();
+    // let TTC =$("#TTC").val();
+    // let TVA =$("#TVA").val();
+    // let Taux =$("#Taux").val();
+    // let MHT =$("#MHT").val();
+    // let NFACT =$("#NFACT").val();
     // var Date_payement = document.querySelector('label[for="Date_payement"]').innerText;
     // var TVA_deductible = document.querySelector('label[for="TVA_deductible"]').innerText;
     // var Prorata = document.querySelector('label[for="Prorata"]').innerText;
@@ -584,16 +591,17 @@ if(hiddenElementsCount==1)
     // var MHT = document.querySelector('label[for="MHT"]').innerText;
     // var Designation = document.querySelector('label[for="Designation"]').innerText;
     // var NFACT = document.querySelector('label[for="NFACT"]').innerText;
-  
-    
+
     // Loop through the input fields and add their corresponding labels to formData
-    jQuery(this).find('input[type="text"]').each(function () {
+    jQuery(this)
+      .find('input[type="text"]')
+      .each(function () {
         var inputName = $(this).attr("name");
-        var labelName = inputName ;
+        var labelName = inputName;
         var labelValue = $("input[name='" + labelName + "']").val();
-        
+
         formData.push({ name: labelName, value: labelValue });
-    });
+      });
 
     console.log(formData);
     // formData.push(
@@ -613,7 +621,7 @@ if(hiddenElementsCount==1)
     //   { name: "Designation", value: Designation },
     //   { name: "NFACT", value: NFACT },
     // );
-   
+
     jQuery.ajax({
       url: $this.attr("action"),
       type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
@@ -625,9 +633,8 @@ if(hiddenElementsCount==1)
           progressBar: true,
           closeButton: true,
         };
-       
+
         toastr.success(response.message, { timeOut: 12000 });
-       
       },
       error: function (response) {
         toastr.options = {
@@ -637,87 +644,130 @@ if(hiddenElementsCount==1)
         toastr.error("Merci de vérifier les champs");
       },
     });
-    
   });
-  $('#date_p').change(function () {
-    console.log('Event triggered!');
-   checkDate();
+  $("#date_p").change(function () {
+    console.log("Event triggered!");
+    checkDate();
   });
 
-  $('#frs').select2({
-    tags: true,
-    createTag: function(params) {
-      var term = $.trim(params.term);
+  $("#frs")
+    .select2({
+      tags: true,
+      createTag: function (params) {
+        var term = $.trim(params.term);
 
-      if (term === '') {
-        return null;
+        if (term === "") {
+          return null;
+        }
+
+        return {
+          id: term,
+          text: term,
+          newTag: true,
+          // Add this to indicate it's a new tag
+        };
+      },
+    })
+    .on("select2:select", function (e) {
+      var selectedOption = e.params.data;
+
+      // Check if the selected option is a new tag
+      if (selectedOption.newTag) {
+        // Remove the "readonly" attribute from an element with the ID "id_fiscal"
+        $("#id_fiscal").removeAttr("readonly");
+        $("#N_ICE").removeAttr("readonly");
+        $("#n_compt").removeAttr("readonly");
+        $("#id_fiscal").prop("required", true);
+        $("#N_ICE").prop("required", true);
+        $("#n_compt").prop("required", true);
+        $("#n_compt").val("4411");
       }
+    });
+  $("#ajou").on("click", function (e) {
+    $("#rowracine").css("display", "inherit");
+    $("#add-btn").css("display", "inline");
+    // $("#col-add").css("text-align", "center");
+    $("#rowracine3").css("display", "none");
+    $("#rowracine1").css("display", "none");
+    $("#rowracine2").css("display", "none");
+  });
 
-      return {
-        id: term,
-        text: term,
-        newTag: true ,
-         // Add this to indicate it's a new tag
-      };
-    }
-  }).on('select2:select', function (e) {
-    var selectedOption = e.params.data;
 
-// Check if the selected option is a new tag
-if (selectedOption.newTag) {
-  // Remove the "readonly" attribute from an element with the ID "id_fiscal"
-  $('#id_fiscal').removeAttr("readonly");
-  $('#N_ICE').removeAttr("readonly");
-  $('#n_compt').removeAttr("readonly");
-  $('#id_fiscal').prop("required", true);
-  $('#N_ICE').prop("required", true);
-  $('#n_compt').prop("required", true);
-  $('#n_compt').val('4411');
+  $("#impo_Excel").on("submit", function (e) {
+    // e.preventDefault();
+    // var formData = [];
+    // var $this = jQuery(this);
+    // var formData = jQuery($this).serializeArray();
+    // let Exercice = $("#Exercice").val();
+    // let periode = $("#periode").val();
+    console.log("okey");
+    alert('o');
+    // formData.push(
+    //   { name: "Exercice", value: Exercice },
+    //   { name: "periode", value: periode }
+    // );
+
+    // jQuery.ajax({
+    //   url: $this.attr("action"),
+    //   type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+    //   data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+    //   // dataFilter: 'json', //forme data
+    //   success: function (response) {
+    //     // Je récupère la réponse du fichier PHP
+    //     toastr.options = {
+    //       progressBar: true,
+    //       closeButton: true,
+    //     };
+    //     toastr.success(response.message, { timeOut: 12000 });
+    //     // table_Achat();
+    //     get_table();
+    //     viderChamps();
+    //   },
+    //   error: function (response) {
+    //     toastr.options = {
+    //       progressBar: true,
+    //       closeButton: true,
+    //     };
+    //     toastr.error("Merci de vérifier les champs");
+    //   },
+    // });
+
+  });
+
+
+
+
+});
+
+function Excel_impo(){
+  const fileInput = document.getElementById("file-upload");
+
+    // Get the element where you want to display the selected file's name
+    const selectedFileName = document.getElementById("selected-file-name");
+
+    // Get the clear icon element
+    const clearIcon = document.getElementById("clear-file");
+    selectedFileName.style.color = "green";
+    selectedFileName.textContent = ".Nous vous remercions de bien vouloir sélectionner un fichier";
+    // Add an event listener to the file input
+    fileInput.addEventListener("change", function () {
+        if (fileInput.files.length > 0) {
+            const fileName = fileInput.files[0].name;
+            selectedFileName.textContent = fileName;
+            selectedFileName.style.color = "green";
+        }
+    });
+
+    // Add an event listener to the clear icon
+    clearIcon.addEventListener("click", function () {
+        // Clear the selected file
+        fileInput.value = null;
+        // Clear the displayed file name
+        selectedFileName.style.color = "red";
+        selectedFileName.textContent = ".Nous vous remercions de bien vouloir sélectionner un fichier";
+        
+    });
 }
-});
-$("#ajou").on("click", function (e) {
-  $("#rowracine").css("display", "inherit");
-  $("#add-btn").css("display", "inline");
-  // $("#col-add").css("text-align", "center");
-  $("#rowracine3").css("display", "none");
-  $("#rowracine1").css("display", "none");
-  $("#rowracine2").css("display", "none");
-});
-});
-
-// function myFunction() {
-
-//   let frs = document.getElementById("frs");
-//   let desc = document.getElementById("desc");
-
-
-//   // Convert input values to lowercase for case-insensitive comparison
-
-//   let descValue = desc.value.toLowerCase();
-//   let selectedOption = frs.options[frs.selectedIndex];
-//   let selectedText = selectedOption.text.toLowerCase();
-
-//   if (descValue.startsWith("elect") && selectedText === "lydec") {
-
-  
-//     $("#colracine").css("display", "none");
-//     $("#select").css("display", "none");
-//     $("#colracine1").css("display", "block");
-//     // $("#racine").val(1);ID OF RACINE 7 IN LEDYC ELECT
-//     $("#taux1").val(7);
-//     $("#taux2").val(14);
-//     $("#taux3").val(20);
-//     $("#MHT_1").prop("readonly", true);
-//     $("#ttc").prop("readonly", true);
-//     $("#tva_1").prop("readonly", false);
-//   } else {
-
-//     $("#colracine").css("display", "block");
-//     $("#select").css("display", "inline-block");
-//     $("#colracine1").css("display", "none");
-//     $("#taux1").prop("readonly", true);
-//   }
-// }
 
 function Liste_FRS() {
   jQuery.ajax({
@@ -752,8 +802,10 @@ function Liste_Ccharge() {
           '<option value="' +
           item.id +
           '">' +
-          item.N_compte_charges_immob +'  | ' + item.Intitule
-          "</option>";
+          item.N_compte_charges_immob +
+          "  | " +
+          item.Intitule;
+        ("</option>");
       });
       $("#charge").html($lignes);
     },
@@ -772,8 +824,10 @@ function Liste_Mpyement() {
           '<option value="' +
           item.id +
           '">' +
-          item.Num_payment + '  | ' + item.Nom_payment
-        "</option>";
+          item.Num_payment +
+          "  | " +
+          item.Nom_payment;
+        ("</option>");
       });
       $("#Mpayement").html($lignes);
     },
@@ -785,46 +839,47 @@ function get_info() {
     type: "GET",
     dataType: "json",
     success: function (responce) {
-    
-    let selectElement=("#Exercice");
-    var $lignes;
-    let $i=0;
-    $tabledata = responce.Liste_regimes;
-  
-      jQuery.each( $tabledata, function (key, item) {
+      let selectElement = "#Exercice";
+      var $lignes;
+      let $i = 0;
+      $tabledata = responce.Liste_regimes;
+
+      jQuery.each($tabledata, function (key, item) {
         console.log(responce.regime[0].libelle);
-          if(item.libelle==responce.regime[0].libelle){
+        if (item.libelle == responce.regime[0].libelle) {
           $lignes =
-          $lignes +
-          '<option value="' +
-          item.id +
-          '">' +
-          item.	periode +
-        "</option>";
-        $i++;
+            $lignes +
+            '<option value="' +
+            item.id +
+            '">' +
+            item.periode +
+            "</option>";
+          $i++;
         }
         $("#periode").html($lignes);
         $("#prorata").val(responce.get_info.Prorata);
       });
-      console.log(responce.periode)
+      console.log(responce.periode);
       $("#periode").val(responce.periode);
-      var $newOption = $("<option selected='selected'></option>").text(responce.get_info.Exercice).val(responce.get_info.Exercice);
-      $("#Exercice").append($newOption).trigger('change');
+      var $newOption = $("<option selected='selected'></option>")
+        .text(responce.get_info.Exercice)
+        .val(responce.get_info.Exercice);
+      $("#Exercice").append($newOption).trigger("change");
       $("#faitG").val(responce.get_info.FK_fait_generateurs);
     },
   });
 }
 
-function gestYears(){
-  const Exercice = document.getElementById('Exercice');
+function gestYears() {
+  const Exercice = document.getElementById("Exercice");
   const currentYear = new Date().getFullYear();
 
   // Create options for a range of years, for example: from current year to 10 years ago
   for (let year = currentYear; year >= currentYear - 10; year--) {
-      const option = document.createElement('option');
-      option.id = year;
-      option.textContent = year;
-      Exercice.appendChild(option);
+    const option = document.createElement("option");
+    option.id = year;
+    option.textContent = year;
+    Exercice.appendChild(option);
   }
 }
 function Liste_Racine() {
@@ -836,77 +891,85 @@ function Liste_Racine() {
       var $lignes = '<option value="null">Sélectionner</option>';
       var categories = {};
       jQuery.each(responce.Liste_Racine, function (key, item) {
-      
-
-        var option = '<option value="' + item.id + '">' + item.Num_racines + ' | ' + item.Nom_racines + ' | ' + item.Taux + '</option>';
+        var option =
+          '<option value="' +
+          item.id +
+          '">' +
+          item.Num_racines +
+          " | " +
+          item.Nom_racines +
+          " | " +
+          item.Taux +
+          "</option>";
         if (!categories[item.categorie]) {
           categories[item.categorie] = [];
         }
         categories[item.categorie].push(option);
-
-
       });
       var $lignes = '<option value="null">Sélectionner</option>';
-for (var categorie in categories) {
-  $lignes += '<optgroup label="' + categorie + '">' + categories[categorie].join('') + '</optgroup>';
-}
+      for (var categorie in categories) {
+        $lignes +=
+          '<optgroup label="' +
+          categorie +
+          '">' +
+          categories[categorie].join("") +
+          "</optgroup>";
+      }
 
-$("#racine").html($lignes);
+      $("#racine").html($lignes);
       $("#racine2").html($lignes);
-       $("#racine3").html($lignes);
-       $("#racine4").html($lignes);
+      $("#racine3").html($lignes);
+      $("#racine4").html($lignes);
 
-$('select#racine').select2();
-$('select#racine2').select2();
-$('select#racine3').select2();
-$('select#racine4').select2();
-    
-    
+      $("select#racine").select2();
+      $("select#racine2").select2();
+      $("select#racine3").select2();
+      $("select#racine4").select2();
     },
   });
 }
 function checkDate() {
-
-  var inputDate  = $("#date_p").val();
+  var inputDate = $("#date_p").val();
   console.log(inputDate);
-  if (!inputDate === null || !inputDate.trim() === ""){
-  // var currentDate = new Date();
- finPeriode="";
-  // // Calculate the date exactly one year ago from the current date
-  // var oneYearAgo = new Date();
-  // oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
-  let id = $('#periode').val();
-  let annee = $('#Exercice').val();
-  jQuery.ajax({
-    url: "./get_regimeByid/"+id,
-    type: "GET",
-    dataType: "json",
-    success: function (responce) {
-    
-      
-      finPeriode=responce.regime.AU;
-      finPeriode = finPeriode.trim();
-      var parts = finPeriode.split('-');
-    var year = parseInt(parts[0]);
-    var month = parseInt(parts[1]);
-    var day = parseInt(parts[2]);
-    year = annee - 1;
-    month = month ;
-    finPeriode = year + "-" + (month < 10 ? "0" : "") + month + "-" + day;
-    peride=annee + "-" + parseInt(parts[1])+ "-" + day;
+  if (!inputDate === null || !inputDate.trim() === "") {
+    // var currentDate = new Date();
+    finPeriode = "";
+    // // Calculate the date exactly one year ago from the current date
+    // var oneYearAgo = new Date();
+    // oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
+    let id = $("#periode").val();
+    let annee = $("#Exercice").val();
+    jQuery.ajax({
+      url: "./get_regimeByid/" + id,
+      type: "GET",
+      dataType: "json",
+      success: function (responce) {
+        finPeriode = responce.regime.AU;
+        finPeriode = finPeriode.trim();
+        var parts = finPeriode.split("-");
+        var year = parseInt(parts[0]);
+        var month = parseInt(parts[1]);
+        var day = parseInt(parts[2]);
+        year = annee - 1;
+        month = month;
+        finPeriode = year + "-" + (month < 10 ? "0" : "") + month + "-" + day;
+        peride = annee + "-" + parseInt(parts[1]) + "-" + day;
 
-      if (inputDate < finPeriode) {
-        alert("Attention la date de paiement dépasse 1 an par rapport à la date de déclaration ");
-        document.getElementById("date_p").value = '';
-      }
-      if (inputDate > peride) {
-        alert("Attention la date de paiement dépasse la période de déclaration ");
-        document.getElementById("date_p").value = '';
-      }
-    },
-
-  }); 
- }
+        if (inputDate < finPeriode) {
+          alert(
+            "Attention la date de paiement dépasse 1 an par rapport à la date de déclaration "
+          );
+          document.getElementById("date_p").value = "";
+        }
+        if (inputDate > peride) {
+          alert(
+            "Attention la date de paiement dépasse la période de déclaration "
+          );
+          document.getElementById("date_p").value = "";
+        }
+      },
+    });
+  }
 }
 document.addEventListener("DOMContentLoaded", function () {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
@@ -916,7 +979,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (radio.id === "HT") {
         $("#MHT_1").prop("readonly", false);
         $("#tva_1").prop("readonly", true);
-        
+
         $("#MHT_2").prop("readonly", false);
         $("#tva_2").prop("readonly", true);
         $("#MHT_3").prop("readonly", false);
@@ -932,7 +995,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (radio.id === "TVA") {
         $("#MHT_1").prop("readonly", true);
         $("#tva_1").prop("readonly", false);
-       
+
         $("#MHT_2").prop("readonly", true);
         $("#tva_2").prop("readonly", false);
         $("#MHT_3").prop("readonly", true);
@@ -944,12 +1007,12 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#ttc2").prop("readonly", true);
         $("#ttc3").prop("readonly", true);
         $("#ttc4").prop("readonly", true);
-       
+
         $("#tva_1").focus();
       } else if (radio.id === "TTC") {
         $("#MHT_1").prop("readonly", true);
         $("#tva_1").prop("readonly", true);
-      
+
         $("#MHT_2").prop("readonly", true);
         $("#tva_2").prop("readonly", true);
         $("#MHT_3").prop("readonly", true);
@@ -965,7 +1028,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (radio.id === "LIBRE") {
         $("#MHT_1").prop("readonly", false);
         $("#tva_1").prop("readonly", false);
-       
+
         $("#MHT_2").prop("readonly", false);
         $("#tva_2").prop("readonly", false);
         $("#MHT_3").prop("readonly", false);
@@ -982,194 +1045,205 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 function calcul_ttc1() {
-
   let ttc1 = $("#ttc1").val();
 
-  let taux1 = $("#taux1").val(); 
+  let taux1 = $("#taux1").val();
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "TTC" && radio.checked){
-
-  if (ttc1 != '') {
-    if (taux1 == '') {
-      alert('merci de choiser la rubrique de tva');
-    } else {
-      if (ttc1 != '') {
-        // console.log(ttc1);
-        taux1=taux1/100;
-        let mht = parseFloat(ttc1) / (1 + parseFloat(taux1));
-        mht = mht.toFixed(2);
-        let tva = parseFloat(ttc1) - parseFloat(mht);
-        tva = tva.toFixed(2);
-        $("#MHT_1").val(mht);
-        $("#tva_1").val(tva);
+    if (radio.id === "TTC" && radio.checked) {
+      if (ttc1 != "") {
+        if (taux1 == "") {
+          alert("merci de choiser la rubrique de tva");
+        } else {
+          if (ttc1 != "") {
+            // console.log(ttc1);
+            taux1 = taux1 / 100;
+            let mht = parseFloat(ttc1) / (1 + parseFloat(taux1));
+            mht = mht.toFixed(2);
+            let tva = parseFloat(ttc1) - parseFloat(mht);
+            tva = tva.toFixed(2);
+            $("#MHT_1").val(mht);
+            $("#tva_1").val(tva);
+          }
+        }
       }
     }
-  }
-  }
 
     let ttc2 = $("#ttc2").val();
     let ttc3 = $("#ttc3").val();
     let ttc4 = $("#ttc4").val();
-    if(ttc1=='')
-    {
-      ttc1=0;
-    } if(ttc2=='')
-    {
-      ttc2=0;
-    } if(ttc3=='')
-    {
-      ttc3=0;
+    if (ttc1 == "") {
+      ttc1 = 0;
     }
-    if(ttc4=='')
-    {
-      ttc4=0;
+    if (ttc2 == "") {
+      ttc2 = 0;
     }
-    
-      $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)).toFixed(2));
-    
-  
-  });tva_didu();
+    if (ttc3 == "") {
+      ttc3 = 0;
+    }
+    if (ttc4 == "") {
+      ttc4 = 0;
+    }
+
+    $("#MTttc").val(
+      (parseFloat(ttc1) + parseFloat(ttc2) + parseFloat(ttc3)).toFixed(2)
+    );
+  });
+  tva_didu();
 }
 function calcul_ttc2() {
-
   let ttc2 = $("#ttc2").val();
   let taux2 = $("#taux2").val();
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "TTC" && radio.checked){
-  if (ttc2 != '') {
-    if (taux2 == '') {
-      alert('merci de choiser la rubrique de tva');
-    } else {
-      if (ttc2 != '') {
-        taux2=taux2/100;
-        let mht = parseFloat(ttc2) / (1 + parseFloat(taux2));
-        mht = parseFloat(mht).toFixed(2);
-        let tva = parseFloat(ttc2) - parseFloat(mht);
-        tva =parseFloat(tva).toFixed(2);
-        $("#MHT_2").val(mht);
-        $("#tva_2").val(tva);
+    if (radio.id === "TTC" && radio.checked) {
+      if (ttc2 != "") {
+        if (taux2 == "") {
+          alert("merci de choiser la rubrique de tva");
+        } else {
+          if (ttc2 != "") {
+            taux2 = taux2 / 100;
+            let mht = parseFloat(ttc2) / (1 + parseFloat(taux2));
+            mht = parseFloat(mht).toFixed(2);
+            let tva = parseFloat(ttc2) - parseFloat(mht);
+            tva = parseFloat(tva).toFixed(2);
+            $("#MHT_2").val(mht);
+            $("#tva_2").val(tva);
+          }
+        }
       }
     }
-  }
-  }
-  let ttc1 = $("#ttc1").val();
-  let ttc3 = $("#ttc3").val();
-  let ttc4 = $("#ttc4").val();
-  if(ttc1=='')
-  {
-    ttc1=0;
-  } if(ttc2=='')
-  {
-    ttc2=0;
-  } if(ttc3=='')
-  {
-    ttc3=0;
-  }
-  if(ttc4=='')
-  {
-    ttc4=0;
-  }
-  
-    $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)).toFixed(2));
-});tva_didu();
+    let ttc1 = $("#ttc1").val();
+    let ttc3 = $("#ttc3").val();
+    let ttc4 = $("#ttc4").val();
+    if (ttc1 == "") {
+      ttc1 = 0;
+    }
+    if (ttc2 == "") {
+      ttc2 = 0;
+    }
+    if (ttc3 == "") {
+      ttc3 = 0;
+    }
+    if (ttc4 == "") {
+      ttc4 = 0;
+    }
+
+    $("#MTttc").val(
+      (parseFloat(ttc1) + parseFloat(ttc2) + parseFloat(ttc3)).toFixed(2)
+    );
+  });
+  tva_didu();
 }
 function calcul_ttc3() {
   let ttc = $("#MTttc").val();
   let ttc3 = $("#ttc3").val();
   let taux3 = $("#taux3").val();
- 
+
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "TTC" && radio.checked){
-  if (ttc3 != '') {
-    if (taux3 == '') {
-      alert('merci de choiser la rubrique de tva');
-    } else {
-      if (ttc3 != '') {
-        taux3=taux3/100;
-        $("#MTttc").val(parseFloat(ttc)+parseFloat(ttc3));
-        let mht = parseFloat(ttc3) / (1 + parseFloat(taux3));
-        mht = mht.toFixed(2);
-        let tva = parseFloat(ttc3) - parseFloat(mht);
-        tva = tva.toFixed(2);
-        $("#MHT_3").val(mht);
-        $("#tva_3").val(tva);
+    if (radio.id === "TTC" && radio.checked) {
+      if (ttc3 != "") {
+        if (taux3 == "") {
+          alert("merci de choiser la rubrique de tva");
+        } else {
+          if (ttc3 != "") {
+            taux3 = taux3 / 100;
+            $("#MTttc").val(parseFloat(ttc) + parseFloat(ttc3));
+            let mht = parseFloat(ttc3) / (1 + parseFloat(taux3));
+            mht = mht.toFixed(2);
+            let tva = parseFloat(ttc3) - parseFloat(mht);
+            tva = tva.toFixed(2);
+            $("#MHT_3").val(mht);
+            $("#tva_3").val(tva);
+          }
+        }
       }
+    } else {
+      let ttc2 = $("#ttc2").val();
+      let ttc1 = $("#ttc1").val();
+      let ttc4 = $("#ttc4").val();
+      if (ttc1 == "") {
+        ttc1 = 0;
+      }
+      if (ttc2 == "") {
+        ttc2 = 0;
+      }
+      if (ttc3 == "") {
+        ttc3 = 0;
+      }
+      if (ttc4 == "") {
+        ttc4 = 0;
+      }
+
+      $("#MTttc").val(
+        (
+          parseFloat(ttc1) +
+          parseFloat(ttc2) +
+          parseFloat(ttc3) +
+          parseFloat(ttc4)
+        ).toFixed(2)
+      );
     }
-  }
-  }else{
-   
-    let ttc2 = $("#ttc2").val();
-    let ttc1 = $("#ttc1").val();
-    let ttc4 = $("#ttc4").val();
-    if(ttc1=='')
-    {
-      ttc1=0;
-    } if(ttc2=='')
-    {
-      ttc2=0;
-    } if(ttc3=='')
-    {
-      ttc3=0;
-    }if(ttc4=='')
-    {
-      ttc4=0;
-    }
-    
-    $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));}
-});tva_didu();
+  });
+  tva_didu();
 }
 function calcul_ttc4() {
   let ttc = $("#MTttc").val();
   let ttc4 = $("#ttc4").val();
   let taux4 = $("#taux4").val();
- 
+
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "TTC" && radio.checked){
-  if (ttc4 != '') {
-    if (taux4 == '') {
-      alert('merci de choiser la rubrique de tva');
-    } else {
-      if (ttc4 != '') {
-        taux4=taux4/100;
-        $("#MTttc").val(parseFloat(ttc)+parseFloat(ttc4));
-        let mht = parseFloat(ttc4) / (1 + parseFloat(taux4));
-        mht = mht.toFixed(2);
-        let tva = parseFloat(ttc4) - parseFloat(mht);
-        tva = tva.toFixed(2);
-        $("#MHT_4").val(mht);
-        $("#tva_4").val(tva);
+    if (radio.id === "TTC" && radio.checked) {
+      if (ttc4 != "") {
+        if (taux4 == "") {
+          alert("merci de choiser la rubrique de tva");
+        } else {
+          if (ttc4 != "") {
+            taux4 = taux4 / 100;
+            $("#MTttc").val(parseFloat(ttc) + parseFloat(ttc4));
+            let mht = parseFloat(ttc4) / (1 + parseFloat(taux4));
+            mht = mht.toFixed(2);
+            let tva = parseFloat(ttc4) - parseFloat(mht);
+            tva = tva.toFixed(2);
+            $("#MHT_4").val(mht);
+            $("#tva_4").val(tva);
+          }
+        }
       }
+    } else {
+      let ttc2 = $("#ttc2").val();
+      let ttc1 = $("#ttc1").val();
+      let ttc3 = $("#ttc3").val();
+      if (ttc1 == "") {
+        ttc1 = 0;
+      }
+      if (ttc2 == "") {
+        ttc2 = 0;
+      }
+      if (ttc4 == "") {
+        ttc4 = 0;
+      }
+      if (ttc3 == "") {
+        ttc3 = 0;
+      }
+
+      $("#MTttc").val(
+        (
+          parseFloat(ttc1) +
+          parseFloat(ttc2) +
+          parseFloat(ttc3) +
+          parseFloat(ttc4)
+        ).toFixed(2)
+      );
     }
-  }
-  }else{
-   
-    let ttc2 = $("#ttc2").val();
-    let ttc1 = $("#ttc1").val();
-    let ttc3 = $("#ttc3").val();
-    if(ttc1=='')
-    {
-      ttc1=0;
-    } if(ttc2=='')
-    {
-      ttc2=0;
-    } if(ttc4=='')
-    {
-      ttc4=0;
-    } if(ttc3=='')
-    {
-      ttc3=0;
-    }
-    
-      $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));}
-});tva_didu();
+  });
+  tva_didu();
 }
 function calcul_tva() {
   let tva_1 = $("#tva_1").val();
@@ -1178,46 +1252,51 @@ function calcul_tva() {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "TVA" && radio.checked){
-  if (tva_1 != '') {
-    // console.log(taux1);
-    if (taux1 == '') {
-      alert('merci de choiser la rubrique de tva');
-    } else {
-      if (tva_1 != '') {
-        // console.log(tva_1);
-        taux1=taux1/100;
-        let mht = parseFloat(tva_1) / parseFloat(taux1);
+    if (radio.id === "TVA" && radio.checked) {
+      if (tva_1 != "") {
+        // console.log(taux1);
+        if (taux1 == "") {
+          alert("merci de choiser la rubrique de tva");
+        } else {
+          if (tva_1 != "") {
+            // console.log(tva_1);
+            taux1 = taux1 / 100;
+            let mht = parseFloat(tva_1) / parseFloat(taux1);
 
-        let ttc = parseFloat(mht) + parseFloat(tva_1);
-        mht = mht.toFixed(2);
-        ttc = parseFloat(ttc).toFixed(2);
-        $("#MHT_1").val(mht);
-        $("#ttc1").val(ttc);
-        let ttc1 = $("#ttc1").val();
-        let ttc2 = $("#ttc2").val();
-        let ttc3 = $("#ttc3").val();
-        let ttc4 = $("#ttc4").val();
-       
-        if(ttc1=='')
-        {
-          ttc1=0;
-        } if(ttc2=='')
-        {
-          ttc2=0;
-        } if(ttc3=='')
-        {
-          ttc3=0;
-        }
-        if(ttc4=='')
-        {
-          ttc4=0;
-        }
-        
-        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4).toFixed(2)));
-      }}}
-    }tva_didu();
+            let ttc = parseFloat(mht) + parseFloat(tva_1);
+            mht = mht.toFixed(2);
+            ttc = parseFloat(ttc).toFixed(2);
+            $("#MHT_1").val(mht);
+            $("#ttc1").val(ttc);
+            let ttc1 = $("#ttc1").val();
+            let ttc2 = $("#ttc2").val();
+            let ttc3 = $("#ttc3").val();
+            let ttc4 = $("#ttc4").val();
 
+            if (ttc1 == "") {
+              ttc1 = 0;
+            }
+            if (ttc2 == "") {
+              ttc2 = 0;
+            }
+            if (ttc3 == "") {
+              ttc3 = 0;
+            }
+            if (ttc4 == "") {
+              ttc4 = 0;
+            }
+
+            $("#MTttc").val(
+              parseFloat(ttc1) +
+                parseFloat(ttc2) +
+                parseFloat(ttc3) +
+                parseFloat(ttc4).toFixed(2)
+            );
+          }
+        }
+      }
+    }
+    tva_didu();
   });
 }
 function calcul_tva2() {
@@ -1227,46 +1306,51 @@ function calcul_tva2() {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "TVA" && radio.checked){
-  if (tva_2 != '') {
+    if (radio.id === "TVA" && radio.checked) {
+      if (tva_2 != "") {
+        if (taux2 == "") {
+          alert("merci de choiser la rubrique de tva");
+        } else {
+          if (tva_2 != "") {
+            taux2 = taux2 / 100;
+            let mht = parseFloat(tva_2) / parseFloat(taux2);
 
-    if (taux2 == '') {
-      alert('merci de choiser la rubrique de tva');
-    } else {
-      if (tva_2 != '') {
-        taux2=taux2/100;
-        let mht = parseFloat(tva_2) / parseFloat(taux2);
+            let ttc = parseFloat(mht) + parseFloat(tva_2);
+            mht = parseFloat(mht).toFixed(2);
+            ttc = parseFloat(ttc).toFixed(2);
+            $("#MHT_2").val(mht);
+            $("#ttc2").val(ttc);
+            let ttc1 = $("#ttc1").val();
+            let ttc2 = $("#ttc2").val();
+            let ttc3 = $("#ttc3").val();
+            let ttc4 = $("#ttc4").val();
+            if (ttc1 == "") {
+              ttc1 = 0;
+            }
+            if (ttc2 == "") {
+              ttc2 = 0;
+            }
+            if (ttc3 == "") {
+              ttc3 = 0;
+            }
+            if (ttc4 == "") {
+              ttc4 = 0;
+            }
 
-           let ttc=parseFloat(mht)+parseFloat(tva_2);
-        mht = parseFloat(mht).toFixed(2);
-           ttc=parseFloat(ttc).toFixed(2);
-        $("#MHT_2").val(mht);
-         $("#ttc2").val(ttc);
-         let ttc1 = $("#ttc1").val();
-         let ttc2 = $("#ttc2").val();
-         let ttc3 = $("#ttc3").val();
-         let ttc4 = $("#ttc4").val();
-         if(ttc1=='')
-         {
-           ttc1=0;
-         } if(ttc2=='')
-         {
-           ttc2=0;
-         } if(ttc3=='')
-         {
-           ttc3=0;
-         }
-         if(ttc4=='')
-         {
-           ttc4=0;
-         }
-         
-         $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
+            $("#MTttc").val(
+              (
+                parseFloat(ttc1) +
+                parseFloat(ttc2) +
+                parseFloat(ttc3) +
+                parseFloat(ttc4)
+              ).toFixed(2)
+            );
+          }
+        }
       }
     }
-  }}tva_didu();
-});
-
+    tva_didu();
+  });
 }
 function calcul_tva3() {
   let tva_3 = $("#tva_3").val();
@@ -1275,87 +1359,97 @@ function calcul_tva3() {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "TVA" && radio.checked){
-  if (tva_3 != '') {
+    if (radio.id === "TVA" && radio.checked) {
+      if (tva_3 != "") {
+        if (taux3 == "") {
+          alert("merci de choiser la rubrique de tva");
+        } else {
+          if (tva_3 != "") {
+            taux3 = taux3 / 100;
+            let mht = parseFloat(tva_3) / parseFloat(taux3);
+            let ttc = parseFloat(mht) + parseFloat(tva_3);
+            mht = parseFloat(mht).toFixed(2);
+            ttc = parseFloat(ttc).toFixed(2);
+            $("#MHT_3").val(mht);
+            $("#ttc3").val(ttc);
+            let ttc1 = $("#ttc1").val();
+            let ttc2 = $("#ttc2").val();
+            let ttc3 = $("#ttc3").val();
+            let ttc4 = $("#ttc4").val();
+            if (ttc1 == "") {
+              ttc1 = 0;
+            }
+            if (ttc2 == "") {
+              ttc2 = 0;
+            }
+            if (ttc3 == "") {
+              ttc3 = 0;
+            }
+            if (ttc4 == "") {
+              ttc4 = 0;
+            }
 
-    if (taux3 == '') {
-      alert('merci de choiser la rubrique de tva');
-    } else {
-      if (tva_3 != '') {
-        taux3=taux3/100;
-           let mht = parseFloat(tva_3) / parseFloat(taux3);
-           let ttc=parseFloat(mht)+parseFloat(tva_3);
-           mht = parseFloat(mht).toFixed(2);
-           ttc=parseFloat(ttc).toFixed(2);
-          $("#MHT_3").val(mht);
-          $("#ttc3").val(ttc);
-          let ttc1 = $("#ttc1").val();
-          let ttc2 = $("#ttc2").val();
-          let ttc3 = $("#ttc3").val();
-          let ttc4 = $("#ttc4").val();
-          if(ttc1=='')
-          {
-            ttc1=0;
-          } if(ttc2=='')
-          {
-            ttc2=0;
-          } if(ttc3=='')
-          {
-            ttc3=0;
+            $("#MTttc").val(
+              (
+                parseFloat(ttc1) +
+                parseFloat(ttc2) +
+                parseFloat(ttc3) +
+                parseFloat(ttc4)
+              ).toFixed(2)
+            );
           }
-          if(ttc4=='')
-          {
-            ttc4=0;
-          }
-          
-          $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
+        }
       }
-    }}}tva_didu();
+    }
+    tva_didu();
   });
-
 }
 function calcul_tva4() {
   let tva_4 = $("#tva_4").val();
   let taux4 = $("#taux4").val();
 
-  if (tva_4 != '') {
-
-    if (taux4 == '') {
-      alert('merci de choiser la rubrique de tvaaaaa');
+  if (tva_4 != "") {
+    if (taux4 == "") {
+      alert("merci de choiser la rubrique de tvaaaaa");
     } else {
-      if (tva_4 != '') {
-        taux4=taux4/100;
-           let mht = parseFloat(tva_4) / parseFloat(taux4);
-           let ttc=parseFloat(mht)+parseFloat(tva_4);
-           mht = parseFloat(mht).toFixed(2);
-           ttc=parseFloat(ttc).toFixed(2);
-          $("#MHT_4").val(mht);
-          $("#ttc4").val(ttc);
-          let ttc1 = $("#ttc1").val();
-          let ttc2 = $("#ttc2").val();
-          let ttc3 = $("#ttc3").val();
-          let ttc4 = $("#ttc4").val();
+      if (tva_4 != "") {
+        taux4 = taux4 / 100;
+        let mht = parseFloat(tva_4) / parseFloat(taux4);
+        let ttc = parseFloat(mht) + parseFloat(tva_4);
+        mht = parseFloat(mht).toFixed(2);
+        ttc = parseFloat(ttc).toFixed(2);
+        $("#MHT_4").val(mht);
+        $("#ttc4").val(ttc);
+        let ttc1 = $("#ttc1").val();
+        let ttc2 = $("#ttc2").val();
+        let ttc3 = $("#ttc3").val();
+        let ttc4 = $("#ttc4").val();
 
-          if(ttc1=='')
-          {
-            ttc1=0;
-          } if(ttc2=='')
-          {
-            ttc2=0;
-          } if(ttc3=='')
-          {
-            ttc3=0;
-          }
-          if(ttc4=='')
-          {
-            ttc4=0;
-          }
-          
-          $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
+        if (ttc1 == "") {
+          ttc1 = 0;
+        }
+        if (ttc2 == "") {
+          ttc2 = 0;
+        }
+        if (ttc3 == "") {
+          ttc3 = 0;
+        }
+        if (ttc4 == "") {
+          ttc4 = 0;
+        }
+
+        $("#MTttc").val(
+          (
+            parseFloat(ttc1) +
+            parseFloat(ttc2) +
+            parseFloat(ttc3) +
+            parseFloat(ttc4)
+          ).toFixed(2)
+        );
       }
-    }tva_didu();
+    }
+    tva_didu();
   }
-
 }
 function calcul_HT() {
   let MHT_1 = $("#MHT_1").val();
@@ -1364,43 +1458,50 @@ function calcul_HT() {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "HT" && radio.checked){
-  if (MHT_1 != '') {
-    if (taux1 == '') {
-      alert('merci de choiser la rubrique de tva');
-    } else {
-      if (MHT_1 != '') {
-        taux1=taux1/100;
-        let TVA = parseFloat(MHT_1) * parseFloat(taux1);
-        let ttc = parseFloat(MHT_1) + parseFloat(TVA);
-        MHT_1 = parseFloat(MHT_1).toFixed(2);
-        ttc = parseFloat(ttc).toFixed(2);
-        $("#tva_1").val(TVA);
-        $("#ttc1").val(ttc);
-        let ttc1 = $("#ttc1").val();
-        let ttc2 = $("#ttc2").val();
-        let ttc3 = $("#ttc3").val();
-        let ttc4 = $("#ttc4").val();
-        if(ttc1=='')
-        {
-          ttc1=0;
-        } if(ttc2=='')
-        {
-          ttc2=0;
-        } if(ttc3=='')
-        {
-          ttc3=0;
-        }
-        if(ttc4=='')
-        {
-          ttc4=0;
-        }
-        
-        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
-      }
-    }
-  }tva_didu();}});
+    if (radio.id === "HT" && radio.checked) {
+      if (MHT_1 != "") {
+        if (taux1 == "") {
+          alert("merci de choiser la rubrique de tva");
+        } else {
+          if (MHT_1 != "") {
+            taux1 = taux1 / 100;
+            let TVA = parseFloat(MHT_1) * parseFloat(taux1);
+            let ttc = parseFloat(MHT_1) + parseFloat(TVA);
+            MHT_1 = parseFloat(MHT_1).toFixed(2);
+            ttc = parseFloat(ttc).toFixed(2);
+            $("#tva_1").val(TVA);
+            $("#ttc1").val(ttc);
+            let ttc1 = $("#ttc1").val();
+            let ttc2 = $("#ttc2").val();
+            let ttc3 = $("#ttc3").val();
+            let ttc4 = $("#ttc4").val();
+            if (ttc1 == "") {
+              ttc1 = 0;
+            }
+            if (ttc2 == "") {
+              ttc2 = 0;
+            }
+            if (ttc3 == "") {
+              ttc3 = 0;
+            }
+            if (ttc4 == "") {
+              ttc4 = 0;
+            }
 
+            $("#MTttc").val(
+              (
+                parseFloat(ttc1) +
+                parseFloat(ttc2) +
+                parseFloat(ttc3) +
+                parseFloat(ttc4)
+              ).toFixed(2)
+            );
+          }
+        }
+      }
+      tva_didu();
+    }
+  });
 }
 function calcul_HT2() {
   let MHT_2 = $("#MHT_2").val();
@@ -1408,43 +1509,50 @@ function calcul_HT2() {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "HT" && radio.checked){
-  if (MHT_2 != '') {
-    if (taux2 == '') {
-      alert('merci de choiser la rubrique de tva');
-    } else {
-      if (MHT_2 != '') {
-        taux2=taux2/100;
-        let TVA = parseFloat(MHT_2) * parseFloat(taux2);
-        let ttc = parseFloat(MHT_2) + parseFloat(TVA);
-        MHT_2 = parseFloat(MHT_2).toFixed(2);
-        ttc = parseFloat(ttc).toFixed(2);
-        $("#tva_2").val(parseFloat(TVA).toFixed(2));
-        $("#ttc2").val(parseFloat(ttc).toFixed(2));
-        let ttc1 = $("#ttc1").val();
-        let ttc2 = $("#ttc2").val();
-        let ttc3 = $("#ttc3").val();
-        let ttc4 = $("#ttc4").val();
-        if(ttc1=='')
-        {
-          ttc1=0;
-        } if(ttc2=='')
-        {
-          ttc2=0;
-        } if(ttc3=='')
-        {
-          ttc3=0;
-        }
-        if(ttc4=='')
-        {
-          ttc4=0;
-        }
-        
-        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
-      }
-    }
-  }tva_didu();}});
+    if (radio.id === "HT" && radio.checked) {
+      if (MHT_2 != "") {
+        if (taux2 == "") {
+          alert("merci de choiser la rubrique de tva");
+        } else {
+          if (MHT_2 != "") {
+            taux2 = taux2 / 100;
+            let TVA = parseFloat(MHT_2) * parseFloat(taux2);
+            let ttc = parseFloat(MHT_2) + parseFloat(TVA);
+            MHT_2 = parseFloat(MHT_2).toFixed(2);
+            ttc = parseFloat(ttc).toFixed(2);
+            $("#tva_2").val(parseFloat(TVA).toFixed(2));
+            $("#ttc2").val(parseFloat(ttc).toFixed(2));
+            let ttc1 = $("#ttc1").val();
+            let ttc2 = $("#ttc2").val();
+            let ttc3 = $("#ttc3").val();
+            let ttc4 = $("#ttc4").val();
+            if (ttc1 == "") {
+              ttc1 = 0;
+            }
+            if (ttc2 == "") {
+              ttc2 = 0;
+            }
+            if (ttc3 == "") {
+              ttc3 = 0;
+            }
+            if (ttc4 == "") {
+              ttc4 = 0;
+            }
 
+            $("#MTttc").val(
+              (
+                parseFloat(ttc1) +
+                parseFloat(ttc2) +
+                parseFloat(ttc3) +
+                parseFloat(ttc4)
+              ).toFixed(2)
+            );
+          }
+        }
+      }
+      tva_didu();
+    }
+  });
 }
 function calcul_HT3() {
   let MHT_3 = $("#MHT_3").val();
@@ -1452,43 +1560,50 @@ function calcul_HT3() {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "HT" && radio.checked){
-  if (MHT_3 != '') {
-    if (taux3 == '') {
-      alert('merci de choiser la rubrique de tva');
-    } else {
-      if (MHT_3 != '') {
-        taux3=taux3/100;
-        let TVA = parseFloat(MHT_3) * parseFloat(taux3);
-        let ttc = parseFloat(MHT_3) + parseFloat(TVA);
-        MHT_3 = parseFloat(MHT_3).toFixed(2);
-        ttc = parseFloat(ttc).toFixed(2);
-        $("#tva_3").val(parseFloat(TVA).toFixed(2));
-        $("#ttc3").val(parseFloat(ttc).toFixed(2));
-        let ttc1 = $("#ttc1").val();
-        let ttc2 = $("#ttc2").val();
-        let ttc3 = $("#ttc3").val();
-        let ttc4 = $("#ttc4").val();
-        if(ttc1=='')
-        {
-          ttc1=0;
-        } if(ttc2=='')
-        {
-          ttc2=0;
-        } if(ttc3=='')
-        {
-          ttc3=0;
-        }
-        if(ttc4=='')
-        {
-          ttc4=0;
-        }
-        
-        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
-      }
-    }
-  }tva_didu();}});
+    if (radio.id === "HT" && radio.checked) {
+      if (MHT_3 != "") {
+        if (taux3 == "") {
+          alert("merci de choiser la rubrique de tva");
+        } else {
+          if (MHT_3 != "") {
+            taux3 = taux3 / 100;
+            let TVA = parseFloat(MHT_3) * parseFloat(taux3);
+            let ttc = parseFloat(MHT_3) + parseFloat(TVA);
+            MHT_3 = parseFloat(MHT_3).toFixed(2);
+            ttc = parseFloat(ttc).toFixed(2);
+            $("#tva_3").val(parseFloat(TVA).toFixed(2));
+            $("#ttc3").val(parseFloat(ttc).toFixed(2));
+            let ttc1 = $("#ttc1").val();
+            let ttc2 = $("#ttc2").val();
+            let ttc3 = $("#ttc3").val();
+            let ttc4 = $("#ttc4").val();
+            if (ttc1 == "") {
+              ttc1 = 0;
+            }
+            if (ttc2 == "") {
+              ttc2 = 0;
+            }
+            if (ttc3 == "") {
+              ttc3 = 0;
+            }
+            if (ttc4 == "") {
+              ttc4 = 0;
+            }
 
+            $("#MTttc").val(
+              (
+                parseFloat(ttc1) +
+                parseFloat(ttc2) +
+                parseFloat(ttc3) +
+                parseFloat(ttc4)
+              ).toFixed(2)
+            );
+          }
+        }
+      }
+      tva_didu();
+    }
+  });
 }
 function calcul_HT4() {
   let MHT_4 = $("#MHT_4").val();
@@ -1496,43 +1611,50 @@ function calcul_HT4() {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
 
   radioButtons.forEach(function (radio) {
-  if (radio.id === "TVA" && radio.checked){
-  if (MHT_4 != '') {
-    if (taux4 == '') {
-      alert('merci de choiser la rubrique de tva');
-    } else {
-      if (MHT_4 != '') {
-        taux4=taux4/100;
-        let TVA = parseFloat(MHT_4) * parseFloat(taux4);
-        let ttc = parseFloat(MHT_4) + parseFloat(TVA);
-        MHT_4 = parseFloat(MHT_4).toFixed(2);
-        ttc = parseFloat(ttc).toFixed(2);
-        $("#tva_4").val(TVA);
-        $("#ttc4").val(ttc);
-        let ttc1 = $("#ttc1").val();
-        let ttc2 = $("#ttc2").val();
-        let ttc3 = $("#ttc3").val();
-        let ttc4 = $("#ttc4").val();
-        if(ttc1=='')
-        {
-          ttc1=0;
-        } if(ttc2=='')
-        {
-          ttc2=0;
-        } if(ttc3=='')
-        {
-          ttc3=0;
-        }
-        if(ttc4=='')
-        {
-          ttc4=0;
-        }
-        
-        $("#MTttc").val((parseFloat(ttc1)+parseFloat(ttc2)+parseFloat(ttc3)+parseFloat(ttc4)).toFixed(2));
-      }
-    }
-  }tva_didu();}});
+    if (radio.id === "TVA" && radio.checked) {
+      if (MHT_4 != "") {
+        if (taux4 == "") {
+          alert("merci de choiser la rubrique de tva");
+        } else {
+          if (MHT_4 != "") {
+            taux4 = taux4 / 100;
+            let TVA = parseFloat(MHT_4) * parseFloat(taux4);
+            let ttc = parseFloat(MHT_4) + parseFloat(TVA);
+            MHT_4 = parseFloat(MHT_4).toFixed(2);
+            ttc = parseFloat(ttc).toFixed(2);
+            $("#tva_4").val(TVA);
+            $("#ttc4").val(ttc);
+            let ttc1 = $("#ttc1").val();
+            let ttc2 = $("#ttc2").val();
+            let ttc3 = $("#ttc3").val();
+            let ttc4 = $("#ttc4").val();
+            if (ttc1 == "") {
+              ttc1 = 0;
+            }
+            if (ttc2 == "") {
+              ttc2 = 0;
+            }
+            if (ttc3 == "") {
+              ttc3 = 0;
+            }
+            if (ttc4 == "") {
+              ttc4 = 0;
+            }
 
+            $("#MTttc").val(
+              (
+                parseFloat(ttc1) +
+                parseFloat(ttc2) +
+                parseFloat(ttc3) +
+                parseFloat(ttc4)
+              ).toFixed(2)
+            );
+          }
+        }
+      }
+      tva_didu();
+    }
+  });
 }
 function tva_didu() {
   let tva_1 = $("#tva_1").val();
@@ -1540,38 +1662,46 @@ function tva_didu() {
   let tva_3 = $("#tva_3").val();
   let tva_4 = $("#tva_4").val();
   let prorata = $("#prorata").val();
-  if(prorata!=''){
-  if (tva_1 != '') {
-    let tva_did = tva_1 * prorata / 100;
-    $("#tva_d1").val(tva_did);
+  if (prorata != "") {
+    if (tva_1 != "") {
+      let tva_did = (tva_1 * prorata) / 100;
+      $("#tva_d1").val(tva_did);
+    }
+    if (tva_2 != "") {
+      let tva_did = (tva_2 * prorata) / 100;
+      $("#tva_d2").val(tva_did);
+    }
+    if (tva_3 != "") {
+      let tva_did = (tva_3 * prorata) / 100;
+      $("#tva_d3").val(tva_did);
+    }
+    if (tva_4 != "") {
+      let tva_did = (tva_4 * prorata) / 100;
+      $("#tva_d4").val(tva_did);
+    }
+  } else {
+    if (tva_1 != "") {
+      $("#tva_d1").val(tva_1);
+    }
+    if (tva_2 != "") {
+      $("#tva_d2").val(tva_2);
+    }
+    if (tva_3 != "") {
+      $("#tva_d3").val(tva_3);
+    }
+    if (tva_4 != "") {
+      $("#tva_d4").val(tva_4);
+    }
   }
-  if (tva_2 != '') {
-    let tva_did = tva_2 * prorata / 100;
-    $("#tva_d2").val(tva_did);
-  }
-  if (tva_3 != '') {
-    let tva_did = tva_3 * prorata / 100;
-    $("#tva_d3").val(tva_did);
-  }
-  if (tva_4 != '') {
-    let tva_did = tva_4 * prorata / 100;
-    $("#tva_d4").val(tva_did);
-  }
-}else{
-    if (tva_1 != '') {
-    $("#tva_d1").val(tva_1);}
-    if (tva_2 != '') {
-    $("#tva_d2").val(tva_2);}
-    if (tva_3 != '') {
-    $("#tva_d3").val(tva_3);}
-    if (tva_4 != '') {
-      $("#tva_d4").val(tva_4);}
-  }
-  
 }
 function checkNfact() {
+<<<<<<< HEAD
   let value = $('#n_fact').val();
    value.toString();
+=======
+  let value = $("#n_fact").val();
+
+>>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
   jQuery.ajax({
     url: "./get_achat/" + value,
     type: "GET",
@@ -1581,6 +1711,7 @@ function checkNfact() {
       if (!jQuery.isEmptyObject(responce.get_achat)) {
         let duplicateFound = false;
         $tabledata = responce.get_achat;
+<<<<<<< HEAD
         document.getElementById('add_ach').innerHTML='Ajouter la modfocation';
         jQuery.each($tabledata, function (key, item) {
           if (!duplicateFound) {
@@ -1744,21 +1875,29 @@ function checkNfact() {
               $("#n_fact").val('');
               $("#n_fact").focus();
             }
+=======
+        var ligne = "";
+        let mtd = 0;
+        let mttc = 0;
+        jQuery.each($tabledata, function (key, item) {
+          if (!duplicateFound) {
+            alert("Cette facture déjà existe");
+            $("#n_fact").val("");
+            $("#n_fact").focus();
+>>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
             duplicateFound = true;
           }
-          
         });
       }
     },
   });
-
 }
 function table_Achat() {
-  let periode = $('#periode').val();
-  let Exercice = $('#Exercice').val();
+  let periode = $("#periode").val();
+  let Exercice = $("#Exercice").val();
   // console.log(periode);
   jQuery.ajax({
-    url: "table_Achat/"+periode+"/"+Exercice,
+    url: "table_Achat/" + periode + "/" + Exercice,
     type: "GET", // Le nom du fichier indiqué dans le formulaire
     dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
     // dataFilter: 'json', //forme data
@@ -1770,20 +1909,20 @@ function table_Achat() {
         }
         $tabledata = responce.table_achat;
       });
-      
+
       dataTable($tabledata);
       //trigger download of data.xlsx file
-      document
-        .getElementById("download-xlsx")
-        .addEventListener("click", function () {
-          table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
-        });
+      // document
+      //   .getElementById("download-xlsx")
+      //   .addEventListener("click", function () {
+      //     table.download("xlsx","Excel_"+periode+"_"+Exercice+"_COMP.xlsx", { sheetName: "My Data" });
+      //   });
 
       //trigger download of data.pdf file
       document
         .getElementById("download-pdf")
         .addEventListener("click", function () {
-          table.download("pdf", "data.pdf", {
+          table.download("pdf", "Excel_"+periode+"_"+Exercice+"_COMP.pdf", {
             orientation: "portrait", //set page orientation to portrait
             title: "Succursale", //add title to report
           });
@@ -1791,6 +1930,7 @@ function table_Achat() {
     },
   });
 }
+<<<<<<< HEAD
 function dataTable($tabledata)
 { 
 
@@ -1801,6 +1941,17 @@ function dataTable($tabledata)
 //     }
 //     If N_facture does not contain two parts, leave it as is
 // });
+=======
+function dataTable($tabledata) {
+
+  //   $tabledata.forEach(function(row) {
+  //     var nFactureParts = row.N_facture.split(' ');
+  //     if (nFactureParts.length === 2) {
+  //         row.N_facture = nFactureParts[0] + nFactureParts[1];
+  //     }
+  //     If N_facture does not contain two parts, leave it as is
+  // });
+>>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
   var table = new Tabulator("#Liste-Achat", {
     printAsHtml: true,
     printStyled: true,
@@ -1808,8 +1959,8 @@ function dataTable($tabledata)
     data: $tabledata,
     layout: "fitColumns",
     pagination: "local",
-    renderHorizontal:"virtual",
-    height:"500px",
+    renderHorizontal: "virtual",
+    height: "500px",
     printHeader: "",
     printFooter: "",
     paginationSize: 40,
@@ -1851,8 +2002,7 @@ function dataTable($tabledata)
 
           $(a)
             .find(".delete")
-            .on("click", function ()
-             { 
+            .on("click", function () {
               jQuery.ajax({
                 url: "./get_achatbyID/" + cell.getData().id,
                 type: "GET", // Le nom du fichier indiqué dans le formulaire
@@ -1860,7 +2010,8 @@ function dataTable($tabledata)
                 // dataFilter: 'json', //forme data
                 success: function (responce) {
                   jQuery.each(responce.get_achatb, function (key, item) {
-                    document.getElementById("delete_id_achat").value =responce.get_achatb.id;
+                    document.getElementById("delete_id_achat").value =
+                      responce.get_achatb.id;
                   });
                 },
               });
@@ -1868,12 +2019,12 @@ function dataTable($tabledata)
 
           $(a)
             .find(".edit")
-            .on("click", function () 
-            {
-              document.getElementById('header-text').innerHTML='modifier Achat';
-              document.getElementById('add_ach').style.display='none';
-              document.getElementById('update').style.display='initial';
-              document.getElementById("id_achat").value =cell.getData().id;
+            .on("click", function () {
+              document.getElementById("header-text").innerHTML =
+                "modifier Achat";
+              document.getElementById("add_ach").style.display = "none";
+              document.getElementById("update").style.display = "initial";
+              document.getElementById("id_achat").value = cell.getData().id;
               $(".add").css("display", "none");
               console.log(cell.getData().id);
               jQuery.ajax({
@@ -1883,17 +2034,26 @@ function dataTable($tabledata)
                 success: function (responce) {
                   // affichage select
                   jQuery.each(responce.get_achatb, function (key, item) {
-                    // console.log(responce.get_achatb.NICE);  
-                     document.getElementById("N_ICE").value = responce.get_achatb.NICE;
-                    document.getElementById("id_fiscal").value = responce.get_achatb.ID_fiscale;
-                    document.getElementById("desc").value = responce.get_achatb.Designation;
-                    document.getElementById("n_fact").value =responce.get_achatb.N_facture;
-                    document.getElementById("date_fact").value = responce.get_achatb.Date_facture;
-                    document.getElementById("date_p").value = responce.get_achatb.Date_payment;
-                    document.getElementById("MTttc").value =responce.get_achatb.M_TTC;
-                    document.getElementById("n_compt").value =responce.get_achatb.Num_compte_comptable;
+                    // console.log(responce.get_achatb.NICE);
+                    document.getElementById("N_ICE").value =
+                      responce.get_achatb.NICE;
+                    document.getElementById("id_fiscal").value =
+                      responce.get_achatb.ID_fiscale;
+                    document.getElementById("desc").value =
+                      responce.get_achatb.Designation;
+                    document.getElementById("n_fact").value =
+                      responce.get_achatb.N_facture;
+                    document.getElementById("date_fact").value =
+                      responce.get_achatb.Date_facture;
+                    document.getElementById("date_p").value =
+                      responce.get_achatb.Date_payment;
+                    document.getElementById("MTttc").value =
+                      responce.get_achatb.M_TTC;
+                    document.getElementById("n_compt").value =
+                      responce.get_achatb.Num_compte_comptable;
 
                     // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
+<<<<<<< HEAD
                     document.getElementById("prorata").value = responce.get_achatb.Prorata;
                     // console.log('prorata'+responce.get_achatb.Prorata);             
                     if(responce.get_achatb.Taux7==7)
@@ -1902,128 +2062,148 @@ function dataTable($tabledata)
                       document.getElementById("tva_1").value = responce.get_achatb.TVA_7;
                       document.getElementById("ttc1").value = responce.get_achatb.TTC_7;
                       document.getElementById("tva_d1").value = responce.get_achatb.TVA_d7;
+=======
+                    document.getElementById("prorata").value =
+                      responce.get_achatb.Prorata;
+                    if (responce.get_achatb.Taux7 == 7) {
+                      document.getElementById("MHT_1").value =
+                        responce.get_achatb.M_HT_7;
+                      document.getElementById("tva_1").value =
+                        responce.get_achatb.TVA_7;
+                      document.getElementById("ttc1").value =
+                        responce.get_achatb.TTC_7;
+                      document.getElementById("tva_d1").value =
+                        responce.get_achatb.TVA_d7;
+>>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
                       var idToSelect = responce.get_achatb.FK_racines_7;
-                     
-                      var selectElement = document.getElementById("racine");
-                     for (var i = 0; i < selectElement.options.length; i++) {
-                     var option = selectElement.options[i]; if (option.value == idToSelect) {
-                      option.selected = true;
-                      break; 
-                       }
-                     }
-                     var event = new Event('change');
-                     selectElement.dispatchEvent(event);
-                    }
-                    if(responce.get_achatb.Taux10==10)
-                    {    console.log(responce.get_achatb.Taux10);
-                       document.getElementById("MHT_2").value = responce.get_achatb.M_HT_10;
-                       document.getElementById("tva_2").value = responce.get_achatb.TVA_10;
-                       document.getElementById("ttc2").value = responce.get_achatb.TTC_10;
-                      document.getElementById("tva_d2").value = responce.get_achatb.TVA_d10;
 
-                       var idToSelect = responce.get_achatb.FK_racines_10;
-                       var selectElement = document.getElementById("racine2");
+                      var selectElement = document.getElementById("racine");
                       for (var i = 0; i < selectElement.options.length; i++) {
+                        var option = selectElement.options[i];
+                        if (option.value == idToSelect) {
+                          option.selected = true;
+                          break;
+                        }
+                      }
+                      var event = new Event("change");
+                      selectElement.dispatchEvent(event);
+                    }
+                    if (responce.get_achatb.Taux10 == 10) {
+                      console.log(responce.get_achatb.Taux10);
+                      document.getElementById("MHT_2").value =
+                        responce.get_achatb.M_HT_10;
+                      document.getElementById("tva_2").value =
+                        responce.get_achatb.TVA_10;
+                      document.getElementById("ttc2").value =
+                        responce.get_achatb.TTC_10;
+                      document.getElementById("tva_d2").value =
+                        responce.get_achatb.TVA_d10;
+
+                      var idToSelect = responce.get_achatb.FK_racines_10;
+                      var selectElement = document.getElementById("racine2");
+                      for (var i = 0; i < selectElement.options.length; i++) {
+                        var option = selectElement.options[i];
+                        if (option.value == idToSelect) {
+                          option.selected = true;
+                          break;
+                        }
+                      }
+                      var event = new Event("change");
+                      selectElement.dispatchEvent(event);
+                      $("#rowracine1").css("display", "inherit");
+                    }
+                    if (responce.get_achatb.Taux14 == 14) {
+                      document.getElementById("MHT_3").value =
+                        responce.get_achatb.M_HT_14;
+                      document.getElementById("tva_3").value =
+                        responce.get_achatb.TVA_14;
+                      document.getElementById("ttc3").value =
+                        responce.get_achatb.TTC_14;
+                      document.getElementById("tva_d3").value =
+                        responce.get_achatb.TVA_d14;
+
+                      var idToSelect = responce.get_achatb.FK_racines_14;
+                      var selectElement = document.getElementById("racine3");
+                      for (var i = 0; i < selectElement.options.length; i++) {
+                        var option = selectElement.options[i];
+                        if (option.value == idToSelect) {
+                          option.selected = true;
+                          break;
+                        }
+                      }
+                      var event = new Event("change");
+                      selectElement.dispatchEvent(event);
+                      $("#rowracine2").css("display", "inherit");
+                    }
+                    if (responce.get_achatb.Taux20 == 20) {
+                      $("#rowracine3").css("display", "inherit");
+                      document.getElementById("MHT_4").value =
+                        responce.get_achatb.M_HT_20;
+                      document.getElementById("tva_4").value =
+                        responce.get_achatb.TVA_20;
+                      document.getElementById("ttc4").value =
+                        responce.get_achatb.TTC_20;
+                      document.getElementById("taux4").value =
+                        responce.get_achatb.Taux20;
+                      document.getElementById("tva_d4").value =
+                        responce.get_achatb.TVA_d20;
+
+                      var idToSelect = responce.get_achatb.FK_racines_20;
+                      var selectElement = document.getElementById("racine4");
+                      for (var i = 0; i < selectElement.options.length; i++) {
+                        var option = selectElement.options[i];
+                        if (option.value == idToSelect) {
+                          console.log(option.value);
+                          option.selected = true;
+                          break;
+                        }
+                      }
+                      var event = new Event("change");
+                      selectElement.dispatchEvent(event);
+                    }
+                    if (document.getElementById("tva_3").value == "") {
+                      $("#rowracine2").css("display", "none");
+                    }
+                    if (document.getElementById("tva_1").value == "") {
+                      $("#rowracine").css("display", "none");
+                    }
+                    if (document.getElementById("tva_2").value == "") {
+                      $("#rowracine1").css("display", "none");
+                    }
+                    var idToSelect = responce.get_achatb.idfrs;
+                    var selectElement = document.getElementById("frs");
+                    for (var i = 0; i < selectElement.options.length; i++) {
                       var option = selectElement.options[i];
                       if (option.value == idToSelect) {
                         option.selected = true;
-                        break; 
-                         }
-                       }
-                       var event = new Event('change');
-                       selectElement.dispatchEvent(event);
-                       $("#rowracine1").css("display", "inherit");
-                     }
-                     if(responce.get_achatb.Taux14==14)
-                     {    
-                  
-                        document.getElementById("MHT_3").value = responce.get_achatb.M_HT_14;
-                        document.getElementById("tva_3").value = responce.get_achatb.TVA_14;
-                        document.getElementById("ttc3").value = responce.get_achatb.TTC_14;
-                      document.getElementById("tva_d3").value = responce.get_achatb.TVA_d14;
-
-                        var idToSelect = responce.get_achatb.FK_racines_14;
-                        var selectElement = document.getElementById("racine3");
-                       for (var i = 0; i < selectElement.options.length; i++) {
-                       var option = selectElement.options[i];
-                       if (option.value == idToSelect) {
-                        option.selected = true;
-                        break; 
-                         }
-                       }
-                       var event = new Event('change');
-                       selectElement.dispatchEvent(event);
-                       $("#rowracine2").css("display", "inherit");
-                       }
-                       if(responce.get_achatb.Taux20==20)
-                       {    
-                            $("#rowracine3").css("display", "inherit");
-                          document.getElementById("MHT_4").value = responce.get_achatb.M_HT_20;
-                          document.getElementById("tva_4").value = responce.get_achatb.TVA_20;
-                          document.getElementById("ttc4").value = responce.get_achatb.TTC_20;
-                          document.getElementById("taux4").value = responce.get_achatb.Taux20;
-                      document.getElementById("tva_d4").value = responce.get_achatb.TVA_d20;
-
-                          var idToSelect = responce.get_achatb.FK_racines_20;
-                          var selectElement = document.getElementById("racine4");
-                         for (var i = 0; i < selectElement.options.length; i++) {
-                         var option = selectElement.options[i];
-                         if (option.value == idToSelect) {
-                          console.log(option.value);
-                          option.selected = true;
-                          break; 
-                           }
-                         }
-                         var event = new Event('change');
-                         selectElement.dispatchEvent(event);
-      }
-                 if(document.getElementById("tva_3").value==''){
-                
-                  $("#rowracine2").css("display", "none");
-                 }
-                 if(document.getElementById("tva_1").value==''){
-                
-                  $("#rowracine").css("display", "none");
-                 }
-                 if(document.getElementById("tva_2").value==''){
-                
-                  $("#rowracine1").css("display", "none");
-                 }
-                    var idToSelect = responce.get_achatb.idfrs;
-                    var selectElement = document.getElementById("frs");
-                   for (var i = 0; i < selectElement.options.length; i++) {
-                   var option = selectElement.options[i];
-                   if (option.value == idToSelect) {
-                    option.selected = true;
-                    break; 
-                     }
-                   }
-                   var event = new Event('change');
-                   selectElement.dispatchEvent(event);
+                        break;
+                      }
+                    }
+                    var event = new Event("change");
+                    selectElement.dispatchEvent(event);
                     var idToSelect = responce.get_achatb.idp;
                     var selectElement = document.getElementById("Mpayement");
-                   for (var i = 0; i < selectElement.options.length; i++) {
-                   var option = selectElement.options[i];
-                   if (option.value == idToSelect) {
-                    option.selected = true;
-                    break; 
-                     }
-                   }
-                   var event = new Event('change');
-                   selectElement.dispatchEvent(event);
-
-                   var idToSelect = responce.get_achatb.FK_Ccharge;
-                   var selectElement = document.getElementById("charge");
-                  for (var i = 0; i < selectElement.options.length; i++) {
-                  var option = selectElement.options[i];
-                  if (option.value == idToSelect) {
-          
-                   option.selected = true;
-                   break; 
+                    for (var i = 0; i < selectElement.options.length; i++) {
+                      var option = selectElement.options[i];
+                      if (option.value == idToSelect) {
+                        option.selected = true;
+                        break;
+                      }
                     }
-                  }
-                  var event = new Event('change');
-                  selectElement.dispatchEvent(event);
+                    var event = new Event("change");
+                    selectElement.dispatchEvent(event);
+
+                    var idToSelect = responce.get_achatb.FK_Ccharge;
+                    var selectElement = document.getElementById("charge");
+                    for (var i = 0; i < selectElement.options.length; i++) {
+                      var option = selectElement.options[i];
+                      if (option.value == idToSelect) {
+                        option.selected = true;
+                        break;
+                      }
+                    }
+                    var event = new Event("change");
+                    selectElement.dispatchEvent(event);
                   });
                 },
               });
@@ -2054,8 +2234,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         print: true,
         download: true,
-        headerFilter:"input"
-        
+        headerFilter: "input",
       },
       {
         title: "Racine",
@@ -2064,8 +2243,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         print: true,
         download: true,
-        headerFilter:"input"
-        
+        headerFilter: "input",
       },
       {
         title: "Date_fact",
@@ -2074,7 +2252,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         print: true,
         download: true,
-        headerFilter:"input"
+        headerFilter: "input",
       },
       {
         title: "Date_payement",
@@ -2083,7 +2261,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         print: true,
         download: true,
-        headerFilter:"input"
+        headerFilter: "input",
       },
       {
         title: "ID_FIscal",
@@ -2091,8 +2269,8 @@ function dataTable($tabledata)
         minWidth: 100,
         vertAlign: "middle",
         print: true,
-            download: true,
-        headerFilter:"input"
+        download: true,
+        headerFilter: "input",
       },
       {
         title: "ICE",
@@ -2101,7 +2279,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         print: true,
         download: true,
-        headerFilter:"input"
+        headerFilter: "input",
       },
       {
         title: "FRS",
@@ -2110,7 +2288,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         print: true,
         download: true,
-        headerFilter:"input"
+        headerFilter: "input",
       },
       {
         title: "TTC",
@@ -2118,7 +2296,7 @@ function dataTable($tabledata)
         minWidth: 100,
         vertAlign: "middle",
         print: true,
-            download: true,
+        download: true,
       },
       {
         title: "TVA",
@@ -2135,7 +2313,7 @@ function dataTable($tabledata)
         vertAlign: "middle",
         print: true,
         download: true,
-        headerFilter:"input"
+        headerFilter: "input",
       },
       {
         title: "Mht",
@@ -2153,8 +2331,8 @@ function dataTable($tabledata)
         field: "Designation",
         vertAlign: "middle",
         print: true,
-            download: true,
-        headerFilter:"input",
+        download: true,
+        headerFilter: "input",
         editor: true,
       },
       {
@@ -2163,37 +2341,46 @@ function dataTable($tabledata)
         field: "N_facture",
         vertAlign: "middle",
         print: true,
-            download: true,
+        download: true,
         editor: true,
-        headerFilter:"input"
-      },,
+        headerFilter: "input",
+      },
+      ,
       {
         title: "Order",
         width: 30,
         field: "order",
         vertAlign: "middle",
         print: true,
-            download: true,
+        download: true,
         editor: true,
-        headerFilter:"input"
+        headerFilter: "input",
       },
 
       // For print format
     ],
 
-    rowDblClick: function (e, row) { },
+    rowDblClick: function (e, row) {},
   });
+<<<<<<< HEAD
 
   document.getElementById("download-xlsx").addEventListener("click", function () {
     table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
   });
  
 
+=======
+  let periode = $("#periode").val();
+  let Exercice = $("#Exercice").val();
+  document
+    .getElementById("download-xlsx")
+    .addEventListener("click", function () {
+      table.download("xlsx", "Excel_"+periode+"_"+Exercice+"_COMP.xlsx", { sheetName: "My Data" });
+    });
+>>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
 }
 
-document
-  .getElementById("file-upload")
-  .addEventListener("change", handleFile);
+document.getElementById("file-upload").addEventListener("change", handleFile);
 
 function handleFile(event) {
   
@@ -2214,25 +2401,22 @@ function handleFile(event) {
   reader.readAsArrayBuffer(file);
 }
 
-function tauxRacine1()
-{ 
-  let value = $('#racine').val();
+function tauxRacine1() {
+  let value = $("#racine").val();
 
-    jQuery.ajax({
-      url: "./get_racine/" + value,
-      type: "GET",
-      dataType: "json",
-      success: function (responce) {
-        $tabledata = responce.get_racine;
-   console.log($tabledata);
-        $("#taux1").val($tabledata.Taux);
-      },
-    });
+  jQuery.ajax({
+    url: "./get_racine/" + value,
+    type: "GET",
+    dataType: "json",
+    success: function (responce) {
+      $tabledata = responce.get_racine;
+      console.log($tabledata);
+      $("#taux1").val($tabledata.Taux);
+    },
+  });
 }
-  function tauxRacine2()
-{ 
-  
-  let value = $('#racine2').val();
+function tauxRacine2() {
+  let value = $("#racine2").val();
 
   jQuery.ajax({
     url: "./get_racine/" + value,
@@ -2245,86 +2429,80 @@ function tauxRacine1()
     },
   });
 }
-function tauxRacine3()
-{ 
-  let value = $('#racine3').val();
+function tauxRacine3() {
+  let value = $("#racine3").val();
 
-    jQuery.ajax({
-      url: "./get_racine/" + value,
-      type: "GET",
-      dataType: "json",
-      success: function (responce) {
-        $tabledata = responce.get_racine;
+  jQuery.ajax({
+    url: "./get_racine/" + value,
+    type: "GET",
+    dataType: "json",
+    success: function (responce) {
+      $tabledata = responce.get_racine;
 
-        $("#taux3").val($tabledata.Taux);
-      },
-    });
-  }
-  function tauxRacine4()
-  { 
-    let value = $('#racine4').val();
-  
-      jQuery.ajax({
-        url: "./get_racine/" + value,
-        type: "GET",
-        dataType: "json",
-        success: function (responce) {
-          $tabledata = responce.get_racine;
-  
-          $("#taux4").val($tabledata.Taux);
-        },
-      });
-    }
-function generation_XML(){
-       var formData = [];
-       
-       let Exercice =$("#Exercice").val();
-       let periode =$("#periode").val(); 
-       formData.push(
-         { name: "Exercice", value: Exercice },
-         { name: "periode", value: periode },
-       );
-        // Display a loading message
-    toastr.options = {
-      progressBar: true,
-      closeButton: true,
+      $("#taux3").val($tabledata.Taux);
+    },
+  });
+}
+function tauxRacine4() {
+  let value = $("#racine4").val();
+
+  jQuery.ajax({
+    url: "./get_racine/" + value,
+    type: "GET",
+    dataType: "json",
+    success: function (responce) {
+      $tabledata = responce.get_racine;
+
+      $("#taux4").val($tabledata.Taux);
+    },
+  });
+}
+function generation_XML() {
+  var formData = [];
+
+  let Exercice = $("#Exercice").val();
+  let periode = $("#periode").val();
+  formData.push(
+    { name: "Exercice", value: Exercice },
+    { name: "periode", value: periode }
+  );
+  // Display a loading message
+  toastr.options = {
+    progressBar: true,
+    closeButton: true,
   };
   // toastr.info("Generating XML file. Please wait...");
 
-       jQuery.ajax({
-         url: "./xml",
-         type: "get", // Le nom du fichier indiqué dans le formulaire
-         data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-         // dataFilter: 'json', //forme data
-         success: function (response) {
-          // Access the 'responsexml' field from the JSON response
-          var xmlData = response.responsexml;
-        //  console.log(response);
-          var blob = new Blob([response.responsexml], { type: "text/plain" });
-          // console.log(blob);
-          // Create a Blob from the XML data
-          // Create a download link and trigger the download
-          var link = document.createElement('a');
-          link.href = window.URL.createObjectURL(blob);
-          link.download = 'exported_data.xml';
-          link.click();
-      },
-         error: function () {
-             // Display an error message if something goes wrong
-             toastr.error("Error generating XML file.");
-         },
-         
-       });
-    
-   
+  jQuery.ajax({
+    url: "./xml",
+    type: "get", // Le nom du fichier indiqué dans le formulaire
+    data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+    // dataFilter: 'json', //forme data
+    success: function (response) {
+      // Access the 'responsexml' field from the JSON response
+      var xmlData = response.responsexml;
+      //  console.log(response);
+      var blob = new Blob([response.responsexml], { type: "text/plain" });
+      // console.log(blob);
+      // Create a Blob from the XML data
+      // Create a download link and trigger the download
+      var link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = "exported_data.xml";
+      link.click();
+    },
+    error: function () {
+      // Display an error message if something goes wrong
+      toastr.error("Error generating XML file.");
+    },
+  });
 }
-function get_table()
-{
-  let periode = $('#periode').val();
-  let Exercice = $('#Exercice').val();
+function get_table() {
+  let periode = $("#periode").val();
+  let Exercice = $("#Exercice").val();
 
   jQuery.ajax({
-    url: "./get_TBLachat/" + periode+"/"+Exercice,
+    url: "./get_TBLachat/" + periode + "/" + Exercice,
     type: "GET",
     dataType: "json",
     success: function (responce) {
@@ -2336,24 +2514,25 @@ function get_table()
         $tabledata = responce.get_TBLachat;
         // console.log( $tabledata);
       });
-      
-       dataTable($tabledata);
-       console.log(responce.totalTTC);
-       $("#totalTTC").text(responce.totalTTC);
-       $("#totalTVA").text(responce.totalTVA);
-       $("#totalHT").text(responce.totalHT);
+
+      dataTable($tabledata);
+      console.log(responce.totalTTC);
+      $("#totalTTC").text(responce.totalTTC);
+      $("#totalTVA").text(responce.totalTVA);
+      $("#totalHT").text(responce.totalHT);
       //trigger download of data.xlsx file
-      document
-        .getElementById("download-xlsx")
-        .addEventListener("click", function () {
-          table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
-        });
+      // document
+      //   .getElementById("download-xlsx")
+      //   .addEventListener("click", function () {
+      //     table.download("xlsx", "Excel_"+periode+"_"+Exercice+"_COMP.xlsx", { sheetName: "My Data" });
+      //   });
 
       //trigger download of data.pdf file
       document
         .getElementById("download-pdf")
         .addEventListener("click", function () {
-          table.download("pdf", "data.pdf", {
+        
+          table.download("pdf",  "Excel_"+periode+"_"+Exercice+"_COMP.pdf", {
             orientation: "portrait", //set page orientation to portrait
             title: "Succursale", //add title to report
           });
@@ -2363,7 +2542,6 @@ function get_table()
 }
 
 function createTabulatorTable(data) {
-
   // Define the getTableColumns function
   function getTableColumns(rowData) {
     // Implement the logic to generate column definitions based on rowData
@@ -2371,12 +2549,10 @@ function createTabulatorTable(data) {
     const columns = [];
     for (let i = 0; i < rowData.length; i++) {
       columns.push({ title: rowData[i], field: rowData[i] });
-    }   
+    }
     console.log(columns);
-    return columns; 
-  
+    return columns;
   }
-
 
   const table = new Tabulator("#Liste-Achat", {
     data: data,
@@ -2387,35 +2563,34 @@ function createTabulatorTable(data) {
   const dataArray = data.map((row) =>
     Object.fromEntries(row.map((cell, index) => [data[0][index], cell]))
   );
-  
-  
-console.log(dataArray);
-let Exercice =$("#Exercice").val();
-let periode = $('#periode').val();
-  dataArray.forEach(row => {
+
+  console.log(dataArray);
+  let Exercice = $("#Exercice").val();
+  let periode = $("#periode").val();
+  dataArray.forEach((row) => {
     function convertExcelDate(excelDate) {
       if (!excelDate) {
         return null; // Handle undefined or empty date values
       }
-      
+
       const excelSerialNumber = parseFloat(excelDate);
-    
+
       if (!isNaN(excelSerialNumber)) {
         const date = new Date((excelSerialNumber - 25569) * 86400 * 1000);
-    
+
         if (!isNaN(date)) {
-          const formattedDate = date.toISOString().split('T')[0];
+          const formattedDate = date.toISOString().split("T")[0];
           return formattedDate;
         }
       }
-    
+
       return null; // Handle invalid date values
     }
     const dateFactValue = row["dfac"];
-const datePaymentValue = row["dpai"];
+    const datePaymentValue = row["dpai"];
 
-const dateFact = convertExcelDate(dateFactValue);
-const datePayment = convertExcelDate(datePaymentValue);
+    const dateFact = convertExcelDate(dateFactValue);
+    const datePayment = convertExcelDate(datePaymentValue);
     var postData = {
       // TVA_deductible: row.TVA_deductible, // Assuming index 0 corresponds to 'nomFournisseurs'
       // prorata: row.prorata, // Assuming index 1 corresponds to 'Designation'
@@ -2424,7 +2599,7 @@ const datePayment = convertExcelDate(datePaymentValue);
       Date_payement: datePayment,
       ID_FIscal: row["if"],
       ICE: row["ice"],
-      FRS:row["nom"],
+      FRS: row["nom"],
       TTC: row["ttc"],
       TVA: row["tva"],
       taux: row["tx"],
@@ -2435,9 +2610,9 @@ const datePayment = convertExcelDate(datePaymentValue);
       order: row["ord"],
       compte: row["compte frs"],
       Exercice: Exercice,
-      periode: periode,    
+      periode: periode,
     };
-    console.log(postData ,"dataaaaa");
+    console.log(postData, "dataaaaa");
     jQuery.ajax({
       headers: {
         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -2460,123 +2635,123 @@ function validateInput(inputField) {
   var inputValue = inputField.value;
   var pattern = /^[A-Za-z0-9]+$/;
 
-
   if (!pattern.test(inputValue)) {
-      // document.getElementById('errorMessage').textContent = '.Seuls les caractères alphabétiques (A-Z) sont autorisés';
-      toastr.options = {
-        progressBar: true,
-        closeButton: true,
-      };
-      toastr.error(".Seuls les caractères alphabétiques (A-Z) sont autorisés", { timeOut: 12000 });
-      inputField.value = inputValue.replace(/[^A-Za-z]/g, ''); // Remove non-alphabetic characters
+    // document.getElementById('errorMessage').textContent = '.Seuls les caractères alphabétiques (A-Z) sont autorisés';
+    toastr.options = {
+      progressBar: true,
+      closeButton: true,
+    };
+    toastr.error(".Seuls les caractères alphabétiques (A-Z) sont autorisés", {
+      timeOut: 12000,
+    });
+    inputField.value = inputValue.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
   } else {
-      document.getElementById('errorMessage').textContent = '';
-      
+    document.getElementById("errorMessage").textContent = "";
   }
 }
-function datePayment()
-{
+function datePayment() {
   let dateF = $("#date_fact").val();
   $("#date_p").val(dateF);
   checkDate();
 }
-function viderChamps(){
-  document.getElementById("N_ICE").value = '';
-  document.getElementById("id_fiscal").value = '';
-  document.getElementById("desc").value = '';
-  document.getElementById("n_fact").value ='';
-  document.getElementById("date_fact").value = '';
-  document.getElementById("date_p").value = '';
-  document.getElementById("MTttc").value ='';
+function viderChamps() {
+  document.getElementById("N_ICE").value = "";
+  document.getElementById("id_fiscal").value = "";
+  document.getElementById("desc").value = "";
+  document.getElementById("n_fact").value = "";
+  document.getElementById("date_fact").value = "";
+  document.getElementById("date_p").value = "";
+  document.getElementById("MTttc").value = "";
   // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
   // document.getElementById("prorata").value = '';
-    document.getElementById("MHT_1").value = '';
-    document.getElementById("tva_1").value = '';
-    document.getElementById("ttc1").value = '';
-    document.getElementById("n_compt").value = '';
+  document.getElementById("MHT_1").value = "";
+  document.getElementById("tva_1").value = "";
+  document.getElementById("ttc1").value = "";
+  document.getElementById("n_compt").value = "";
 
-    var selectElement = document.getElementById("racine");
-   for (var i = 0; i < selectElement.options.length; i++) {
-   var option = selectElement.options[i]; if (option.value == "null") {
-    option.selected = true;
-    break; 
-     }
-    }
-   var event = new Event('change');
-   selectElement.dispatchEvent(event);
-  
-   var selectElement = document.getElementById("charge");
-   for (var i = 0; i < selectElement.options.length; i++) {
-   var option = selectElement.options[i]; if (option.value == "null") {
-    option.selected = true;
-    break; 
-     }
-    }
-   var event = new Event('change');
-   selectElement.dispatchEvent(event);
-
-     document.getElementById("MHT_2").value = '';
-     document.getElementById("tva_2").value = '';
-     document.getElementById("ttc2").value = '';
-     var selectElement = document.getElementById("racine2");
-    for (var i = 0; i < selectElement.options.length; i++) {
+  var selectElement = document.getElementById("racine");
+  for (var i = 0; i < selectElement.options.length; i++) {
     var option = selectElement.options[i];
     if (option.value == "null") {
       option.selected = true;
-      break; 
-       }
-     }
-     var event = new Event('change');
-     selectElement.dispatchEvent(event);
- 
-      document.getElementById("MHT_3").value = '';
-      document.getElementById("tva_3").value = '';
-      document.getElementById("ttc3").value = '';
-   
-     var selectElement = document.getElementById("racine3");
-     for (var i = 0; i < selectElement.options.length; i++) {
-     var option = selectElement.options[i];
-     if (option.value == "null") {
-      option.selected = true;
-      break; 
-       }
-     }
-     var event = new Event('change');
-     selectElement.dispatchEvent(event);
-        document.getElementById("MHT_4").value = '';
-        document.getElementById("tva_4").value = '';
-        document.getElementById("ttc4").value = '';
-        document.getElementById("taux4").value = '';
-      
-        var selectElement = document.getElementById("racine4");
-        for (var i = 0; i < selectElement.options.length; i++) {
-        var option = selectElement.options[i];
-        if (option.value == "null") {
-         option.selected = true;
-         break; 
-          }
-        }
-        var event = new Event('change');
-        selectElement.dispatchEvent(event);
-        var selectElement = document.getElementById("frs");
-        for (var i = 0; i < selectElement.options.length; i++) {
-        var option = selectElement.options[i];
-        if (option.value == "null") {
-         option.selected = true;
-         break; 
-          }
-        }
-        var event = new Event('change');
-        selectElement.dispatchEvent(event);
-        var selectElement = document.getElementById("Mpayement");
-        for (var i = 0; i < selectElement.options.length; i++) {
-        var option = selectElement.options[i];
-        if (option.value == "null") {
-         option.selected = true;
-         break; 
-          }
-        }
-        var event = new Event('change');
-        selectElement.dispatchEvent(event);
-}
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
 
+  var selectElement = document.getElementById("charge");
+  for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
+
+  document.getElementById("MHT_2").value = "";
+  document.getElementById("tva_2").value = "";
+  document.getElementById("ttc2").value = "";
+  var selectElement = document.getElementById("racine2");
+  for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
+
+  document.getElementById("MHT_3").value = "";
+  document.getElementById("tva_3").value = "";
+  document.getElementById("ttc3").value = "";
+
+  var selectElement = document.getElementById("racine3");
+  for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
+  document.getElementById("MHT_4").value = "";
+  document.getElementById("tva_4").value = "";
+  document.getElementById("ttc4").value = "";
+  document.getElementById("taux4").value = "";
+
+  var selectElement = document.getElementById("racine4");
+  for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
+  var selectElement = document.getElementById("frs");
+  for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
+  var selectElement = document.getElementById("Mpayement");
+  for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
+}
