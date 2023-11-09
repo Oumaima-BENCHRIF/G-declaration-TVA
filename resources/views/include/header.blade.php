@@ -14,38 +14,23 @@
         </li>
         <li class="nav-item dropdown user-profile-dropdown">
             <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <img src="{{ url('assets/img/profile-1.jpg') }}" alt="avatar">
+                <img src="{{ url('assets/img/images2.jpg') }}" alt="avatar">
             </a>
             <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
                 <div class="nav-drop is-account-dropdown" >
                     <div class="inner">
                         <div class="nav-drop-header">
-                            <span class="text-primary font-15">{{ __('Welcome') }} Admin !</span>
+                            <span class="text-primary font-15">Bienvenue</span>
                         </div>
                         <div class="nav-drop-body account-items pb-0">
-                            <a id="profile-link"  class="account-item" href="{{ url('/pages/profile') }}">
-                                <div class="media align-center">
-                                    <div class="media-left">
-                                        <div class="image">
-                                            <img class="rounded-circle avatar-xs" src="{{ url('assets/img/profile-1.jpg') }}" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="media-content ml-3">
-                                        <h6 class="font-13 mb-0 strong">John Doe</h6>
-                                        <small>john@neptune.com</small>
-                                    </div>
-                                    <div class="media-right">
-                                        <i data-feather="check"></i>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="account-item" href="{{ url('/pages/profile') }}">
+                     
+                            <a class="account-item" >
                                 <div class="media align-center">
                                     <div class="icon-wrap">
                                         <i class="las la-user font-20"></i>
                                     </div>
                                     <div class="media-content ml-3">
-                                        <h6 class="font-13 mb-0 strong"> {{ __('My Account') }}</h6>
+                                        <h6 class="font-13 mb-0 strong"> {{ auth()->user()->email }}</h6>
                                     </div>
                                 </div>
                             </a>

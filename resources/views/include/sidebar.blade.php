@@ -6,7 +6,7 @@
             </a> -->
         </li>
         <li class="nav-item theme-text">
-            <a href="{{ url('/') }}" class="nav-link"> G-declaration TVA </a>
+            <a href="{{ url('/') }}" class="nav-link"> declaration TVA </a>
         </li>
     </ul>
     <ul class="list-unstyled menu-categories" id="accordionExample">
@@ -73,7 +73,7 @@
             </ul>
         </li>
  
-
+<!-- 
         <li class="menu">
         <a data-active="{{ is_active_route(['apps/utilisateur']) }}" href="{{ url('/apps/utilisateur') }}" class="dropdown-toggle justify-content-end">
             <div class="">
@@ -84,10 +84,23 @@
                 <li class=" {{ active_class(['apps/utilisateur']) }}">
                 </li>
             </ul>
-        </li>
+        </li> -->
         
-            
         <li class="menu">
+        <a data-active="{{ is_active_route(['apps/Vente']) }}" href="{{ url('/apps/Vente') }}" class="dropdown-toggle justify-content-end">
+    
+            <div class="">
+           
+                    <span>Vente</span>  <i class="las la-globe-americas"></i>
+                </div>
+                
+            </a>
+            <ul class="submenu list-unstyled collapse {{ show_class(['Vente/*']) }}" id="Vente" data-parent="#accordionExample">
+                <li class=" {{ active_class(['apps/Vente']) }}">
+                </li>
+            </ul>
+        </li>    
+        <!-- <li class="menu">
             <a href="#maps" data-active="{{ is_active_route(['maps/*']) }}" data-toggle="collapse" aria-expanded="{{ is_active_route(['maps/*']) }}" class="dropdown-toggle justify-content-end">
             <div>
                     <i class="las la-angle-right sidemenu-right-icon"></i>
@@ -100,13 +113,13 @@
             </a>
             <ul class="collapse submenu list-unstyled {{ show_class(['maps/*']) }}" id="maps" data-parent="#accordionExample">
                 <li class=" {{ active_class(['maps/leaflet-map']) }}">
-                    <a data-active="{{ is_active_route(['maps/leaflet-map']) }}" href="{{ url('/maps/leaflet-map') }}"> Facturation </a>
+                    <a class=" {{ active_class(['apps/Achat']) }}"> Facturation </a>
                 </li>
                 <li class=" {{ active_class(['maps/vector-map']) }}">
                     <a data-active="{{ is_active_route(['maps/vector-map']) }}" href="{{ url('/maps/vector-map') }}"> Réglement </a>
                 </li>
             </ul>
-        </li>
+        </li> -->
         <li class="menu">
             <a href="#charts" data-active="{{ is_active_route(['charts/*']) }}" data-toggle="collapse" aria-expanded="{{ is_active_route(['charts/*']) }}" class="dropdown-toggle justify-content-end">
             <div>
@@ -132,7 +145,7 @@
         </li>
        
        
-        <li class="menu-title"> {{__('Others')}}</li>
+        <!-- <li class="menu-title"> {{__('Others')}}</li>
         <li class="menu">
             <a href="http://neptuneweb.xyz" aria-expanded="false" class="dropdown-toggle justify-content-end">
                 <div class="">
@@ -140,6 +153,6 @@
                     <span> Importation GC</span>   <i class="las la-file-code"></i>
                 </div>
             </a>
-        </li>
+        </li> -->
     </ul>
 </nav>

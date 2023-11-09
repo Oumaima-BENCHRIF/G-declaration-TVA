@@ -216,7 +216,169 @@ class XMLController extends Controller
                 // return response($script)->header('Content-Type', 'application/javascript');
                 return view('pages.error.error404')->with('message', '.La soumission du formulaire a échoué en raison de données manquantes');
             }
+<<<<<<< HEAD
+            $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
+            $xml->addChild('annee', $data[0]->Exercice);
+            $xml->addChild('periode', $data[0]->prRegime);
+            $xml->addChild('regime', $reg);
+             $releveDeductions = $xml->addChild('releveDeductions');
+            foreach ($data as $row) {
+ 
 
+                if (!empty($row->M_HT_7) && !empty($row->TVA_7)) {
+               
+                  
+                    $rd = $releveDeductions->addChild('rd');
+                    $rd->addChild('ord', $cpt);
+                    $rd->addChild('num', $row->N_facture);
+                    $rd->addChild('des', $row->Designation);
+                    $rd->addChild('mht', $row->M_HT_7);
+                    $rd->addChild('tva', $row->TVA_d7);
+                    $rd->addChild('ttc', $row->M_TTC);
+                    $refF = $rd->addChild('refF');
+                    $refF->addChild('if', $row->ID_fiscale);
+                    $refF->addChild('nom', $row->nomFournisseurs);
+                    $refF->addChild('ice', $row->NICE);
+                    $rd->addChild('tx', number_format( $row->Taux7,2));
+                    $rd->addChild('prorata', $row->Prorata);
+                    $mp = $rd->addChild('mp');
+                    $mp->addChild('id', $row->Num_payment);
+                    $rd->addChild('dpai', $row->Date_payment);
+                    $rd->addChild('dfac', $row->Date_facture);
+                    $cpt= $cpt+1;
+                }
+                if (!empty($row->M_HT_10) && !empty($row->TVA_10)) {
+                 
+    
+                    // $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
+                    // $xml->addChild('annee', $row->Exercice);
+                    // $xml->addChild('periode', $row->prRegime);
+                    // $xml->addChild('regime', $reg);
+                    // //  $releveDeductions = $xml->addChild('releveDeductions');
+                    $rd = $releveDeductions->addChild('rd');
+                    $rd->addChild('ord',  $cpt);
+                    $rd->addChild('num', $row->N_facture);
+                    $rd->addChild('des', $row->Designation);
+                    $rd->addChild('mht', $row->M_HT_10);
+                    $rd->addChild('tva', $row->TVA_d10);
+                    $rd->addChild('ttc', $row->M_TTC);
+                    $refF = $rd->addChild('refF');
+                    $refF->addChild('if', $row->ID_fiscale);
+                    $refF->addChild('nom', $row->nomFournisseurs);
+                    $refF->addChild('ice', $row->NICE);
+                    $rd->addChild('tx', number_format( $row->Taux10,2));
+                    $rd->addChild('prorata', $row->Prorata);
+                    $mp = $rd->addChild('mp');
+                    $mp->addChild('id', $row->Num_payment);
+                    $rd->addChild('dpai', $row->Date_payment);
+                    $rd->addChild('dfac', $row->Date_facture);
+                    $cpt= $cpt+1;
+                }
+                if (!empty($row->M_HT_14) && !empty($row->TVA_14)) {
+                 
+                    // $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
+                    // $xml->addChild('annee', $row->Exercice);
+                    // $xml->addChild('periode', $row->prRegime);
+                    // $xml->addChild('regime', $reg);
+                    // //  $releveDeductions = $xml->addChild('releveDeductions');
+                    $rd = $releveDeductions->addChild('rd');
+                    $rd->addChild('ord',  $cpt);
+                    $rd->addChild('num', $row->N_facture);
+                    $rd->addChild('des', $row->Designation);
+                    $rd->addChild('mht', $row->M_HT_14);
+                    $rd->addChild('tva', $row->TVA_d14);
+                    $rd->addChild('ttc', $row->M_TTC);
+                    $refF = $rd->addChild('refF');
+                    $refF->addChild('if', $row->ID_fiscale);
+                    $refF->addChild('nom', $row->nomFournisseurs);
+                    $refF->addChild('ice', $row->NICE);
+                    $rd->addChild('tx', number_format( $row->Taux14,2));
+                    $rd->addChild('prorata', $row->Prorata);
+                    $mp = $rd->addChild('mp');
+                    $mp->addChild('id', $row->Num_payment);
+                    $rd->addChild('dpai', $row->Date_payment);
+                    $rd->addChild('dfac', $row->Date_facture);
+                    $cpt= $cpt+1;
+                }
+                if (!empty($row->M_HT_20) && !empty($row->TVA_20)) {
+                // 
+                    // $xml->addChild('identifiantFiscal', $get_info->ID_Fiscale);
+                    // $xml->addChild('annee', $row->Exercice);
+                    // $xml->addChild('periode', $row->prRegime);
+                    // $xml->addChild('regime', $reg);
+                    //  $releveDeductions = $xml->addChild('releveDeductions');
+                    $rd = $releveDeductions->addChild('rd');
+                    $rd->addChild('ord',  $cpt);
+                    $rd->addChild('num', $row->N_facture);
+                    $rd->addChild('des', $row->Designation);
+                    $rd->addChild('mht', $row->M_HT_20);
+                    $rd->addChild('tva', $row->TVA_d20);
+                    $rd->addChild('ttc', $row->M_TTC);
+                    $refF = $rd->addChild('refF');
+                    $refF->addChild('if', $row->ID_fiscale);
+                    $refF->addChild('nom', $row->nomFournisseurs);
+                    $refF->addChild('ice', $row->NICE);
+                    $rd->addChild('tx',number_format( $row->Taux20,2));
+                    $rd->addChild('prorata', $row->Prorata);
+                    $mp = $rd->addChild('mp');
+                    $mp->addChild('id', $row->Num_payment);
+                    $rd->addChild('dpai', $row->Date_payment);
+                    $rd->addChild('dfac', $row->Date_facture);
+                    $cpt= $cpt+1;
+                }
+    
+            }
+            // ***************************************
+            //     // Entête de réponse pour indiquer que nous renvoyons du XML.
+            //     $response = new Response($xml->asXML(), 200);
+            // $response->header('Content-Type', 'application/xml');
+            // $filename = 'exported_data.xml';
+            // $response->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+    
+            //     return $response;
+            //     // return response()->json([
+            //     //     "code" => 200,
+            //     //     'responsexml' => $response
+            //     // ]);
+            // ***************************************
+            // Créez un fichier XML temporaire.
+            $xmlFileName = 'exported_data.xml';
+            file_put_contents($xmlFileName, $xml->asXML());
+    
+            // Créez un fichier ZIP.
+            $zip = new \ZipArchive();
+            $zipFileName = 'exported_data.zip';
+    
+            if ($zip->open($zipFileName, \ZipArchive::CREATE) === true) {
+                // Ajoutez le fichier XML au fichier ZIP.
+                $zip->addFile($xmlFileName, 'exported_data.xml');
+                $zip->close();
+            }
+    
+            // Supprimez le fichier XML temporaire.
+            unlink($xmlFileName);
+    
+            // Entête de réponse pour indiquer que nous renvoyons du ZIP.
+            $response = Response::make(file_get_contents($zipFileName), 200);
+            $response->header('Content-Type', 'application/zip');
+    
+            // Nom du fichier ZIP de sortie.
+            $response->header('Content-Disposition', 'attachment; filename="' . $zipFileName . '"');
+    
+            // Supprimez le fichier ZIP temporaire après l'envoi.
+            unlink($zipFileName);
+    
+            return $response;
+    
+        }else{
+            $message = "Hello, World!";
+            $script = "alert('" . addslashes($message) . "');";
+            return response($script)->header('Content-Type', 'application/javascript');
+         }
+        
+=======
+
+>>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
 
         } catch (\Exception $e) {
             // return redirect()

@@ -325,9 +325,7 @@ class AchatController extends Controller
 
         if (preg_match($pattern, $id)) {
             $id=0;
-
         } 
-
         $get_FRS = fournisseurs::whereRaw('fournisseurs.id = ?', [$id])
         ->where('fournisseurs.deleted_at', '=', NULL)->first();
     

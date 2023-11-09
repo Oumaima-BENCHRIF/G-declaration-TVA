@@ -177,14 +177,13 @@
                                         <div class="form-row">
                                                   
                                                 <!-- <div class="col-md-3 mb-3"> </div> -->
-                                                <div class="col-md-3 mb-3 ">  
-                                            <div id="divPro">
-                                                    <label for="prorata">prorata</label>
-                                                         <input id="prorata" type="text" class="form-control" name="prorata"> 
-                                                </div></div>
-                                                  
-                                                <div class="col-md-6 mb-3 check">
-                                                    <div class="radio-inline">
+                                            
+                                                <div class="col-md-6 mb-3 check" style="display:flex;">
+                                                <div id="divPro" style="width: 20%;">
+                                                         
+                                                         <input id="prorata" type="text" class="form-control" name="prorata" style="padding: inherit;" placeholder="% ptorata "> 
+                                                </div> 
+                                                    <div class="radio-inline" style="width: 80%;">
                                                         <label class="radio radio-success">
                                                             <input type="radio" id="non" name="radios5"    checked="checked">
                                                             <span></span>Non</label>
@@ -194,6 +193,11 @@
                                                     </div>
                                                     
                                                 </div>
+                                                <div class="col-md-3 mb-3 ">  
+                                                <label for="chemain">Chemain</label>
+                                                         <input id="Chemain" type="text" class="form-control" name="Chemain"> 
+                                           </div>
+                                                  
                                                 <div class="col-md-3 mb-3">
                                                         <label for="Email">Email</label>
                                                         <input id="Email" name="Email" type="text" class="form-control" placeholder="Email" >
@@ -205,8 +209,12 @@
                                                 </div>
                                                 <div class="col-md-6 mb-3 pt-3"></div>
                                                 <div class="col-md-3 mb-3 pt-3">
+<<<<<<< HEAD
+                                               
+=======
                                                <label for="chemain">Chemain</label>
                                                          <input id="Chemain" type="text" class="form-control" name="Chemain" required> 
+>>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
                                                 </div>
                                                 </div>
 <!--                                                 
@@ -358,7 +366,7 @@ $('.select2').select2();
     });
 
     ouiRadioButton.addEventListener('change', function () {
-        prorataInput.style.display = 'contents';
+        prorataInput.style.display = 'table';
     
     });
 </script>
