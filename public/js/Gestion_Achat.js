@@ -16,6 +16,7 @@ $(window).on("load", function () {
   $("#rowracine3").css("display", "none");
   $("#rowracine1").css("display", "none");
   $("#rowracine2").css("display", "none");
+  $("#add-btn4").css("display", "none");
   // $("#taux1").prop("readonly", true);
 });
 
@@ -245,13 +246,6 @@ $(document).ready(function () {
   });
   $('#racine').on('select2:select', function (e) {
     tauxRacine1();
-    // var isReadOnly = $("#tva_1").prop('readonly');
-    // if(!isReadOnly)
-    // {
-      calcul_tva();
-    // }
-   
-
   });
   $('#racine2').on('select2:select', function (e) {
     tauxRacine2();
@@ -409,15 +403,123 @@ $(document).ready(function () {
     "pageLength": 5
   });
   $("#add-btn").on("click", function (e) {
-
+    if($("#rowracine1").css("display")==="none")
+    {
      $("#rowracine1").css("display", "inherit");
      $("#add-btn").css("display", "none");
+    }
+    const container = document.getElementById("container");
+    const rows = container.getElementsByClassName("row");
+  
+    // Initialize a count for elements with display: none
+    let hiddenElementsCount = 0;
+  
+    // Loop through the elements and check their display property
+    for (const row of rows) {
+      const style = getComputedStyle(row);
+      if (style.display === "none") {
+        hiddenElementsCount++;
+      }
+    }
+    if(hiddenElementsCount==1)
+    {
+      $("#add-btn").css("display", "none");
+      $("#add-btn2").css("display", "none");
+      $("#add-btn3").css("display", "none");
+      $("#add-btn4").css("display", "none");
+    }
   });
   $("#add-btn2").on("click", function (e) {
-
+    if($("#rowracine2").css("display")==="none")
+    {
     $("#rowracine2").css("display", "inherit");
     $("#add-btn2").css("display", "none");
+    }
+
+    const container = document.getElementById("container");
+    const rows = container.getElementsByClassName("row");
+  
+    // Initialize a count for elements with display: none
+    let hiddenElementsCount = 0;
+  
+    // Loop through the elements and check their display property
+    for (const row of rows) {
+      const style = getComputedStyle(row);
+      if (style.display === "none") {
+        hiddenElementsCount++;
+      }
+    }
+  
+    if(hiddenElementsCount==1)
+{
+  $("#add-btn").css("display", "none");
+  $("#add-btn2").css("display", "none");
+  $("#add-btn3").css("display", "none");
+  $("#add-btn4").css("display", "none");
+}
+
+
  });
+ $("#add-btn4").on("click", function (e) {
+  if($("#rowracine1").css("display")==="none")
+  {
+    $("#rowracine").css("display", "inherit");
+    $("#add-btn4").css("display", "none");
+  }
+  const container = document.getElementById("container");
+  const rows = container.getElementsByClassName("row");
+
+  // Initialize a count for elements with display: none
+  let hiddenElementsCount = 0;
+
+  // Loop through the elements and check their display property
+  for (const row of rows) {
+    const style = getComputedStyle(row);
+    if (style.display === "none") {
+      hiddenElementsCount++;
+    }
+  }
+  if(hiddenElementsCount==1)
+  {
+    $("#add-btn").css("display", "none");
+    $("#add-btn2").css("display", "none");
+    $("#add-btn3").css("display", "none");
+    $("#add-btn4").css("display", "none");
+  }
+});
+$("#add-btn3").on("click", function (e) {
+  if($("#rowracine").css("display")==="none")
+  {
+    $("#rowracine").css("display", "inherit");
+    $("#add-btn3").css("display", "none");
+  }else
+  {if($("#rowracine1").css("display")==="none")
+  {
+    $("#rowracine1").css("display", "inherit");
+    $("#add-btn3").css("display", "none");
+  }}
+  const container = document.getElementById("container");
+  const rows = container.getElementsByClassName("row");
+
+  // Initialize a count for elements with display: none
+  let hiddenElementsCount = 0;
+
+  // Loop through the elements and check their display property
+  for (const row of rows) {
+    const style = getComputedStyle(row);
+    if (style.display === "none") {
+      hiddenElementsCount++;
+    }
+  }
+if(hiddenElementsCount==1)
+{
+  $("#add-btn").css("display", "none");
+  $("#add-btn2").css("display", "none");
+  $("#add-btn3").css("display", "none");
+  $("#add-btn4").css("display", "none");
+}
+  
+});
   // Search
   table.columns().every(function () {
     var that = this;
@@ -1469,31 +1571,183 @@ function tva_didu() {
 }
 function checkNfact() {
   let value = $('#n_fact').val();
-
+   value.toString();
   jQuery.ajax({
     url: "./get_achat/" + value,
     type: "GET",
     dataType: "json",
-    success: function (responce) {
+    success: function (responce) { 
+      console.log(responce.get_achat);
       if (!jQuery.isEmptyObject(responce.get_achat)) {
         let duplicateFound = false;
         $tabledata = responce.get_achat;
-        var ligne='';
-        let mtd=0;
-        let mttc=0;
+        document.getElementById('add_ach').innerHTML='Ajouter la modfocation';
         jQuery.each($tabledata, function (key, item) {
           if (!duplicateFound) {
-            alert('Cette facture déjà existe');
-            $("#n_fact").val('');
-            $("#n_fact").focus();
-             duplicateFound = true;
+            var confirmation = confirm("Cette facture déjà existe Vous voulez continuer ?");
+
+            if (confirmation) {
+              jQuery.ajax({
+                url: "./get_achatbyID/" + responce.get_achat[0].id,
+                type: "GET", // Le nom du fichier indiqué dans le formulaire
+                dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                success: function (responce) {
+                  // affichage select
+                  jQuery.each(responce.get_achatb, function (key, item) {
+                    // console.log(responce.get_achatb.NICE);  
+                     document.getElementById("N_ICE").value = responce.get_achatb.NICE;
+                    document.getElementById("id_fiscal").value = responce.get_achatb.ID_fiscale;
+                    document.getElementById("desc").value = responce.get_achatb.Designation;
+                    document.getElementById("n_fact").value =responce.get_achatb.N_facture;
+                    document.getElementById("date_fact").value = responce.get_achatb.Date_facture;
+                    document.getElementById("date_p").value = responce.get_achatb.Date_payment;
+                    document.getElementById("MTttc").value =responce.get_achatb.M_TTC;
+                    document.getElementById("n_compt").value =responce.get_achatb.Num_compte_comptable;
+
+                    // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
+                    document.getElementById("prorata").value = responce.get_achatb.Prorata;     
+                    console.log('eeee'+responce.get_achatb.Prorata)  ;      
+                    if(responce.get_achatb.Taux7==7)
+                   {    
+                      document.getElementById("MHT_1").value = responce.get_achatb.M_HT_7;
+                      document.getElementById("tva_1").value = responce.get_achatb.TVA_7;
+                      document.getElementById("ttc1").value = responce.get_achatb.TTC_7;
+                      document.getElementById("tva_d1").value = responce.get_achatb.TVA_d7;
+                      var idToSelect = responce.get_achatb.FK_racines_7;
+                     
+                      var selectElement = document.getElementById("racine");
+                     for (var i = 0; i < selectElement.options.length; i++) {
+                     var option = selectElement.options[i]; if (option.value == idToSelect) {
+                      option.selected = true;
+                      break; 
+                       }
+                     }
+                     var event = new Event('change');
+                     selectElement.dispatchEvent(event);
+                    }
+                    if(responce.get_achatb.Taux10==10)
+                    {    console.log(responce.get_achatb.Taux10);
+                       document.getElementById("MHT_2").value = responce.get_achatb.M_HT_10;
+                       document.getElementById("tva_2").value = responce.get_achatb.TVA_10;
+                       document.getElementById("ttc2").value = responce.get_achatb.TTC_10;
+                      document.getElementById("tva_d2").value = responce.get_achatb.TVA_d10;
+
+                       var idToSelect = responce.get_achatb.FK_racines_10;
+                       var selectElement = document.getElementById("racine2");
+                      for (var i = 0; i < selectElement.options.length; i++) {
+                      var option = selectElement.options[i];
+                      if (option.value == idToSelect) {
+                        option.selected = true;
+                        break; 
+                         }
+                       }
+                       var event = new Event('change');
+                       selectElement.dispatchEvent(event);
+                       $("#rowracine1").css("display", "inherit");
+                     }
+                     if(responce.get_achatb.Taux14==14)
+                     {    
+                  
+                        document.getElementById("MHT_3").value = responce.get_achatb.M_HT_14;
+                        document.getElementById("tva_3").value = responce.get_achatb.TVA_14;
+                        document.getElementById("ttc3").value = responce.get_achatb.TTC_14;
+                      document.getElementById("tva_d3").value = responce.get_achatb.TVA_d14;
+
+                        var idToSelect = responce.get_achatb.FK_racines_14;
+                        var selectElement = document.getElementById("racine3");
+                       for (var i = 0; i < selectElement.options.length; i++) {
+                       var option = selectElement.options[i];
+                       if (option.value == idToSelect) {
+                        option.selected = true;
+                        break; 
+                         }
+                       }
+                       var event = new Event('change');
+                       selectElement.dispatchEvent(event);
+                       $("#rowracine2").css("display", "inherit");
+                       }
+                       if(responce.get_achatb.Taux20==20)
+                       {    
+                            $("#rowracine3").css("display", "inherit");
+                          document.getElementById("MHT_4").value = responce.get_achatb.M_HT_20;
+                          document.getElementById("tva_4").value = responce.get_achatb.TVA_20;
+                          document.getElementById("ttc4").value = responce.get_achatb.TTC_20;
+                          document.getElementById("taux4").value = responce.get_achatb.Taux20;
+                      document.getElementById("tva_d4").value = responce.get_achatb.TVA_d20;
+
+                          var idToSelect = responce.get_achatb.FK_racines_20;
+                          var selectElement = document.getElementById("racine4");
+                         for (var i = 0; i < selectElement.options.length; i++) {
+                         var option = selectElement.options[i];
+                         if (option.value == idToSelect) {
+                          console.log(option.value);
+                          option.selected = true;
+                          break; 
+                           }
+                         }
+                         var event = new Event('change');
+                         selectElement.dispatchEvent(event);
+                         $("#add-btn4").css("display", "inline");
+      }
+                 if(document.getElementById("tva_3").value==''){
+                
+                  $("#rowracine2").css("display", "none");
+                 }
+                 if(document.getElementById("tva_1").value==''){
+                
+                  $("#rowracine").css("display", "none");
+                 }
+                 if(document.getElementById("tva_2").value==''){
+                
+                  $("#rowracine1").css("display", "none");
+                 }
+                    var idToSelect = responce.get_achatb.idfrs;
+                    var selectElement = document.getElementById("frs");
+                   for (var i = 0; i < selectElement.options.length; i++) {
+                   var option = selectElement.options[i];
+                   if (option.value == idToSelect) {
+                    option.selected = true;
+                    break; 
+                     }
+                   }
+                   var event = new Event('change');
+                   selectElement.dispatchEvent(event);
+                    var idToSelect = responce.get_achatb.idp;
+                    var selectElement = document.getElementById("Mpayement");
+                   for (var i = 0; i < selectElement.options.length; i++) {
+                   var option = selectElement.options[i];
+                   if (option.value == idToSelect) {
+                    option.selected = true;
+                    break; 
+                     }
+                   }
+                   var event = new Event('change');
+                   selectElement.dispatchEvent(event);
+
+                   var idToSelect = responce.get_achatb.FK_Ccharge;
+                   var selectElement = document.getElementById("charge");
+                  for (var i = 0; i < selectElement.options.length; i++) {
+                  var option = selectElement.options[i];
+                  if (option.value == idToSelect) {
+          
+                   option.selected = true;
+                   break; 
+                    }
+                  }
+                  var event = new Event('change');
+                  selectElement.dispatchEvent(event);
+                  });
+                },
+              });
             
+            }else{
+              $("#n_fact").val('');
+              $("#n_fact").focus();
+            }
+            duplicateFound = true;
           }
           
         });
-  
-       
-     
       }
     },
   });
@@ -1539,7 +1793,7 @@ function table_Achat() {
 }
 function dataTable($tabledata)
 { 
-  console.log($tabledata);
+
 //   $tabledata.forEach(function(row) {
 //     var nFactureParts = row.N_facture.split(' ');
 //     if (nFactureParts.length === 2) {
@@ -1640,7 +1894,8 @@ function dataTable($tabledata)
                     document.getElementById("n_compt").value =responce.get_achatb.Num_compte_comptable;
 
                     // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
-                    document.getElementById("prorata").value = responce.get_achatb.Prorata;             
+                    document.getElementById("prorata").value = responce.get_achatb.Prorata;
+                    // console.log('prorata'+responce.get_achatb.Prorata);             
                     if(responce.get_achatb.Taux7==7)
                    {    
                       document.getElementById("MHT_1").value = responce.get_achatb.M_HT_7;
@@ -1929,11 +2184,11 @@ function dataTable($tabledata)
     rowDblClick: function (e, row) { },
   });
 
-  document
-  .getElementById("download-xlsx")
-  .addEventListener("click", function () {
+  document.getElementById("download-xlsx").addEventListener("click", function () {
     table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
   });
+ 
+
 }
 
 document
@@ -1941,6 +2196,7 @@ document
   .addEventListener("change", handleFile);
 
 function handleFile(event) {
+  
   const file = event.target.files[0];
   const reader = new FileReader();
 

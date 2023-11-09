@@ -63,13 +63,13 @@ class XMLController extends Controller
             $xml->addChild('annee', $data[0]->Exercice);
             $xml->addChild('periode', $data[0]->prRegime);
             $xml->addChild('regime', $reg);
+             $releveDeductions = $xml->addChild('releveDeductions');
             foreach ($data as $row) {
  
-              
 
                 if (!empty($row->M_HT_7) && !empty($row->TVA_7)) {
                
-                    $releveDeductions = $xml->addChild('releveDeductions');
+                  
                     $rd = $releveDeductions->addChild('rd');
                     $rd->addChild('ord', $cpt);
                     $rd->addChild('num', $row->N_facture);
@@ -96,7 +96,7 @@ class XMLController extends Controller
                     // $xml->addChild('annee', $row->Exercice);
                     // $xml->addChild('periode', $row->prRegime);
                     // $xml->addChild('regime', $reg);
-                    $releveDeductions = $xml->addChild('releveDeductions');
+                    // //  $releveDeductions = $xml->addChild('releveDeductions');
                     $rd = $releveDeductions->addChild('rd');
                     $rd->addChild('ord',  $cpt);
                     $rd->addChild('num', $row->N_facture);
@@ -122,7 +122,7 @@ class XMLController extends Controller
                     // $xml->addChild('annee', $row->Exercice);
                     // $xml->addChild('periode', $row->prRegime);
                     // $xml->addChild('regime', $reg);
-                    $releveDeductions = $xml->addChild('releveDeductions');
+                    // //  $releveDeductions = $xml->addChild('releveDeductions');
                     $rd = $releveDeductions->addChild('rd');
                     $rd->addChild('ord',  $cpt);
                     $rd->addChild('num', $row->N_facture);
@@ -148,7 +148,7 @@ class XMLController extends Controller
                     // $xml->addChild('annee', $row->Exercice);
                     // $xml->addChild('periode', $row->prRegime);
                     // $xml->addChild('regime', $reg);
-                    $releveDeductions = $xml->addChild('releveDeductions');
+                    //  $releveDeductions = $xml->addChild('releveDeductions');
                     $rd = $releveDeductions->addChild('rd');
                     $rd->addChild('ord',  $cpt);
                     $rd->addChild('num', $row->N_facture);
