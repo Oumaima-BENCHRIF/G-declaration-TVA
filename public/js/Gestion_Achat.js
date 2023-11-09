@@ -570,14 +570,16 @@ $(document).ready(function () {
 
 
   $("#impo_Excel").on("submit", function (e) {
-    // e.preventDefault();
-    // var formData = [];
-    // var $this = jQuery(this);
-    // var formData = jQuery($this).serializeArray();
-    // let Exercice = $("#Exercice").val();
+     // let Exercice = $("#Exercice").val();
     // let periode = $("#periode").val();
-    console.log("okey");
-    alert('o');
+
+     e.preventDefault(); // Prevent the default form submission behavior
+
+        var $this = jQuery(this);
+        var formData = $this.serializeArray();
+
+        console.log("Form data: ", formData);
+    alert(formData);
     // formData.push(
     //   { name: "Exercice", value: Exercice },
     //   { name: "periode", value: periode }
