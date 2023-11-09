@@ -394,7 +394,6 @@ $(document).ready(function () {
     pageLength: 5,
   });
   $("#add-btn").on("click", function (e) {
-<<<<<<< HEAD
     if($("#rowracine1").css("display")==="none")
     {
      $("#rowracine1").css("display", "inherit");
@@ -512,7 +511,6 @@ if(hiddenElementsCount==1)
 }
   
 });
-=======
     $("#rowracine1").css("display", "inherit");
     $("#add-btn").css("display", "none");
   });
@@ -520,7 +518,6 @@ if(hiddenElementsCount==1)
     $("#rowracine2").css("display", "inherit");
     $("#add-btn2").css("display", "none");
   });
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
   // Search
   table.columns().every(function () {
     var that = this;
@@ -729,7 +726,7 @@ if(hiddenElementsCount==1)
 
 
 
-});
+
 
 function Excel_impo(){
   const fileInput = document.getElementById("file-upload");
@@ -1687,13 +1684,10 @@ function tva_didu() {
   }
 }
 function checkNfact() {
-<<<<<<< HEAD
   let value = $('#n_fact').val();
    value.toString();
-=======
-  let value = $("#n_fact").val();
+ 
 
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
   jQuery.ajax({
     url: "./get_achat/" + value,
     type: "GET",
@@ -1703,7 +1697,6 @@ function checkNfact() {
       if (!jQuery.isEmptyObject(responce.get_achat)) {
         let duplicateFound = false;
         $tabledata = responce.get_achat;
-<<<<<<< HEAD
         document.getElementById('add_ach').innerHTML='Ajouter la modfocation';
         jQuery.each($tabledata, function (key, item) {
           if (!duplicateFound) {
@@ -1867,16 +1860,6 @@ function checkNfact() {
               $("#n_fact").val('');
               $("#n_fact").focus();
             }
-=======
-        var ligne = "";
-        let mtd = 0;
-        let mttc = 0;
-        jQuery.each($tabledata, function (key, item) {
-          if (!duplicateFound) {
-            alert("Cette facture déjà existe");
-            $("#n_fact").val("");
-            $("#n_fact").focus();
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
             duplicateFound = true;
           }
         });
@@ -1922,7 +1905,6 @@ function table_Achat() {
     },
   });
 }
-<<<<<<< HEAD
 function dataTable($tabledata)
 { 
 
@@ -1933,17 +1915,6 @@ function dataTable($tabledata)
 //     }
 //     If N_facture does not contain two parts, leave it as is
 // });
-=======
-function dataTable($tabledata) {
-
-  //   $tabledata.forEach(function(row) {
-  //     var nFactureParts = row.N_facture.split(' ');
-  //     if (nFactureParts.length === 2) {
-  //         row.N_facture = nFactureParts[0] + nFactureParts[1];
-  //     }
-  //     If N_facture does not contain two parts, leave it as is
-  // });
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
   var table = new Tabulator("#Liste-Achat", {
     printAsHtml: true,
     printStyled: true,
@@ -2045,7 +2016,6 @@ function dataTable($tabledata) {
                       responce.get_achatb.Num_compte_comptable;
 
                     // document.getElementById("mtd").value =responce.get_achatb.MT_déduit;
-<<<<<<< HEAD
                     document.getElementById("prorata").value = responce.get_achatb.Prorata;
                     // console.log('prorata'+responce.get_achatb.Prorata);             
                     if(responce.get_achatb.Taux7==7)
@@ -2054,19 +2024,6 @@ function dataTable($tabledata) {
                       document.getElementById("tva_1").value = responce.get_achatb.TVA_7;
                       document.getElementById("ttc1").value = responce.get_achatb.TTC_7;
                       document.getElementById("tva_d1").value = responce.get_achatb.TVA_d7;
-=======
-                    document.getElementById("prorata").value =
-                      responce.get_achatb.Prorata;
-                    if (responce.get_achatb.Taux7 == 7) {
-                      document.getElementById("MHT_1").value =
-                        responce.get_achatb.M_HT_7;
-                      document.getElementById("tva_1").value =
-                        responce.get_achatb.TVA_7;
-                      document.getElementById("ttc1").value =
-                        responce.get_achatb.TTC_7;
-                      document.getElementById("tva_d1").value =
-                        responce.get_achatb.TVA_d7;
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
                       var idToSelect = responce.get_achatb.FK_racines_7;
 
                       var selectElement = document.getElementById("racine");
@@ -2354,14 +2311,6 @@ function dataTable($tabledata) {
 
     rowDblClick: function (e, row) {},
   });
-<<<<<<< HEAD
-
-  document.getElementById("download-xlsx").addEventListener("click", function () {
-    table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
-  });
- 
-
-=======
   let periode = $("#periode").val();
   let Exercice = $("#Exercice").val();
   document
@@ -2369,7 +2318,6 @@ function dataTable($tabledata) {
     .addEventListener("click", function () {
       table.download("xlsx", "Excel_"+periode+"_"+Exercice+"_COMP.xlsx", { sheetName: "My Data" });
     });
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
 }
 
 document.getElementById("file-upload").addEventListener("change", handleFile);
