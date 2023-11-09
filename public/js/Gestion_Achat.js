@@ -240,14 +240,6 @@ $(document).ready(function () {
   });
   $("#racine").on("select2:select", function (e) {
     tauxRacine1();
-<<<<<<< HEAD
-=======
-    // var isReadOnly = $("#tva_1").prop('readonly');
-    // if(!isReadOnly)
-    // {
-    calcul_tva();
-    // }
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
   });
   $("#racine2").on("select2:select", function (e) {
     tauxRacine2();
