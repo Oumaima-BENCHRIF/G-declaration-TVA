@@ -816,28 +816,28 @@
 
                                                     </div>
                                                     <!-- importation -->
-                                                    <!-- <div class="w-100 mb-4 text-right">
-                                                            <form>
-                                                                <label for="file-upload" class="custom-file-upload mb-0">
-                                                                    <a title="{{__('Attach a file')}}" class="btn btn-sm btn-primary  mr-2 pointer ">
-                                                                        {{__('Add files')}}
-                                                                    </a>
-                                                                </label>
-                                                                <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">
-                                                            </form>
-                                                         </div> -->
-                                                    <!--  -->
-                                                    <!-- <div class="d-flex mb-4"> -->
-                                                    <!-- <div class="w-100">
-                                                                <div class="">
-                                                                    <div class="card mb-1 shadow-none border border-light">
-                                                                        <div class="p-2">
-                                                                            <div class="row align-items-center">
-                                                                                <div class="col-auto">
-                                                                                    <div class="avatar-sm">
-                                                                                                <span class="avatar-sm background-success-teal text-white rounded d-flex align-center justify-content-center">
-                                                                                                    .JPG
-                                                                                                </span>
+                                                    <div class="modal-footer d-block">
+                                                                <div class="modal-footer justify-content-center">
+                                                                    <div class="">
+                                                                        <div class="card mb-1 shadow-none border border-light">
+                                                                            <div class="p-2">
+                                                                                <div class="row align-items-center">
+                                                                                    <div class="col-auto">
+                                                                                        <div class="avatar-sm">
+                                                                                                    <span class="avatar-sm background-success-teal text-white rounded d-flex align-center justify-content-center">
+                                                                                                        xlsx.
+                                                                                                    </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col pl-0">
+                                                                                        <a id="selected-file-name" href="javascript:void(0);" class="strong"></a>
+                                                                                        <p class="mb-0">3.25 MB</p>
+                                                                                    </div>
+                                                                                    <div class="col-auto">
+                                                                                        Button  
+                                                                                        <a href="javascript:void(0);" class="font-25 text-danger mr-2">
+                                                                                            <i id="clear-file" class="las la-times-circle"></i>
+                                                                                        </a>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -853,18 +853,19 @@
                                                                         <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">
                                                                     </form>
                                                                 </div>
-                                                            </div> -->
-                                                    <!-- </div> -->
-                                                    <!--  -->
-                                                </div>
+                                                            </div>
+                                                         
+                                                        </div>
 
-                                                <div class="modal-footer d-block">
-                                                    <div class="modal-footer justify-content-center">
-                                                        <button class="btn btn-sm btn-danger"
-                                                            data-dismiss="modal">{{__('Close')}}</button>
-                                                        <button class="btn btn-sm btn-primary">{{__('Create')}}</button>
-                                                    </div>
-                                                </div>
+                                                        <div class="modal-footer d-block">
+                                                            <div class="modal-footer justify-content-center">
+                                                                <button class="btn btn-sm btn-danger" data-dismiss="modal">{{__('Annuler')}}</button>
+                                                                <button type="submit" class="btn btn-sm btn-primary">{{__('Ajouter')}}</button>
+                                                            </div>
+                                                        </div>
+                                                           
+
+                                               
 
                                         </form>
                                     </div>
