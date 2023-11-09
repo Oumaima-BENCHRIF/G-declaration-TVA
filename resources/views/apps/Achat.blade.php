@@ -593,19 +593,12 @@
                                                     <form  method="POST" id="impo_Excel"  action="">
                                                     @csrf 
                                                     <div class="modal-body " id="mymodel" style="text-align: end;">
-
-
-
-
                                                     <div class="row">
                                                      <div class="col-md-4 mb-3"></div>
 
-
-
-
                                                         <div class="row border border-light p-2 m-1"
-                                                            style="    background: #f0f6ff;">
-                                                            <div class="row" id="rowracine"                   style="width:-webkit-fill-available">
+                                                            style="background: #f0f6ff;">
+                                                            <div class="row" id="rowracine"  style="width:-webkit-fill-available">
 
                                                                 <div class="col-md-2 mb-3 ">
                                                                 <label for="Date_payement">Date payement</label>
@@ -704,14 +697,12 @@
                                                                                     <div class="col-auto">
                                                                                         <div class="avatar-sm">
                                                                                                     <span class="avatar-sm background-success-teal text-white rounded d-flex align-center justify-content-center">
-                                                                                                        .JPG
+                                                                                                        xlsx.
                                                                                                     </span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col pl-0">
-
-                                                                                        <a id="selected-file-name" href="javascript:void(0);" class="  strong"></a>
-
+                                                                                        <a id="selected-file-name" href="javascript:void(0);" class="strong"></a>
                                                                                         <p class="mb-0">3.25 MB</p>
                                                                                     </div>
                                                                                     <div class="col-auto">
@@ -727,26 +718,21 @@
 
                                                                     <form>
                                                                         <label for="file-upload" class="custom-file-upload mb-0">
-                                                                            <a title="{{__('Attach a file')}}" class="btn btn-sm btn-primary  mr-2 pointer ">
-                                                                                {{__('Add files')}}
+                                                                            <a title="{{__('Ajouter fichier')}}" class="btn btn-sm btn-primary  mr-2 pointer ">
+                                                                                {{__('Ajouter fichier')}}
                                                                             </a>
                                                                         </label>
                                                                         <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">
                                                                     </form>
                                                                 </div>
                                                             </div>
-
-
-                                                       
-                                
-                                                        
                                                          
                                                         </div>
 
                                                         <div class="modal-footer d-block">
                                                             <div class="modal-footer justify-content-center">
-                                                                <button class="btn btn-sm btn-danger" data-dismiss="modal">{{__('Close')}}</button>
-                                                                <button type="submit" class="btn btn-sm btn-primary">{{__('Create')}}</button>
+                                                                <button class="btn btn-sm btn-danger" data-dismiss="modal">{{__('Annuler')}}</button>
+                                                                <button type="submit" class="btn btn-sm btn-primary">{{__('Ajouter')}}</button>
                                                             </div>
                                                         </div>
 
@@ -807,17 +793,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script type="text/javascript" src="{{URL::asset('js/Gestion_Achat.js')}}"></script>
 
-="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
 integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-cript src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 
 
 
 
 
-ript src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 
 @endpush
