@@ -101,11 +101,7 @@
                                                     <div class="col-md-3 mb-3">
 
                                                         <label>Régime</label>
-<<<<<<< HEAD
-                                                        <select  id="FK_Regime" name="FK_Regime" class="  py-3">
-=======
                                                         <select  id="FK_Regime" name="FK_Regime" class=" select2 py-3">
->>>>>>> main
                                                       
                                                         </select>
                                                         <div class="invalid-feedback">

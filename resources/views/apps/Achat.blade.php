@@ -13,13 +13,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
     integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-<<<<<<< HEAD
-<link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
-<script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
-=======
 <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet"> <script
     type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"> </script>
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
 
 <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script> <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script> <script
@@ -35,80 +30,6 @@
     .col-add{ text-align: center; } .Total{ float: inline-end; width: inherit; text-align: center; } .roun{
     border-radius: 10px; } </style>
 
-<<<<<<< HEAD
-<!-- <link rel="stylesheet" href="{{URL::asset('css/tabulator.css')}}"> -->
-<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
-<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
-@endpush
-@section('content')
-<style>
-.select2-container {
-    display: block;
-}
-
-.table>thead>tr>th {
-    font-size: 10px !important;
-}
-
-.table>tbody>tr>td {
-    font-size: 13px !important;
-}
-
-[type=search] {
-    padding: 0px !important;
-    border: none !important;
-}
-
-.tabulator.tabulator-rtl .tabulator-header .tabulator-col.tabulator-sortable .tabulator-col-title {
-    padding-right: 0;
-    font-size: 10px;
-    padding-left: 0px;
-}
-
-.tabulator.tabulator-rtl .tabulator-row .tabulator-cell {
-
-    font-size: 10px !important;
-}
-
-.add {
-    color: #0052BF;
-    font: bold 1.4em/1.65 Arial;
-    border: 0;
-    background: none;
-    box-shadow: 0 0 0 2px inset currentColor;
-    border-radius: 50%;
-    width: 1.65em;
-    height: 1.65em;
-    cursor: pointer;
-    outline: none;
-    transition: .1s ease-out;
-    margin: 0 0 0 5px;
-    vertical-align: top;
-}
-
-.col-add {
-    text-align: center;
-}
-
-.Total {
-    float: inline-end;
-    width: inherit;
-    text-align: center;
-}
-
-.roun {
-    border-radius: 10px;
-}
-
-.h-col {
-    height: 11%;
-}
-</style>
-<!--  Navbar Starts / Breadcrumb Area Starts -->
-=======
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
 <div class="sub-header-container">
   
 </div>
@@ -201,7 +122,6 @@
                                             </div>
                                         </div>
                                     </div>
-<<<<<<< HEAD
 
                                     <!-- Debut tableau -->
                                     <div class="layout-px-spacing">
@@ -227,38 +147,6 @@
                                                             style="display:none;">
                                                         <button type="button" class="btn btn-primary"
                                                             data-toggle="modal" data-target=".bd-impo">impo</button>
-=======
-                                </div>                                                
-                            
-                                        <!-- Debut tableau -->
-                                <div class="layout-px-spacing">
-                                          <div class="layout-top-spacing mb-2">
-                                        <div class="col-md-12">
-                                        <div class="justify-content-end">
-                                        <button type="button" class="dt-button buttons-excel buttons-html5 btn " 
-                                                id="vider" style="background-color:lightcoral; color:#f0f6ff" data-toggle="modal" data-target="#delet_All_table">Vider</button>
-                                            <button type="button" class="dt-button buttons-excel buttons-html5 btn " data-toggle="modal"
-                                                data-target=".bd-example-modal-lg" id="ajou" style="background-color: #eba802; ">Ajouter</button>
-                                             
-                                               
-                                                <button  type="submit" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Génération XML</button>
-                                                <a id="achat_pdf" class="btn btn-dark ">Generate PDF</a>
-                                                
-                                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target=".bd-impo">impo</button>
-
-                                                <button type="button" id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
-                                                <label for="file-upload" class="custom-file-upload ">
-                                                                        <a title="Attach a file" class="dt-button buttons-print btn btn-soft-info  mr-2   pointer ">
-                                                                        Importer
-                                                                        </a>
-                                                                    </label>
-                                                                    <input id="file-upload" name="upload_cont_img" type="file" style="display:none;">
-                                            </div>
-                                            <div class="row">
-                                                <div class="w-100 p-0">
-                                                    <div class="row layout-top-spacing date-table-container">
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
 
                                                     </div>
 
@@ -269,9 +157,9 @@
                                                         <a id="achat_pdf"
                                                             style="background-color: cadetblue; color: #f0f6ff;"
                                                             class="btn ">Relevé déduction</a>
-                                                        <button id="download-xlsx"
+                                                        <a  id="download-xlsx" type="submit"
                                                             style="background-color: #e2a03f;color: #f0f6ff;"
-                                                            class="btn">Excel</button>
+                                                            class="btn">Excel</a >
                                                     </div>
                                                 </div>
                                                 <div class="justify-content-end">
@@ -798,26 +686,17 @@
                                             </button>
                                             <h5 class="modal-title" id="header-text">Importer</h5>
 
-<<<<<<< HEAD
+
                                         </div>
                                         <form method="POST" id="Add_Achat"
                                             action="{{ route('dashboard.StoresAchat') }}">
                                             @csrf
                                             <div class="modal-body " id="mymodel" style="text-align: end;">
-=======
+ 
                                                     </div>
                                                     <form  method="POST" id="impo_Excel"  action="">
                                                     @csrf 
                                                     <div class="modal-body " id="mymodel" style="text-align: end;">
-<<<<<<< HEAD
-                                                    <div class="row">
-                                                     <div class="col-md-4 mb-3"></div>
-
-                                                        <div class="row border border-light p-2 m-1"
-                                                            style="background: #f0f6ff;">
-                                                            <div class="row" id="rowracine"  style="width:-webkit-fill-available">
-=======
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
 
 
 
@@ -832,7 +711,7 @@
                                                         style="    background: #f0f6ff;">
                                                         <div class="row" id="rowracine"
                                                             style="width:-webkit-fill-available">
->>>>>>> b284a16ba8d5b892f0c6ecc5b92b8e08b9967fb5
+ 
 
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="Date_payement">Date payement</label>
@@ -909,7 +788,6 @@
 
 
                                                         </div>
-<<<<<<< HEAD
                                                         <div class="row" id="rowracine2"
                                                             style="width:-webkit-fill-available">
                                                             <div class="col-md-2 mb-3"></div>
@@ -960,32 +838,6 @@
                                                                                                 <span class="avatar-sm background-success-teal text-white rounded d-flex align-center justify-content-center">
                                                                                                     .JPG
                                                                                                 </span>
-=======
-                                                        <!-- importation -->
-
-                                                            <div class="modal-footer d-block">
-                                                                <div class="modal-footer justify-content-center">
-                                                                    <div class="">
-                                                                        <div class="card mb-1 shadow-none border border-light">
-                                                                            <div class="p-2">
-                                                                                <div class="row align-items-center">
-                                                                                    <div class="col-auto">
-                                                                                        <div class="avatar-sm">
-                                                                                                    <span class="avatar-sm background-success-teal text-white rounded d-flex align-center justify-content-center">
-                                                                                                        xlsx.
-                                                                                                    </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col pl-0">
-                                                                                        <a id="selected-file-name" href="javascript:void(0);" class="strong"></a>
-                                                                                        <p class="mb-0">3.25 MB</p>
-                                                                                    </div>
-                                                                                    <div class="col-auto">
-                                                                                        Button  
-                                                                                        <a href="javascript:void(0);" class="font-25 text-danger mr-2">
-                                                                                            <i id="clear-file" class="las la-times-circle"></i>
-                                                                                        </a>
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1001,24 +853,9 @@
                                                                         <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">
                                                                     </form>
                                                                 </div>
-<<<<<<< HEAD
                                                             </div> -->
                                                     <!-- </div> -->
                                                     <!--  -->
-=======
-                                                            </div>
-                                                         
-                                                        </div>
-
-                                                        <div class="modal-footer d-block">
-                                                            <div class="modal-footer justify-content-center">
-                                                                <button class="btn btn-sm btn-danger" data-dismiss="modal">{{__('Annuler')}}</button>
-                                                                <button type="submit" class="btn btn-sm btn-primary">{{__('Ajouter')}}</button>
-                                                            </div>
-                                                        </div>
-
-                                                    </form>
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
                                                 </div>
 
                                                 <div class="modal-footer d-block">
@@ -1083,7 +920,6 @@
     });
 
   }); -->
-<<<<<<< HEAD
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script type="text/javascript" src="{{URL::asset('js/Gestion_Achat.js')}}"></script>
@@ -1097,23 +933,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 
-=======
-    </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script type="text/javascript" src="{{URL::asset('js/Gestion_Achat.js')}}"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-
-
-
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
-
->>>>>>> b754693c36c6abdf770672f60ef9205b83c7eabb
 @endpush
