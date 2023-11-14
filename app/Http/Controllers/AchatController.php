@@ -904,220 +904,232 @@ class AchatController extends Controller
 
     public function generatePDF($periode, $Exercice)
     {
-        $id = 1;
-        $get_info = agence::select('agences.*', 'fait_generateurs.id as idf', 'fait_generateurs.libelle')
-            ->join('fait_generateurs', 'fait_generateurs.id', 'agences.FK_fait_generateurs')
-            ->where('agences.id', $id)
-            ->first();
-        $regime = regime::select('regimes.*')
-            ->where('regimes.deleted_at', '=', NULL)
-            ->where('regimes.id', '=', $periode)
-            ->orderBy("id", "Asc")->first();
-        $DU = $regime->DU;
-        $AU = $regime->AU;
-        list($currentYear, $month, $day) = sscanf($DU, "%d-%d-%d");
-        $newDate = sprintf("%02d/%02d/%d", $day, $month, $Exercice);
-        list($currentYear, $month, $day) = sscanf($AU, "%d-%d-%d");
-        $newDate2 = sprintf("%02d/%02d/%d", $day, $month, $Exercice);
-        //  list($Exercice, $month, $day) = explode("-", $DU);
-        //  $DUa = date("$Exercice-$month-$day", strtotime($DU));
-        //  list($Exercice, $month, $day) = explode("-", $AU);
-        //  $AUa = date("$Exercice-$month-$day", strtotime($AU));
+        try {
+            $id = 1;
+            $get_info = agence::select('agences.*', 'fait_generateurs.id as idf', 'fait_generateurs.libelle')
+                ->join('fait_generateurs', 'fait_generateurs.id', 'agences.FK_fait_generateurs')
+                ->where('agences.id', $id)
+                ->first();
+            $regime = regime::select('regimes.*')
+                ->where('regimes.deleted_at', '=', NULL)
+                ->where('regimes.id', '=', $periode)
+                ->orderBy("id", "Asc")->first();
+            $DU = $regime->DU;
+            $AU = $regime->AU;
+            list($currentYear, $month, $day) = sscanf($DU, "%d-%d-%d");
+            $newDate = sprintf("%02d/%02d/%d", $day, $month, $Exercice);
+            list($currentYear, $month, $day) = sscanf($AU, "%d-%d-%d");
+            $newDate2 = sprintf("%02d/%02d/%d", $day, $month, $Exercice);
+            //  list($Exercice, $month, $day) = explode("-", $DU);
+            //  $DUa = date("$Exercice-$month-$day", strtotime($DU));
+            //  list($Exercice, $month, $day) = explode("-", $AU);
+            //  $AUa = date("$Exercice-$month-$day", strtotime($AU));
 
 
 
-        $table_achat = achat::select('achats.*', 'fournisseurs.NICE as NICE', 'fournisseurs.ID_fiscale as ID_fiscale', 'fournisseurs.nomFournisseurs as nomFournisseurs', 'type_payments.Nom_payment as Nom_payment')
-            ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
-            ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
-            ->where('achats.FK_regime', $periode)
-            ->where('achats.Exercice', $Exercice)
-            ->where('achats.deleted_at', '=', NULL)
-            ->get();
-        $SAMTVA = achat::select(
-            DB::raw('SUM(achats.TVA_7) as STVA_7'),
-            DB::raw('SUM(achats.TVA_10) as STVA_10'),
-            DB::raw('SUM(achats.TVA_14) as STVA_14'),
-            DB::raw('SUM(achats.TVA_20) as STVA_20')
-        )
-            ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
-            ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
-            ->where('achats.FK_regime', $periode)
-            ->where('achats.Exercice', $Exercice)
-            ->where('achats.deleted_at', '=', NULL)
-            ->get();
-        // dd($SAMTVA);
-        $table_achat3 = [];
-        $ord = 1;
-        foreach ($table_achat as $key => $achat) {
+            $table_achat = achat::select('achats.*', 'fournisseurs.NICE as NICE', 'fournisseurs.ID_fiscale as ID_fiscale', 'fournisseurs.nomFournisseurs as nomFournisseurs', 'type_payments.Nom_payment as Nom_payment')
+                ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
+                ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
+                ->where('achats.FK_regime', $periode)
+                ->where('achats.Exercice', $Exercice)
+                ->where('achats.deleted_at', '=', NULL)
+                ->get();
+            $SAMTVA = achat::select(
+                DB::raw('SUM(achats.TVA_7) as STVA_7'),
+                DB::raw('SUM(achats.TVA_10) as STVA_10'),
+                DB::raw('SUM(achats.TVA_14) as STVA_14'),
+                DB::raw('SUM(achats.TVA_20) as STVA_20')
+            )
+                ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
+                ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
+                ->where('achats.FK_regime', $periode)
+                ->where('achats.Exercice', $Exercice)
+                ->where('achats.deleted_at', '=', NULL)
+                ->get();
+            // dd($SAMTVA);
+            $table_achat3 = [];
+            $ord = 1;
+            foreach ($table_achat as $key => $achat) {
 
-            if ($achat->Taux7 != null) {
-                $racine = racine::select('racines.*')
-                    ->where('racines.id', $achat->FK_racines_7)
-                    ->where('racines.deleted_at', '=', NULL)->first();
+                if ($achat->Taux7 != null) {
+                    $racine = racine::select('racines.*')
+                        ->where('racines.id', $achat->FK_racines_7)
+                        ->where('racines.deleted_at', '=', NULL)->first();
 
-                $table_achat2 = new achat();
-                $table_achat2->id = $achat->id;
-                $table_achat2->order = $ord;
-                $table_achat2->N_facture = $achat->N_facture;
-                $table_achat2->Date_facture = $achat->Date_facture;
-                $table_achat2->Date_payment = $achat->Date_payment;
-                $table_achat2->Designation = $achat->Designation;
-                $table_achat2->TVA_10 = $achat->nomFournisseurs;
-                $table_achat2->TVA_14 = $achat->NICE;
-                $table_achat2->TVA_20 = $achat->ID_fiscale;
-                $table_achat2->M_HT_20 = $achat->Nom_payment;
-                $table_achat2->M_HT_14 = $racine->Nom_racines;
-                $table_achat2->M_TTC = $achat->M_TTC;
-                $table_achat2->Prorata = $achat->Prorata;
-                $table_achat2->TVA_d7e = $achat->TVA_d7;
-                $table_achat2->MT_déduit = $achat->MT_déduit;
-                $table_achat2->Exercice = $achat->Exercice;
-                $table_achat2->FK_regime = $achat->FK_regime;
-                $table_achat2->FK_type_payment = $achat->FK_type_payment;
-                $table_achat2->Taux7 = $achat->Taux7;
-                $table_achat2->TVA_7 = $achat->TVA_7;
-                $table_achat2->M_HT_7 = $achat->M_HT_7;
-                $table_achat2->TTC_7 = $achat->TTC_7;
-                $table_achat2->FK_racines_7 = $achat->FK_racines_7;
-                $table_achat2->num_racine_7 = $racine->Num_racines;
-                $table_achat2->FK_fournisseur = $achat->FK_fournisseur;
-                $cat = racine::select('racines.categorie')
-                    ->where('racines.id', $achat->FK_racines_7)
-                    ->where('racines.deleted_at', '=', NULL)->first();
-                $table_achat2->TTC_10 = $cat->categorie;
-                // dd($cat);
-                $table_achat3[] = $table_achat2;
-                $ord = $ord + 1;
+                    $table_achat2 = new achat();
+                    $table_achat2->id = $achat->id;
+                    $table_achat2->order = $ord;
+                    $table_achat2->N_facture = $achat->N_facture;
+                    $table_achat2->Date_facture = $achat->Date_facture;
+                    $table_achat2->Date_payment = $achat->Date_payment;
+                    $table_achat2->Designation = $achat->Designation;
+                    $table_achat2->TVA_10 = $achat->nomFournisseurs;
+                    $table_achat2->TVA_14 = $achat->NICE;
+                    $table_achat2->TVA_20 = $achat->ID_fiscale;
+                    $table_achat2->M_HT_20 = $achat->Nom_payment;
+                    $table_achat2->M_HT_14 = $racine->Nom_racines;
+                    $table_achat2->M_TTC = $achat->M_TTC;
+                    $table_achat2->Prorata = $achat->Prorata;
+                    $table_achat2->TVA_d7e = $achat->TVA_d7;
+                    $table_achat2->MT_déduit = $achat->MT_déduit;
+                    $table_achat2->Exercice = $achat->Exercice;
+                    $table_achat2->FK_regime = $achat->FK_regime;
+                    $table_achat2->FK_type_payment = $achat->FK_type_payment;
+                    $table_achat2->Taux7 = $achat->Taux7;
+                    $table_achat2->TVA_7 = $achat->TVA_7;
+                    $table_achat2->M_HT_7 = $achat->M_HT_7;
+                    $table_achat2->TTC_7 = $achat->TTC_7;
+                    $table_achat2->FK_racines_7 = $achat->FK_racines_7;
+                    $table_achat2->num_racine_7 = $racine->Num_racines;
+                    $table_achat2->FK_fournisseur = $achat->FK_fournisseur;
+                    $cat = racine::select('racines.categorie')
+                        ->where('racines.id', $achat->FK_racines_7)
+                        ->where('racines.deleted_at', '=', NULL)->first();
+                    $table_achat2->TTC_10 = $cat->categorie;
+                    // dd($cat);
+                    $table_achat3[] = $table_achat2;
+                    $ord = $ord + 1;
+                }
+                if ($achat->Taux10 != null) {
+                    $racine = racine::select('racines.*')
+                        ->where('racines.id', $achat->FK_racines_10)
+                        ->where('racines.deleted_at', '=', NULL)->first();
+                    $table_achat2 = new achat();
+                    $table_achat2->id = $achat->id;
+                    $table_achat2->order = $ord;
+                    $table_achat2->N_facture = $achat->N_facture;
+                    $table_achat2->Date_facture = $achat->Date_facture;
+                    $table_achat2->Date_payment = $achat->Date_payment;
+                    $table_achat2->Designation = $achat->Designation;
+                    $table_achat2->TVA_10 = $achat->nomFournisseurs;
+                    $table_achat2->TVA_14 = $achat->NICE;
+                    $table_achat2->TVA_20 = $achat->ID_fiscale;
+                    $table_achat2->M_HT_20 = $achat->Nom_payment;
+                    $table_achat2->M_HT_14 = $racine->Nom_racines;
+                    $table_achat2->M_TTC = $achat->M_TTC;
+                    $table_achat2->Prorata = $achat->Prorata;
+                    $table_achat2->TVA_d7 = $achat->TVA_d10;
+                    $table_achat2->Exercice = $achat->Exercice;
+                    $table_achat2->FK_regime = $achat->FK_regime;
+                    $table_achat2->FK_type_payment = $achat->FK_type_payment;
+                    $table_achat2->Taux7 = $achat->Taux10;
+                    $table_achat2->TVA_7 = $achat->TVA_10;
+                    $table_achat2->M_HT_7 = $achat->M_HT_10;
+                    $table_achat2->TTC_7 = $achat->TTC_10;
+                    $table_achat2->FK_racines_7 = $achat->FK_racines_10;
+                    $table_achat2->num_racine_7 = $racine->Num_racines;
+                    $table_achat2->FK_fournisseur = $achat->FK_fournisseur;
+                    $cat = racine::select('racines.categorie')
+                        ->where('racines.id', $achat->FK_racines_10)
+                        ->where('racines.deleted_at', '=', NULL)->first();
+                    $table_achat2->TTC_10 = $cat->categorie;
+                    // dd($cat);
+                    $table_achat3[] = $table_achat2;
+                    $ord = $ord + 1;
+                }
+                if ($achat->Taux14 != null) {
+                    $racine = racine::select('racines.*')
+                        ->where('racines.id', $achat->FK_racines_14)
+                        ->where('racines.deleted_at', '=', NULL)->first();
+                    $table_achat2 = new achat();
+                    $table_achat2->id = $achat->id;
+                    $table_achat2->order = $ord;
+                    $table_achat2->N_facture = $achat->N_facture;
+                    $table_achat2->Date_facture = $achat->Date_facture;
+                    $table_achat2->Date_payment = $achat->Date_payment;
+                    $table_achat2->Designation = $achat->Designation;
+                    $table_achat2->TVA_10 = $achat->nomFournisseurs;
+                    $table_achat2->TVA_14 = $achat->NICE;
+                    $table_achat2->TVA_20 = $achat->ID_fiscale;
+                    $table_achat2->M_HT_20 = $achat->Nom_payment;
+                    $table_achat2->M_HT_14 = $racine->Nom_racines;
+                    $table_achat2->M_TTC = $achat->M_TTC;
+                    $table_achat2->Prorata = $achat->Prorata;
+                    $table_achat2->TVA_d7 = $achat->TVA_d14;
+                    $table_achat2->Exercice = $achat->Exercice;
+                    $table_achat2->FK_regime = $achat->FK_regime;
+                    $table_achat2->FK_type_payment = $achat->FK_type_payment;
+                    $table_achat2->Taux7 = $achat->Taux14;
+                    $table_achat2->TVA_7 = $achat->TVA_14;
+                    $table_achat2->M_HT_7 = $achat->M_HT_14;
+                    $table_achat2->TTC_7 = $achat->TTC_14;
+                    $table_achat2->FK_racines_7 = $achat->FK_racines_14;
+                    $table_achat2->num_racine_7 = $racine->Num_racines;
+                    $table_achat2->FK_fournisseur = $achat->FK_fournisseur;
+                    $cat = racine::select('racines.categorie')
+                        ->where('racines.id', $achat->FK_racines_14)
+                        ->where('racines.deleted_at', '=', NULL)->first();
+                    $table_achat2->TTC_10 = $cat->categorie;
+                    // dd($cat);
+                    $ord = $ord + 1;
+                    $table_achat3[] = $table_achat2;
+
+                }
+                if ($achat->Taux20 != null) {
+                    $racine = racine::select('racines.*')
+                        ->where('racines.id', $achat->FK_racines_20)
+                        ->where('racines.deleted_at', '=', NULL)->first();
+                    $table_achat2 = new achat();
+                    $table_achat2->id = $achat->id;
+                    $table_achat2->order = $ord;
+                    $table_achat2->N_facture = $achat->N_facture;
+                    $table_achat2->Date_facture = $achat->Date_facture;
+                    $table_achat2->Date_payment = $achat->Date_payment;
+                    $table_achat2->Designation = $achat->Designation;
+                    $table_achat2->TVA_10 = $achat->nomFournisseurs;
+                    $table_achat2->TVA_14 = $achat->NICE;
+                    $table_achat2->TVA_20 = $achat->ID_fiscale;
+                    $table_achat2->M_HT_20 = $achat->Nom_payment;
+                    $table_achat2->M_HT_14 = $racine->Nom_racines;
+                    $table_achat2->M_TTC = $achat->M_TTC;
+                    $table_achat2->Prorata = $achat->Prorata;
+                    $table_achat2->TVA_d7 = $achat->TVA_d20;
+                    $table_achat2->Exercice = $achat->Exercice;
+                    $table_achat2->FK_regime = $achat->FK_regime;
+                    $table_achat2->FK_type_payment = $achat->FK_type_payment;
+                    $table_achat2->Taux7 = $achat->Taux20;
+                    $table_achat2->TVA_7 = $achat->TVA_20;
+                    $table_achat2->M_HT_7 = $achat->M_HT_20;
+                    $table_achat2->TTC_7 = $achat->TTC_20;
+                    $table_achat2->FK_racines_7 = $achat->FK_racines_20;
+                    $table_achat2->num_racine_7 = $racine->Num_racines;
+                    $table_achat2->FK_fournisseur = $achat->FK_fournisseur;
+                    $cat = racine::select('racines.categorie')
+                        ->where('racines.id', $achat->FK_racines_20)
+                        ->where('racines.deleted_at', '=', NULL)->first();
+                    $table_achat2->TTC_10 = $cat->categorie;
+                    // dd($cat);
+                    $table_achat3[] = $table_achat2;
+                    $ord = $ord + 1;
+                }
             }
-            if ($achat->Taux10 != null) {
-                $racine = racine::select('racines.*')
-                    ->where('racines.id', $achat->FK_racines_10)
-                    ->where('racines.deleted_at', '=', NULL)->first();
-                $table_achat2 = new achat();
-                $table_achat2->id = $achat->id;
-                $table_achat2->order = $ord;
-                $table_achat2->N_facture = $achat->N_facture;
-                $table_achat2->Date_facture = $achat->Date_facture;
-                $table_achat2->Date_payment = $achat->Date_payment;
-                $table_achat2->Designation = $achat->Designation;
-                $table_achat2->TVA_10 = $achat->nomFournisseurs;
-                $table_achat2->TVA_14 = $achat->NICE;
-                $table_achat2->TVA_20 = $achat->ID_fiscale;
-                $table_achat2->M_HT_20 = $achat->Nom_payment;
-                $table_achat2->M_HT_14 = $racine->Nom_racines;
-                $table_achat2->M_TTC = $achat->M_TTC;
-                $table_achat2->Prorata = $achat->Prorata;
-                $table_achat2->TVA_d7 = $achat->TVA_d10;
-                $table_achat2->Exercice = $achat->Exercice;
-                $table_achat2->FK_regime = $achat->FK_regime;
-                $table_achat2->FK_type_payment = $achat->FK_type_payment;
-                $table_achat2->Taux7 = $achat->Taux10;
-                $table_achat2->TVA_7 = $achat->TVA_10;
-                $table_achat2->M_HT_7 = $achat->M_HT_10;
-                $table_achat2->TTC_7 = $achat->TTC_10;
-                $table_achat2->FK_racines_7 = $achat->FK_racines_10;
-                $table_achat2->num_racine_7 = $racine->Num_racines;
-                $table_achat2->FK_fournisseur = $achat->FK_fournisseur;
-                $cat = racine::select('racines.categorie')
-                    ->where('racines.id', $achat->FK_racines_10)
-                    ->where('racines.deleted_at', '=', NULL)->first();
-                $table_achat2->TTC_10 = $cat->categorie;
-                // dd($cat);
-                $table_achat3[] = $table_achat2;
-                $ord = $ord + 1;
-            }
-            if ($achat->Taux14 != null) {
-                $racine = racine::select('racines.*')
-                    ->where('racines.id', $achat->FK_racines_14)
-                    ->where('racines.deleted_at', '=', NULL)->first();
-                $table_achat2 = new achat();
-                $table_achat2->id = $achat->id;
-                $table_achat2->order = $ord;
-                $table_achat2->N_facture = $achat->N_facture;
-                $table_achat2->Date_facture = $achat->Date_facture;
-                $table_achat2->Date_payment = $achat->Date_payment;
-                $table_achat2->Designation = $achat->Designation;
-                $table_achat2->TVA_10 = $achat->nomFournisseurs;
-                $table_achat2->TVA_14 = $achat->NICE;
-                $table_achat2->TVA_20 = $achat->ID_fiscale;
-                $table_achat2->M_HT_20 = $achat->Nom_payment;
-                $table_achat2->M_HT_14 = $racine->Nom_racines;
-                $table_achat2->M_TTC = $achat->M_TTC;
-                $table_achat2->Prorata = $achat->Prorata;
-                $table_achat2->TVA_d7 = $achat->TVA_d14;
-                $table_achat2->Exercice = $achat->Exercice;
-                $table_achat2->FK_regime = $achat->FK_regime;
-                $table_achat2->FK_type_payment = $achat->FK_type_payment;
-                $table_achat2->Taux7 = $achat->Taux14;
-                $table_achat2->TVA_7 = $achat->TVA_14;
-                $table_achat2->M_HT_7 = $achat->M_HT_14;
-                $table_achat2->TTC_7 = $achat->TTC_14;
-                $table_achat2->FK_racines_7 = $achat->FK_racines_14;
-                $table_achat2->num_racine_7 = $racine->Num_racines;
-                $table_achat2->FK_fournisseur = $achat->FK_fournisseur;
-                $cat = racine::select('racines.categorie')
-                    ->where('racines.id', $achat->FK_racines_14)
-                    ->where('racines.deleted_at', '=', NULL)->first();
-                $table_achat2->TTC_10 = $cat->categorie;
-                // dd($cat);
-                $ord = $ord + 1;
-                $table_achat3[] = $table_achat2;
 
-            }
-            if ($achat->Taux20 != null) {
-                $racine = racine::select('racines.*')
-                    ->where('racines.id', $achat->FK_racines_20)
-                    ->where('racines.deleted_at', '=', NULL)->first();
-                $table_achat2 = new achat();
-                $table_achat2->id = $achat->id;
-                $table_achat2->order = $ord;
-                $table_achat2->N_facture = $achat->N_facture;
-                $table_achat2->Date_facture = $achat->Date_facture;
-                $table_achat2->Date_payment = $achat->Date_payment;
-                $table_achat2->Designation = $achat->Designation;
-                $table_achat2->TVA_10 = $achat->nomFournisseurs;
-                $table_achat2->TVA_14 = $achat->NICE;
-                $table_achat2->TVA_20 = $achat->ID_fiscale;
-                $table_achat2->M_HT_20 = $achat->Nom_payment;
-                $table_achat2->M_HT_14 = $racine->Nom_racines;
-                $table_achat2->M_TTC = $achat->M_TTC;
-                $table_achat2->Prorata = $achat->Prorata;
-                $table_achat2->TVA_d7 = $achat->TVA_d20;
-                $table_achat2->Exercice = $achat->Exercice;
-                $table_achat2->FK_regime = $achat->FK_regime;
-                $table_achat2->FK_type_payment = $achat->FK_type_payment;
-                $table_achat2->Taux7 = $achat->Taux20;
-                $table_achat2->TVA_7 = $achat->TVA_20;
-                $table_achat2->M_HT_7 = $achat->M_HT_20;
-                $table_achat2->TTC_7 = $achat->TTC_20;
-                $table_achat2->FK_racines_7 = $achat->FK_racines_20;
-                $table_achat2->num_racine_7 = $racine->Num_racines;
-                $table_achat2->FK_fournisseur = $achat->FK_fournisseur;
-                $cat = racine::select('racines.categorie')
-                    ->where('racines.id', $achat->FK_racines_20)
-                    ->where('racines.deleted_at', '=', NULL)->first();
-                $table_achat2->TTC_10 = $cat->categorie;
-                // dd($cat);
-                $table_achat3[] = $table_achat2;
-                $ord = $ord + 1;
-            }
+            $table_achat3 = collect($table_achat3)->sortBy('num_racine_7')->values()->all();
+
+
+            $pdf = PDF::loadView('Etat_Achat', [
+                'table_achat' => $table_achat3,
+                'get_info' => $get_info,
+                'SAMTVA' => $SAMTVA,
+                'Exercice' => $Exercice,
+                'DU' => $newDate,
+                'AU' => $newDate2,
+
+            ])->setPaper('a4', 'landscape');
+            ;
+            return $pdf->stream('relevé_deduction.pdf');
+        } catch (ValidationException $e) {
+            return redirect()
+                ->back()
+                ->with('danger', 'Merci de vérifier les champs requis.')
+                ->withErrors($e->errors()) // Pass the validation errors to the view
+                ->withInput();
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('danger', 'Une erreur s\'est produite. Merci de contacter le service IT.')
+                ->withInput();
         }
-
-        $table_achat3 = collect($table_achat3)->sortBy('num_racine_7')->values()->all();
-
-
-        $pdf = PDF::loadView('Etat_Achat', [
-            'table_achat' => $table_achat3,
-            'get_info' => $get_info,
-            'SAMTVA' => $SAMTVA,
-            'Exercice' => $Exercice,
-            'DU' => $newDate,
-            'AU' => $newDate2,
-
-        ])->setPaper('a4', 'landscape');
-        ;
-        return $pdf->stream('relevé_deduction.pdf');
-
     }
     public function Storesjson(Request $request)
     {
@@ -1125,20 +1137,7 @@ class AchatController extends Controller
         try {
 
             if (!empty($request->Mode_p) || !empty($request->Date_fact) || !empty($request->Date_payement) || !empty($request->ID_FIscal) || !empty($request->ICE) || !empty($request->FRS) || !empty($request->TTC) || !empty($request->TVA) || !empty($request->taux) || !empty($request->Mht) || !empty($request->des) || !empty($request->Nfact) || !empty($request->Racine)) {
-                // $achat->TVA_deductible = $request->TVA_deductible;
-                // $achat->Prorata = $request->prorata;
-                // $achat->FK_type_payment = $request->Mode_p;
-                // $achat->Date_facture = $request->Date_fact;
-                // $achat->Date_payment = $request->Date_payement;
-                // $achat->FK_fournisseur = $request->ID_FIscal;
-                // $achat->FK_fournisseur = $request->ICE;
-                // $achat->FK_fournisseur = $request->FRS;
-                // $achat->M_TTC = $request->TTC;
-                // $achat->TVA_7 = $request->TVA;
-                // $achat->Taux7 = $request->taux;
-                // $achat->M_HT_7 = $request->Mht;
-                // $achat->Designation = $request->des;
-                // $achat->N_facture = $request->Nfact;
+      
                 $frs = fournisseurs::select('fournisseurs.*')
                     ->where('fournisseurs.deleted_at', '=', NULL)
                     ->where('fournisseurs.nomFournisseurs', $request->FRS)->first();
@@ -1164,20 +1163,7 @@ class AchatController extends Controller
                     ->where('type_payments.Num_payment', $request->Mode_p)->first();
                 $achat->FK_type_payment = $payments->id;
 
-                //         $order=achat::select('achats.order')
-                //         ->where('achats.deleted_at', '=', NULL)
-                //         ->where('achats.Exercice',$request->Exercice)
-                //         ->where('achats.FK_regime',$request->periode) ->latest()->First(); 
-
-                // if($order)
-                // {
-                //     $ord=$order->order+1;
-
-                // }else
-                // {
-                //     $ord=1;
-                // }
-
+        
 
                 $nfac = $request->Nfact;
                 $lastCH = substr($nfac, -1);
@@ -1191,15 +1177,20 @@ class AchatController extends Controller
                 $get_achat = achat::where('achats.N_facture', $nfac)
                     ->where('achats.deleted_at', '=', NULL)->First();
 
+                    $Taux_racines = racine::select('racines.Taux')
+                    ->where('racines.Num_racines', $request->Racine)
+                    ->where('racines.deleted_at', '=', NULL)->first();
+                     
                 if ($get_achat) {
+                   
                     $get_achat->M_TTC = $get_achat->M_TTC + $request->TTC;
-                    if ($request->taux == 7) {
-                        $get_achat->Taux7 = $request->taux;
+                    if ($Taux_racines->Taux == 7) {
+                        $get_achat->Taux7 = $Taux_racines->Taux;
                         $get_achat->TVA_7 = $request->TVA;
                         $get_achat->M_HT_7 = $request->Mht;
                         $get_achat->TTC_7 = $request->TTC;
                         $get_achat->TVA_d7 = $request->TVA;
-                        
+
                         if ($request->Racine != 'null') {
                             $get_achat->num_racine_7 = $request->Racine;
                         }
@@ -1207,9 +1198,10 @@ class AchatController extends Controller
                             ->where('racines.Num_racines', $request->Racine)
                             ->where('racines.deleted_at', '=', NULL)->first();
                         $get_achat->FK_racines_7 = $num->id;
+                        
                     }
-                    if ($request->taux == 10) {
-                        $get_achat->Taux10 = $request->taux;
+                    if ($Taux_racines->Taux == 10) {
+                        $get_achat->Taux10 =$Taux_racines->Taux;
                         $get_achat->TVA_10 = $request->TVA;
                         $get_achat->M_HT_10 = $request->Mht;
                         $get_achat->TTC_10 = $request->TTC;
@@ -1225,8 +1217,8 @@ class AchatController extends Controller
                         $get_achat->FK_racines_10 = $num->id;
                     }
 
-                    if ($request->taux == 14) {
-                        $get_achat->Taux14 = $request->taux;
+                    if ($Taux_racines->Taux == 14) {
+                        $get_achat->Taux14 = $Taux_racines->Taux;
                         $get_achat->TVA_14 = $request->TVA;
                         $get_achat->M_HT_14 = $request->Mht;
                         $get_achat->TTC_14 = $request->TTC;
@@ -1243,8 +1235,8 @@ class AchatController extends Controller
 
 
                     }
-                    if ($request->taux == 20) {
-                        $get_achat->Taux20 = $request->taux;
+                    if ($Taux_racines->Taux== 20) {
+                        $get_achat->Taux20 = $Taux_racines->Taux;
                         $get_achat->TVA_20 = $request->TVA;
                         $get_achat->M_HT_20 = $request->Mht;
                         $get_achat->TTC_20 = $request->TTC;
@@ -1259,7 +1251,7 @@ class AchatController extends Controller
                             ->where('racines.deleted_at', '=', NULL)->first();
                         $get_achat->FK_racines_20 = $num->id;
                     }
-               
+
                     $get_achat->save();
                 } else {
 
@@ -1272,8 +1264,8 @@ class AchatController extends Controller
                     $achat->Exercice = $request->Exercice;
                     $achat->FK_regime = $request->periode;
                     $achat->order = $request->order;
-                    if ($request->taux == 7) {
-                        $achat->Taux7 = $request->taux;
+                    if ($Taux_racines->Taux == 7) {
+                        $achat->Taux7 = $Taux_racines->Taux;
                         $achat->TVA_7 = $request->TVA;
                         $achat->M_HT_7 = $request->Mht;
                         $achat->TTC_7 = $request->TTC;
@@ -1287,8 +1279,8 @@ class AchatController extends Controller
                             ->where('racines.deleted_at', '=', NULL)->first();
                         $achat->FK_racines_7 = $num->id;
                     }
-                    if ($request->taux == 10) {
-                        $achat->Taux10 = $request->taux;
+                    if ($Taux_racines->Taux == 10) {
+                        $achat->Taux10 = $Taux_racines->Taux;
                         $achat->TVA_10 = $request->TVA;
                         $achat->M_HT_10 = $request->Mht;
                         $achat->TTC_10 = $request->TTC;
@@ -1304,8 +1296,8 @@ class AchatController extends Controller
                         $achat->FK_racines_10 = $num->id;
 
 
-                        if ($request->taux == 14) {
-                            $achat->Taux14 = $request->taux;
+                        if ($Taux_racines->Taux == 14) {
+                            $achat->Taux14 = $Taux_racines->Taux;
                             $achat->TVA_14 = $request->TVA;
                             $achat->M_HT_14 = $request->Mht;
                             $achat->TTC_14 = $request->TTC;
@@ -1323,8 +1315,8 @@ class AchatController extends Controller
 
                         }
                     }
-                    if ($request->taux == 20) {
-                        $achat->Taux20 = $request->taux;
+                    if ($Taux_racines->Taux == 20) {
+                        $achat->Taux20 = $Taux_racines->Taux;
                         $achat->TVA_20 = $request->TVA;
                         $achat->M_HT_20 = $request->Mht;
                         $achat->TTC_20 = $request->TTC;

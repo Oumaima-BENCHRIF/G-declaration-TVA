@@ -137,12 +137,12 @@
                                                             type="button" class="btn btn-sm btn-primary "
                                                             data-toggle="modal" data-target=".bd-example-modal-lg"
                                                             id="ajou">Ajouter</button>
-                                                        <label for="file-upload" class="custom-file-upload ">
+                                                        <!-- <label for="file-upload" class="custom-file-upload ">
                                                             <a title="Attach a file"
                                                                 class="dt-button buttons-print btn btn-soft-info  mr-2   pointer ">
                                                                 Importer
                                                             </a>
-                                                        </label>
+                                                        </label> -->
                                                         <input id="file-upload" name="upload_cont_img" type="file"
                                                             style="display:none;">
                                                         <button type="button" class="btn btn-primary"
@@ -688,14 +688,12 @@
 
 
                                         </div>
-                                        <form method="POST" id="Add_Achat"
-                                            action="{{ route('dashboard.StoresAchat') }}">
+                                        <form method="POST" id="importation_Achat_Excel" action="">
                                             @csrf
                                             <div class="modal-body " id="mymodel" style="text-align: end;">
  
                                                     </div>
-                                                    <form  method="POST" id="impo_Excel"  action="">
-                                                    @csrf 
+                                                    
                                                     <div class="modal-body " id="mymodel" style="text-align: end;">
 
 
@@ -715,31 +713,39 @@
 
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="Date_payement">Date payement</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="Date_payement" name="Date_payement"
+                                                                <input type="number" class="form-control"
+                                                                    id="Date_payement" name="Date_payement" 
                                                                     placeholder="Date payement">
 
                                                             </div>
                                                             <div class="col-md-2 mb-3 ">
-                                                                <label for="validationCustom03">TVA déductible</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="TVA_deductible" name="TVA_deductible"
+                                                                <label for="TVA_deductible_">TVA déductible</label>
+                                                                <input type="number" class="form-control"
+                                                                    id="TVA_deductible_" name="TVA_deductible_"
                                                                     placeholder="TVA déductible">
                                                             </div>
                                                          
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="validationCustom03">Mode payement</label>
-                                                                <input type="text" class="form-control" id="mode_p"
+                                                                <input type="number" class="form-control" id="mode_p"
                                                                     name="mode_p" placeholder="Mode payement">
                                                             </div>
                                                             <div class="col-md-2 mb-3">
-                                                                <label>Racine</label>
-                                                                <input type="text" class="form-control" id="Racine"
-                                                                    name="Racine" placeholder="Racine">
+                                                                <label for="Racine_">Racine</label>
+                                                                <input type="number" class="form-control" id="Racine_"
+                                                                    name="Racine_" placeholder="Racine">
                                                             </div>
+
+                                                            <div class="col-md-2 mb-3">
+                                                                <label for="Order_">Order</label>
+                                                                <input type="number" class="form-control"
+                                                                    id="Order_" name="Order_"
+                                                                    placeholder="Order">
+                                                            </div>
+
                                                             <div class="col-md-2 mb-3">
                                                                 <label for="Date_facture">Date facture</label>
-                                                                <input type="text" class="form-control"
+                                                                <input type="number" class="form-control"
                                                                     id="Date_facture" name="Date_facture"
                                                                     placeholder="Date_facture">
                                                             </div>
@@ -751,63 +757,78 @@
 
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="ID_fiscale">ID fiscale</label>
-                                                                <input type="text" class="form-control" id="ID_fiscale"
+                                                                <input type="number" class="form-control" id="ID_fiscale"
                                                                     name="ID_fiscale" placeholder="ID fiscale">
                                                             </div>
 
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="ICE">ICE</label>
-                                                                <input type="text" class="form-control" id="ICE"
+                                                                <input type="number" class="form-control" id="ICE"
                                                                     name="ICE" placeholder="ICE">
                                                             </div>
 
                                                             <div class="col-md-2 mb-3">
                                                                 <label for="FRS">FRS</label>
-                                                                <input type="text" class="form-control" id="FRS"
+                                                                <input type="number" class="form-control" id="FRS"
                                                                     name="FRS" placeholder="FRS">
                                                             </div>
 
                                                             <div class="col-md-2 mb-3">
                                                                 <label for="TTC">TTC</label>
-                                                                <input type="text" class="form-control" id="TTC"
-                                                                    name="TTC" placeholder="TTC">
+                                                                <input type="number" class="form-control" id="TTC_"
+                                                                    name="TTC_" placeholder="TTC">
                                                             </div>
 
                                                             <div class="col-md-2 mb-3">
-                                                                <label for="TVA">TVA</label>
-                                                                <input type="text" class="form-control" id="TVA"
-                                                                    name="TVA" placeholder="TVA">
+                                                                <label for="TVA_">TVA</label>
+                                                                <input type="number" class="form-control" id="TVA_"
+                                                                    name="TVA_" placeholder="TVA">
                                                             </div>
 
-                                                            <div class="col-md-2 mb-3">
+                                                            <!-- <div class="col-md-2 mb-3">
                                                                 <label for="Taux">Taux</label>
-                                                                <input type="text" class="form-control" id="Taux"
-                                                                    name="Taux" placeholder="Taux">
+                                                                <input type="number" class="form-control" id="Taux_"
+                                                                    name="Taux_" placeholder="Taux">
+                                                            </div> -->
+
+                                                            <div class="col-md-2 mb-3 ">
+                                                                <label for="Compte_frs_">Compte FRS</label>
+                                                                <input type="number" class="form-control" id="Compte_frs_"
+                                                                    name="Compte_frs_" placeholder="Compte frs">
                                                             </div>
-
-
 
                                                         </div>
                                                         <div class="row" id="rowracine2"
                                                             style="width:-webkit-fill-available">
                                                             <div class="col-md-2 mb-3"></div>
                                                             <div class="col-md-2 mb-3"></div>
-                                                            <div class="col-md-2 mb-3"></div>
+                                                         
+                                                            <!-- <div class="col-md-2 mb-3 ">
+                                                                <label for="Compte_frs_">Compte FRS</label>
+                                                                <input type="number" class="form-control" id="Compte_frs_"
+                                                                    name="Compte_frs_" placeholder="Compte frs">
+                                                            </div> -->
+
                                                             <div class="col-md-2 mb-3 ">
-                                                                <label for="MHT">MHT</label>
-                                                                <input type="text" class="form-control" id="MHT"
-                                                                    name="MHT" placeholder="MHT">
+                                                                <label for="MHT_">MHT</label>
+                                                                <input type="number" class="form-control" id="MHT_"
+                                                                    name="MHT_" placeholder="MHT">
                                                             </div>
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="Designation">Designation</label>
-                                                                <input type="text" class="form-control" id="Designation"
+                                                                <input type="number" class="form-control" id="Designation"
                                                                     name="Designation" placeholder="Designation">
                                                             </div>
-
                                                             <div class="col-md-2 mb-3">
-                                                                <label for="NFACT">NFACT</label>
-                                                                <input type="text" class="form-control" id="NFACT"
-                                                                    name="NFACT" placeholder="NFACT">
+                                                                <label for="Prorata">Prorata</label>
+                                                                <input type="number" class="form-control" id="Prorata"
+                                                                    name="Prorata" placeholder="Prorata">
+
+                                                            </div>
+                                                            <div class="col-md-2 mb-3">
+                                                                <label for="NFACT_">NFACT</label>
+                                                                <input type="number" class="form-control" id="NFACT_"
+                                                                    name="NFACT_" placeholder="NFACT">
 
                                                             </div>
 
@@ -844,14 +865,20 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <form>
-                                                                        <label for="file-upload" class="custom-file-upload mb-0">
+                                                                        <!-- <label for="file-upload" class="custom-file-upload mb-0">
                                                                             <a title="{{__('Ajouter fichier')}}" class="btn btn-sm btn-primary  mr-2 pointer ">
                                                                                 {{__('Ajouter fichier')}}
                                                                             </a>
                                                                         </label>
-                                                                        <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">
-                                                                    </form>
+                                                                        <input id="fileuploadexcel" name='fileuploadexcel' type="file" style="display:none;"> -->
+
+                                                                        <label for="fileuploadexcel" class="custom-file-upload mb-0">
+    <a title="{{__('Ajouter fichier')}}" class="btn btn-sm btn-primary mr-2 pointer">
+        {{__('Ajouter fichier')}}
+    </a>
+</label>
+<input id="fileuploadexcel" name="fileuploadexcel" type="file" style="display: none;">
+                                                                  
                                                                 </div>
                                                             </div>
                                                          
@@ -860,7 +887,7 @@
                                                         <div class="modal-footer d-block">
                                                             <div class="modal-footer justify-content-center">
                                                                 <button class="btn btn-sm btn-danger" data-dismiss="modal">{{__('Annuler')}}</button>
-                                                                <button type="submit" class="btn btn-sm btn-primary">{{__('Ajouter')}}</button>
+                                                                <!-- <button type="submit" onclick="ff()" class="btn btn-sm btn-primary">{{__('Ajouter')}}</button> -->
                                                             </div>
                                                         </div>
                                                            

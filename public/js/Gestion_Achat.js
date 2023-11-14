@@ -1,17 +1,17 @@
+
 $(".select2").select2();
 $(window).on("load", function () {
-  // Excel_impo();
+ 
   get_info();
   Liste_FRS();
   Liste_Ccharge();
   Liste_Mpyement();
   Liste_Racine();
-
+  Excel_impo();
   setTimeout(function () {
     // table_Achat();
     get_table();
   }, 1500);
-
   gestYears();
   document.getElementById("update").style.display = "none";
   $("#rowracine3").css("display", "none");
@@ -249,6 +249,44 @@ $(document).ready(function () {
   });
   $("#racine4").on("select2:select", function (e) {
     tauxRacine4();
+  });
+  // excel 
+  $("#importation_Achat_Excel").on("submit", function (e) {
+    e.preventDefault();
+    var formData = [];
+    var $this = jQuery(this);
+    var formData = jQuery($this).serializeArray();
+   
+  
+    // formData.push(
+    //   { name: "Exercice", value: Exercice },
+    //   { name: "periode", value: periode }
+    // );
+
+    // jQuery.ajax({
+    //   url: $this.attr("action"),
+    //   type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+    //   data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+    //   // dataFilter: 'json', //forme data
+    //   success: function (response) {
+    //     // Je récupère la réponse du fichier PHP
+    //     toastr.options = {
+    //       progressBar: true,
+    //       closeButton: true,
+    //     };
+    //     toastr.success(response.message, { timeOut: 12000 });
+    //     // table_Achat();
+    //     get_table();
+    //     viderChamps();
+    //   },
+    //   error: function (response) {
+    //     toastr.options = {
+    //       progressBar: true,
+    //       closeButton: true,
+    //     };
+    //     toastr.error("Merci de vérifier les champs");
+    //   },
+    // });
   });
 
   $("#periode").on("select2:select", function (e) {
@@ -685,7 +723,7 @@ if(hiddenElementsCount==1)
         var formData = $this.serializeArray();
 
         console.log("Form data: ", formData);
-    alert(formData);
+    // alert(formData);
     // formData.push(
     //   { name: "Exercice", value: Exercice },
     //   { name: "periode", value: periode }
@@ -2318,8 +2356,11 @@ function dataTable($tabledata)
 
 document.getElementById("file-upload").addEventListener("change", handleFile);
 
+
+document.getElementById("fileuploadexcel").addEventListener("change", handleFile2);
+
 function handleFile(event) {
-  
+  console.log('handleFile3'+event.target.files[0]);
   const file = event.target.files[0];
   const reader = new FileReader();
 
@@ -2332,6 +2373,28 @@ function handleFile(event) {
 
     const tableData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
     createTabulatorTable(tableData);
+  };
+
+  reader.readAsArrayBuffer(file);
+}
+
+// importation excel 
+function handleFile2(event) {
+  console.log('handleFile2'+event.target.files[0]);
+
+
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: "array" });
+
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+
+    const tableData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    createTabulatorTable2(tableData);
   };
 
   reader.readAsArrayBuffer(file);
@@ -2503,7 +2566,7 @@ function createTabulatorTable(data) {
   console.log(dataArray);
   let Exercice = $("#Exercice").val();
   let periode = $("#periode").val();
-  alert(Exercice+" "+periode);
+  // alert(Exercice+" "+periode);
   dataArray.forEach((row) => {
     function convertExcelDate(excelDate) {
       if (!excelDate) {
@@ -2523,12 +2586,13 @@ function createTabulatorTable(data) {
 
       return null; // Handle invalid date values
     }
+
     const dateFactValue = row["dfac"];
     const datePaymentValue = row["dpai"];
 
     const dateFact = convertExcelDate(dateFactValue);
     const datePayment = convertExcelDate(datePaymentValue);
-    console.log('liiste==> ',row);
+    // console.log('liiste==> ',row);
     var postData = {
       // TVA_deductible: row.TVA_deductible, // Assuming index 0 corresponds to 'nomFournisseurs'
       // prorata: row.prorata, // Assuming index 1 corresponds to 'Designation'
@@ -2550,7 +2614,11 @@ function createTabulatorTable(data) {
       Exercice: Exercice,
       periode: periode,
     };
-    console.log("dataaaaa "+ postData);
+
+// If you want to print each element of the "row" array separately:
+for (var i = 0; i < row.length; i++) {
+    console.log("Item " + (i + 1) + ": " + row[i]);
+}
     jQuery.ajax({
       headers: {
         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -2692,4 +2760,129 @@ function viderChamps() {
   }
   var event = new Event("change");
   selectElement.dispatchEvent(event);
+}
+function createTabulatorTable2(data) {
+
+  let Date_payement = $("#Date_payement").val();
+  let Date_facture = $("#Date_facture").val();
+  let TVA_deductible = $("#TVA_deductible_").val();
+  let Prorata = $("#Prorata").val();
+ 
+  let mode_p = $("#mode_p").val();
+  
+  let Racine = $("#Racine_").val();
+  let ID_fiscale = $("#ID_fiscale").val();
+  let ICE = $("#ICE").val();
+  let FRS = $("#FRS").val();
+  let TTC = $("#TTC_").val();
+  let TVA = $("#TVA_").val();
+  let Taux = $("#Taux_").val();
+  let MHT = $("#MHT_").val();
+
+
+  let NFACT = $("#NFACT_").val();
+  let Designation = $("#Designation").val();
+  let Exercice = $("#Exercice").val();
+  let periode = $("#periode").val();
+  let Order = $("#Order_").val();
+  let Compte_frs = $("#Compte_frs_").val();
+  console.log('voilaa '+Date_payement);
+ // Define the getTableColumns function
+ function getTableColumns2(rowData) {
+  // Implement the logic to generate column definitions based on rowData
+  // For example:
+  const columns = [];
+  for (let i = 0; i < rowData.length; i++) {
+    columns.push({ title: rowData[i], field: rowData[i]});
+  }
+  console.log(columns);
+  return columns;
+}
+
+const table = new Tabulator("#Liste-Achat", {
+  data: data,
+  layout: "fitColumns",
+  columns: getTableColumns2(data[0]),
+});
+
+const dataArrayWithIndices = data.map((row) =>
+  row.map((cell, index) => ({ columnIndex: index, cellValue: cell }))
+);
+dataArrayWithIndices.forEach((row) => {
+  row.forEach((cell) => {
+    const columnIndex = cell.columnIndex;
+    const cellValue = cell.cellValue;
+
+    // You can use the columnIndex and cellValue as needed.
+    // For example, you can send them to your SQL table.
+  });
+});
+console.log(dataArrayWithIndices);
+dataArrayWithIndices.forEach((row) => {
+  function convertExcelDate(excelDate) {
+    if (!excelDate) {
+      return null; // Handle undefined or empty date values
+    }
+
+    const excelSerialNumber = parseFloat(excelDate);
+
+    if (!isNaN(excelSerialNumber)) {
+      const date = new Date((excelSerialNumber - 25569) * 86400 * 1000);
+
+      if (!isNaN(date)) {
+        const formattedDate = date.toISOString().split("T")[0];
+        return formattedDate;
+      }
+    }
+
+    return null; // Handle invalid date values
+  }
+  const dateFactValue = row[parseInt(Date_facture)].cellValue;
+  const datePaymentValue = row[parseInt(Date_payement)].cellValue;
+  const dateFact = convertExcelDate(dateFactValue);
+  const datePayment = convertExcelDate(datePaymentValue);
+  var postData = {
+    Mode_p: row[parseInt(mode_p)].cellValue, // Assuming index 2 corresponds to 'Adresse'
+    Date_fact: dateFact,
+    Date_payement: datePayment,
+    ID_FIscal: row[parseInt(ID_fiscale)].cellValue,
+    ICE: row[parseInt(ICE)].cellValue,
+    FRS: row[parseInt(FRS)].cellValue,
+    TTC: row[parseInt(TTC)].cellValue,
+    TVA: row[parseInt(TVA)].cellValue,
+    // taux: row[parseInt(Taux)].cellValue,
+    Mht: row[parseInt(MHT)].cellValue,
+    des: row[parseInt(Designation)].cellValue,
+    Nfact: row[parseInt(NFACT)].cellValue,
+    Racine: row[parseInt(Racine)].cellValue,
+    order: row[parseInt(Order)].cellValue,
+    compte: row[parseInt(Compte_frs)].cellValue,
+    TVA_d: row[parseInt(TVA_deductible)].cellValue,
+    // Prorata: Prorata,
+    Exercice: Exercice,
+    periode: periode,
+  };
+  for (var i = 0; i < postData.length; i++) {
+    console.log("Item " + (i + 1) + ": " + row[i]);
+  }
+  
+// If you want to print each element of the "row" array separately:
+
+  jQuery.ajax({
+    headers: {
+      "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    },
+    url: "./AddAchatjson",
+    type: "get",
+    data: postData,
+
+    success: function (response) {
+      toastr.success(response.message);
+      get_table();
+    },
+    error: function (response) {
+      toastr.error(response.Error);
+    },
+  });
+});
 }
