@@ -762,7 +762,7 @@ if(hiddenElementsCount==1)
 });
 
 function Excel_impo(){
-  const fileInput = document.getElementById("file-upload");
+  const fileInput = document.getElementById("fileuploadexcel");
 
     // Get the element where you want to display the selected file's name
     const selectedFileName = document.getElementById("selected-file-name");
