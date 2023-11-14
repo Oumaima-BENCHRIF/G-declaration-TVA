@@ -29,7 +29,10 @@ Route::get('/dashboard', function () {
 
 
 Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'], function () {
-    //*******  Société
+    //*******  Société dashboard
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('info_societe', [App\Http\Controllers\DashboardController::class, 'info_societe'])->name('info_societe');
+    
     // ****** table societe
     // Route::get('table_succursale', [App\Http\Controllers\SuccursaleController::class, 'table_succursale'])->name('table_succursale');
     Route::get('table_Agence', [App\Http\Controllers\AgenceController::class, 'table_Agence'])->name('table_Agence');
@@ -191,7 +194,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('/achat', 'App\Http\Controllers\AchatController@index')->name('achat');
     Route::post('/add_achat', [App\Http\Controllers\AchatController::class, 'Stores'])->name('StoresAchat');
     Route::get('/update_achat', [App\Http\Controllers\AchatController::class, 'Update'])->name('update_achat');
-    Route::get('/get_achat/{nfact}', [App\Http\Controllers\AchatController::class, 'get_achat'])->name('get_achat');
+    Route::get('/get_achat/{nfact}', [App\Http\Controllers\AchatController::class, 'get_achat'])->name('get_achat')->where('nfact', '.*');
     Route::get('/get_TBLachat/{periode}/{Exercice}', [App\Http\Controllers\AchatController::class, 'get_TBLachat'])->name('get_TBLachat');
     Route::get('/get_achatbyID/{id}', [App\Http\Controllers\AchatController::class, 'get_achatbyID'])->name('get_achatbyID');
     Route::get('/get_regime/{Exercice}', [App\Http\Controllers\AchatController::class, 'get_regime'])->name('get_regime');
@@ -217,6 +220,8 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('racine', function () {
         return view('apps.racine'); });
 
+        // Route::get('Facturation', function () {
+        //     return view('apps.Facturation'); });
     Route::get('Achat', function () {
         return view('apps.Achat'); });
 

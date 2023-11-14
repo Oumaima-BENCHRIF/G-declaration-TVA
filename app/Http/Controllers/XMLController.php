@@ -217,7 +217,6 @@ class XMLController extends Controller
                 return view('pages.error.error404')->with('message', '.La soumission du formulaire a échoué en raison de données manquantes');
             }
 
-
         } catch (\Exception $e) {
             // return redirect()
             //     ->back()
