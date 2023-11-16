@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-    <title>Larave Generate Invoice PDF - Nicesnippest.com</title>
+    <title>Relevé de déduction</title>
 </head>
 <style type="text/css">
     body{
