@@ -1360,6 +1360,35 @@ class AchatController extends Controller
         }
     }
 
+    function info_regimes(Request $request ){
+
+
+        $id = 1;
+        $code_agence = agence::select('agences.*', 'fait_generateurs.id as idf', 'fait_generateurs.libelle')
+            ->join('fait_generateurs', 'fait_generateurs.id', 'agences.FK_fait_generateurs')
+            ->where('agences.id', $id)
+            ->first();
+
+        $regime = regime::select('regimes.*')
+        ->where('regimes.deleted_at', '=', NULL)
+        ->where('regimes.id', '=',$request->periode)->first();
+    $reg = 0;
+    if ($regime->libelle == 'Mensuel') {
+        $reg = 1;
+    } else {
+        if ($regime->libelle == 'trimestriel') {
+            $reg = 2;
+        }
+
+    }
+    return response()->json([
+        'status' => 200,
+        'periode' => $regime->periode,
+        'regime'=>$reg,
+        'code_agence'=>$code_agence->code
+    ]);
+    
+    }
     // public function exportToExcel(Request $request)
     // {
 

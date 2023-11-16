@@ -84,7 +84,8 @@
                                             <div class="form-row">
                                                     <div class="col-md-4 mb-4 min-checking">
                                                         <label for="ID_fiscale">identifiant fiscal</label>
-                                                        <input type="text" class="form-control" id="ID_fiscale" name="ID_fiscale"  placeholder="identifiant" required onblur="validateMin8()">
+                                                        <!-- onblur="validateMin8()" -->
+                                                        <input type="text" class="form-control" id="ID_fiscale" name="ID_fiscale"  placeholder="identifiant" maxlength="15" required >
                                                             <div class="invalid-feedback">
                                                             Please provide a valid ID Fiscale.
                                                             </div>

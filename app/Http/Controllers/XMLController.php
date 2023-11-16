@@ -176,32 +176,31 @@ class XMLController extends Controller
                 //     // Entête de réponse pour indiquer que nous renvoyons du XML.
 
                 //     $response = new Response($xml->asXML(), 200);
-
-
+               
                 $responses = Response::make($xml->asXML(), 200);
                 $responses->header('Content-Type', 'application/xml');
-                $filenames = 'EDI_TVA_00' . $data[0]->prRegime . '_' . $request->Exercice . '_COMP.xml';
+                $filenames = 'EDI_TVA_0'.$reg.'_0' . $data[0]->prRegime . '_' . $request->Exercice . '_'.$get_info->code.'.xml';
 
                 $responses->header('Content-Disposition', 'attachment; filename="' . $filenames . '"');
                 
                 if (!empty($get_info->chemain)) {
-                    $xml->asXML($get_info->chemain . '/EDI_TVA_00' . $data[0]->prRegime . '_' . $request->Exercice . '_COMP.xml');
+                    $xml->asXML($get_info->chemain . '/EDI_TVA_0'.$reg.'_0' . $data[0]->prRegime . '_' . $request->Exercice .  '_'.$get_info->code.'.xml');
                     // Specify the path for the ZIP file.
-                    $zipFileName = $get_info->chemain . '/EDI_TVA_00' . $data[0]->prRegime . '_' . $request->Exercice . '_COMP.zip';
+                    $zipFileName = $get_info->chemain . '/EDI_TVA_0'.$reg.'_0' . $data[0]->prRegime . '_' . $request->Exercice .  '_'.$get_info->code.'.zip';
                     // Create a new ZipArchive.
                     $zip = new ZipArchive();
 
                     if ($zip->open($zipFileName, ZipArchive::CREATE) === true) {
                         // Specify the path to the XML file you want to add to the ZIP archive.
-                        $xmlFileName = $get_info->chemain . '/EDI_TVA_00' . $data[0]->prRegime . '_' . $request->Exercice . '_COMP.xml';
+                        $xmlFileName = $get_info->chemain . '/EDI_TVA_0'.$reg.'_0' . $data[0]->prRegime . '_' . $request->Exercice .  '_'.$get_info->code.'.xml';
 
                         // Add the XML file to the ZIP archive with a specified name.
-                        $zip->addFile($xmlFileName, 'EDI_TVA_00' . $data[0]->prRegime . '_' . $request->Exercice . '_COMP.xml');
+                        $zip->addFile($xmlFileName, 'EDI_TVA_0'.$reg.'_0' .$data[0]->prRegime . '_' . $request->Exercice .  '_'.$get_info->code.'.xml');
                         $zip->close();
 
                         // Set the appropriate HTTP headers for automatic download.
                         header('Content-Type: application/zip');
-                        header('Content-Disposition: attachment; filename="EDI_TVA_00' . $data[0]->prRegime . '_' . $request->Exercice . '_COMP.zip"');
+                        header('Content-Disposition: attachment; filename="EDI_TVA_0'.$reg.'_0' . $data[0]->prRegime . '_' . $request->Exercice .  '_'.$get_info->code.'.zip"');
                         readfile($zipFileName);
                     } else {
                         return view('pages.error.error404')->with('message', '.Le chemin n\'est pas valide. Assurez-vous qu\'il est correct');
