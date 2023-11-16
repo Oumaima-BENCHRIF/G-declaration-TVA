@@ -159,7 +159,7 @@
                                                             class="btn ">Relevé déduction</a>
                                                         <a  id="download-xlsx" type="submit"
                                                             style="background-color: #e2a03f;color: #f0f6ff;"
-                                                            class="btn">Excel</a >
+                                                            class="btn" >Excel</a >
                                                     </div>
                                                 </div>
                                                 <div class="justify-content-end">
@@ -736,13 +736,17 @@
                                                                     name="Racine_" placeholder="Racine">
                                                             </div>
 
-                                                            <div class="col-md-2 mb-3">
+                                                            <!-- <div class="col-md-2 mb-3">
                                                                 <label for="Order_">Order</label>
                                                                 <input type="number" class="form-control"
                                                                     id="Order_" name="Order_"
                                                                     placeholder="Order">
+                                                            </div> -->
+                                                            <div class="col-md-2 mb-3 ">
+                                                                <label for="MHT_">MHT</label>
+                                                                <input type="number" class="form-control" id="MHT_"
+                                                                    name="MHT_" placeholder="MHT">
                                                             </div>
-
                                                             <div class="col-md-2 mb-3">
                                                                 <label for="Date_facture">Date facture</label>
                                                                 <input type="number" class="form-control"
@@ -809,10 +813,7 @@
                                                                     name="Compte_frs_" placeholder="Compte frs">
                                                             </div> -->
 
-                                                            <div class="col-md-2 mb-3 ">
-                                                                <label for="MHT_">MHT</label>
-                                                                <input type="number" class="form-control" id="MHT_"
-                                                                    name="MHT_" placeholder="MHT">
+                                                            <div class="col-md-2 mb-3 "> 
                                                             </div>
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="Designation">Designation</label>
