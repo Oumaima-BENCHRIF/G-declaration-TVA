@@ -109,9 +109,9 @@
                                                         <ol class="breadcrumb">
                                                             <li class="breadcrumb-item"><a
                                                                     href="javascript:void(0);">Gestion des factures
-                                                                    d'achat</a></li>
+                                                                    des Ventes</a></li>
                                                             <li class="breadcrumb-item active" aria-current="page">
-                                                                <span>Gestion des factures d'achat</span>
+                                                                <span>Gestion des factures des Ventes</span>
                                                             </li>
                                                         </ol>
                                                     </nav>
@@ -137,7 +137,7 @@
                                                     </div>
                                                     <div class="col-md-1 mb-4">
 
-                                                        <input type="hidden" id="id_achat" name="id_achat">
+                                                        <input type="hidden" id="id_Vente" name="id_Vente">
 
                                                     </div>
                                                     <div class="col-md-1 mb-4">
@@ -210,7 +210,7 @@
                                                         <button type="submit" class=" btn "
                                                             style="background-color: #e2a03f;color: #f0f6ff;">
                                                             XML</button>
-                                                        <a id="achat_pdf"
+                                                        <a id="Vente_pdf"
                                                             style="background-color: cadetblue; color: #f0f6ff;"
                                                             class="btn ">Relevé déduction</a>
                                                         <button id="download-xlsx"
@@ -243,7 +243,7 @@
                                                                         <!-- <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button> -->
                                                                         <!-- <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info">PDF</button> -->
 
-                                                                        <div id="Liste-Achat" style="width: 100%;"
+                                                                        <div id="Liste-Vente" style="width: 100%;"
                                                                             class="header-table"></div>
 
                                                                     </div>
@@ -308,20 +308,20 @@
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                                 <h5 class="modal-title" id="header-text">Ajouter
-                                                    Achat</h5>
+                                                    Vente</h5>
 
                                             </div>
-                                            <form method="POST" id="Add_Achat"
-                                                action="{{ route('dashboard.StoresAchat') }}">
+                                            <form method="POST" id="Add_Vente"
+                                                action="{{ route('dashboard.StoresVente') }}">
                                                 @csrf
                                                 <div class="modal-body " id="mymodel" style="text-align: end;">
                                                     <div class="pl-5 pr-5 ml-5 mr-5">
                                                         <div class="row">
 
                                                             <div class="col-md-6 mb-4">
-                                                                <label>FRS</label>
+                                                                <label>Client</label>
                                                                 <select class="form-control  basic select2 py-3"
-                                                                    id="frs" name="frs" tabindex="1">
+                                                                    id="Client" name="Client" tabindex="2">
                                                                     <option value="not_found">Option Not Found</option>
                                                                 </select>
 
@@ -331,53 +331,31 @@
                                                                 <label for="validationCustom03">N°FACT</label>
                                                                 <input type="text" class="form-control"
                                                                     onblur="checkNfact(this)" id="n_fact" name="n_fact"
-                                                                    placeholder="N°FACT" tabindex="6" required>
+                                                                    placeholder="N°FACT" tabindex="1" required>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid N°FACT.
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-
-                                                            <div class="col-md-6 mb-3">
-                                                                <label for="validationCustom03">N°ICE</label>
-                                                                <input type="text" class="form-control" id="N_ICE"
-                                                                    name="N_ICE" placeholder="N°ICE" maxlength="15"
-                                                                    tabindex="3" readonly>
-                                                                <div class="invalid-feedback">
-                                                                    Please provide a valid N°ICE.
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mb-3">
-                                                                <label for="validationCustom03">identifiant
-                                                                    fiscal</label>
-                                                                <input type="text" class="form-control" id="id_fiscal"
-                                                                    name="id_fiscal" tabindex="2" maxlength="8"
-                                                                    placeholder="identifiant fiscal" readonly>
-
-                                                                <div class="invalid-feedback">
-                                                                    Please provide a valid identifiant fiscal.
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                       
                                                         <div class="row">
                                                             <div class="col-md-6 mb-3">
                                                                 <label for="validationCustom03">date fact</label>
                                                                 <input class="form-control " style="text-align: start"
                                                                     type="date" id="date_fact" name="date_fact"
-                                                                    onblur="datePayment()" tabindex="7" required>
+                                                                    onblur="datePayment()" tabindex="4" required>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid date fact.
                                                                 </div>
 
                                                             </div>
                                                             <div class="col-md-6 mb-3">
-                                                                <label for="validationCustom03">N°Comptable</label>
-                                                                <input type="text" class="form-control" id="n_compt"
-                                                                    name="n_compt" placeholder=" N° Comptable"
-                                                                    tabindex="4" readonly>
+                                                                <label for="desc">Designation</label>
+                                                                <input type="text" name="desc" class="form-control"
+                                                                    id="desc" placeholder="Designation" tabindex="3"
+                                                                    required>
                                                                 <div class="invalid-feedback">
-                                                                    Please provide a valid n_comptable.
+                                                                    Please provide a valid Designation.
                                                                 </div>
                                                             </div>
 
@@ -387,7 +365,7 @@
                                                                 <label for="validationCustom03">Mode de payement</label>
 
                                                                 <select class="form-control select2 py-3" id="Mpayement"
-                                                                    name="Mpayement" required tabindex="9">
+                                                                    name="Mpayement" required tabindex="6">
                                                                 </select>
 
                                                             </div>
@@ -395,7 +373,7 @@
                                                                 <label for="validationCustom03">date payement</label>
                                                                 <input class="form-control" onblur="checkDate()" onchange="checkDate()"
                                                                     style="text-align: start" type="date" id="date_p"
-                                                                    name="date_p" required tabindex="8">
+                                                                    name="date_p" required tabindex="5">
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid date payement.
                                                                 </div>
@@ -403,33 +381,15 @@
 
 
                                                         </div>
-                                                        <div class="row">
+                                                        <div class="row d-none">
                                                             <div class="col-md-4 mb-3 d-none">
                                                                 <label for="validationCustom03">TTC</label>
                                                                 <input type="text" class="form-control" id="MTttc"
-                                                                    name="MTttc" replaceholder="TTC" required >
+                                                                    name="MTttc" replaceholder="TTC" required>
 
                                                             </div>
-                                                            <div class="col-md-4 mb-3 d-none">
-                                                                <label for="validationCustom03"> % Prorata</label>
-
-                                                            </div>
-                                                            <div class="col-md-6 mb-3">
-                                                                <label for="validationCustom03">Compte charge</label>
-                                                                <select class="form-control select2 py-3" id="charge"
-                                                                    name="charge" required tabindex="9">
-                                                                </select>
-
-                                                            </div>
-                                                            <div class="col-md-6 mb-3">
-                                                                <label for="desc">Designation</label>
-                                                                <input type="text" name="desc" class="form-control"
-                                                                    id="desc" placeholder="Designation" tabindex="5"
-                                                                    required>
-                                                                <div class="invalid-feedback">
-                                                                    Please provide a valid Designation.
-                                                                </div>
-                                                            </div>
+                                                           
+                                                          
 
                                                         </div>
                                                     </div>
@@ -441,13 +401,7 @@
                                                                 id="select" style="display: table;">
                                                                 <div class="col-9 col-form-label">
                                                                     <div class="radio-inline ">
-                                                                        <div class="">
-                                                                            <label>%Prorata</label>
-                                                                            <input type="text" onblur="tva_didu()"
-                                                                                id="prorata" name="prorata"
-                                                                                class="form-control py-0 h-col pr-0">
-
-                                                                        </div>
+                                                                      
 
                                                                         <span>: Saisie</span>
                                                                         <label class="radio radio-success d-flex">
@@ -615,7 +569,7 @@
 
                                                             </div>
 
-                                                            <div class="row" id="rowracine3"
+                                                            <div class="row " id="rowracine3"
                                                                 style="width:-webkit-fill-available">
 
                                                                 <div class="col-md-2 mb-3 col-add" id="col-add">
@@ -648,7 +602,7 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
                                                                     <input type="text" class="form-control h-col"
-                                                                    name="taux4"  id="taux4" placeholder="" readonly>
+                                                                        id="taux4" placeholder="" readonly>
                                                                 </div>
 
                                                                 <div class="col-md-4 mb-3">
@@ -678,7 +632,7 @@
                             <!--end modal ajouter -->
 
                             <!--start modal delete  -->
-                            <div id="delet_achat" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
+                            <div id="delet_Vente" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
                                 <div class="modal-dialog">
                                     <!-- Modal content-->
                                     <div class="modal-content">
@@ -693,12 +647,12 @@
                                                 <br> Ce processus ne peut pas être annulé
                                             </p>
                                         </div>
-                                        <form id="Delet_Achat" name="Delet_Achat"
-                                            action="{{ route('dashboard.DeleteAchat') }}" action="" method="post">
+                                        <form id="Delet_Vente" name="Delet_Vente"
+                                            action="{{ route('dashboard.DeleteVente') }}" action="" method="post">
                                             <div class="modal-footer md-button">
                                                 <button class="btn" data-dismiss="modal"><i
                                                         class="flaticon-cancel-12"></i> Annuler</button>
-                                                <input type="hidden" id="delete_id_achat" name="delete_id_achat">
+                                                <input type="hidden" id="delete_id_Vente" name="delete_id_Vente">
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-primary">Supprimer</button>
                                             </div>
@@ -754,8 +708,8 @@
 
 
                                         </div>
-                                        <form method="POST" id="Add_Achat"
-                                            action="{{ route('dashboard.StoresAchat') }}">
+                                        <form method="POST" id="Add_Vente"
+                                            action="{{ route('dashboard.StoresVente') }}">
                                             @csrf
                                             <div class="modal-body " id="mymodel" style="text-align: end;">
 
@@ -975,25 +929,25 @@
 <script>
 $(document).ready(function() {
   
-    // const form = document.getElementById("Add_Achat");
-    // const inputs = form.querySelectorAll("input");
+    const form = document.getElementById("Add_Vente");
+    const inputs = form.querySelectorAll("input");
 
-    // inputs.forEach((input, index) => {
-    //     input.addEventListener("keydown", function(event) {
-    //         if (event.key === "Enter") {
-    //             event.preventDefault();
-    //             const nextIndex = index + 1;
-    //             if (nextIndex < inputs.length) {
-    //                 inputs[nextIndex].focus();
-    //             }
-    //         }
-    //     });
-    // });
+    inputs.forEach((input, index) => {
+        input.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                const nextIndex = index + 1;
+                if (nextIndex < inputs.length) {
+                    inputs[nextIndex].focus();
+                }
+            }
+        });
+    });
 
 });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script type="text/javascript" src="{{URL::asset('js/Gestion_Achat.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('js/Gestion_Vente.js')}}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
     integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="

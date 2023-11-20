@@ -192,6 +192,22 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('/Etat_Achat/{periode}/{Exercice}', [App\Http\Controllers\AchatController::class, 'generatePDF'])->name('Etat_Achat');
     Route::post('DeleteAchat', [App\Http\Controllers\AchatController::class, 'destroy'])->name('DeleteAchat');
     Route::get('table_Achat/{periode}/{Exercice}', [App\Http\Controllers\AchatController::class, 'table_achat'])->name('table_Achat');
+    Route::get('table_Achat/{periode}/{Exercice}', [App\Http\Controllers\AchatController::class, 'table_achat'])->name('TTC_JOUR');
+    Route::get('TTC_JOUR/{date}/{frs}', [App\Http\Controllers\AchatController::class, 'TTC_JOUR'])->name('TTC_JOUR');
+    Route::get('TTC_MOIS/{date}/{frs}', [App\Http\Controllers\AchatController::class, 'TTC_MOIS'])->name('TTC_MOIS');
+        // gestion Vente
+        Route::get('/Vente', 'App\Http\Controllers\VenteController@index')->name('Vente');
+        Route::get('/FK_Mp', [App\Http\Controllers\VenteController::class, 'Liste_Mpyement'])->name('FK_Mp');
+        Route::get('get_infsociete', [App\Http\Controllers\VenteController::class, 'get_info'])->name('get_infsociete');
+        Route::post('/add_Vente', [App\Http\Controllers\VenteController::class, 'Stores'])->name('StoresVente');
+        Route::post('/delete_Vente', [App\Http\Controllers\VenteController::class, 'delete'])->name('DeleteVente');
+    //Gestion Client
+    Route::get('/Client', [App\Http\Controllers\ClientController::class, 'index'])->name('Client');
+    Route::post('/add_Client', [App\Http\Controllers\ClientController::class, 'Stores'])->name('AddClient');
+    Route::post('/delete_Client', [App\Http\Controllers\ClientController::class, 'delete'])->name('DeleteClient');
+    Route::get('table_Client', [App\Http\Controllers\ClientController::class, 'table_Client'])->name('table_Client');
+    Route::get('/Client/{id_Client}', [App\Http\Controllers\ClientController::class, 'info_Client'])->name('info_Client');
+    Route::get('update_Client/{id}', [App\Http\Controllers\ClientController::class, 'Update'])->name('update_Client');
     // liste FRS
     Route::get('FK_FRS', [App\Http\Controllers\AchatController::class, 'Liste_FRS'])->name('Liste_fournisseur');
     // Liste Mode de payement

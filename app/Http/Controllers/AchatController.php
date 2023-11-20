@@ -30,41 +30,44 @@ class AchatController extends Controller
         public function Stores(Request $request)
         { 
             try {
-            $frs=fournisseurs::select('fournisseurs.*')
-            ->where('fournisseurs.deleted_at', '=', NULL)
-            ->where('fournisseurs.id',$request->input('frs'))->first();
-            $achat = new achat();
-            if(!$frs)
-            {
-                $fournisseurs = new fournisseurs();
-                $fournisseurs->ID_fiscale=$request->input('id_fiscal');
-                $fournisseurs->NICE=$request->input('N_ICE');
-                $fournisseurs->Designation=$request->input('desc');
-                $fournisseurs->nomFournisseurs=$request->input('frs');
-                $fournisseurs->Num_compte_comptable=$request->input('n_compt');
-                $fournisseurs->save();
-                $achat->FK_fournisseur=$fournisseurs->id;
                
-            }else
-            {
-                $frs->Designation=$request->input('desc');
-                $achat->FK_fournisseur=$frs->id;
-                $frs->save();
-
-            }   
-        //     $order=achat::select('achats.order','achats.order')
-        //     ->where('achats.deleted_at', '=', NULL)
-        //     ->where('achats.Exercice',$request->input('Exercice'))
-        //     ->where('achats.FK_regime',$request->input('periode')) ->latest()
-        //     ->first(); 
+               
+                    $frs=fournisseurs::select('fournisseurs.*')
+                    ->where('fournisseurs.deleted_at', '=', NULL)
+                    ->where('fournisseurs.id',$request->input('frs'))->first();
+                    $achat = new achat();
+                    if(!$frs)
+                    {
+                        $fournisseurs = new fournisseurs();
+                        $fournisseurs->ID_fiscale=$request->input('id_fiscal');
+                        $fournisseurs->NICE=$request->input('N_ICE');
+                        $fournisseurs->Designation=$request->input('desc');
+                        $fournisseurs->nomFournisseurs=$request->input('frs');
+                        $fournisseurs->Num_compte_comptable=$request->input('n_compt');
+                        $fournisseurs->save();
+                        $achat->FK_fournisseur=$fournisseurs->id;
+                       
+                    }else
+                    {
+                        $frs->Num_compte_comptable=$request->input('n_compt');
+                        $frs->Designation=$request->input('desc');
+                        $achat->FK_fournisseur=$frs->id;
+                        $frs->save();
+        
+                    }   
+         //     $order=achat::select('achats.order','achats.order')
+          //     ->where('achats.deleted_at', '=', NULL)
+          //     ->where('achats.Exercice',$request->input('Exercice'))
+          //     ->where('achats.FK_regime',$request->input('periode')) ->latest()
+           //     ->first(); 
            
-        //  if($order)
-        //        {
-        //         $achat->order=$order->order+1;
-        //        }else
-        //        {
-        //      $achat->order=1;
-        //      }
+            //  if($order)
+             //        {
+            //         $achat->order=$order->order+1;
+            //        }else
+            //        {
+            //      $achat->order=1;
+            //      }
 
             $achat->N_facture=$request->input('n_fact');
             $achat->Date_facture=$request->input('date_fact');
@@ -131,6 +134,22 @@ class AchatController extends Controller
               
                 $achat->num_racine_7=$num->Num_racines;
             }
+            if($request->input('taux4')==7)
+            {
+                $achat->Taux7=$request->input('taux4');
+                $achat->TVA_7=$request->input('tva_4');
+                $achat->M_HT_7=$request->input('MHT_4');
+                $achat->TTC_7=$request->input('ttc4');
+                $achat->TVA_d7=$request->input('tva_d4');
+                if($request->input('racine4')!='null'){
+                    $achat->FK_racines_7=$request->input('racine4');
+                }
+                $num = racine::select('racines.Num_racines')
+                ->where('racines.id',$request->input('racine4'))
+                ->where('racines.deleted_at', '=', NULL)->first();
+              
+                $achat->num_racine_7=$num->Num_racines;
+            }
             if($request->input('taux1')==10)
             {
              $achat->Taux10=$request->input('taux1');
@@ -179,7 +198,22 @@ class AchatController extends Controller
           
              $achat->num_racine_10=$num->Num_racines;
             }
-
+            if($request->input('taux4')==10)
+            {
+             $achat->Taux10=$request->input('taux4');
+             $achat->TVA_10=$request->input('tva_4');
+             $achat->M_HT_10=$request->input('MHT_4');
+             $achat->TTC_10=$request->input('ttc4');
+             $achat->TVA_d10=$request->input('tva_d4');
+             if($request->input('racine4')!='null'){
+                $achat->FK_racines_10=$request->input('racine4');
+             }
+             $num = racine::select('racines.Num_racines')
+             ->where('racines.id',$request->input('racine4'))
+             ->where('racines.deleted_at', '=', NULL)->first();
+          
+             $achat->num_racine_10=$num->Num_racines;
+            }
             if($request->input('taux1')==14)
             {
              $achat->Taux14=$request->input('taux1');
@@ -222,6 +256,21 @@ class AchatController extends Controller
              }
              $num = racine::select('racines.Num_racines')
              ->where('racines.id',$request->input('racine3'))
+             ->where('racines.deleted_at', '=', NULL)->first();
+             $achat->num_racine_14=$num->Num_racines;
+            }
+            if($request->input('taux4')==14)
+            {
+             $achat->Taux14=$request->input('taux4');
+             $achat->TVA_14=$request->input('tva_4');
+             $achat->M_HT_14=$request->input('MHT_4');
+             $achat->TTC_14=$request->input('ttc4');
+             $achat->TVA_d14=$request->input('tva_d4');
+             if($request->input('racine4')!='null'){
+                $achat->FK_racines_14=$request->input('racine4');
+             }
+             $num = racine::select('racines.Num_racines')
+             ->where('racines.id',$request->input('racine4'))
              ->where('racines.deleted_at', '=', NULL)->first();
              $achat->num_racine_14=$num->Num_racines;
             }
@@ -270,8 +319,27 @@ class AchatController extends Controller
              ->where('racines.deleted_at', '=', NULL)->first();
           
              $achat->num_racine_20=$num->Num_racines;
-            }    
+            }   
+         
+            if($request->input('taux4')==20)
+            {
+             $achat->Taux20=$request->input('taux4');
+             $achat->TVA_20=$request->input('tva_4');
+             $achat->M_HT_20=$request->input('MHT_4');
+             $achat->TVA_d20=$request->input('tva_d4');
+             $achat->TTC_20=$request->input('ttc4');
+             if($request->input('racine4')!='null'){
+                $achat->FK_racines_20=$request->input('racine4');
+             }
+             $num = racine::select('racines.Num_racines')
+             ->where('racines.id',$request->input('racine4'))
+             ->where('racines.deleted_at', '=', NULL)->first();
+          
+             $achat->num_racine_20=$num->Num_racines;
+            }   
+            // dd($achat);
             $achat->save();
+         
 
                return response()->json([
                    'status' => 200,
@@ -351,7 +419,7 @@ class AchatController extends Controller
     {
         
         $get_achat = achat::where('achats.N_facture',$nfact)
-        ->where('achats.deleted_at', '=', NULL)->get();
+        ->where('achats.deleted_at', '=', NULL)->First();
         return response()->json([
             'get_achat' => $get_achat
         ]);
@@ -536,7 +604,7 @@ class AchatController extends Controller
     public function get_achatbyID($id)
     {
        
-        $get_achatb =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.id as idfrs','fournisseurs.nomFournisseurs','fournisseurs.Num_compte_comptable','type_payments.Nom_payment','type_payments.id as idp')
+        $get_achatb =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.id as idfrs','fournisseurs.Num_compte_comptable as Num_compte','fournisseurs.nomFournisseurs','fournisseurs.Num_compte_comptable','type_payments.Nom_payment','type_payments.id as idp')
         ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
         ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
         ->where('achats.id',$id)
@@ -609,13 +677,9 @@ public function get_info()
 }
 public function Update(Request $request)
     {
-    
-
         try {
             $achat = achat::where('achats.id',$request->input('id'))
             ->where('achats.deleted_at', '=', NULL)->first(); 
-
-
 
             $frs=fournisseurs::select('fournisseurs.*')
             ->where('fournisseurs.deleted_at', '=', NULL)
@@ -633,6 +697,7 @@ public function Update(Request $request)
                
             }else
             {
+                $frs->Num_compte_comptable=$request->input('n_compt');
                 $frs->Designation=$request->input('desc');
           
                 $frs->save();
@@ -1132,13 +1197,13 @@ public function generatePDF($periode,$Exercice)
         ->where('racines.id',$achat->FK_racines_20)
         ->where('racines.deleted_at', '=', NULL)->first();
         $table_achat2->TTC_10=$cat->categorie;
-// dd($cat);
+   // dd($cat);
         $table_achat3[]=$table_achat2;
         $ord=$ord+1;
     }
  }
 
- $table_achat3 = collect($table_achat3)->sortBy('num_racine_7')->values()->all();
+    $table_achat3 = collect($table_achat3)->sortBy('num_racine_7')->values()->all();
 
 
     $pdf = PDF::loadView('Etat_Achat',[
@@ -1477,6 +1542,41 @@ public function Storesjson(Request $request)
                 ->withInput();
         }
     }
-
+function TTC_JOUR($date,$frs)
+{
+    $ttc = achat::select(
+        DB::raw('SUM(achats.M_TTC) as MTTC'),
+    )
+    ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
+    ->where('type_payments.Num_payment', '=', 1)
+    ->where('achats.FK_fournisseur', '=', $frs)
+    ->where('achats.Date_facture', '=', $date)
+    // ->whereMonth('achats.Date_facture', '=', date('m', strtotime($date)))
+    ->where('achats.deleted_at', '=', NULL)
+    ->groupBy('achats.FK_fournisseur')
+    ->First();
+    return response()->json([
+        'ttc' => $ttc
+    ]);
+  
+}
+function TTC_MOIS($date,$frs)
+{
+    $ttc = achat::select(
+        DB::raw('SUM(achats.M_TTC) as MTTC'),
+    )
+    ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')
+    ->where('type_payments.Num_payment', '=', 1)
+    ->where('achats.FK_fournisseur', '=', $frs)
+    ->whereYear('achats.Date_facture', '=', date('Y', strtotime($date)))
+    ->whereMonth('achats.Date_facture', '=', date('m', strtotime($date)))
+    ->where('achats.deleted_at', '=', NULL)
+    ->groupBy('achats.FK_fournisseur')
+    ->First();
+    return response()->json([
+        'ttc' => $ttc
+    ]);
+  
+}
 }
 

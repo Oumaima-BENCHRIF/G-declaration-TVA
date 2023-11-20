@@ -45,6 +45,9 @@
                 <li class=" {{ active_class(['apps/fournisseur']) }}">
                     <a data-active="{{ is_active_route(['apps/fournisseur']) }}" href="{{ url('/apps/fournisseur') }}"> fournisseur </a>
                 </li>
+                <li class=" {{ active_class(['apps/Client']) }}">
+                    <a data-active="{{ is_active_route(['apps/Client']) }}" href="{{ url('/apps/Client') }}"> Client </a>
+                </li>
                 <li class=" {{ active_class(['apps/racine']) }}">
                     <a data-active="{{ is_active_route(['apps/racine']) }}" href="{{ url('/apps/racine') }}"> Racine </a>
                 </li>

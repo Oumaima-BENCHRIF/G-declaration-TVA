@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddMTDidToAchatTable extends Migration
+class AddTypeToRacinesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class AddMTDidToAchatTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_portal')->table('achats', function (Blueprint $table) {
-        
-            $table->float('TTC_7')->nullable();
-            $table->float('TTC_10')->nullable();
-            $table->float('TTC_14')->nullable();
+        Schema::connection('mysql_portal')->table('racines', function (Blueprint $table) {
+            $table->longText('type')->after('id');
         });
     }
 
@@ -28,7 +25,7 @@ class AddMTDidToAchatTable extends Migration
      */
     public function down()
     {
-        Schema::table('achat', function (Blueprint $table) {
+        Schema::table('racines', function (Blueprint $table) {
             //
         });
     }
