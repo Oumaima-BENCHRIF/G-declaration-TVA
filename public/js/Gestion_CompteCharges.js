@@ -222,17 +222,18 @@ function table_CompteCharge() {
               return a[0];
             },
           },
+          
           {
-            title: "Nº de compte charges ou immobilisations",
-            field: "N_compte_charges_immob",
+            title: "Intitulé",
+            field: "Intitule",
             vertAlign: "middle",
             print: true,
             download: true,
             headerFilter:"input"
           },
           {
-            title: "Intitulé",
-            field: "Intitule",
+            title: "Nº de compte charges ou immobilisations",
+            field: "N_compte_charges_immob",
             vertAlign: "middle",
             print: true,
             download: true,

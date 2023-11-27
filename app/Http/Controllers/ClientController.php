@@ -88,17 +88,16 @@ class ClientController extends Controller
     }
     public function Update(Request $request)
     {
-
-
         try {
 
             $update_client = Client::where('id', $request->update_id_Client)->first();
 
-            $update_client->nomFournisseurs = $request->nomClient;
+            $update_client->nom = $request->nomClient;
             $update_client->Designation = $request->Designation;
             $update_client->telephone = $request->telephone;
             $update_client->ville = $request->ville;
-            $update_client->NICE = $request->Adresse;
+            $update_client->Adresse = $request->Adresse;
+            // dd($update_client);
             $update_client->save();
             return response()->json([
                 'status' => 200,
@@ -110,6 +109,35 @@ class ClientController extends Controller
                 'status' => 200,
                 'Error' => 'Merci de vérifier la connexion internet, si non email_clienter le service IT',
             ]);
+        }
+    }
+    public function destroy(Request $request)
+    {
+        try {
+           
+            $check = client::where('id', $request->delete_id_Client)->first();
+          
+            if ($check != null) {
+                $niveauurgence = client::find($request->delete_id_Client);
+                $niveauurgence->delete();
+
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Suppression avec succès',
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 200,
+                    'danger' => 'Vérifiez votre données',
+                ]);
+            }
+        } catch (\Exception $e) {
+
+            return redirect()
+                ->back()
+                ->with('danger', 'Merci de vérifier la connexion internet, si non Contacter le service IT')
+                ->withInput();
         }
     }
 

@@ -5,7 +5,7 @@ $(window).on("load", function () {
   Liste_fait_generateurs();
   table_Agence();
   gestYears();
-  
+  $("#Enregistrer").css("display", "none");
 });
 $(document).ready(function () {
   // table_Agents();
@@ -208,7 +208,7 @@ function Liste_fait_generateurs() {
       var $lignes = '<option value="FG-17">Sélectionner</option>';
       jQuery.each(response.Liste_fait_generateurs, function (key, item) {
         $lignes +=
-          '<option value="' + item.id + '">' + item.libelle + "</option>";
+          '<option value="' + item.id + '">' + item.id +  '    |   '+ item.libelle + "</option>";
       });
       $("#FK_fait_generateurs").html($lignes);
     },
@@ -253,7 +253,10 @@ function table_Agence() {
       $tabledata = "";
       // Je récupère la réponse du fichier PHP
       jQuery.each(responce.liste_agence, function (key, item) {
-        if (responce.liste_agence.length == 0) {
+        if (responce.liste_agence.length != 0) {
+          $("#Enregistrer").css("display", "none");
+        }else{
+          $("#Enregistrer").css("display", "block");
         }
         $tabledata = responce.liste_agence;
       });
@@ -351,12 +354,12 @@ function table_Agence() {
                         document.getElementById("Tele").value = item.Tele;
                         document.getElementById("Adresse").value = item.Adresse;
                         document.getElementById("Fax").value = item.Fax;
-                        document.getElementById("Exercice").value = item.Exercice;
+                    
                         document.getElementById("prorata").value = item.Prorata;
                         document.getElementById("code").value = item.code;
                         document.getElementById("Chemain").value = item.chemain;
                         
-              
+           
                        var idToSelect = item.FK_fait_generateurs;
                        var selectElement = document.getElementById("FK_fait_generateurs");
                       for (var i = 0; i < selectElement.options.length; i++) {
@@ -381,6 +384,19 @@ function table_Agence() {
                   }
                   var event = new Event('change');
                   selectElement.dispatchEvent(event);
+
+             
+                  var idToSelect = item.Exercice;
+                  var selectElement = document.getElementById("Exercice");
+                 for (var i = 0; i < selectElement.options.length; i++) {
+                 var option = selectElement.options[i];
+                 if (option.value == idToSelect) {
+                  option.selected = true;
+                  break; 
+                   }
+                 }
+                 var event = new Event('change');
+                 selectElement.dispatchEvent(event);
                   });
                   
                  
@@ -488,3 +504,17 @@ function table_Agence() {
     },
   });
 }
+// function getFolderPath() {
+//   var input = document.getElementById('fileInput');
+
+//   // Vérifier si l'input a des fichiers sélectionnés
+//   if (input.files && input.files.length > 0) {
+//       // Récupérer le nom du premier fichier (ne donne pas le chemin complet pour des raisons de sécurité)
+//       var folderPath = input.files[0].name;
+
+//       // Afficher le chemin dans la console (à des fins de démonstration)
+//       console.log("Chemin du dossier : " + folderPath);
+//   } else {
+//       console.log("Aucun fichier sélectionné");
+//   }
+// }

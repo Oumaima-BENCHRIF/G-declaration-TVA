@@ -167,7 +167,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
     Route::get('get_racine/{id}', [App\Http\Controllers\AchatController::class, 'get_racine'])->name('get_racine');
     // importation achat
     Route::get('/AddAchatjson', [App\Http\Controllers\AchatController::class, 'Storesjson'])->name('AddAchatjson');
-      // vider la table
+      // vider la table Achat
       Route::post('/viderTable', [App\Http\Controllers\AchatController::class, 'viderTable'])->name('viderTable');
     // Liste Mode de payement
     Route::get('FK_Mpayement', [App\Http\Controllers\AchatController::class, 'Liste_Mpyement'])->name('Liste_Mpyement');
@@ -201,13 +201,21 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth'], 'as' => 'dashboard.'
         Route::get('get_infsociete', [App\Http\Controllers\VenteController::class, 'get_info'])->name('get_infsociete');
         Route::post('/add_Vente', [App\Http\Controllers\VenteController::class, 'Stores'])->name('StoresVente');
         Route::post('/delete_Vente', [App\Http\Controllers\VenteController::class, 'delete'])->name('DeleteVente');
+        Route::get('Liste_RacineV', [App\Http\Controllers\VenteController::class, 'Liste_Racine'])->name('Liste_RacineV');
+        Route::get('FK_Client', [App\Http\Controllers\VenteController::class, 'Liste_client'])->name('Liste_client');
+        Route::get('/get_TBLvente/{periode}/{Exercice}', [App\Http\Controllers\VenteController::class, 'get_TBLvente'])->name('get_TBLvente');
+        Route::get('/get_ventebyID/{id}', [App\Http\Controllers\VenteController::class, 'get_ventebyID'])->name('get_ventebyID');
+        Route::get('/update_vente', [App\Http\Controllers\VenteController::class, 'Update'])->name('update_vente');
+        Route::post('/delete_Vente', [App\Http\Controllers\VenteController::class, 'destroy'])->name('DeleteVente');
+        Route::post('/viderTableV', [App\Http\Controllers\VenteController::class, 'viderTableV'])->name('viderTableV');
     //Gestion Client
     Route::get('/Client', [App\Http\Controllers\ClientController::class, 'index'])->name('Client');
     Route::post('/add_Client', [App\Http\Controllers\ClientController::class, 'Stores'])->name('AddClient');
-    Route::post('/delete_Client', [App\Http\Controllers\ClientController::class, 'delete'])->name('DeleteClient');
+    Route::post('/delete_Client', [App\Http\Controllers\ClientController::class, 'destroy'])->name('DeleteClient');
     Route::get('table_Client', [App\Http\Controllers\ClientController::class, 'table_Client'])->name('table_Client');
     Route::get('/Client/{id_Client}', [App\Http\Controllers\ClientController::class, 'info_Client'])->name('info_Client');
     Route::get('update_Client/{id}', [App\Http\Controllers\ClientController::class, 'Update'])->name('update_Client');
+
     // liste FRS
     Route::get('FK_FRS', [App\Http\Controllers\AchatController::class, 'Liste_FRS'])->name('Liste_fournisseur');
     // Liste Mode de payement

@@ -3,6 +3,10 @@ $(window).on("load", function () {
     Liste_Mpyement();
     get_info();
     Liste_Racine();
+    Liste_Client();
+    setTimeout(function () {
+      table_Vente();
+    }, 1500); 
     document.getElementById('update').style.display='none';
   $("#rowracine3").css("display", "none");
   $("#rowracine1").css("display", "none");
@@ -13,6 +17,44 @@ $(window).on("load", function () {
 
 });
 $(document).ready(function () {
+  $("#Add_Vente").on("submit", function (e) {
+    e.preventDefault();
+    var formData = [];
+    var $this = jQuery(this);
+    var formData = jQuery($this).serializeArray();
+    let Exercice =$("#Exercice").val();
+    let periode =$("#periode").val(); 
+    formData.push(
+      { name: "Exercice", value: Exercice },
+      { name: "periode", value: periode },
+    );
+   
+    jQuery.ajax({
+      url: $this.attr("action"),
+      type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+      data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+      // dataFilter: 'json', //forme data
+      success: function (response) {
+        // Je récupère la réponse du fichier PHP
+        toastr.options = {
+          progressBar: true,
+          closeButton: true,
+        };
+        toastr.success(response.message, { timeOut: 12000 });
+        table_Vente();
+    
+       viderChamps();
+      },
+      error: function (response) {
+        toastr.options = {
+          progressBar: true,
+          closeButton: true,
+        };
+        toastr.error("Merci de vérifier les champs");
+      },
+    });
+    
+  });
     $("#add-btn").on("click", function (e) {
         if($("#rowracine1").css("display")==="none")
         {
@@ -40,7 +82,7 @@ $(document).ready(function () {
           $("#add-btn4").css("display", "none");
         }
       });
-      $("#add-btn2").on("click", function (e) {
+    $("#add-btn2").on("click", function (e) {
         if($("#rowracine2").css("display")==="none")
         {
         $("#rowracine2").css("display", "inherit");
@@ -72,7 +114,7 @@ $(document).ready(function () {
     
     
      });
-     $("#add-btn4").on("click", function (e) {
+    $("#add-btn4").on("click", function (e) {
       if($("#rowracine1").css("display")==="none")
       {
         $("#rowracine").css("display", "inherit");
@@ -133,22 +175,295 @@ $(document).ready(function () {
          }
          $("#rowracine1").css("display", "inherit");
          $("#add-btn").css("display", "none");
-      });
-      $('#racine').on('select2:select', function (e) {
+     });
+   $('#racine').on('select2:select', function (e) {
         tauxRacine1();
-    
-      });
-      $('#racine2').on('select2:select', function (e) {
+    });
+    $('#racine2').on('select2:select', function (e) {
         tauxRacine2();
-    
-      });
-      $('#racine3').on('select2:select', function (e) {
+     });
+    $('#racine3').on('select2:select', function (e) {
         tauxRacine3();
       });
       $('#racine4').on('select2:select', function (e) {
         tauxRacine4();
       });
-     
+      $("#Client")
+      .select2({
+        tags: true,
+        createTag: function (params) {
+          var term = $.trim(params.term);
+  
+          if (term === "") {
+            return null;
+          }
+  
+          return {
+            id: term,
+            text: term,
+            newTag: true,
+            // Add this to indicate it's a new tag
+          };
+        },
+      })
+      .on("select2:select", function (e) {
+        var selectedOption = e.params.data;
+  
+        // Check if the selected option is a new tag
+        if (selectedOption.newTag) {
+          // Remove the "readonly" attribute from an element with the ID "id_fiscal"
+          // $("#id_fiscal").removeAttr("readonly");
+          // $("#N_ICE").removeAttr("readonly");
+          // $("#n_compt").removeAttr("readonly");
+          // $("#id_fiscal").prop("required", true);
+          // $("#N_ICE").prop("required", true);
+          // // $("#n_compt").prop("required", true);
+          // $("#n_compt").val("4411");
+        }
+      });  
+      $("#update").on("click", function (e) {
+        var id = $('#id_Vente').val();
+        var formData = [];
+        var Client = $('#Client').val();
+        var desc = $("#desc").val();
+        var n_fact = $("#n_fact").val();
+        var date_fact = $("#date_fact").val();
+        var date_p = $("#date_p").val();
+        var Mpayement = $("#Mpayement").val();
+        var MTttc = $("#MTttc").val();
+        // var mtd = $("#mtd").val();
+        var racine = $("#racine").val();
+        var MHT_1 = $("#MHT_1").val();
+        var tva_1 = $("#tva_1").val();
+        var ttc1 = $("#ttc1").val();
+        var racine2 = $("#racine2").val();
+        var MHT_2 = $("#MHT_2").val();
+        var tva_2 = $("#tva_2").val();
+        var ttc2 = $("#ttc2").val();
+        var racine3 = $("#racine3").val();
+        var racine4 = $("#racine4").val();
+        var MHT_3 = $("#MHT_3").val();
+        var tva_3 = $("#tva_3").val();
+        var ttc3 = $("#ttc3").val();    
+        var MHT_4 = $("#MHT_4").val();
+        var tva_4 = $("#tva_4").val();
+        var ttc4 = $("#ttc4").val();  
+        var Exercice = $("#Exercice").val();
+        var periode = $("#periode").val();
+        var Taux1 = $("#taux1").val();
+        var Taux2 = $("#taux2").val(); 
+        var Taux3 = $("#taux3").val();
+        var Taux4 = $("#taux4").val();
+        formData.push(
+          { name: "id", value: id },
+          { name: "Client", value: Client },
+          { name: "desc", value: desc },
+          { name: "n_fact", value: n_fact },
+          { name: "date_fact", value: date_fact },
+          { name: "date_p", value: date_p },
+          { name: "Mpayement", value: Mpayement },
+          { name: "MTttc", value: MTttc },
+          // { name: "mtd", value: mtd },
+          { name: "racine", value: racine },
+          { name: "MHT_1", value: MHT_1 },
+          { name: "tva_1", value: tva_1 },
+          { name: "ttc1", value: ttc1 },
+          { name: "racine2", value: racine2 },
+          { name: "MHT_2", value: MHT_2 },
+          { name: "tva_2", value: tva_2 },
+          { name: "ttc2", value: ttc2 },
+          { name: "racine3", value: racine3 },
+          { name: "MHT_3", value: MHT_3 },
+          { name: "tva_3", value: tva_3 },
+          { name: "ttc3", value: ttc3 },
+          { name: "MHT_4", value: MHT_4 },
+          { name: "tva_4", value: tva_4 },
+          { name: "ttc4", value: ttc4 }, 
+          { name: "Exercice", value: Exercice },
+          { name: "periode", value: periode },
+          { name: "Taux1", value: Taux1 }, 
+          { name: "Taux2", value: Taux2 },
+          { name: "Taux3", value: Taux3 },
+          { name: "Taux4", value: Taux4 },
+          { name: "racine4", value: racine4 }
+        );
+      
+        jQuery.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+    
+          url: "./update_vente",
+          type: "get", // Le nom du fichier indiqué dans le formulaire
+          data:formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+      
+          success: function (response) {
+              // Je récupère la réponse du fichier PHP
+              toastr.success(response.messages);
+              viderChamps();
+          },
+          error: function (response) {
+              toastr.error(response.Error);
+          },
+      });
+    
+      }); 
+      $("#Delet_Vente").on("submit", function (e) {
+        e.preventDefault();
+        var $this = jQuery(this);
+        var formData = jQuery($this).serializeArray();
+        jQuery.ajax({
+          url: $this.attr("action"),
+          type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+          data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+          // dataFilter: 'json', //forme data
+          success: function (response) {
+            // Je récupère la réponse du fichier PHP
+            toastr.options = {
+              progressBar: true,
+              closeButton: true,
+            };
+            toastr.success(response.message, { timeOut: 12000 });
+            jQuery("#Delet_Vente").trigger("click");
+            table_Vente();
+            
+          },
+          error: function (response) {
+            toastr.error(response.danger);
+          },
+        });
+      });
+      $("#ajou").on("click", function (e) {
+        $("#rowracine").css("display", "inherit");
+        $("#add-btn").css("display", "inline");
+        $("#rowracine3").css("display", "none");
+        $("#rowracine1").css("display", "none");
+        $("#rowracine2").css("display", "none");
+        $("#ttc1").prop("required", true);
+        $("#tva_1").prop("required", true);
+        $("#MHT_1").prop("required", true);
+      });
+      $("#renitialiser").on("click", function (e) {
+        viderChamps();
+       });
+       $("#vider").on("click", function (e) {
+        var Exercice = $("#Exercice").val();
+        var periode = $("#periode").val();
+        $("#delete_periode").val(periode);
+        $("#delete_exercice").val(Exercice);
+      });
+      $("#Delet_periode").on("submit", function (e) {
+        e.preventDefault();
+        var $this = jQuery(this);
+        var formData = jQuery($this).serializeArray();
+        jQuery.ajax({
+          url: $this.attr("action"),
+          type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+          data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+          // dataFilter: 'json', //forme data
+          success: function (response) {
+            // Je récupère la réponse du fichier PHP
+            toastr.options = {
+              progressBar: true,
+              closeButton: true,
+            };
+            toastr.success(response.message, { timeOut: 12000 });
+            jQuery("#Delet_Achat").trigger("click");
+            table_Achat();
+            $("#totalTTC").text(0);
+      $("#totalTVA").text(0);
+        $("#totalHT").text(0);
+          },
+          error: function (response) {
+            toastr.error(response.danger);
+          },
+        });
+      });
+      $('#Client').on('select2:select', function (e) {
+ 
+        let value = $('#Client').val();
+    
+        jQuery.ajax({
+          url: "./Client/" + value,
+          type: "GET",
+          dataType: "json",
+          success: function (responce) {
+            $tabledata = responce.info_Client;
+            jQuery.each(responce.info_Client, function (key, item) {
+              $("#desc").val($tabledata.Designation);
+            });
+    
+          },
+        });
+    
+      });
+      $('#periode').on('select2:select', function (e) {
+        table_Vente(); 
+      });
+      $('#Exercice').on('select2:select', function (e) {
+    
+        let Exercice = $('#Exercice').val();
+        jQuery.ajax({
+          url: "./get_regime/" +Exercice,
+          type: "GET",
+          dataType: "json",
+          success: function (responce) {
+        
+               let selectElement=("#Exercice");
+               var $lignes;
+               $tabledata = responce.Liste_regimes;
+               let regime=responce.regime.libelle;
+             
+              jQuery.each($tabledata, function (key, item) {
+            
+                if(regime==item.libelle){
+                 
+                  $lignes =
+                  $lignes +
+                  '<option value="' +
+                  item.id +
+                  '">' +
+                  item.	periode +
+                "</option>";
+                }
+                $("#periode").html($lignes);
+              });
+            
+            },
+        });
+        table_Vente();
+      });
+      $("#close").on("click", function (e) {
+        viderChamps();
+      });
+      $("#Client")
+    .select2({
+      tags: true,
+      createTag: function (params) {
+        var term = $.trim(params.term);
+
+        if (term === "") {
+          return null;
+        }
+
+        return {
+          id: term,
+          text: term,
+          newTag: true,
+          // Add this to indicate it's a new tag
+        };
+      },
+    })
+    .on("select2:select", function (e) {
+      var selectedOption = e.params.data;
+
+      // Check if the selected option is a new tag
+      if (selectedOption.newTag) {
+        // Remove the "readonly" attribute from an element with the ID "id_fiscal"
+        $("#des").removeAttr("readonly");
+        $("#des").prop("required", true);
+      }
+    });
 });
 document.addEventListener("DOMContentLoaded", function () {
     var radioButtons = document.querySelectorAll("input[name='radios5']");
@@ -1118,3 +1433,509 @@ function checkDate() {
       }
     });
   }
+  function Liste_Racine() {
+    jQuery.ajax({
+      url: "./Liste_RacineV",
+      type: "GET",
+      dataType: "json",
+      success: function (responce) {
+        var $lignes = '<option value="null">Sélectionner</option>';
+        jQuery.each(responce.Liste_Racine, function (key, item) {
+          $lignes =
+            $lignes +
+            '<option value="' +
+            item.id +
+            '">' +
+            item.Num_racines + '  | ' + item.Nom_racines + '  | ' + item.Taux
+          "</option>";
+        });
+        $("#racine").html($lignes);
+        // $("#racine4").html($lignes);
+        $("#racine2").html($lignes);
+         $("#racine3").html($lignes);
+         $("#racine4").html($lignes);
+      },
+    });
+  }
+  function Liste_Client() {
+    jQuery.ajax({
+      url: "./FK_Client",
+      type: "GET",
+      dataType: "json",
+      success: function (responce) {
+        var $lignes = '<option value="null">Sélectionner</option>';
+        jQuery.each(responce.Liste_client, function (key, item) {
+          $lignes =
+            $lignes +
+            '<option value="' +
+            item.id +
+            '">' +
+            item.nom +
+            "</option>";
+        });
+        $("#Client").html($lignes);
+      },
+    });
+  }
+  function table_Vente() {
+    let periode = $('#periode').val();
+    let Exercice = $('#Exercice').val();
+    // console.log(periode);
+    jQuery.ajax({
+      url: "get_TBLvente/"+periode+"/"+Exercice,
+      type: "GET", // Le nom du fichier indiqué dans le formulaire
+      dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+      // dataFilter: 'json', //forme data
+      success: function (responce) {
+        $tabledata = "";
+        // Je récupère la réponse du fichier PHP
+        jQuery.each(responce.table_vente, function (key, item) {
+          if (responce.table_vente.length == 0) {
+          }
+          $tabledata = responce.table_vente;
+          $("#totalTTC").text(responce.totalTTC);
+          $("#totalTVA").text(responce.totalTVA);
+          $("#totalHT").text(responce.totalHT);
+        });
+        
+        dataTable($tabledata);
+        //trigger download of data.xlsx file
+        document
+          .getElementById("download-xlsx")
+          .addEventListener("click", function () {
+            table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
+          });
+  
+        //trigger download of data.pdf file
+        document
+          .getElementById("download-pdf")
+          .addEventListener("click", function () {
+            table.download("pdf", "data.pdf", {
+              orientation: "portrait", //set page orientation to portrait
+              title: "Succursale", //add title to report
+            });
+          });
+      },
+    });
+  }
+  function dataTable($tabledata)
+{
+   var table = new Tabulator("#Liste-Vente", {
+    printAsHtml: true,
+    printStyled: true,
+    // height: 220,
+    data: $tabledata,
+    layout: "fitColumns",
+    pagination: "local",
+    printHeader: "",
+    printFooter: "",
+    height:"580px",
+    paginationSize: 20,
+    paginationSizeSelector: [40, 45, 50, 55],
+    placeholder: "No matching records found",
+    tooltips: true,
+    //custom formatter definition
+    // responsiveLayout:"hide",  //hide columns that don't fit on the table
+    // addRowPos:"top",          //when adding a new row, add it to the top of the table
+    // history:true,             //allow undo and redo actions on the table
+    // paginationCounter:"rows", //display count of paginated rows in footer
+    // movableColumns:true,      //allow column order to be changed
+    initialSort: [{ column: "id", dir: "desc" }],
+    columnDefaults: {
+      tooltip: true, //show tool tips on cells
+    },
+
+    columns: [
+      {
+        title: "Action",
+        minWidth: 110,
+        field: "actions",
+        responsive: 1,
+        hozAlign: "center",
+        vertAlign: "middle",
+        print: false,
+        download: false,
+        formatter(cell, formatterParams) {
+          let a = $(`<div class="flex lg:justify-center items-center">
+                              
+                                        <a  class="edit lex items-center text-success"  data-toggle="modal" style="font-size: large;" data-target=".bd-example-modal-lg"  mr-3" title="Modifier" href="javascript:;"  >
+                                        <i class="las la-edit"></i>
+                                        </a>
+                                        <a  class="mb-2 mr-2 delete" data-toggle="modal" data-target="#delet_Vente">
+                                        <i class="lar la-trash-alt text-danger font-20 mr-2"></i>
+                                        </a>
+                                   
+                        </div>`);
+
+          $(a)
+            .find(".delete")
+            .on("click", function ()
+             { 
+              jQuery.ajax({
+                url: "./get_ventebyID/" + cell.getData().id,
+                type: "GET", // Le nom du fichier indiqué dans le formulaire
+                dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                // dataFilter: 'json', //forme data
+                success: function (responce) {
+                  jQuery.each(responce.get_vent, function (key, item) {
+                    document.getElementById("delete_id_Vente").value =responce.get_vent.id;
+                  });
+                },
+              });
+            });
+
+          $(a)
+            .find(".edit")
+            .on("click", function () 
+            {
+              document.getElementById('header-text').innerHTML='modifier Vente';
+              document.getElementById('add_vtn').style.display='none';
+              document.getElementById('update').style.display='initial';
+              document.getElementById("id_Vente").value =cell.getData().id;
+             
+              jQuery.ajax({
+                url: "./get_ventebyID/" + cell.getData().id,
+                type: "GET", // Le nom du fichier indiqué dans le formulaire
+                dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                success: function (responce) {
+                  // affichage select
+                  jQuery.each(responce.get_vent, function (key, item) {
+                    
+                    
+                   
+                    document.getElementById("desc").value = responce.get_vent.Designation;
+                    document.getElementById("n_fact").value =responce.get_vent.N_facture;
+                    document.getElementById("date_fact").value = responce.get_vent.Date_facture;
+                    document.getElementById("date_p").value = responce.get_vent.Date_payment;
+                    document.getElementById("MTttc").value =responce.get_vent.M_TTC;
+           
+                    if(responce.get_vent.Taux7==7)
+                   {     $("#rowracine").css("display", "inherit");  
+                      document.getElementById("MHT_1").value = responce.get_vent.M_HT_7;
+                      document.getElementById("tva_1").value = responce.get_vent.TVA_7;
+                      document.getElementById("ttc1").value = responce.get_vent.TTC_7;
+                      var idToSelect = responce.get_vent.FK_racines_7;
+                     
+                      var selectElement = document.getElementById("racine");
+                     for (var i = 0; i < selectElement.options.length; i++) {
+                     var option = selectElement.options[i]; if (option.value == idToSelect) {
+                      option.selected = true;
+                      break; 
+                       }
+                     }
+                     var event = new Event('change');
+                     selectElement.dispatchEvent(event);
+                    }
+                    if(responce.get_vent.Taux10==10)
+                    {       $("#rowracine1").css("display", "inherit");
+                       document.getElementById("MHT_2").value = responce.get_vent.M_HT_10;
+                       document.getElementById("tva_2").value = responce.get_vent.TVA_10;
+                       document.getElementById("ttc2").value = responce.get_vent.TTC_10;
+                       var idToSelect = responce.get_vent.FK_racines_10;
+                       var selectElement = document.getElementById("racine2");
+                      for (var i = 0; i < selectElement.options.length; i++) {
+                      var option = selectElement.options[i];
+                      if (option.value == idToSelect) {
+                        option.selected = true;
+                        break; 
+                         }
+                       }
+                       var event = new Event('change');
+                       selectElement.dispatchEvent(event);
+                     }
+                     if(responce.get_vent.Taux14==14)
+                     {   
+                      $("#rowracine2").css("display", "inherit"); 
+                      document.getElementById("taux3").value = responce.get_vent.Taux14;
+                        document.getElementById("MHT_3").value = responce.get_vent.M_HT_14;
+                        document.getElementById("tva_3").value = responce.get_vent.TVA_14;
+                        document.getElementById("ttc3").value = responce.get_vent.TTC_14;
+                        var idToSelect = responce.get_vent.FK_racines_14;
+                        var selectElement = document.getElementById("racine3");
+                       for (var i = 0; i < selectElement.options.length; i++) {
+                       var option = selectElement.options[i];
+                       if (option.value == idToSelect) {
+                        option.selected = true;
+                        break; 
+                         }
+                       }
+                       var event = new Event('change');
+                       selectElement.dispatchEvent(event);
+                       }
+                       if(responce.get_vent.Taux20==20)
+                       {    
+                            $("#rowracine3").css("display", "inherit");
+                          document.getElementById("MHT_4").value = responce.get_vent.M_HT_20;
+                          document.getElementById("tva_4").value = responce.get_vent.TVA_20;
+                          document.getElementById("ttc4").value = responce.get_vent.TTC_20;
+                          document.getElementById("taux4").value = responce.get_vent.Taux20;
+
+
+                          var idToSelect = responce.get_vent.FK_racines_20;
+                          var selectElement = document.getElementById("racine4");
+                         for (var i = 0; i < selectElement.options.length; i++) {
+                         var option = selectElement.options[i];
+                         if (option.value == idToSelect) {
+                          console.log(option.value);
+                          option.selected = true;
+                          break; 
+                           }
+                         }
+                         var event = new Event('change');
+                         selectElement.dispatchEvent(event);
+                         $("#add-btn4").css("display", "inline");
+      }
+                 if(document.getElementById("tva_3").value==''){
+                
+                  $("#rowracine2").css("display", "none");
+                 }
+                 if(document.getElementById("tva_1").value==''){
+                
+                  $("#rowracine").css("display", "none");
+                 }
+                 if(document.getElementById("tva_2").value==''){
+                
+                  $("#rowracine1").css("display", "none");
+                 }
+                  
+                    var idToSelect = responce.get_vent.idC;
+                    var selectElement = document.getElementById("Client");
+                   for (var i = 0; i < selectElement.options.length; i++) {
+                   var option = selectElement.options[i];
+                   if (option.value == idToSelect) {
+                    option.selected = true;
+                    break; 
+                     }
+                   }
+                   var event = new Event('change');
+                   selectElement.dispatchEvent(event);
+                    var idToSelect = responce.get_vent.idp;
+                    var selectElement = document.getElementById("Mpayement");
+                   for (var i = 0; i < selectElement.options.length; i++) {
+                   var option = selectElement.options[i];
+                   if (option.value == idToSelect) {
+                    option.selected = true;
+                    break; 
+                     }
+                   }
+                   var event = new Event('change');
+                   selectElement.dispatchEvent(event);
+            
+                  
+                  });
+                },
+              });
+            });
+          return a[0];
+        },
+      },
+      {
+        title: "Mode_p",
+        field: "M_HT_20",
+        minWidth: 100,
+        vertAlign: "middle",
+        print: true,
+        download: true,
+        headerFilter:"input"
+      },
+      {
+        title: "Racine",
+        field: "num_racine_7",
+        minWidth: 100,
+        vertAlign: "middle",
+        print: true,
+        download: true,
+        headerFilter:"input"
+      },
+      {
+        title: "Date_fact",
+        field: "Date_facture",
+        minWidth: 100,
+        vertAlign: "middle",
+        print: true,
+        download: true,
+        headerFilter: "input",
+      },
+      {
+        title: "Date_payement",
+        field: "Date_payment",
+        minWidth: 100,
+        vertAlign: "middle",
+        print: true,
+        download: true,
+        headerFilter: "input",
+      },
+      {
+        title: "Client",
+        field: "TVA_10",
+        minWidth: 100,
+        vertAlign: "middle",
+        print: true,
+        download: true,
+        headerFilter: "input",
+      },
+      {
+        title: "TTC",
+        field: "M_TTC",
+        minWidth: 100,
+        vertAlign: "middle",
+        print: true,
+            download: true,
+      },
+      {
+        title: "TVA",
+        field: "TVA_7",
+        minWidth: 100,
+        vertAlign: "middle",
+        print: true,
+        download: true,
+      },
+      {
+        title: "taux",
+        field: "Taux7",
+        minWidth: 100,
+        vertAlign: "middle",
+        print: true,
+        download: true,
+        headerFilter:"input"
+      },
+      {
+        title: "Mht",
+        minWidth: 100,
+        width: 43,
+        field: "M_HT_7",
+        hozAlign: "center",
+        vertAlign: "middle",
+        print: true,
+        download: true,
+      },
+      {
+        title: "des",
+        minWidth: 100,
+        width: 43,
+        field: "Designation",
+        hozAlign: "center",
+        vertAlign: "middle",
+        print: true,
+            download: true,
+        headerFilter:"input",
+        editor: true,
+      },
+      {
+        title: "Nfact",
+        width: 95,
+        field: "N_facture",
+        vertAlign: "middle",
+        print: true,
+            download: true,
+        editor: true,
+        headerFilter:"input"
+      },
+
+      // For print format
+    ],
+
+    rowDblClick: function (e, row) { },
+  });
+
+  document
+  .getElementById("download-xlsx")
+  .addEventListener("click", function () {
+    table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
+  });
+}
+function viderChamps() {
+  document.getElementById("desc").value = "";
+  document.getElementById("n_fact").value = "";
+  document.getElementById("date_fact").value = "";
+  document.getElementById("date_p").value = "";
+  document.getElementById("MTttc").value = "";
+  document.getElementById("MHT_1").value = "";
+  document.getElementById("taux1").value = "";
+  document.getElementById("tva_1").value = "";
+  document.getElementById("ttc1").value = "";
+  var selectElement = document.getElementById("racine");
+  for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
+
+  document.getElementById("MHT_2").value = "";
+  document.getElementById("tva_2").value = "";
+  document.getElementById("ttc2").value = "";
+  document.getElementById("taux2").value = "";
+  var selectElement = document.getElementById("racine2");
+  for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
+
+  document.getElementById("MHT_3").value = "";
+  document.getElementById("tva_3").value = "";
+  document.getElementById("ttc3").value = "";
+  document.getElementById("taux3").value = "";
+  var selectElement = document.getElementById("racine3");
+  for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
+  document.getElementById("MHT_4").value = "";
+  document.getElementById("tva_4").value = "";
+  document.getElementById("ttc4").value = "";
+  document.getElementById("taux4").value = "";
+
+  var selectElement = document.getElementById("racine4");
+  for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
+  var selectElement = document.getElementById("Client");
+  for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
+  var selectElement = document.getElementById("Mpayement");
+  for (var i = 0; i < selectElement.options.length; i++) {
+    var option = selectElement.options[i];
+    if (option.value == "null") {
+      option.selected = true;
+      break;
+    }
+  }
+  var event = new Event("change");
+  selectElement.dispatchEvent(event);
+
+  document.getElementById('add_vtn').innerHTML='Ajouter ';
+  document.getElementById('header-text').innerHTML="Ajouter Vente";
+  $("#rowracine").css("display", "flex");
+  $("#rowracine3").css("display", "none");
+  $("#rowracine1").css("display", "none");
+  $("#rowracine2").css("display", "none");
+  $("#add-btn").css("display", "inline");
+  $("#add-btn4").css("display", "none");
+}

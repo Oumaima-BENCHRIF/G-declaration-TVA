@@ -210,7 +210,7 @@
                                                     <form id="Delet_Client" name="Delet_Client" action="{{ route('dashboard.DeleteClient') }}" action="" method="post">
                                                     <div class="modal-footer md-button">
                                                         <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> {{__('Annuler')}}</button>
-                                                        <input type="hidden" id="delete_id_Client" name="delete_id_Client">
+                                                        <input type="text" id="delete_id_Client" name="delete_id_Client">
                                                         {{ csrf_field() }}
                                                         <button type="submit" class="btn btn-primary">{{__('! Supprimer')}}</button>
                                                     </div>

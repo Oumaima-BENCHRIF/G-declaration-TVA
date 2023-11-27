@@ -17,9 +17,11 @@ class RacineController extends Controller
     {
  
         try {
+           
             $racine = new racine();
             $racine->Num_racines = $request->input('Num_racines');
             $racine->Nom_racines = $request->input('Nom_racines');
+            $racine->type = $request->input('type');
             $racine->Taux = $request->input('Taux');
             
             $racine->save();
@@ -120,6 +122,7 @@ class RacineController extends Controller
              $update_racine->Taux = $request->Taux;
              $update_racine->Nom_racines = $request->Nom_racines;
              $update_racine->Num_racines = $request->Num_racines;
+             $update_racine->type = $request->type;
  
              $update_racine->save();
  

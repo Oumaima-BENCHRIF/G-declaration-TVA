@@ -49,14 +49,14 @@
                     <a data-active="{{ is_active_route(['apps/Client']) }}" href="{{ url('/apps/Client') }}"> Client </a>
                 </li>
                 <li class=" {{ active_class(['apps/racine']) }}">
-                    <a data-active="{{ is_active_route(['apps/racine']) }}" href="{{ url('/apps/racine') }}"> Racine </a>
+                    <a data-active="{{ is_active_route(['apps/racine']) }}" href="{{ url('/apps/racine') }}"> Rubrique TVA </a>
                 </li>
                 <!-- <li class=" {{ active_class(['apps/Type_payment']) }}">
                     <a data-active="{{ is_active_route(['apps/Type_payment']) }}" href="{{ url('/apps/Type_payment') }}"> Type payment </a>
                 </li> -->
 
                 <li class=" {{ active_class(['apps/compte_charges']) }}">
-                    <a data-active="{{ is_active_route(['apps/compte_charges']) }}" href="{{ url('/apps/compte_charges') }}">Compte charges</a>
+                    <a data-active="{{ is_active_route(['apps/compte_charges']) }}" href="{{ url('/apps/compte_charges') }}">Compte Achats</a>
                 </li>
 
             </ul>
@@ -66,7 +66,7 @@
     
             <div class="">
            
-                    <span>Achats</span>  <i class="las la-home"></i>
+                    <span>Déductions</span>  <i class="las la-home"></i>
                 </div>
                 
             </a>
@@ -94,7 +94,7 @@
     
             <div class="">
            
-                    <span>Vente</span>  <i class="las la-globe-americas"></i>
+                    <span>C.A. imposable</span>  <i class="las la-globe-americas"></i>
                 </div>
                 
             </a>

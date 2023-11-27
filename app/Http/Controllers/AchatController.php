@@ -372,7 +372,9 @@ class AchatController extends Controller
     public function Liste_Racine(Request $request)
     {
         
-        $Liste_Racine = racine::where('racines.deleted_at', '=', NULL)->orderBy("Num_racines", "asc")->get();
+        $Liste_Racine = racine::where('racines.type', 'Achat')
+        ->where('racines.deleted_at', '=', NULL)
+        ->orderBy("Num_racines", "asc")->get();
 
         return response()->json([
             'Liste_Racine' => $Liste_Racine
@@ -423,7 +425,8 @@ class AchatController extends Controller
         return response()->json([
             'get_achat' => $get_achat
         ]);
-    } public function get_TBLachat($periode,$Exercice)
+    } 
+    public function get_TBLachat($periode,$Exercice)
     { 
        
         // $get_TBLachat =achat::select('achats.*','fournisseurs.NICE','fournisseurs.ID_fiscale','fournisseurs.nomFournisseurs','type_payments.Nom_payment')
@@ -434,10 +437,6 @@ class AchatController extends Controller
         // ->where('achats.FK_regime',$periode)
         // ->where('achats.Exercice',$Exercice)
         // ->where('achats.deleted_at', '=', NULL)->get();
-
-
-
-
         $get_TBLachat =achat::select('achats.*','fournisseurs.NICE as NICE','fournisseurs.ID_fiscale as ID_fiscale','fournisseurs.nomFournisseurs as nomFournisseurs','type_payments.Nom_payment as Nom_payment')
         ->join('fournisseurs', 'fournisseurs.id', 'achats.FK_fournisseur')
         ->join('type_payments', 'type_payments.id', 'achats.FK_type_payment')

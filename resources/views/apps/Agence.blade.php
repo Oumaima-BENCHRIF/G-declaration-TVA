@@ -92,9 +92,9 @@
                                                         </div> -->
                                                     </div>
                                                     <div class="col-md-3 mb-3">
-                                                        <label for="nom_succorsale">Nom</label>
+                                                        <label for="nom_succorsale">Raison Sociale</label>
                                                         <input type="text" class="form-control" id="nom_succorsale" name="nom_succorsale"
-                                                            placeholder="Nom Agence" required>
+                                                            placeholder="Raison Sociale" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Nom.
                                                         </div>
@@ -122,26 +122,26 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3 mb-3">
-                                                        <label>code fait generateurs</label>
+                                                        <label>Fait generateur</label>
                                                         <select id="FK_fait_generateurs" name="FK_fait_generateurs" class="form-control select2 py-3" id="FK_fait_generateurs" >
                                                             
                                                         </select>
                                                         
                                                     </div>
                                                     <div class="col-md-3 mb-3">
-                                                        <label for="validationCustom05">ID fiscal</label>
+                                                        <label for="validationCustom05">Identifiant fiscal</label>
                                                         <input type="text" class="form-control" id="ID_Fiscale" name="ID_Fiscale"
-                                                            placeholder="ID fiscal" required>
+                                                            placeholder="Identifiant fiscal" required>
                                                         <div class="invalid-feedback">
-                                                            Please provide a valid ID fiscal.
+                                                            Please provide a valid Identifiant fiscal.
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label for="validationCustom04">Activité</label>
                                                         <input type="text" class="form-control" id="Activite" name="Activite"
-                                                            placeholder="Fax" required>
+                                                            placeholder="Activité" required>
                                                         <div class="invalid-feedback">
-                                                            Please provide a valid Fax.
+                                                            Please provide a valid Activité.
                                                         </div>
                                                     </div>
                                                 </div>
@@ -194,10 +194,11 @@
                                                     
                                                 </div>
                                                 <div class="col-md-3 mb-3 ">  
-                                                <label for="chemain">Chemain</label>
+                                                <label for="chemain">Selectionner le chemin par défaut pour l'exportation de l'EDI/XML</label>
                                                          <input id="Chemain" type="text" class="form-control" name="Chemain"> 
+                                                       
+
                                            </div>
-                                                  
                                                 <div class="col-md-3 mb-3">
                                                         <label for="Email">Email</label>
                                                         <input id="Email" name="Email" type="text" class="form-control" placeholder="Email" >
@@ -209,10 +210,9 @@
                                                 </div>
                                                 <div class="col-md-6 mb-3 pt-3"></div>
                                                 <div class="col-md-3 mb-3 pt-3">
-                                               
                                                 </div>
                                                 </div>
-<!--                                                 
+                                                <!--                                                 
                                                 <div class="col-md-3 mb-3 pt-4">
                                                     </div> -->
                                                 <div id="flex-container">

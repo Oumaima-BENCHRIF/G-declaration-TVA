@@ -37,6 +37,30 @@ $("#Add_Client").on("submit", function (e) {
     });
     
   });
+  $("#Delet_Client").on("submit", function (e) {
+    e.preventDefault();
+    var $this = jQuery(this);
+    var formData = jQuery($this).serializeArray();
+    jQuery.ajax({
+      url: $this.attr("action"),
+      type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+      data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+      // dataFilter: 'json', //forme data
+      success: function (response) {
+        // Je récupère la réponse du fichier PHP
+        toastr.options = {
+          progressBar: true,
+          closeButton: true,
+        };
+        toastr.success(response.message, { timeOut: 12000 });
+        jQuery("#delet_Client").trigger("click");
+        table_Client();
+      },
+      error: function (response) {
+        toastr.error(response.danger);
+      },
+    });
+  });
   function table_Client() {
 
     jQuery.ajax({
@@ -80,7 +104,6 @@ $("#Add_Client").on("submit", function (e) {
           },
   
           columns: [
-            
             {
               title: "Action",
               width:90,
@@ -93,11 +116,10 @@ $("#Add_Client").on("submit", function (e) {
   
               formatter(cell, formatterParams) {
                 let a = $(`<div class="flex lg:justify-center items-center">
-                                        
                                               <a  class="edit lex items-center text-success   mr-3" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#update-confirmation-modal">
                                               <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
                                           </a>
-                                          <a  class="mb-2 mr-2 delete" data-toggle="modal" data-target="#delet_fournisseur">
+                                          <a  class="mb-2 mr-2 delete" data-toggle="modal" data-target="#delet_Client">
                                           <i class="lar la-trash-alt text-danger font-20 mr-2"></i>
                                           </a>            
                               </div>`);
@@ -112,11 +134,11 @@ $("#Add_Client").on("submit", function (e) {
                       // dataFilter: 'json', //forme data
                       success: function (responce) {
                         jQuery.each(
-                          responce.info_fournisseur,
+                          responce.info_Client,
                           function (key, item) {
                             document.getElementById(
                               "delete_id_Client"
-                            ).value = item.id;
+                            ).value = responce.info_Client.id;
                           }
                         );
                       },
@@ -142,7 +164,7 @@ $("#Add_Client").on("submit", function (e) {
                             console.log(responce.info_Client)
                             document.getElementById(
                               "update_id_Client"
-                            ).value = item.id;
+                            ).value = responce.info_Client.id;
                             document.getElementById("nomClient").value =
                             responce.info_Client.nom;
                             document.getElementById("Designation").value =
@@ -247,7 +269,7 @@ $("#Add_Client").on("submit", function (e) {
       { name: "ville", value: ville },
       { name: "update_id_Client", value: update_id_Client }
     );
-  
+  console.log(formData);
     jQuery.ajax({
       headers: {
         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -258,10 +280,21 @@ $("#Add_Client").on("submit", function (e) {
       success: function (response) {
         // Je récupère la réponse du fichier PHP
         toastr.success(response.messages);
-        // table_fournisseur();
+        table_Client();
+        viderchamp();
+        document.getElementById("Update").style.display = "none";
+        document.getElementById("Enregistrer").style.display = "initial";
       },
       error: function (response) {
         toastr.error(response.Error);
       },
     });
+  }
+  function viderchamp() {
+    document.getElementById("nomClient").value = "";
+    document.getElementById("Designation").value = "";
+    document.getElementById("Adresse").value = "";
+    document.getElementById("telephone").value = "";
+    document.getElementById("ville").value = "";
+    document.getElementById("update_id_Client").value = "";
   }

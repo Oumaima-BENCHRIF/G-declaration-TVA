@@ -262,7 +262,6 @@ $(document).ready(function () {
   $('#racine4').on('select2:select', function (e) {
     tauxRacine4();
   });
-
   $('#periode').on('select2:select', function (e) {
     get_table();
   });
@@ -745,6 +744,12 @@ $("#ajou").on("click", function (e) {
   $("#rowracine3").css("display", "none");
   $("#rowracine1").css("display", "none");
   $("#rowracine2").css("display", "none");
+  $("#ttc1").prop("required", true);
+        $("#tva_1").prop("required", true);
+        $("#MHT_1").prop("required", true);
+});
+$("#renitialiser").on("click", function (e) {
+ viderChamps();
 });
 $("#impo_Excel").on("submit", function (e) {
   // e.preventDefault();
@@ -786,8 +791,6 @@ $("#impo_Excel").on("submit", function (e) {
   // });
 
 });
-
-
 });
 document.addEventListener("DOMContentLoaded", function () {
   var radioButtons = document.querySelectorAll("input[name='radios5']");
@@ -1992,6 +1995,7 @@ function dataTable($tabledata)
     pagination: "local",
     printHeader: "",
     printFooter: "",
+    height:"580px",
     paginationSize: 20,
     paginationSizeSelector: [40, 45, 50, 55],
     placeholder: "No matching records found",
@@ -2694,7 +2698,7 @@ function viderChamps() {
 
   document.getElementById('add_ach').innerHTML='Ajouter ';
   document.getElementById('header-text').innerHTML="Ajouter Achat";
-
+  $("#rowracine").css("display", "inline");
   $("#rowracine3").css("display", "none");
   $("#rowracine1").css("display", "none");
   $("#rowracine2").css("display", "none");
@@ -2713,7 +2717,11 @@ function  Sum_Par_jour()
   var Mp = $("#Mpayement").find(':selected').text();
   
    if(Mp.includes('espèces'))
-   {
+   { if(date_fact!=='' && frs!='null'){
+    if($("#MTttc").val()>parseFloat(5000))
+    { 
+      alert("Attention vous avez dépassé le plafond de 5000,00 DH TTC par jour des dépenses en espéces admises en déduction");
+    }else{
     if(date_fact!=='' && frs!='null'){
       jQuery.ajax({
         url: "./TTC_JOUR/" + date_fact +"/"+frs,
@@ -2722,16 +2730,16 @@ function  Sum_Par_jour()
         success: function (responce) {
           // console.log(responce.ttc.MTTC);
          if(parseFloat(responce.ttc.MTTC)>parseFloat(5000)){
-          var confirmation = confirm("Attention vous avez dépassé le plafond de 5000,00 DH TTC par jour des dépenses en espéces admises en déduction : Voulez_Vous Continuer ?");
+         alert("Attention vous avez dépassé le plafond de 5000,00 DH TTC par jour des dépenses en espéces admises en déduction");
          
 
          }
         },
       });
-    }
+    }}
    }
   
- 
+  }
 }
 function  Sum_Par_MOIS()
 {
@@ -2742,19 +2750,25 @@ function  Sum_Par_MOIS()
    if(Mp.includes('espèces'))
    {
     if(date_fact!=='' && frs!='null'){
-      jQuery.ajax({
-        url: "./TTC_MOIS/" + date_fact +"/"+frs,
-        type: "GET",
-        dataType: "json",
-        success: function (responce) {
-          // console.log(responce.ttc.MTTC);
-         if(parseFloat(responce.ttc.MTTC)>parseFloat(50000)){
-          var confirmation = confirm("Attention vous avez dépassé le plafond de 50000,00 DH TTC par MOIS des dépenses en espéces admises en déduction : Voulez_Vous Continuer ?");
-         
-
-         }
-        },
-      });
+      if($("#MTttc").val()>parseFloat(50000))
+      { 
+        alert("Attention vous avez dépassé le plafond de 50000,00 DH TTC par MOIS des dépenses en espéces admises en déduction");
+      }else{
+        jQuery.ajax({
+          url: "./TTC_MOIS/" + date_fact +"/"+frs,
+          type: "GET",
+          dataType: "json",
+          success: function (responce) {
+            // console.log(responce.ttc.MTTC);
+           if(parseFloat(responce.ttc.MTTC)>parseFloat(50000)){
+           alert("Attention vous avez dépassé le plafond de 50000,00 DH TTC par MOIS des dépenses en espéces admises en déduction");
+           
+  
+           }
+          },
+        });
+      }
+     
     }
    }
   

@@ -41,7 +41,7 @@
                     <nav class="breadcrumb-one" aria-label="breadcrumb">
                         <ol class="breadcrumb">
 
-                            <li class="breadcrumb-item active" aria-current="page"><span> Racine</span></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span> Rubrique TVA</span></li>
                         </ol>
                     </nav>
                 </div>
@@ -62,7 +62,7 @@
                                 <div class="widget-header">
                                     <div class="row">
                                         <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                            <h4>Gestion Rcine</h4>
+                                            <h4>Gestion Rubrique TVA</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -85,20 +85,35 @@
                                                     </div>
                                                     <div class="col-md-4 mb-4">
 
-                                                        <label for="Num_racines">Code Racine</label>
+                                                        <label for="Num_racines">Code Rubrique TVA</label>
                                                         <input type="text" class="form-control" id="Num_racines" name="Num_racines"
                                                             placeholder="Code Racine" required>
                                                         <div class="valid-feedback">  Success! </div>
                                                     </div>
                                                 </div>
-                                                <div id="flex-container">
+                                                <div id="form-row " style="display: flex;">
+                                              
+                                                
+                                                    <div class="col-md-4 mb-4" style="text-align: right;">
                                                     <button class="btn btn-primary mt-3"  id="Enregistrer" name="Enregistrer"  type="submit"><i class="las la-check-double"></i>Enregistrer</button>
-                                                    <!-- <button onclick=" viderchamp()" id="Nouveau" name="Nouveau"  type="button" class="btn btn-soft-primary  mt-3 ml-2"><i
-                                                    class="las la-info-circle"></i>Nouveau</button> -->
+                                             
+                                                    <button class="btn btn btn-secondary mt-3" type="button"  id="Update" name="Update" onclick="update_Racine()"><i class="las la-edit"></i>Update</button>
                                                 </div>
+                                                <div class="col-md-4 mb-4"></div>
+                                                <div class="col-md-4 mb-4">
+                                                    
+                                                    <label for="Num_racines">type</label>
+                                                    <select class="form-control select2 py-3" id="type"
+                                                                        name="type" required >
+                                                                        <option>Achat</option>
+                                                                        <option>Vente</option>
+                                                       </select>
+                                                    </div>
+                                            </div>
                                                 <input type="hidden" name="update_id_racine" id="update_id_racine">
+                                                
                                             </form>
-                                            <button class="btn btn btn-secondary mt-3" type="button"  id="Update" name="Update" onclick="update_Racine()"><i class="las la-edit"></i>Update</button>
+                                           
 
                                         </div>
                                     </div>

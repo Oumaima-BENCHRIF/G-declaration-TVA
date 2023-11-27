@@ -84,6 +84,16 @@
 .h-col {
     height: 11%;
 }
+.fixed-div {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      width: 93%;
+      background-color: #f1f1f1;
+      padding: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000; /* Ensure it's above other content */
+    }
 </style>
 
 <div class="sub-header-container">
@@ -91,7 +101,7 @@
 </div>
 
 <div class="layout-px-spacing">
-    <div class="layout-top-spacing mb-2">
+    <div class=" mb-2">
         <div class="col-md-12">
             <div class="row">
                 <div class="container-flex w-100">
@@ -111,7 +121,7 @@
                                                                     href="javascript:void(0);">Gestion des factures
                                                                     d'achat</a></li>
                                                             <li class="breadcrumb-item active" aria-current="page">
-                                                                <span>Gestion des factures d'achat</span>
+                                                                <span>VENTILATION DES DEDUCTIONS</span>
                                                             </li>
                                                         </ol>
                                                     </nav>
@@ -127,108 +137,60 @@
                                     novalidate action="javascript:void(0);">
                                     @csrf
                                     <div
-                                        class="widget-content widget-content-area br-color border border-light p-0 m-3">
+                                        class="widget-content widget-content-area br-color border border-light p-0 mx-3 ">
                                         <div class="form-group row">
                                             <div class="col-lg-12 col-md-12 col-sm-12">
 
-                                                <div class="form-row  pt-5 rounded mb-3 mb-md-0">
-                                                    <div class="col-md-4 mb-4">
+                                                <div class="form-row  pt-2 rounded mb-3 mb-md-0">
+                                                    <div class="col-md-4 ">
 
                                                     </div>
-                                                    <div class="col-md-1 mb-4">
+                                                    <div class="col-md-1 ">
 
                                                         <input type="hidden" id="id_achat" name="id_achat">
 
                                                     </div>
-                                                    <div class="col-md-1 mb-4">
+                                                    <div class="col-md-1 ">
                                                         <select class="form-control select2 py-3" required=""
                                                             id="periode" name="periode">
 
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-1 mb-4 text-center">
+                                                    <div class="col-md-1  text-center">
                                                         <th scope="row" colspan="3" class="text-right"> : Période</th>
                                                     </div>
-                                                    <div class="col-md-1 mb-4">
+                                                    <div class="col-md-1 ">
                                                         <input type="number" min="1" value="2" id="faitG" name="faitG"
                                                             class="form-control" disabled placeholder="Qty"
                                                             style="width: 90px;">
                                                     </div>
-                                                    <div class="col-md-2 mb-4 text-center">
+                                                    <div class="col-md-2  text-center">
 
                                                         <th scope="row" colspan="3" class="text-right"> : Fait
                                                             générateur</th>
                                                     </div>
 
-                                                    <div class="col-md-1 mb-4">
+                                                    <div class="col-md-1 ">
                                                         <select class="form-control select2 py-3" id="Exercice"
                                                             name="Exercice">
 
 
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-1 mb-4 text-center">
+                                                    <div class="col-md-1  text-center">
                                                         <th scope="row" colspan="3" class="text-right"> : Année</th>
-
                                                     </div>
                                                 </div>
-
-
-
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Debut tableau -->
                                     <div class="layout-px-spacing">
-                                        <div class="layout-top-spacing mb-2">
+                                        <div class=" mb-2">
                                             <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <button type="button"
-                                                            class="dt-button buttons-excel buttons-html5 btn "
-                                                            id="vider" style="background-color:#eb4949; color:#f0f6ff"
-                                                            data-toggle="modal"
-                                                            data-target="#delet_All_table">Vider</button> <button
-                                                            type="button" class="btn btn-sm btn-primary "
-                                                            data-toggle="modal" data-target=".bd-example-modal-lg"
-                                                            id="ajou">Ajouter</button>
-                                                        <label for="file-upload" class="custom-file-upload ">
-                                                            <a title="Attach a file"
-                                                                class="dt-button buttons-print btn btn-soft-info  mr-2   pointer ">
-                                                                Importer
-                                                            </a>
-                                                        </label>
-                                                        <input id="file-upload" name="upload_cont_img" type="file"
-                                                            style="display:none;">
-                                                        <button type="button" class="btn btn-primary"
-                                                            data-toggle="modal" data-target=".bd-impo">impo</button>
-
-                                                    </div>
-
-                                                    <div class="col-md-6 " style="text-align: end;">
-                                                        <button type="submit" class=" btn "
-                                                            style="background-color: #e2a03f;color: #f0f6ff;">
-                                                            XML</button>
-                                                        <a id="achat_pdf"
-                                                            style="background-color: cadetblue; color: #f0f6ff;"
-                                                            class="btn ">Relevé déduction</a>
-                                                        <button id="download-xlsx"
-                                                            style="background-color: #e2a03f;color: #f0f6ff;"
-                                                            class="btn">Excel</button>
-                                                    </div>
-                                                </div>
-                                                <div class="justify-content-end">
-
-
-
-                                                    <!-- onclick="generation_XML()" -->
-
-
-
-
-
-                                                </div>
+                                                
+                                            
                                                 <div class="row">
                                                     <div class="w-100 p-0">
                                                         <div class="row layout-top-spacing date-table-container">
@@ -255,7 +217,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class=" row Total d-flex">
+                                                
+                                                <div class="row d-block mt-5 fixed-div">
+                                                 <div class=" row Total d-flex mb-3 " style="width: 100%;
+                                                   padding-left: 8%;">
                                                     <div class="col-md-2 ">
                                                         <div class="pl-2 border border-warning roun" id="totalTTC">
                                                         </div>
@@ -280,6 +245,38 @@
                                                         <div class="roun"
                                                             style="background-color: cadetblue; color:#f0f6ff;">: Total
                                                             HT</div>
+                                                    </div>
+                                                 </div>
+                                                
+                                                    <div class="col-md-12">
+                                                        <button type="button"
+                                                            class="dt-button buttons-excel buttons-html5 btn  "
+                                                            id="vider" style="background-color:#eb4949; color:#f0f6ff; width:15%;    border-radius: 50%; font-size: 12px;"
+                                                            data-toggle="modal"
+                                                            data-target="#delet_All_table">Vider</button> <button
+                                                            type="button" class="btn btn-sm btn-primary ml-2" style="width: 15%;    border-radius: 50%; font-size: 12px;"
+                                                            data-toggle="modal" data-target=".bd-example-modal-lg"
+                                                            id="ajou"  >Ajouter</button>
+                                                        <!-- <label for="file-upload" class="custom-file-upload ">
+                                                            <a title="Attach a file"
+                                                                class="dt-button buttons-print btn btn-soft-info  mr-2   pointer ">
+                                                                Importer
+                                                            </a>
+                                                        </label> -->
+                                                        <input id="file-upload" name="upload_cont_img" type="file"
+                                                            style="display:none;">
+                                                        <button type="button" class="btn btn-primary ml-2"
+                                                            data-toggle="modal" data-target=".bd-impo" style="width:15%;font-size: 12px; border-radius: 50%;">Import des déductions</button>
+
+                                                        <button type="submit" class=" btn ml-2"
+                                                            style="background-color: #e2a03f;color: #f0f6ff; width: 15%; font-size: 12px;    border-radius: 50%;">
+                                                            XML</button>
+                                                        <a id="achat_pdf"
+                                                            style="background-color: cadetblue; color: #f0f6ff; width: 15%; font-size: 12px; border-radius: 50%;"
+                                                            class="btn ml-2">Relevé des déductions</a>
+                                                        <button id="download-xlsx"
+                                                            style="background-color: #e2a03f;color: #f0f6ff; width: 15%; font-size: 12px; border-radius: 50%;"
+                                                            class="btn ml-2">Export des déductions</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -307,8 +304,7 @@
                                                     aria-label="Close">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
-                                                <h5 class="modal-title" id="header-text">Ajouter
-                                                    Achat</h5>
+                                                <h5 class="modal-title" id="header-text">VENTILATION DES DEDUCTIONS</h5>
 
                                             </div>
                                             <form method="POST" id="Add_Achat"
@@ -372,9 +368,9 @@
 
                                                             </div>
                                                             <div class="col-md-6 mb-3">
-                                                                <label for="validationCustom03">N°Comptable</label>
+                                                                <label for="validationCustom03">N° Compte FRS</label>
                                                                 <input type="text" class="form-control" id="n_compt"
-                                                                    name="n_compt" placeholder=" N° Comptable"
+                                                                    name="n_compt" placeholder="N° Compte FRS"
                                                                     tabindex="4" readonly>
                                                                 <div class="invalid-feedback">
                                                                     Please provide a valid n_comptable.
@@ -415,7 +411,7 @@
 
                                                             </div>
                                                             <div class="col-md-6 mb-3">
-                                                                <label for="validationCustom03">Compte charge</label>
+                                                                <label for="validationCustom03">N° Compte Achat</label>
                                                                 <select class="form-control select2 py-3" id="charge"
                                                                     name="charge" required tabindex="9">
                                                                 </select>
@@ -463,14 +459,10 @@
                                                                             <input type="radio" name="radios5"
                                                                                 checked="checked" id="LIBRE">
                                                                             <span></span>LIBRE</label>
-
-
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
-
                                                         <div class="row border border-light p-2 m-1"
                                                             style="width: 80%;height:100%;  background: #f0f6ff;" id="container">
                                                             <div class="row" style="width: -webkit-fill-available; display: inherit; height:20%;">
@@ -492,13 +484,13 @@
                                                                     
                                                                     <input type="text" class="form-control h-col"
                                                                         id="ttc1" onblur="calcul_ttc1()" name="ttc1"
-                                                                        placeholder="TTC LINE 1" required>
+                                                                        placeholder="TTC LINE 1" >
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     
                                                                     <input type="text" onblur="calcul_tva()"
                                                                         class="form-control h-col" id="tva_1"
-                                                                        name="tva_1" placeholder="TVA" required>
+                                                                        name="tva_1" placeholder="TVA" >
                                                                 </div>
                                                                 <div class="col-md-2 mb-3  d-none">
                                                                     <label for="validationCustom03">TVA</label>
@@ -509,7 +501,7 @@
                                                                     
                                                                     <input type="text" class="form-control h-col"
                                                                         id="MHT_1" name="MHT_1" onblur="calcul_HT()"
-                                                                        placeholder="MT HT" required>
+                                                                        placeholder="MT HT" >
 
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
@@ -662,13 +654,19 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer d-block">
-
+                                                <div class="modal-footer row ">
+                                                   <div class="col-md-6 m-0">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                                         id="close">QUITTER</button>
                                                     <button type="submit" id="add_ach"
                                                         class="btn btn-primary">Ajouter</button>
+                                                        
                                                     <a class="btn btn-primary" id="update">modifier</a>
+                                                    </div>
+                                                    <div class="col-md-6 m-0 " style="text-align: end;">
+                                                    <button type="button" id="renitialiser"
+                                                        class="btn btn-danger">Réinitialiser</button>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -750,7 +748,7 @@
                                                 aria-label="Close">
                                                 <span aria-hidden="true">×</span>
                                             </button>
-                                            <h5 class="modal-title" id="header-text">Importer</h5>
+                                            <h5 class="modal-title" id="header-text">Paramétrage d'import</h5>
 
 
                                         </div>

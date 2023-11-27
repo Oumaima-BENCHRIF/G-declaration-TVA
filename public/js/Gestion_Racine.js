@@ -65,11 +65,13 @@ function update_Racine() {
   var Taux = $("#Taux").val();
   var Nom_racines = $("#Nom_racines").val();
   var Num_racines = $("#Num_racines").val();
+  var type = $("#type").val();
   var update_id_racine = $("#update_id_racine").val();
   formData.push(
     { name: "Taux", value: Taux },
     { name: "Nom_racines", value: Nom_racines },
     { name: "Num_racines", value: Num_racines },
+    { name: "type", value: type },
     { name: "update_id_racine", value: update_id_racine }
   );
 
@@ -136,7 +138,7 @@ function table_racine() {
         columns: [
           {
             title: "Action",
-            minWidth: 90,
+            minWidth: 70,
             field: "actions",
             responsive: 1,
             hozAlign: "center",
@@ -203,9 +205,17 @@ function table_racine() {
             },
           },
           {
+            title: "Type",
+            field: "type",
+            minWidth: 80,
+            vertAlign: "middle",
+            // print: false,
+            // download: false,
+          },
+          {
             title: "Taux",
             field: "Taux",
-            minWidth: 100,
+            minWidth: 80,
             vertAlign: "middle",
             // print: false,
             // download: false,
@@ -219,8 +229,8 @@ function table_racine() {
             // download: false,
           },
           {
-            title: "Code racines",
-            width: 110,
+            title: "Code  Rubrique TVA",
+            minWidth: 80,
             field: "Num_racines",
             vertAlign: "middle",
             // print: false,
