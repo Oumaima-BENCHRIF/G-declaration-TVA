@@ -2364,7 +2364,7 @@ function dataTable($tabledata) {
         table.download("xlsx", "Excel_0" + responce.periode + "_0" + responce.regime+"_"+responce.code_agence+ ".xlsx", {
           sheetName: "My Data",
         });
-        
+       
         table = [];
        },
     });

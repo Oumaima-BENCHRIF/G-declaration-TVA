@@ -13,27 +13,77 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
     integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet"> <script
-    type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"> </script>
+<link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"> </script>
 
-<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script> <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script> <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script> @endpush
-    @section('content') <style> .select2-container { display: block; } .table> thead > tr > th { font-size: 10px
-    !important; } .table> tbody > tr > td { font-size: 13px !important; } [type=search] { padding: 0px !important;
-    border: none !important; } .tabulator.tabulator-rtl .tabulator-header .tabulator-col.tabulator-sortable
-    .tabulator-col-title { padding-right: 0; font-size: 10px; padding-left: 0px; } .tabulator.tabulator-rtl
-    .tabulator-row .tabulator-cell { font-size: 10px !important; } .add{ color: #0052BF; font: bold 1.4em/1.65 Arial;
-    border: 0; background: none; box-shadow: 0 0 0 2px inset currentColor; border-radius: 50%; width: 1.65em; height:
-    1.65em; cursor: pointer; outline: none; transition: .1s ease-out; margin: 0 0 0 5px; vertical-align: top; }
-    .col-add{ text-align: center; } .Total{ float: inline-end; width: inherit; text-align: center; } .roun{
-    border-radius: 10px; } </style>
+@section('content') <style>
+    .select2-container {
+        display: block;
+    }
+
+    .table>thead>tr>th {
+        font-size: 10px !important;
+    }
+
+    .table>tbody>tr>td {
+        font-size: 13px !important;
+    }
+
+    [type=search] {
+        padding: 0px !important;
+        border: none !important;
+    }
+
+    .tabulator.tabulator-rtl .tabulator-header .tabulator-col.tabulator-sortable .tabulator-col-title {
+        padding-right: 0;
+        font-size: 10px;
+        padding-left: 0px;
+    }
+
+    .tabulator.tabulator-rtl .tabulator-row .tabulator-cell {
+        font-size: 10px !important;
+    }
+
+    .add {
+        color: #0052BF;
+        font: bold 1.4em/1.65 Arial;
+        border: 0;
+        background: none;
+        box-shadow: 0 0 0 2px inset currentColor;
+        border-radius: 50%;
+        width: 1.65em;
+        height:
+            1.65em;
+        cursor: pointer;
+        outline: none;
+        transition: .1s ease-out;
+        margin: 0 0 0 5px;
+        vertical-align: top;
+    }
+
+    .col-add {
+        text-align: center;
+    }
+
+    .Total {
+        float: inline-end;
+        width: inherit;
+        text-align: center;
+    }
+
+    .roun {
+        border-radius: 10px;
+    }
+</style>
 
 <div class="sub-header-container">
-  
+
 </div>
- 
+
 <div class="layout-px-spacing">
     <div class="layout-top-spacing mb-2">
         <div class="col-md-12">
@@ -42,7 +92,7 @@
                     <div class="row layout-top-spacing">
                         <div class="col-lg-12 layout-spacing">
                             <div class="statbox widget box box-shadow mb-4">
-                                
+
                                 <div class="sub-header-container">
                                     <header class="header navbar navbar-expand-sm">
 
@@ -157,9 +207,9 @@
                                                         <a id="achat_pdf"
                                                             style="background-color: cadetblue; color: #f0f6ff;"
                                                             class="btn ">Relevé déduction</a>
-                                                        <a  id="download-xlsx" type="submit"
+                                                        <a id="download-xlsx" type="submit"
                                                             style="background-color: #e2a03f;color: #f0f6ff;"
-                                                            class="btn" >Excel</a >
+                                                            class="btn">Excel</a>
                                                     </div>
                                                 </div>
                                                 <div class="justify-content-end">
@@ -335,16 +385,8 @@
                                                                 </select>
 
                                                             </div>
-                                                            <div class="col-md-6 mb-3">
-                                                                <label for="validationCustom03">date payement</label>
-                                                                <input class="form-control" onblur="checkDate()"
-                                                                    style="text-align: start" type="date" id="date_p"
-                                                                    name="date_p" required tabindex="8">
-                                                                <div class="invalid-feedback">
-                                                                    Please provide a valid date payement.
-                                                                </div>
-                                                            </div>
-
+                                                             <div class="col-md-6 mb-3"></div>
+                                                           
 
                                                         </div>
                                                         <div class="row">
@@ -356,7 +398,7 @@
                                                             </div>
                                                             <div class="col-md-4 mb-3 d-none">
                                                                 <label for="validationCustom03"> % Prorata</label>
-                                                               
+
                                                             </div>
                                                             <div class="col-md-6 mb-3">
                                                                 <label for="validationCustom03">Compte charge</label>
@@ -386,12 +428,14 @@
                                                                 <div class="col-9 col-form-label">
                                                                     <div class="radio-inline ">
                                                                         <div class="">
-                                                                        <label >%Prorata</label>
-                                                                        <input type="text" onblur="tva_didu()" id="prorata" name="prorata" class="form-control py-0 h-col pr-0">
-                                                                       
+                                                                            <label>%Prorata</label>
+                                                                            <input type="text" onblur="tva_didu()"
+                                                                                id="prorata" name="prorata"
+                                                                                class="form-control py-0 h-col pr-0">
+
                                                                         </div>
-                                                                        
-                                                                    <span>: Saisie</span>
+
+                                                                        <span>: Saisie</span>
                                                                         <label class="radio radio-success d-flex">
                                                                             <input type="radio" name="radios5" id="HT">
                                                                             <span></span>HT</label>
@@ -406,13 +450,13 @@
                                                                                 checked="checked" id="LIBRE">
                                                                             <span></span>LIBRE</label>
 
-                                                                        
+
                                                                     </div>
                                                                 </div>
                                                             </div>
 
                                                         </div>
-                                                        
+
                                                         <div class="row border border-light p-2 m-1"
                                                             style="width: 80%;   background: #f0f6ff;" id="container">
                                                             <div></div>
@@ -426,33 +470,33 @@
                                                                 <div class="col-md-2 mb-3 ">
                                                                     <label for="validationCustom03">TTC
                                                                         LINE 1</label>
-                                                                    <input type="text" class="form-control h-col" id="ttc1"
-                                                                        onblur="calcul_ttc1()" name="ttc1"
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="ttc1" onblur="calcul_ttc1()" name="ttc1"
                                                                         placeholder="TTC LINE 1" required>
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label for="validationCustom03">TVA</label>
                                                                     <input type="text" onblur="calcul_tva()"
-                                                                        class="form-control h-col" id="tva_1" name="tva_1"
-                                                                        placeholder="TVA" required>
+                                                                        class="form-control h-col" id="tva_1"
+                                                                        name="tva_1" placeholder="TVA" required>
                                                                 </div>
                                                                 <div class="col-md-2 mb-3  d-none">
                                                                     <label for="validationCustom03">TVA</label>
-                                                                    <input type="text" class="form-control h-col" id="tva_d1"
-                                                                        name="tva_d1" placeholder="TVA">
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="tva_d1" name="tva_d1" placeholder="TVA">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
                                                                     <label>MT HT</label>
-                                                                    <input type="text" class="form-control h-col" id="MHT_1"
-                                                                        name="MHT_1" onblur="calcul_HT()"
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="MHT_1" name="MHT_1" onblur="calcul_HT()"
                                                                         placeholder="MT HT" required>
 
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
 
                                                                     <label for="taux1"> % Taux </label>
-                                                                    <input type="text" class="form-control h-col" id="taux1"
-                                                                        name="taux1" placeholder="" readonly>
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="taux1" name="taux1" placeholder="" readonly>
                                                                 </div>
 
                                                                 <div class="col-md-4 mb-3" id="colracine">
@@ -471,8 +515,8 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 ">
 
-                                                                    <input type="text" class="form-control h-col" id="ttc2"
-                                                                        name="ttc2" onblur="calcul_ttc2()"
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="ttc2" name="ttc2" onblur="calcul_ttc2()"
                                                                         placeholder="TTC LINE 2">
                                                                 </div>
 
@@ -484,8 +528,8 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
                                                                     <label for="validationCustom03">TVA</label>
-                                                                    <input type="text" class="form-control h-col" id="tva_d2"
-                                                                        name="tva_d2" placeholder="TVA">
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="tva_d2" name="tva_d2" placeholder="TVA">
                                                                 </div>
 
                                                                 <div class="col-md-2 mb-3">
@@ -496,8 +540,8 @@
 
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
-                                                                    <input type="text" class="form-control h-col" id="taux2"
-                                                                        name="taux2" placeholder="" readonly>
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="taux2" name="taux2" placeholder="" readonly>
                                                                 </div>
 
                                                                 <div class="col-md-4 mb-3">
@@ -516,8 +560,8 @@
                                                                         class="add ">+</button>
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 ">
-                                                                    <input type="text" class="form-control h-col" id="ttc3"
-                                                                        name="ttc3" onblur="calcul_ttc3()"
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="ttc3" name="ttc3" onblur="calcul_ttc3()"
                                                                         placeholder="TTC LINE 3">
                                                                 </div>
 
@@ -528,18 +572,18 @@
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
                                                                     <label for="validationCustom03">TVA</label>
-                                                                    <input type="text" class="form-control h-col" id="tva_d3"
-                                                                        name="tva_d3" placeholder="TVA">
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="tva_d3" name="tva_d3" placeholder="TVA">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
-                                                                    <input type="text" class="form-control h-col" id="MHT_3"
-                                                                        onblur="calcul_HT3()" name="MHT_3"
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="MHT_3" onblur="calcul_HT3()" name="MHT_3"
                                                                         placeholder="MT HT">
 
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
-                                                                    <input type="text" class="form-control h-col" id="taux3"
-                                                                        name="taux3" placeholder="" readonly>
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="taux3" name="taux3" placeholder="" readonly>
                                                                 </div>
 
                                                                 <div class="col-md-4 mb-3">
@@ -560,8 +604,8 @@
                                                                 </div>
 
                                                                 <div class="col-md-2 mb-3">
-                                                                    <input type="text" class="form-control h-col" id="ttc4"
-                                                                        name="ttc4" onblur="calcul_ttc4()"
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="ttc4" name="ttc4" onblur="calcul_ttc4()"
                                                                         placeholder="TTC LINE 4">
                                                                 </div>
 
@@ -571,18 +615,18 @@
                                                                         placeholder="TVA">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
-                                                                    <input type="text" class="form-control h-col" id="tva_d4"
-                                                                        name="tva_d4" placeholder="TVA">
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="tva_d4" name="tva_d4" placeholder="TVA">
                                                                 </div>
                                                                 <div class="col-md-2 mb-3">
-                                                                    <input type="text" class="form-control h-col" id="MHT_4"
-                                                                        name="MHT_4" onblur="calcul_HT4()"
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="MHT_4" name="MHT_4" onblur="calcul_HT4()"
                                                                         placeholder="MT HT">
 
                                                                 </div>
                                                                 <div class="col-md-2 mb-3 d-none">
-                                                                    <input type="text" class="form-control h-col" id="taux4"
-                                                                        placeholder="" readonly>
+                                                                    <input type="text" class="form-control h-col"
+                                                                        id="taux4" placeholder="" readonly>
                                                                 </div>
 
                                                                 <div class="col-md-4 mb-3">
@@ -691,10 +735,10 @@
                                         <form method="POST" id="importation_Achat_Excel" action="">
                                             @csrf
                                             <div class="modal-body " id="mymodel" style="text-align: end;">
- 
-                                                    </div>
-                                                    
-                                                    <div class="modal-body " id="mymodel" style="text-align: end;">
+
+                                            </div>
+
+                                            <div class="modal-body " id="mymodel" style="text-align: end;">
 
 
 
@@ -709,22 +753,16 @@
                                                         style="    background: #f0f6ff;">
                                                         <div class="row" id="rowracine"
                                                             style="width:-webkit-fill-available">
- 
 
-                                                            <div class="col-md-2 mb-3 ">
-                                                                <label for="Date_payement">Date payement</label>
-                                                                <input type="number" class="form-control"
-                                                                    id="Date_payement" name="Date_payement" 
-                                                                    placeholder="Date payement">
 
-                                                            </div>
+                                                              <div class="col-md-2 mb-3 "></div>
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="TVA_deductible_">TVA déductible</label>
                                                                 <input type="number" class="form-control"
                                                                     id="TVA_deductible_" name="TVA_deductible_"
                                                                     placeholder="TVA déductible">
                                                             </div>
-                                                         
+
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="validationCustom03">Mode payement</label>
                                                                 <input type="number" class="form-control" id="mode_p"
@@ -751,19 +789,15 @@
                                                                 <label for="Date_facture">Date facture</label>
                                                                 <input type="number" class="form-control"
                                                                     id="Date_facture" name="Date_facture"
-                                                                    placeholder="Date_facture">
+                                                                    placeholder="Date facture">
                                                             </div>
 
                                                         </div>
                                                         <!--  -->
                                                         <div class="row" id="rowracine1"
                                                             style="width: -webkit-fill-available">
-
-                                                            <div class="col-md-2 mb-3 ">
-                                                                <label for="ID_fiscale">ID fiscale</label>
-                                                                <input type="number" class="form-control" id="ID_fiscale"
-                                                                    name="ID_fiscale" placeholder="ID fiscale">
-                                                            </div>
+                                                                <div class="col-md-2 mb-3 "></div>
+                                                            
 
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="ICE">ICE</label>
@@ -797,28 +831,37 @@
 
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="Compte_frs_">Compte FRS</label>
-                                                                <input type="number" class="form-control" id="Compte_frs_"
-                                                                    name="Compte_frs_" placeholder="Compte frs">
+                                                                <input type="number" class="form-control"
+                                                                    id="Compte_frs_" name="Compte_frs_"
+                                                                    placeholder="Compte frs">
                                                             </div>
 
                                                         </div>
                                                         <div class="row" id="rowracine2"
                                                             style="width:-webkit-fill-available">
                                                             <div class="col-md-2 mb-3"></div>
-                                                            <div class="col-md-2 mb-3"></div>
-                                                         
-                                                            <!-- <div class="col-md-2 mb-3 ">
-                                                                <label for="Compte_frs_">Compte FRS</label>
-                                                                <input type="number" class="form-control" id="Compte_frs_"
-                                                                    name="Compte_frs_" placeholder="Compte frs">
-                                                            </div> -->
 
-                                                            <div class="col-md-2 mb-3 "> 
+                                                          <div class="col-md-2 mb-3 ">
+                                                                <label for="ID_fiscale">ID fiscale</label>
+                                                                <input type="number" class="form-control"
+                                                                    id="ID_fiscale" name="ID_fiscale"
+                                                                    placeholder="ID fiscale">
                                                             </div>
+                                                             <div class="col-md-2 mb-3 ">
+                                                                <label for="Date_payement">Date payement</label>
+                                                                <input type="number" class="form-control"
+                                                                    id="Date_payement" name="Date_payement"
+                                                                    placeholder="Date payement">
+
+                                                            </div>
+
+
+
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="Designation">Designation</label>
-                                                                <input type="number" class="form-control" id="Designation"
-                                                                    name="Designation" placeholder="Designation">
+                                                                <input type="number" class="form-control"
+                                                                    id="Designation" name="Designation"
+                                                                    placeholder="Designation">
                                                             </div>
                                                             <div class="col-md-2 mb-3">
                                                                 <label for="Prorata">Prorata</label>
@@ -839,68 +882,78 @@
                                                     </div>
                                                     <!-- importation -->
                                                     <div class="modal-footer d-block">
-                                                                <div class="modal-footer justify-content-center">
-                                                                    <div class="">
-                                                                        <div class="card mb-1 shadow-none border border-light">
-                                                                            <div class="p-2">
-                                                                                <div class="row align-items-center">
-                                                                                    <div class="col-auto">
-                                                                                        <div class="avatar-sm">
-                                                                                                    <span class="avatar-sm background-success-teal text-white rounded d-flex align-center justify-content-center">
-                                                                                                        xlsx.
-                                                                                                    </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col pl-0">
-                                                                                        <a id="selected-file-name" href="javascript:void(0);" class="strong"></a>
-                                                                                        <p class="mb-0">3.25 MB</p>
-                                                                                    </div>
-                                                                                    <div class="col-auto">
-                                                                                        Button  
-                                                                                        <a href="javascript:void(0);" class="font-25 text-danger mr-2">
-                                                                                            <i id="clear-file" class="las la-times-circle"></i>
-                                                                                        </a>
-                                                                                    </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <div class="">
+                                                                <div class="card mb-1 shadow-none border border-light">
+                                                                    <div class="p-2">
+                                                                        <div class="row align-items-center">
+                                                                            <div class="col-auto">
+                                                                                <div class="avatar-sm">
+                                                                                    <span
+                                                                                        class="avatar-sm background-success-teal text-white rounded d-flex align-center justify-content-center">
+                                                                                        xlsx.
+                                                                                    </span>
                                                                                 </div>
+                                                                            </div>
+                                                                            <div class="col pl-0">
+                                                                                <a id="selected-file-name"
+                                                                                    href="javascript:void(0);"
+                                                                                    class="strong"></a>
+                                                                                <p class="mb-0">3.25 MB</p>
+                                                                            </div>
+                                                                            <div class="col-auto">
+                                                                                Button
+                                                                                <a href="javascript:void(0);"
+                                                                                    class="font-25 text-danger mr-2">
+                                                                                    <i id="clear-file"
+                                                                                        class="las la-times-circle"></i>
+                                                                                </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                            </div>
 
-                                                                        <!-- <label for="file-upload" class="custom-file-upload mb-0">
+                                                            <!-- <label for="file-upload" class="custom-file-upload mb-0">
                                                                             <a title="{{__('Ajouter fichier')}}" class="btn btn-sm btn-primary  mr-2 pointer ">
                                                                                 {{__('Ajouter fichier')}}
                                                                             </a>
                                                                         </label>
                                                                         <input id="fileuploadexcel" name='fileuploadexcel' type="file" style="display:none;"> -->
 
-                                                                        <label for="fileuploadexcel" class="custom-file-upload mb-0">
-    <a title="{{__('Ajouter fichier')}}" class="btn btn-sm btn-primary mr-2 pointer">
-        {{__('Ajouter fichier')}}
-    </a>
-</label>
-<input id="fileuploadexcel" name="fileuploadexcel" type="file" style="display: none;">
-                                                                  
-                                                                </div>
-                                                            </div>
-                                                         
-                                                        </div>
+                                                            <label for="fileuploadexcel"
+                                                                class="custom-file-upload mb-0">
+                                                                <a title="{{__('Ajouter fichier')}}"
+                                                                    class="btn btn-sm btn-primary mr-2 pointer">
+                                                                    {{__('Ajouter fichier')}}
+                                                                </a>
+                                                            </label>
+                                                            <input id="fileuploadexcel" name="fileuploadexcel"
+                                                                type="file" style="display: none;">
 
-                                                        <div class="modal-footer d-block">
-                                                            <div class="modal-footer justify-content-center">
-                                                                <button class="btn btn-sm btn-danger" data-dismiss="modal">{{__('Annuler')}}</button>
-                                                                <!-- <button type="submit" onclick="ff()" class="btn btn-sm btn-primary">{{__('Ajouter')}}</button> -->
-                                                            </div>
                                                         </div>
-                                                           
+                                                    </div>
 
-                                               
+                                                </div>
+
+                                                <div class="modal-footer d-block">
+                                                    <div class="modal-footer justify-content-center">
+                                                        <button class="btn btn-sm btn-danger"
+                                                            data-dismiss="modal">{{__('Annuler')}}</button>
+                                                        <!-- <button type="submit" onclick="ff()" class="btn btn-sm btn-primary">{{__('Ajouter')}}</button> -->
+                                                    </div>
+                                                </div>
+
+
+
 
                                         </form>
                                     </div>
                                 </div>
                             </div>
+                             <!-- model -->
                         </div>
-                        <!-- model -->
+                       
                     </div>
                 </div>
             </div>
