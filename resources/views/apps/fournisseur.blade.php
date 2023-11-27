@@ -199,7 +199,8 @@
                                                                 <button id="download-xlsx" class="dt-button buttons-excel buttons-html5 btn btn-soft-secondary">Excel</button>
                                                                 <button id="download-pdf" class="dt-button buttons-print btn btn-soft-info ">PDF</button>
                                                                 <!-- <input id="excelFileInput" type="file"  class="dt-button buttons-print btn qc-secondary">Importer -->
-
+                                                                <button type="button" class="btn btn-primary" 
+                                                            data-toggle="modal" data-target=".bd-impo">Importer</button>
                                                                 
                                                         
                                                                     <label for="file-upload" class="custom-file-upload ">
@@ -263,6 +264,190 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--end modal delete All table -->
+
+                            <div class="modal fade bd-impo" role="dialog" aria-labelledby="myLargeModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+
+                                            <button type="button" class="close m-0" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <h5 class="modal-title" id="header-text">Importer fourniseur</h5>
+
+
+                                        </div>
+                                        <form method="POST" id="importation_Achat_Excel" action="">
+                                            @csrf
+                                            <div class="modal-body " id="mymodel" style="text-align: end;">
+
+                                            </div>
+
+                                            <div class="modal-body " id="mymodel" style="text-align: end;">
+
+
+
+
+                                                <div class="row">
+                                                    <div class="col-md-4 mb-3"></div>
+
+
+
+
+                                                    <div class="row border border-light p-2 m-1"
+                                                        style="    background: #f0f6ff;">
+                                                        <div class="row" id="rowracine"
+                                                            style="width:-webkit-fill-available">
+
+                                                            <div class="col-md-2 mb-3 ">
+                                                            </div>
+                                                            <div class="col-md-2 mb-3 ">
+                                                                <label for="N_compte_comptable">N°CompteComptable</label>
+                                                                <input type="number" class="form-control"
+                                                                    id="N_compte_comptable" name="N_compte_comptable"
+                                                                    placeholder="N°Compte Comptable">
+
+                                                            </div>
+                                                            <div class="col-md-2 mb-3 ">
+                                                                <label for="nomfrs">Nom Frs</label>
+                                                                <input type="number" class="form-control"
+                                                                    id="nomfrs" name="nomfrs"
+                                                                    placeholder="Nom Frs">
+                                                            </div>
+
+                                                            <div class="col-md-2 mb-3 ">
+                                                                <label for="Id_fiscale_">Identifiant fiscal</label>
+                                                                <input type="number" class="form-control" id="Id_fiscale_"
+                                                                    name="Id_fiscale_" placeholder="Id fiscal">
+                                                            </div>
+                                                            <div class="col-md-2 mb-3">
+                                                                <label for="Fax_">Fax</label>
+                                                                <input type="number" class="form-control" id="Fax_"
+                                                                    name="Fax_" placeholder="Fax">
+                                                            </div>
+
+                                                            <div class="col-md-2 mb-3 ">
+                                                                <label for="MHT_">MHT</label>
+                                                                <input type="number" class="form-control" id="MHT_"
+                                                                    name="MHT_" placeholder="MHT">
+                                                            </div>
+                                                           
+
+                                                        </div>
+                                                        
+                                                        <div class="row" id="rowracine1"
+                                                            style="width: -webkit-fill-available">
+                                                            <div class="col-md-2 mb-3 ">
+                                                            </div>
+                                                            <div class="col-md-2 mb-3 ">
+                                                                <label for="Ville_">Ville</label>
+                                                                <input type="number" class="form-control"
+                                                                    id="Ville_" name="Ville_"
+                                                                    placeholder="Ville">
+                                                            </div>
+                                                            <div class="col-md-2 mb-3">
+                                                                <label for="N_ICE">N°ICE</label>
+                                                                <input type="number" class="form-control"
+                                                                    id="N_ICE" name="N_ICE"
+                                                                    placeholder="N°ICE">
+                                                            </div>
+                                                            <div class="col-md-2 mb-3 ">
+                                                                <label for="Telephone_">Téléphone</label>
+                                                                <input type="number" class="form-control" id="Telephone_"
+                                                                    name="Telephone_" placeholder="Téléphone">
+                                                            </div>
+
+                                                            <div class="col-md-2 mb-3">
+                                                                <label for="Designation_">Designation</label>
+                                                                <input type="number" class="form-control" id="Designation_"
+                                                                    name="Designation_" placeholder="Designation">
+                                                            </div>
+
+                                                            <div class="col-md-2 mb-3">
+                                                                <label for="Adresse_">Adresse</label>
+                                                                <input type="number" class="form-control" id="Adresse"
+                                                                    name="Adresse_" placeholder="Adresse">
+                                                            </div>
+
+                                                          
+
+                                                        </div>
+                                                      
+                                                    </div>
+                                                    <!-- importation -->
+                                                    <div class="modal-footer d-block">
+                                                        <div class="modal-footer justify-content-center">
+                                                            <div class="">
+                                                                <div class="card mb-1 shadow-none border border-light">
+                                                                    <div class="p-2">
+                                                                        <div class="row align-items-center">
+                                                                            <div class="col-auto">
+                                                                                <div class="avatar-sm">
+                                                                                    <span
+                                                                                        class="avatar-sm background-success-teal text-white rounded d-flex align-center justify-content-center">
+                                                                                        xlsx.
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col pl-0">
+                                                                                <a id="selected-file-name"
+                                                                                    href="javascript:void(0);"
+                                                                                    class="strong"></a>
+                                                                                <p class="mb-0">3.25 MB</p>
+                                                                            </div>
+                                                                            <div class="col-auto">
+                                                                                Button
+                                                                                <a href="javascript:void(0);"
+                                                                                    class="font-25 text-danger mr-2">
+                                                                                    <i id="clear-file"
+                                                                                        class="las la-times-circle"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- <label for="file-upload" class="custom-file-upload mb-0">
+                                                                            <a title="{{__('Ajouter fichier')}}" class="btn btn-sm btn-primary  mr-2 pointer ">
+                                                                                {{__('Ajouter fichier')}}
+                                                                            </a>
+                                                                        </label>
+                                                                        <input id="fileuploadexcel" name='fileuploadexcel' type="file" style="display:none;"> -->
+
+                                                            <label for="fileuploadexcel"
+                                                                class="custom-file-upload mb-0">
+                                                                <a title="{{__('Ajouter fichier')}}"
+                                                                    class="btn btn-sm btn-primary mr-2 pointer">
+                                                                    {{__('Ajouter fichier')}}
+                                                                </a>
+                                                            </label>
+                                                            <input id="fileuploadexcel" name="fileuploadexcel"
+                                                                type="file" style="display: none;">
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="modal-footer d-block">
+                                                    <div class="modal-footer justify-content-center">
+                                                        <button class="btn btn-sm btn-danger"
+                                                            data-dismiss="modal">{{__('Annuler')}}</button>
+                                                        <!-- <button type="submit" onclick="ff()" class="btn btn-sm btn-primary">{{__('Ajouter')}}</button> -->
+                                                    </div>
+                                                </div>
+
+
+
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
 <!-- Main Body Ends -->
 @endsection
 

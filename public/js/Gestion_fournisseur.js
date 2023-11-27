@@ -404,14 +404,14 @@ function table_fournisseur() {
       document
         .getElementById("download-xlsx")
         .addEventListener("click", function () {
-          table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
+          table.download("xlsx", "Liste_fournisseur.xlsx", { sheetName: "My Data" });
         });
 
       //trigger download of data.pdf file
       document
         .getElementById("download-pdf")
         .addEventListener("click", function () {
-          table.download("pdf", "data.pdf", {
+          table.download("pdf", "Liste_fournisseur.pdf", {
             orientation: "portrait", //set page orientation to portrait
             title: "Fournisseur", //add title to report
           });
