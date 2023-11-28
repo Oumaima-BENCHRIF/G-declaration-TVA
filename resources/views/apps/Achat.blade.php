@@ -385,8 +385,16 @@
                                                                 </select>
 
                                                             </div>
-                                                             <div class="col-md-6 mb-3"></div>
-                                                           
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="validationCustom03">date payement</label>
+                                                                <input class="form-control" onblur="checkDate()"
+                                                                    style="text-align: start" type="date" id="date_p"
+                                                                    name="date_p" required tabindex="8">
+                                                                <div class="invalid-feedback">
+                                                                    Please provide a valid date payement.
+                                                                </div>
+                                                            </div>
+
 
                                                         </div>
                                                         <div class="row">
@@ -755,7 +763,13 @@
                                                             style="width:-webkit-fill-available">
 
 
-                                                              <div class="col-md-2 mb-3 "></div>
+                                                            <div class="col-md-2 mb-3 ">
+                                                                <label for="Date_payement">Date payement</label>
+                                                                <input type="number" class="form-control"
+                                                                    id="Date_payement" name="Date_payement"
+                                                                    placeholder="Date payement">
+
+                                                            </div>
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="TVA_deductible_">TVA déductible</label>
                                                                 <input type="number" class="form-control"
@@ -789,15 +803,20 @@
                                                                 <label for="Date_facture">Date facture</label>
                                                                 <input type="number" class="form-control"
                                                                     id="Date_facture" name="Date_facture"
-                                                                    placeholder="Date facture">
+                                                                    placeholder="Date_facture">
                                                             </div>
 
                                                         </div>
                                                         <!--  -->
                                                         <div class="row" id="rowracine1"
                                                             style="width: -webkit-fill-available">
-                                                                <div class="col-md-2 mb-3 "></div>
-                                                            
+
+                                                            <div class="col-md-2 mb-3 ">
+                                                                <label for="ID_fiscale">ID fiscale</label>
+                                                                <input type="number" class="form-control"
+                                                                    id="ID_fiscale" name="ID_fiscale"
+                                                                    placeholder="ID fiscale">
+                                                            </div>
 
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="ICE">ICE</label>
@@ -840,23 +859,16 @@
                                                         <div class="row" id="rowracine2"
                                                             style="width:-webkit-fill-available">
                                                             <div class="col-md-2 mb-3"></div>
+                                                            <div class="col-md-2 mb-3"></div>
 
-                                                          <div class="col-md-2 mb-3 ">
-                                                                <label for="ID_fiscale">ID fiscale</label>
-                                                                <input type="number" class="form-control"
-                                                                    id="ID_fiscale" name="ID_fiscale"
-                                                                    placeholder="ID fiscale">
+                                                            <!-- <div class="col-md-2 mb-3 ">
+                                                                <label for="Compte_frs_">Compte FRS</label>
+                                                                <input type="number" class="form-control" id="Compte_frs_"
+                                                                    name="Compte_frs_" placeholder="Compte frs">
+                                                            </div> -->
+
+                                                            <div class="col-md-2 mb-3 ">
                                                             </div>
-                                                             <div class="col-md-2 mb-3 ">
-                                                                <label for="Date_payement">Date payement</label>
-                                                                <input type="number" class="form-control"
-                                                                    id="Date_payement" name="Date_payement"
-                                                                    placeholder="Date payement">
-
-                                                            </div>
-
-
-
                                                             <div class="col-md-2 mb-3 ">
                                                                 <label for="Designation">Designation</label>
                                                                 <input type="number" class="form-control"
